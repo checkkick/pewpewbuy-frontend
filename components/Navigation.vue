@@ -84,6 +84,7 @@ const filterMenu = {
   align-items: center;
   justify-content: center;
   gap: 42px;
+  margin-bottom: 40px;
 
   &__filter {
     background: $filter-background;
