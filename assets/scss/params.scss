@@ -1,26 +1,13 @@
-$main-color: #b8b6f4;
+$primary: #4b8ff5;
+$primary-blur: #d8e3ff;
 
-$accent: #8e6cea;
-$accent-placeholder: rgba($accent, 0.75);
-$blue-name: rgba(#8e6cea, 0.85);
-$blue-name--sub: #6238d3;
-$shadow: #7c36c5;
-$interacting: #ba79fe;
+$accent: #ffc96d;
 
-$black: #151515;
-$grey: #808191;
-$grey-lighten: #eee9fc;
-$grey-lighten2: #dde3f1;
-$grey-lighten3: #eff2f9;
+$filter-background: #f2f2f2;
+$filter-border: #dedede;
+
 $white: #ffffff;
-
-$green: #2cef34;
-$green-btn: #96ff43;
-
-$star: #ffd80d;
-$error: #ed2c38;
-$graphite: #272931;
-$softRed: #f93c47;
-
-$darkish: #222222;
-$pale: #f4f4f4;
+$grey: rgba(238, 238, 238, 0.9);
+$black: rgba(0, 0, 0, 0.9);
+$black-light: rgba(36, 36, 36, 0.9);
+$black-contrast: #1b1414;

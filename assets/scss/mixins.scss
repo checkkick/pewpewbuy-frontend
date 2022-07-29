@@ -11,27 +11,3 @@
   font-size: $size;
   line-height: $lh;
 }
-
-@mixin paymentBtn {
-  @include roundedRectangle(22px);
-  @include defineFont(600, 18px, 22px);
-  cursor: pointer;
-  background: $green-btn;
-  color: #3a414a;
-  display: flex;
-  margin: 13px 0 25px;
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 19px 0;
-  text-decoration: none;
-
-  &--shadow {
-    box-shadow: 0 19px 17px -16px #96ff43;
-  }
-
-  &--disabled {
-    cursor: auto;
-    opacity: 0.3;
-  }
-}
