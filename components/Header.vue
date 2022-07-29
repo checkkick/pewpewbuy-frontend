@@ -31,6 +31,7 @@ export default {}
   align-items: center;
   justify-content: space-between;
   gap: 40px;
+  margin-bottom: 48px;
 
   &__logo {
     @include defineFontSairaStencilOne(34px, 54px);
