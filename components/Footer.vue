@@ -1,19 +1,108 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{ active: openFooter }">
     <div class="container">
-      <div class="footer__flex">
+      <div class="footer__flex" :class="{ active: openFooter }">
         <div class="footer__flex__about">
-          <h4 class="footer__flex__about__title">PEWPEW BUY</h4>
-          <h5 class="footer__flex__about__subtitle">Страйкбольная барахолка</h5>
+          <h4 class="footer__flex__about__title">
+            <a href="#" class="footer__link" @click.prevent>PEWPEW BUY</a>
+          </h4>
+          <h5 class="footer__flex__about__subtitle">
+            <a href="#" class="footer__link" @click.prevent
+              >Страйкбольная барахолка</a
+            >
+          </h5>
         </div>
         <ul class="footer__flex__map">
-          <li class="footer__flex__map__item">Страйкбольное оружие</li>
-          <li class="footer__flex__map__item">Внешний тюнинг</li>
-          <li class="footer__flex__map__item">Внутренний тюнинг</li>
-          <li class="footer__flex__map__item">Снаряжение</li>
-          <li class="footer__flex__map__item">Поддержка</li>
+          <li class="footer__flex__map__item" :class="{ active: openFooter }">
+            <a href="#" class="footer__link" @click.prevent
+              >Страйкбольное оружие</a
+            >
+
+            <ul class="footer__flex__categories">
+              <li
+                v-for="item in filterMenu['Страйкбольное оружие']"
+                :key="item"
+                class="footer__flex__categories__item"
+              >
+                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="footer__flex__map__item" :class="{ active: openFooter }">
+            <a href="#" class="footer__link" @click.prevent>Внешний тюнинг</a>
+
+            <ul class="footer__flex__categories">
+              <li
+                v-for="item in filterMenu['Внешний тюнинг']"
+                :key="item"
+                class="footer__flex__categories__item"
+              >
+                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="footer__flex__map__item" :class="{ active: openFooter }">
+            <a href="#" class="footer__link" @click.prevent
+              >Внутренний тюнинг</a
+            >
+
+            <ul class="footer__flex__categories">
+              <li
+                v-for="item in filterMenu['Внутренний тюнинг']"
+                :key="item"
+                class="footer__flex__categories__item"
+              >
+                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="footer__flex__map__item" :class="{ active: openFooter }">
+            <a href="#" class="footer__link" @click.prevent>Снаряжение</a>
+
+            <ul class="footer__flex__categories">
+              <li
+                v-for="item in filterMenu['Снаряжение']"
+                :key="item"
+                class="footer__flex__categories__item"
+              >
+                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
+              </li>
+            </ul>
+          </li>
+          <li class="footer__flex__map__item" :class="{ active: openFooter }">
+            <a href="#" class="footer__link" @click.prevent>Поддержка</a>
+
+            <ul class="footer__flex__categories">
+              <li class="footer__flex__categories__item">
+                <a href="#" class="footer__link" @click.prevent>Центр помощи</a>
+              </li>
+              <li class="footer__flex__categories__item">
+                <a href="#" class="footer__link" @click.prevent
+                  >Информация о безопасности</a
+                >
+              </li>
+              <li class="footer__flex__categories__item">
+                <a href="#" class="footer__link" @click.prevent>Чат-бот</a>
+              </li>
+              <li class="footer__flex__categories__item">
+                <a href="#" class="footer__link" @click.prevent
+                  >Договор оферта</a
+                >
+              </li>
+              <li class="footer__flex__categories__item">
+                <a href="#" class="footer__link" @click.prevent
+                  >Политика конфиденциальности</a
+                >
+              </li>
+            </ul>
+          </li>
         </ul>
-        <div class="footer__flex__arrow">
+        <a
+          href="#"
+          class="footer__flex__arrow"
+          :class="{ active: openFooter }"
+          @click.prevent="openFooter = !openFooter"
+        >
           <svg
             width="12"
             height="7"
@@ -26,13 +115,53 @@
               fill="black"
             />
           </svg>
-        </div>
+        </a>
       </div>
     </div>
   </footer>
 </template>
 
-<script setup></script>
+<script setup>
+const openFooter = ref(true)
+const filterMenu = {
+  'Страйкбольное оружие': [
+    'АК-серия',
+    'Винтовки',
+    'Пулеметы',
+    'Дробовики',
+    'Автоматы',
+    'Автоматы прочие модели',
+    'АС ВАЛ, ВСС, СР-3М',
+    'Гранатометы',
+  ],
+  'Внешний тюнинг': [
+    'Антабки',
+    'Трассерные насадки',
+    'Глушители',
+    'Переходники к глушителям',
+    'Коллиматоры',
+    'Крепления',
+  ],
+  'Внутренний тюнинг': [
+    'Втулки и подшипники',
+    'Направляющие пружин',
+    'Гирбоксы',
+    'Ноззл',
+    'Моторы',
+    'Планка переводчика огня',
+  ],
+  Снаряжение: [
+    'Кобуры',
+    'Ножи тренировочные',
+    'Питьевые системы',
+    'Подсумки',
+    'Чехлы, сумки',
+    'Рюкзаки',
+    'Фонари и маркеры',
+    'Ремни для оружия',
+  ],
+}
+</script>
 
 <style lang="scss" scoped>
 .footer {
@@ -45,10 +174,23 @@
   padding: 15px 70px;
   background-color: $black;
 
+  &.active {
+    padding: 70px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+
   &__flex {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+
+    &.active {
+      align-items: flex-start;
+    }
 
     &__about {
       &__title {
@@ -68,9 +210,10 @@
     &__map {
       flex-grow: 1;
       margin: 0;
+      padding: 0;
       list-style: none;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       gap: 67px;
 
@@ -78,6 +221,39 @@
         font-weight: inherit;
         font-size: inherit;
         line-height: inherit;
+        color: $grey;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        & > .footer__flex__categories {
+          display: none;
+        }
+
+        &.active > .footer__link {
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+
+        &.active > .footer__flex__categories {
+          display: flex;
+        }
+      }
+    }
+
+    &__categories {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 10px;
+
+      &__item {
+        @include defineFontMontserrat(400, 14px, 17px);
         color: $grey;
       }
     }
@@ -90,6 +266,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.5s ease-in-out;
+
+      &.active {
+        background-color: $accent;
+        transform: rotate(180deg);
+      }
     }
   }
 }
