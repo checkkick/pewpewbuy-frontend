@@ -9,7 +9,9 @@
           :class="{ active: filterItem === chooseFilter }"
           @click="chooseFilter = filterItem"
         >
-          {{ filterItem }}
+          <a href="#" class="nav__filter__list__item__link" @click.prevent>{{
+            filterItem
+          }}</a>
           <ul
             v-if="filterItem === chooseFilter"
             class="nav__filter__dropdown-list"
@@ -21,7 +23,12 @@
               :class="{ active: item === chooseSubfilter }"
               @click="chooseSubfilter = item"
             >
-              {{ item }}
+              <a
+                class="nav__filter__dropdown-list__item__link"
+                href="#"
+                @click.prevent
+                >{{ item }}</a
+              >
             </li>
           </ul>
         </li>
@@ -113,6 +120,11 @@ const filterMenu = {
           background: $primary;
           color: $white;
         }
+
+        &__link {
+          text-decoration: none;
+          color: inherit;
+        }
       }
     }
 
@@ -143,6 +155,11 @@ const filterMenu = {
         }
         &:last-child {
           border-radius: 0 0 14px 14px;
+        }
+
+        &__link {
+          text-decoration: none;
+          color: inherit;
         }
       }
     }
