@@ -3,14 +3,52 @@
     <div class="container">
       <div class="footer__flex" :class="{ active: openFooter }">
         <div class="footer__flex__about">
-          <h4 class="footer__flex__about__title">
-            <a href="#" class="footer__link" @click.prevent>PEWPEW BUY</a>
-          </h4>
-          <h5 class="footer__flex__about__subtitle">
-            <a href="#" class="footer__link" @click.prevent
-              >Страйкбольная барахолка</a
-            >
-          </h5>
+          <div>
+            <h4 class="footer__flex__about__title">
+              <a href="#" class="footer__link" @click.prevent>PEWPEW BUY</a>
+            </h4>
+            <h5 class="footer__flex__about__subtitle">
+              <a href="#" class="footer__link" @click.prevent
+                >Страйкбольная барахолка</a
+              >
+            </h5>
+          </div>
+          <div v-if="openFooter" class="footer__flex__about__contacts">
+            <div class="footer__flex__about__contacts__social">
+              <a
+                href="#"
+                class="footer__flex__about__contacts__social__link"
+                @click.prevent
+              >
+                <img src="assets/img/telegram.svg" alt="telegram" />
+              </a>
+              <a
+                href="#"
+                class="footer__flex__about__contacts__social__link"
+                @click.prevent
+              >
+                <img src="assets/img/whatsapp.svg" alt="whatsapp" />
+              </a>
+              <a
+                href="#"
+                class="footer__flex__about__contacts__social__link"
+                @click.prevent
+              >
+                <img src="assets/img/vk.svg" alt="vk" />
+              </a>
+              <a
+                href="#"
+                class="footer__flex__about__contacts__social__link"
+                @click.prevent
+              >
+                <img src="assets/img/mail.svg" alt="mail" />
+              </a>
+            </div>
+            <p class="footer__flex__about__contacts__copyright">
+              © 2011-2022 «PEWPEW BUY» — продажа страйкбольного оружия,
+              пневматики и аксессуаров
+            </p>
+          </div>
         </div>
         <ul class="footer__flex__map">
           <li class="footer__flex__map__item" :class="{ active: openFooter }">
@@ -18,7 +56,7 @@
               >Страйкбольное оружие</a
             >
 
-            <ul class="footer__flex__categories">
+            <ul v-if="openFooter" class="footer__flex__categories">
               <li
                 v-for="item in filterMenu['Страйкбольное оружие']"
                 :key="item"
@@ -31,7 +69,7 @@
           <li class="footer__flex__map__item" :class="{ active: openFooter }">
             <a href="#" class="footer__link" @click.prevent>Внешний тюнинг</a>
 
-            <ul class="footer__flex__categories">
+            <ul v-if="openFooter" class="footer__flex__categories">
               <li
                 v-for="item in filterMenu['Внешний тюнинг']"
                 :key="item"
@@ -46,7 +84,7 @@
               >Внутренний тюнинг</a
             >
 
-            <ul class="footer__flex__categories">
+            <ul v-if="openFooter" class="footer__flex__categories">
               <li
                 v-for="item in filterMenu['Внутренний тюнинг']"
                 :key="item"
@@ -59,7 +97,7 @@
           <li class="footer__flex__map__item" :class="{ active: openFooter }">
             <a href="#" class="footer__link" @click.prevent>Снаряжение</a>
 
-            <ul class="footer__flex__categories">
+            <ul v-if="openFooter" class="footer__flex__categories">
               <li
                 v-for="item in filterMenu['Снаряжение']"
                 :key="item"
@@ -72,7 +110,7 @@
           <li class="footer__flex__map__item" :class="{ active: openFooter }">
             <a href="#" class="footer__link" @click.prevent>Поддержка</a>
 
-            <ul class="footer__flex__categories">
+            <ul v-if="openFooter" class="footer__flex__categories">
               <li class="footer__flex__categories__item">
                 <a href="#" class="footer__link" @click.prevent>Центр помощи</a>
               </li>
@@ -189,10 +227,16 @@ const filterMenu = {
     justify-content: space-evenly;
 
     &.active {
-      align-items: flex-start;
+      align-items: stretch;
     }
 
     &__about {
+      max-width: 15%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+
       &__title {
         @include defineFontSairaStencilOne(16px, 25px);
         margin: 0;
@@ -204,6 +248,29 @@ const filterMenu = {
         font-weight: inherit;
         margin: 0;
         color: $grey;
+      }
+
+      &__contacts {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        &__social {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          &__link {
+            font-size: 0;
+            line-height: normal;
+          }
+        }
+
+        &__copyright {
+          margin: 0;
+          @include defineFontMontserrat(400, 12px, 1.4);
+          color: $grey;
+        }
       }
     }
 
@@ -227,17 +294,9 @@ const filterMenu = {
         align-items: flex-start;
         justify-content: flex-start;
 
-        & > .footer__flex__categories {
-          display: none;
-        }
-
         &.active > .footer__link {
           font-weight: 700;
           margin-bottom: 20px;
-        }
-
-        &.active > .footer__flex__categories {
-          display: flex;
         }
       }
     }
