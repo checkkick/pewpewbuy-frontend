@@ -57,6 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .filter-bar {
+  margin: 0 0 40px 0;
   @include defineFontMontserrat(500, 20px, 24px);
   color: $black;
   display: flex;
