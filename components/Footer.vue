@@ -160,7 +160,7 @@
 </template>
 
 <script setup>
-const openFooter = ref(true)
+const openFooter = ref(false)
 const filterMenu = {
   'Страйкбольное оружие': [
     'АК-серия',
