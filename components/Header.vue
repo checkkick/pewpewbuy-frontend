@@ -12,10 +12,10 @@
         name="find"
         placeholder="Поиск"
       />
-      <div class="header__items__favorite">
+      <a href="#" class="header__items__favorite" @click.prevent>
         <div class="header__items__favorite__counter">10</div>
-      </div>
-      <div class="header__items__persone"></div>
+      </a>
+      <a href="#" class="header__items__persone" @click.prevent></a>
     </div>
   </header>
 </template>
