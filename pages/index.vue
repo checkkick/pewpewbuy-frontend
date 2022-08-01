@@ -5,6 +5,7 @@
     <main class="main">
       <h2 class="main__title">Доска объявлений</h2>
       <h3 class="main__subtitle">Страйкбольное оружие</h3>
+      <FilterBar />
     </main>
   </div>
 </template>

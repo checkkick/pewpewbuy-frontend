@@ -1,0 +1,185 @@
+<template>
+  <section class="filter-bar">
+    <div class="filter-bar__popular">
+      <span class="filter-bar__popular__star"></span>
+      <label class="filter-bar__select__label" for="popular"
+        >Популярность
+      </label>
+      <select id="popular" class="filter-bar__select" name="popular">
+        <option value="По возрастанию">По возрастанию</option>
+        <option value="По убыванию">По убыванию</option>
+      </select>
+    </div>
+    <div class="filter-bar__price">
+      <span class="filter-bar__price__dollar"></span>
+      <p class="filter-bar__price__text">
+        Цена: от
+        <input
+          v-model="priceStart"
+          class="filter-bar__input"
+          type="number"
+          name="start-price"
+        />
+        р. до
+        <input
+          v-model="priceEnd"
+          class="filter-bar__input"
+          type="number"
+          name="end-price"
+        />
+        р.
+      </p>
+    </div>
+    <div class="filter-bar__date-add">
+      <span class="filter-bar__date-add__watch"></span>
+      <label class="filter-bar__select__label" for="date-add"
+        >Время добавления</label
+      >
+      <select id="date-add" class="filter-bar__select" name="date-add">
+        <option value="Две недели назад">Две недели назад</option>
+        <option value="Месяц назад">Месяц назад</option>
+      </select>
+    </div>
+    <button class="filter-bar__sort-btn">Отсортировать</button>
+  </section>
+</template>
+
+<script>
+export default {
+  data: () => {
+    return {
+      priceStart: 0,
+      priceEnd: 0,
+    }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.filter-bar {
+  @include defineFontMontserrat(500, 20px, 24px);
+  color: $black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  &__select {
+    @include defineFontMontserrat(500, 16px, 20px);
+    cursor: pointer;
+    max-width: max-content;
+    min-width: 2rem;
+    width: 100%;
+    color: $black;
+    outline: none;
+    border: none;
+    padding: 10px 22px;
+    background: #e8e8e8;
+    border-radius: 6px;
+    appearance: none;
+
+    &:active,
+    &:focus {
+      outline: 2px solid $primary;
+    }
+
+    &__label {
+      padding-right: 23px;
+      background: url('assets/img/arrow.svg') no-repeat center right;
+    }
+  }
+
+  &__input {
+    @include defineFontMontserrat(500, 14px, 17px);
+    color: $black-contrast;
+    max-width: 4em;
+    min-width: 2em;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 10px 22px;
+    background: #e8e8e8;
+    border-radius: 6px;
+
+    &:active,
+    &:focus {
+      outline: 2px solid $primary;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__popular {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &__star {
+      width: 49px;
+      height: 49px;
+      border-radius: 8px;
+      background: #d8e3ff url('assets/img/filter-star.svg') no-repeat center
+        center;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &__dollar {
+      width: 49px;
+      height: 49px;
+      border-radius: 8px;
+      background: #d8e3ff url('assets/img/filter-dollar.svg') no-repeat center
+        center;
+    }
+
+    &__text {
+      width: 100%;
+    }
+  }
+
+  &__date-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &__watch {
+      width: 49px;
+      height: 49px;
+      border-radius: 8px;
+      background: #d8e3ff url('assets/img/filter-watch.svg') no-repeat center
+        center;
+    }
+  }
+
+  &__sort-btn {
+    cursor: pointer;
+    @include defineFontMontserrat(600, 18px, 1.4);
+    color: $white;
+    padding: 16px 22px;
+    background: $primary;
+    border-radius: 35px;
+    border: none;
+    outline: none;
+
+    &:focus-visible {
+      outline: 1px solid $black-light;
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+</style>
