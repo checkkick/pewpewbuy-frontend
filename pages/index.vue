@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Header />
     <Navigation />
     <main class="main">
       <h2 class="main__title">Доска объявлений</h2>
