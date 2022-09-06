@@ -126,6 +126,7 @@ const filterMenu = {
     }
 
     &__dropdown-list {
+      z-index: 1;
       position: absolute;
       top: 93px;
       left: 20px;
