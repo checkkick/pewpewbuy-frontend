@@ -15,13 +15,19 @@
       <a href="#" class="header__items__favorite" @click.prevent>
         <div class="header__items__favorite__counter">10</div>
       </a>
-      <a href="#" class="header__items__persone" @click.prevent></a>
+      <a
+        href="#"
+        class="header__items__persone"
+        @click.prevent="$emit('openLoginWindow')"
+      ></a>
     </div>
   </header>
 </template>
 
 <script>
-export default {}
+export default {
+  emits: ['openLoginWindow'],
+}
 </script>
 
 <style lang="scss" scoped>

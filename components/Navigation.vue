@@ -88,6 +88,7 @@ const filterMenu = {
   justify-content: center;
   gap: 42px;
   margin-bottom: 40px;
+  padding: 0 70px;
 
   &__filter {
     background: $filter-background;
