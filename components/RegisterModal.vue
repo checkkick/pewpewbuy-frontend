@@ -4,7 +4,7 @@
       <span class="modal-window__close" @click="closeWindow"></span>
       <h2 class="modal-window__title">Войти в личный кабинет</h2>
 
-      <label class="modal-window__label" for="email-login">Email</label>
+      <label class="modal-window__label" for="email-register">Email</label>
       <input
         id="email-login"
         class="modal-window__input"
@@ -13,30 +13,33 @@
         placeholder="yourmail@gmail.com"
       />
 
-      <div class="modal-window__password-title">
-        <label class="modal-window__password-title__label" for="password-login">
-          Код-пароль
-        </label>
-        <button class="modal-window__password-title__show">Показать</button>
-      </div>
+      <label class="modal-window__label" for="fio-register">
+        Имя пользователя
+      </label>
       <input
-        id="password-login"
+        id="fio-register"
         class="modal-window__input"
-        name="password"
-        type="password"
-        placeholder="****"
+        type="text"
+        name="fio"
+        placeholder="Иван Иванов"
       />
 
-      <button class="modal-window__enter-btn">Войти</button>
-      <a href="#" class="modal-window__link" @click.prevent>Забыли пароль?</a>
+      <p class="modal-window__text margin">
+        Нажимая на кнопку вы соглашаетесь с
+        <a href="#" class="modal-window__text__link" @click.prevent>
+          политикой конфиденциальности
+        </a>
+      </p>
+
+      <button class="modal-window__enter-btn">Зарегистрироваться</button>
       <p class="modal-window__text">
-        Еще нет личного кабинета?
+        Уже есть личный кабинет?
         <a
           href="#"
           class="modal-window__text__link"
-          @click.prevent="$emit('openRegisterWindow')"
+          @click.prevent="$emit('openLoginWindow')"
         >
-          Зарегистрируйтесь
+          Войти
         </a>
       </p>
     </div>
@@ -45,7 +48,7 @@
 
 <script>
 export default {
-  emits: ['closeLoginWindow', 'openRegisterWindow'],
+  emits: ['closeRegisterWindow', 'openLoginWindow'],
   data: () => {},
   mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
@@ -53,7 +56,7 @@ export default {
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null
-      this.$emit('closeLoginWindow')
+      this.$emit('closeRegisterWindow')
     },
   },
 }
@@ -124,7 +127,7 @@ export default {
     align-items: center;
     color: #ffffff;
     padding: 23px 88px;
-    margin-bottom: 10px;
+    margin-bottom: 36px;
   }
 
   &__input {
@@ -139,28 +142,6 @@ export default {
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  &__password-title {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 3px;
-
-    &__label {
-      @include defineFontMontserrat(400, 20px, 23px);
-    }
-
-    &__show {
-      @include defineFontMontserrat(400, 17px, 20px);
-      cursor: pointer;
-      border: none;
-      outline: none;
-      padding: 0 0 0 20px;
-      background-color: transparent;
-      background: url('@/assets/img/password-eye.svg') no-repeat center left;
     }
   }
 
@@ -189,6 +170,11 @@ export default {
     @include defineFontMontserrat(400, 20px, 23px);
     margin: 0;
     color: $black;
+    text-align: center;
+
+    &.margin {
+      margin-bottom: 31px;
+    }
 
     &__link {
       color: $black;
