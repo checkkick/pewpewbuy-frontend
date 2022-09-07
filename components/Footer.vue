@@ -209,7 +209,7 @@ const filterMenu = {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 70px;
+  padding: 15px 0;
   background-color: $black;
 
   &.active {

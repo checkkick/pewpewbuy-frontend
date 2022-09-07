@@ -27,8 +27,6 @@
 }
 
 .main {
-  padding: 0 70px;
-
   &__title {
     @include defineFontMontserrat(600px, 36px, 44px);
     margin: 0 0 40px 0;

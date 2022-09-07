@@ -1,7 +1,7 @@
 <template>
   <header class="header">
-    <NuxtLink class="header__logo" href="#">PEWPEW BUY</NuxtLink>
-    <NuxtLink class="header__title" href="#">
+    <NuxtLink class="header__logo" to="/">PEWPEW BUY</NuxtLink>
+    <NuxtLink class="header__title" to="/">
       <h1 class="header__title__text">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
     </NuxtLink>
     <div class="header__items">
