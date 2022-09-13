@@ -27,7 +27,12 @@
         placeholder="****"
       />
 
-      <button class="modal-window__enter-btn">Войти</button>
+      <button
+        class="modal-window__enter-btn"
+        @click="$router.push('/profile'), closeWindow()"
+      >
+        Войти
+      </button>
       <a href="#" class="modal-window__link" @click.prevent>Забыли пароль?</a>
       <p class="modal-window__text">
         Еще нет личного кабинета?

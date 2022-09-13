@@ -57,6 +57,12 @@ html {
   padding: 0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 .container {
   padding: 0 70px;
   max-width: 1920px;
