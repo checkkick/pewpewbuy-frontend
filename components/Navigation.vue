@@ -7,22 +7,19 @@
           :key="idx"
           class="nav__filter__list__item"
           :class="{ active: filterItem === chooseFilter }"
-          @click="chooseFilter = filterItem"
-        >
+          @click="chooseFilter = filterItem">
           <a href="#" class="nav__filter__list__item__link" @click.prevent>{{
             filterItem
           }}</a>
           <ul
             v-if="filterItem === chooseFilter"
-            class="nav__filter__dropdown-list"
-          >
+            class="nav__filter__dropdown-list">
             <li
               v-for="(item, index) in filterMenu[filterItem]"
               :key="index"
               class="nav__filter__dropdown-list__item"
               :class="{ active: item === chooseSubfilter }"
-              @click="chooseSubfilter = item"
-            >
+              @click="chooseSubfilter = item">
               <a
                 class="nav__filter__dropdown-list__item__link"
                 href="#"

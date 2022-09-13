@@ -10,16 +10,14 @@
         class="header__items__find"
         type="text"
         name="find"
-        placeholder="Поиск"
-      />
+        placeholder="Поиск" />
       <a href="#" class="header__items__favorite" @click.prevent>
         <div class="header__items__favorite__counter">10</div>
       </a>
       <a
         href="#"
         class="header__items__persone"
-        @click.prevent="$emit('openLoginWindow')"
-      ></a>
+        @click.prevent="$emit('openLoginWindow')"></a>
     </div>
   </header>
 </template>

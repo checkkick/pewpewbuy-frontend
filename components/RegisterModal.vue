@@ -10,8 +10,7 @@
         class="modal-window__input"
         type="email"
         name="email"
-        placeholder="yourmail@gmail.com"
-      />
+        placeholder="yourmail@gmail.com" />
 
       <label class="modal-window__label" for="fio-register">
         Имя пользователя
@@ -21,8 +20,7 @@
         class="modal-window__input"
         type="text"
         name="fio"
-        placeholder="Иван Иванов"
-      />
+        placeholder="Иван Иванов" />
 
       <p class="modal-window__text margin">
         Нажимая на кнопку вы соглашаетесь с
@@ -37,8 +35,7 @@
         <a
           href="#"
           class="modal-window__text__link"
-          @click.prevent="$emit('openLoginWindow')"
-        >
+          @click.prevent="$emit('openLoginWindow')">
           Войти
         </a>
       </p>

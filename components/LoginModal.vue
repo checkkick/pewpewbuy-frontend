@@ -10,8 +10,7 @@
         class="modal-window__input"
         type="email"
         name="email"
-        placeholder="yourmail@gmail.com"
-      />
+        placeholder="yourmail@gmail.com" />
 
       <div class="modal-window__password-title">
         <label class="modal-window__password-title__label" for="password-login">
@@ -24,13 +23,11 @@
         class="modal-window__input"
         name="password"
         type="password"
-        placeholder="****"
-      />
+        placeholder="****" />
 
       <button
         class="modal-window__enter-btn"
-        @click="$router.push('/profile'), closeWindow()"
-      >
+        @click="$router.push('/profile'), closeWindow()">
         Войти
       </button>
       <a href="#" class="modal-window__link" @click.prevent>Забыли пароль?</a>
@@ -39,8 +36,7 @@
         <a
           href="#"
           class="modal-window__text__link"
-          @click.prevent="$emit('openRegisterWindow')"
-        >
+          @click.prevent="$emit('openRegisterWindow')">
           Зарегистрируйтесь
         </a>
       </p>

@@ -3,8 +3,7 @@
     <img
       class="product-card__image"
       src="assets/img/product-example.png"
-      alt="product"
-    />
+      alt="product" />
     <h4 class="product-card__title">
       Страйкбольный карабин Cyma Colt model 609 - ХМ177Е1 (CM009E)
     </h4>
@@ -20,22 +19,19 @@
     <div
       class="product-card__like"
       :class="{ active: like }"
-      @click="like = !like"
-    >
+      @click="like = !like">
       <svg
         width="24"
         height="21"
         viewBox="0 0 24 21"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+        xmlns="http://www.w3.org/2000/svg">
         <path
           d="M2.56973 10.7847C0.246983 7.76552 1.02123 3.23679 4.89247 1.72722C8.76372 0.217645 11.0865 3.23679 11.8607 4.74637C12.635 3.23679 15.732 0.217645 19.6032 1.72722C23.4744 3.23679 23.4744 7.76552 21.1517 10.7847C18.8289 13.8038 11.8607 19.8421 11.8607 19.8421C11.8607 19.8421 4.89247 13.8038 2.56973 10.7847Z"
           stroke="black"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+          stroke-linejoin="round" />
       </svg>
     </div>
   </div>

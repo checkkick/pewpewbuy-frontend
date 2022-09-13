@@ -18,29 +18,25 @@
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent
-              >
+                @click.prevent>
                 <img src="assets/img/telegram.svg" alt="telegram" />
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent
-              >
+                @click.prevent>
                 <img src="assets/img/whatsapp.svg" alt="whatsapp" />
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent
-              >
+                @click.prevent>
                 <img src="assets/img/vk.svg" alt="vk" />
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent
-              >
+                @click.prevent>
                 <img src="assets/img/mail.svg" alt="mail" />
               </a>
             </div>
@@ -60,8 +56,7 @@
               <li
                 v-for="item in filterMenu['Страйкбольное оружие']"
                 :key="item"
-                class="footer__flex__categories__item"
-              >
+                class="footer__flex__categories__item">
                 <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
               </li>
             </ul>
@@ -73,8 +68,7 @@
               <li
                 v-for="item in filterMenu['Внешний тюнинг']"
                 :key="item"
-                class="footer__flex__categories__item"
-              >
+                class="footer__flex__categories__item">
                 <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
               </li>
             </ul>
@@ -88,8 +82,7 @@
               <li
                 v-for="item in filterMenu['Внутренний тюнинг']"
                 :key="item"
-                class="footer__flex__categories__item"
-              >
+                class="footer__flex__categories__item">
                 <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
               </li>
             </ul>
@@ -101,8 +94,7 @@
               <li
                 v-for="item in filterMenu['Снаряжение']"
                 :key="item"
-                class="footer__flex__categories__item"
-              >
+                class="footer__flex__categories__item">
                 <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
               </li>
             </ul>
@@ -139,19 +131,16 @@
           href="#"
           class="footer__flex__arrow"
           :class="{ active: openFooter }"
-          @click.prevent="openFooter = !openFooter"
-        >
+          @click.prevent="openFooter = !openFooter">
           <svg
             width="12"
             height="7"
             viewBox="0 0 12 7"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               d="M6.53033 0.469643C6.23744 0.17675 5.76256 0.17675 5.46967 0.469643L0.696699 5.24261C0.403806 5.53551 0.403806 6.01038 0.696699 6.30327C0.989593 6.59617 1.46447 6.59617 1.75736 6.30327L6 2.06063L10.2426 6.30327C10.5355 6.59617 11.0104 6.59617 11.3033 6.30327C11.5962 6.01038 11.5962 5.53551 11.3033 5.24261L6.53033 0.469643ZM6.75 1.58105V0.999974L5.25 0.999974V1.58105H6.75Z"
-              fill="black"
-            />
+              fill="black" />
           </svg>
         </a>
       </div>

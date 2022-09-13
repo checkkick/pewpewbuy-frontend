@@ -18,15 +18,13 @@
           v-model="priceStart"
           class="filter-bar__input"
           type="number"
-          name="start-price"
-        />
+          name="start-price" />
         р. до
         <input
           v-model="priceEnd"
           class="filter-bar__input"
           type="number"
-          name="end-price"
-        />
+          name="end-price" />
         р.
       </p>
     </div>
