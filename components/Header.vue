@@ -1,25 +1,27 @@
 <template>
-  <header class="header">
-    <NuxtLink class="header__logo" to="/">PEWPEW BUY</NuxtLink>
-    <NuxtLink class="header__title" to="/">
-      <h1 class="header__title__text">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
-    </NuxtLink>
-    <div class="header__items">
-      <input
-        id="find"
-        class="header__items__find"
-        type="text"
-        name="find"
-        placeholder="Поиск" />
-      <a href="#" class="header__items__favorite" @click.prevent>
-        <div class="header__items__favorite__counter">10</div>
-      </a>
-      <a
-        href="#"
-        class="header__items__persone"
-        @click.prevent="$emit('openLoginWindow')"></a>
-    </div>
-  </header>
+  <div class="container">
+    <header class="header">
+      <NuxtLink class="header__logo" to="/">PEWPEW BUY</NuxtLink>
+      <NuxtLink class="header__title" to="/">
+        <h1 class="header__title__text">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
+      </NuxtLink>
+      <div class="header__items">
+        <input
+          id="find"
+          class="header__items__find"
+          type="text"
+          name="find"
+          placeholder="Поиск" />
+        <a href="#" class="header__items__favorite" @click.prevent>
+          <div class="header__items__favorite__counter">10</div>
+        </a>
+        <a
+          href="#"
+          class="header__items__persone"
+          @click.prevent="$emit('openLoginWindow')"></a>
+      </div>
+    </header>
+  </div>
 </template>
 
 <script>
@@ -30,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  padding: 72px 70px 0;
+  padding: 72px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
