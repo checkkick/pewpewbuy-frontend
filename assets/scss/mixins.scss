@@ -3,6 +3,7 @@
   font-weight: $weight;
   font-size: $size;
   line-height: $lh;
+  margin: 0;
 }
 
 @mixin defineFontSairaStencilOne($size, $lh) {
@@ -10,6 +11,7 @@
   font-weight: 400;
   font-size: $size;
   line-height: $lh;
+  margin: 0;
 }
 
 @mixin defineBtnPrimary($size, $border-radius, $padding-tb, $padding-lr) {

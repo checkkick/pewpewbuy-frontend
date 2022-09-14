@@ -19,6 +19,11 @@
             <h4 class="profile__main__info-layout__personal-info__name">
               Иван Александрович Негрешный
             </h4>
+            <a
+              class="profile__main__info-layout__personal-info__edit"
+              @click.prevent>
+              <img src="@/assets/img/profile-edit.svg" alt="profile-edit" />
+            </a>
             <div class="profile__main__info-layout__personal-info__about">
               <div
                 class="profile__main__info-layout__personal-info__about-flex">
@@ -137,10 +142,9 @@
               class="profile__main__info-layout__reviews__swiper"
               :modules="modules"
               :slides-per-view="2"
-              :space-between="50"
+              :space-between="16"
               navigation
-              :pagination="{ clickable: true }"
-              @swiper="onSwiper">
+              :pagination="{ clickable: true }">
               <swiper-slide
                 v-for="text in reviewsExample"
                 :key="text"
@@ -151,6 +155,9 @@
           </div>
         </div>
       </section>
+      <section class="profile__main__active-adv">
+        <Advertisment />
+      </section>
     </main>
   </div>
 </template>
@@ -158,9 +165,9 @@
 <script>
 import { Navigation, Pagination } from 'swiper'
 import 'swiper/scss'
-// import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import Advertisment from '~~/components/profile/Advertisment.vue'
 import RatingCalc from '~~/components/profile/RatingCalc.vue'
 import UserReview from '~~/components/profile/UserReview.vue'
 
@@ -170,17 +177,10 @@ export default {
     SwiperSlide,
     RatingCalc,
     UserReview,
+    Advertisment,
   },
   setup() {
-    const onSwiper = swiper => {
-      console.log(swiper)
-    }
-    const onSlideChange = () => {
-      console.log('slide change')
-    }
     return {
-      onSwiper,
-      onSlideChange,
       modules: [Navigation, Pagination],
     }
   },
@@ -228,12 +228,14 @@ export default {
 .profile__main {
   display: flex;
   flex-direction: column;
+  margin-bottom: 100px;
 
   &__info {
     display: flex;
     align-items: stretch;
     justify-content: stretch;
     gap: 25px;
+    margin-bottom: 43px;
 
     &-layout {
       overflow: hidden;
@@ -249,6 +251,7 @@ export default {
       }
 
       &__personal-info {
+        position: relative;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -262,6 +265,20 @@ export default {
           @include defineFontMontserrat(600, 24px, 29px);
           color: $black;
           margin: 0 0 34px 0;
+        }
+
+        &__edit {
+          cursor: pointer;
+          width: 43px;
+          height: 43px;
+          position: absolute;
+          top: 40px;
+          right: 50px;
+          border-radius: 50%;
+          background-color: $primary;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         &__about {
