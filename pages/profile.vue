@@ -388,6 +388,7 @@ export default {
   border-bottom: 1px solid $black;
   border-right: 1px solid $black;
   transform: rotate(-45deg);
+  transition: border-color 0.3s ease-in-out;
 }
 .profile__main__info-layout__reviews__swiper .swiper-button-prev:hover::before,
 .profile__main__info-layout__reviews__swiper .swiper-button-next:hover::before {
