@@ -200,6 +200,7 @@ const filterMenu = {
   right: 0;
   padding: 15px 0;
   background-color: $black;
+  z-index: 998;
 
   &.active {
     padding: 70px;
