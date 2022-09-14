@@ -160,20 +160,8 @@ const filterMenu = {
   }
 
   &__btn-create {
-    @include defineFontMontserrat(600, 24px, 1);
+    @include defineBtnAccent(24px, 91px, 32px, 28px);
     cursor: pointer;
-    padding: 32px 28px;
-    background: $accent;
-    border: none;
-    border-radius: 91px;
-
-    &:focus-visible {
-      outline: 1px solid $black-light;
-    }
-
-    &:active {
-      box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
-    }
   }
 }
 </style>

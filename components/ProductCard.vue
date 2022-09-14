@@ -13,8 +13,8 @@
       <p class="product-card__flex__price">22 500 р.</p>
     </div>
     <div class="product-card__flex">
-      <button class="product-card__btn primary">Профиль продавца</button>
-      <button class="product-card__btn secondary">Подробнее</button>
+      <button class="product-card__btn">Профиль продавца</button>
+      <button class="product-card__btn accent">Подробнее</button>
     </div>
     <div
       class="product-card__like"
@@ -101,28 +101,17 @@ export default {
   }
 
   &__btn {
-    @include defineFontMontserrat(600, 18px, 1.4);
-    flex-grow: 1;
     cursor: pointer;
-    padding: 18px 26px;
-    border-radius: 35px;
-    border: none;
-    &.primary {
-      background: $primary;
-      color: $white;
-    }
-    &.secondary {
+    @include defineBtnPrimary(18px, 35px, 18px, 26px);
+    &.accent {
       color: $black-light;
       border: 1px solid #515151;
       background: transparent;
-    }
 
-    &:focus-visible {
-      outline: 1px solid $black-light;
-    }
-
-    &:active {
-      box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+      &:hover {
+        background-color: #515151;
+        color: $white;
+      }
     }
   }
 

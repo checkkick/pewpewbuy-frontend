@@ -115,8 +115,9 @@ export default {
   &__popular {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    flex-grow: 1;
     gap: 1rem;
 
     &__star {
@@ -132,6 +133,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-grow: 1;
 
     &__dollar {
       width: 49px;
@@ -152,6 +154,7 @@ export default {
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
+    flex-grow: 1;
 
     &__watch {
       width: 49px;
@@ -164,21 +167,7 @@ export default {
 
   &__sort-btn {
     cursor: pointer;
-    @include defineFontMontserrat(600, 18px, 1.4);
-    color: $white;
-    padding: 16px 22px;
-    background: $primary;
-    border-radius: 35px;
-    border: none;
-    outline: none;
-
-    &:focus-visible {
-      outline: 1px solid $black-light;
-    }
-
-    &:active {
-      box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
-    }
+    @include defineBtnPrimary(18px, 35px, 16px, 22px);
   }
 }
 </style>

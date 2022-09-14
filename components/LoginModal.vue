@@ -116,15 +116,7 @@ export default {
 
   &__enter-btn {
     cursor: pointer;
-    @include defineFontMontserrat(600, 20px, 24px);
-    outline: none;
-    border: none;
-    background: #4b8ff5;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    color: #ffffff;
-    padding: 23px 88px;
+    @include defineBtnPrimary(20px, 12px, 23px, 88px);
     margin-bottom: 10px;
   }
 

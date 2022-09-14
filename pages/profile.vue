@@ -214,37 +214,13 @@ export default {
     gap: 20px;
 
     &__all-publicity {
+      @include defineBtnPrimary(20px, 91px, 16px, 37px);
       cursor: pointer;
-      @include defineFontMontserrat(600, 20px, 1.4);
-      color: $white;
-      padding: 16px 37px;
-      background: $primary;
-      border-radius: 91px;
-      border: none;
-      outline: none;
-
-      &:focus-visible {
-        outline: 1px solid $black-light;
-      }
-      &:active {
-        box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
-      }
     }
 
     &__new-publicity {
-      @include defineFontMontserrat(600, 20px, 1.4);
+      @include defineBtnAccent(20px, 91px, 16px, 37px);
       cursor: pointer;
-      padding: 16px 37px;
-      background: $accent;
-      border: none;
-      border-radius: 91px;
-
-      &:focus-visible {
-        outline: 1px solid $black-light;
-      }
-      &:active {
-        box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
-      }
     }
   }
 }
@@ -385,11 +361,12 @@ export default {
 .profile__main__info-layout__reviews__swiper .swiper-button-next::before {
   content: '';
   position: absolute;
-  background: #f7f7f7;
+  background-color: #f7f7f7;
   border: 1px solid #dedede;
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 .profile__main__info-layout__reviews__swiper .swiper-button-prev::after {
   content: '';
@@ -400,6 +377,7 @@ export default {
   border-bottom: 1px solid $black;
   border-left: 1px solid $black;
   transform: rotate(45deg);
+  transition: border-color 0.3s ease-in-out;
 }
 .profile__main__info-layout__reviews__swiper .swiper-button-next::after {
   content: '';
@@ -410,5 +388,20 @@ export default {
   border-bottom: 1px solid $black;
   border-right: 1px solid $black;
   transform: rotate(-45deg);
+}
+.profile__main__info-layout__reviews__swiper .swiper-button-prev:hover::before,
+.profile__main__info-layout__reviews__swiper .swiper-button-next:hover::before {
+  background-color: #1875ff;
+  border: none;
+}
+.profile__main__info-layout__reviews__swiper .swiper-button-prev:hover::after,
+.profile__main__info-layout__reviews__swiper .swiper-button-next:hover::after {
+  border-color: $white;
+}
+.profile__main__info-layout__reviews__swiper .swiper-button-prev:active::before,
+.profile__main__info-layout__reviews__swiper
+  .swiper-button-next:active::before {
+  background-color: #2c73dd;
+  border: none;
 }
 </style>
