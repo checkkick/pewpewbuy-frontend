@@ -41,6 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .publication {
+  cursor: pointer;
   position: relative;
   background-color: $white;
   border-radius: 20px;
