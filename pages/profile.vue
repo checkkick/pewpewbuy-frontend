@@ -158,6 +158,8 @@
       <section class="profile__main__active-adv">
         <Advertisment :active-publ="true" />
         <Advertisment :inactive-publ="true" />
+        <FavoriteAndHistory :favorite-publ="true" />
+        <FavoriteAndHistory :history-publ="true" />
       </section>
     </main>
   </div>
@@ -169,6 +171,7 @@ import 'swiper/scss'
 import 'swiper/scss/pagination'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import Advertisment from '~~/components/profile/Advertisment.vue'
+import FavoriteAndHistory from '~~/components/profile/FavoriteAndHistory.vue'
 import RatingCalc from '~~/components/profile/RatingCalc.vue'
 import UserReview from '~~/components/profile/UserReview.vue'
 
@@ -179,6 +182,7 @@ export default {
     RatingCalc,
     UserReview,
     Advertisment,
+    FavoriteAndHistory,
   },
   setup() {
     return {

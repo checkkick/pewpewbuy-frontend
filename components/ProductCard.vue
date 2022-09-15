@@ -16,10 +16,10 @@
       <button class="product-card__btn">Профиль продавца</button>
       <button class="product-card__btn accent">Подробнее</button>
     </div>
-    <div
+    <a
       class="product-card__like"
       :class="{ active: like }"
-      @click="like = !like">
+      @click.prevent="like = !like">
       <svg
         width="24"
         height="21"
@@ -33,7 +33,7 @@
           stroke-linecap="round"
           stroke-linejoin="round" />
       </svg>
-    </div>
+    </a>
   </div>
 </template>
 
