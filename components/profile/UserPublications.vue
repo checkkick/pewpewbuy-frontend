@@ -2,13 +2,13 @@
   <div class="publication">
     <p class="publication__status">
       Статус:
-      <span v-if="true" class="active">опубликовано</span>
-      <span v-if="false" class="inactive">не опубликовано</span>
+      <span v-if="activePubl" class="active">опубликовано</span>
+      <span v-if="inactivePubl" class="inactive">не опубликовано</span>
     </p>
-    <div class="publication__views">
+    <div v-if="activePubl" class="publication__views">
       <p class="publication__views__text">1267 просмотров</p>
     </div>
-    <div class="publication__image-slider">
+    <div class="publication__image-slider" :class="{ inactivePubl }">
       <img src="@/assets/img/product-example.png" alt="product-example" />
     </div>
     <h4 class="publication__title">
@@ -28,7 +28,12 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    activePubl: { type: Boolean, default: false },
+    inactivePubl: { type: Boolean, default: false },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +79,10 @@ export default {}
     display: flex;
     align-items: center;
     border-radius: 15px;
+
+    &.inactivePubl {
+      opacity: 0.5;
+    }
 
     & img {
       width: 100%;

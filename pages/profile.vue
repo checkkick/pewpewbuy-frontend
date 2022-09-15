@@ -156,7 +156,8 @@
         </div>
       </section>
       <section class="profile__main__active-adv">
-        <Advertisment />
+        <Advertisment :active-publ="true" />
+        <Advertisment :inactive-publ="true" />
       </section>
     </main>
   </div>

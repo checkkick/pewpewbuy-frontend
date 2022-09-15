@@ -1,7 +1,15 @@
 <template>
   <div class="advertisment">
     <div class="advertisment__title" @click="open = !open">
-      <h3 class="advertisment__title__name">Активные объявления (5/6)</h3>
+      <span
+        class="advertisment__title__logo"
+        :class="{ activePubl, inactivePubl }"></span>
+      <h3 v-if="activePubl" class="advertisment__title__name">
+        Активные объявления (5/6)
+      </h3>
+      <h3 v-if="inactivePubl" class="advertisment__title__name">
+        Неактивные объявления (3/6)
+      </h3>
       <a
         class="advertisment__title__open-arrow"
         :class="{ open }"
@@ -18,8 +26,16 @@
         </svg>
       </a>
     </div>
-    <transition name="accordion">
-      <div v-if="open" class="advertisment__wrapper">
+    <transition
+      name="accordion"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @before-leave="beforeLeave"
+      @leave="leave">
+      <div
+        v-show="open"
+        class="advertisment__wrapper"
+        :class="{ activePubl, inactivePubl }">
         <swiper
           class="advertisment__wrapper__swiper"
           :modules="modules"
@@ -30,7 +46,9 @@
             v-for="text in 5"
             :key="text"
             class="advertisment__wrapper__swiper__slide">
-            <UserPublications />
+            <UserPublications
+              :active-publ="activePubl"
+              :inactive-publ="inactivePubl" />
           </swiper-slide>
           <swiper-slide class="advertisment__wrapper__swiper__add">
             <p class="advertisment__wrapper__swiper__add__text">
@@ -58,34 +76,35 @@ export default {
     SwiperSlide,
     UserPublications,
   },
+  props: {
+    activePubl: { type: Boolean, default: false },
+    inactivePubl: { type: Boolean, default: false },
+  },
   setup() {
-    const open = ref(false)
+    const open = ref(true)
     return {
       open,
       modules: [Navigation],
     }
   },
+  methods: {
+    beforeEnter: function (el) {
+      el.style.height = '0'
+    },
+    enter: function (el) {
+      el.style.height = el.scrollHeight + 'px'
+    },
+    beforeLeave: function (el) {
+      el.style.height = el.scrollHeight + 'px'
+    },
+    leave: function (el) {
+      el.style.height = '0'
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.accordion-enter-active {
-  animation: collapse 0.5s;
-}
-.accordion-leave-active {
-  animation: collapse 0.5s reverse;
-}
-@keyframes collapse {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 .advertisment {
   position: relative;
   display: flex;
@@ -99,6 +118,21 @@ export default {
     align-items: center;
     gap: 12px;
     cursor: pointer;
+
+    &__logo {
+      width: 34px;
+      height: 34px;
+      margin-right: 12px;
+      border-radius: 50%;
+
+      &.activePubl {
+        background-color: #00ad45;
+      }
+
+      &.inactivePubl {
+        background-color: #e70000;
+      }
+    }
 
     &__name {
       @include defineFontMontserrat(600, 24px, 29px);
@@ -116,10 +150,18 @@ export default {
   }
 
   &__wrapper {
-    padding: 40px 30px;
-    background-color: rgba(75, 143, 245, 0.06);
-    box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
+    overflow: hidden;
+    transition: 0.5s ease-out;
     border-radius: 20px;
+
+    &.activePubl {
+      background-color: rgba(75, 143, 245, 0.06);
+      box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
+    }
+    &.inactivePubl {
+      background: rgba(231, 0, 0, 0.03);
+      box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
+    }
 
     &__swiper__add {
       cursor: pointer;
@@ -148,6 +190,7 @@ export default {
 
 <style lang="scss">
 .advertisment__wrapper__swiper {
+  margin: 40px 30px;
   cursor: grab;
   position: static;
 }
