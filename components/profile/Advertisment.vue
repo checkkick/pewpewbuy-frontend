@@ -50,7 +50,9 @@
               :active-publ="activePubl"
               :inactive-publ="inactivePubl" />
           </swiper-slide>
-          <swiper-slide class="advertisment__wrapper__swiper__add">
+          <swiper-slide
+            v-if="activePubl"
+            class="advertisment__wrapper__swiper__add">
             <p class="advertisment__wrapper__swiper__add__text">
               Добавить объявление
             </p>

@@ -1,5 +1,8 @@
 <template>
   <div class="publication">
+    <a class="publication__edit" @click.prevent>
+      <img src="@/assets/img/profile-edit.svg" alt="profile-edit" />
+    </a>
     <p class="publication__status">
       Статус:
       <span v-if="activePubl" class="active">опубликовано</span>
@@ -45,6 +48,21 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  &__edit {
+    z-index: 1;
+    cursor: pointer;
+    width: 43px;
+    height: 43px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    border-radius: 50%;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &__status {
     @include defineFontMontserrat(700, 18px, 22px);
