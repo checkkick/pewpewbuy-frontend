@@ -2,15 +2,15 @@
   <div class="product-card">
     <img
       class="product-card__image"
-      src="assets/img/product-example.png"
+      :src=product.photo[0].file
       alt="product" />
     <h4 class="product-card__title">
-      Страйкбольный карабин Cyma Colt model 609 - ХМ177Е1 (CM009E)
+     {{product.manufacturer}} {{product.name}}
     </h4>
-    <p class="product-card__location">Местоположение: {{ 'г. Москва' }}</p>
+    <p class="product-card__location">Местоположение: {{product.location}}</p>
     <div class="product-card__flex">
       <p>Цена:</p>
-      <p class="product-card__flex__price">22 500 р.</p>
+      <p class="product-card__flex__price">{{product.price}} р.</p>
     </div>
     <div class="product-card__flex">
       <button class="product-card__btn">Профиль продавца</button>
@@ -39,6 +39,9 @@
 
 <script>
 export default {
+  props: {
+    product: null,
+  },
   data: () => {
     return {
       like: false,

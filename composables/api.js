@@ -1,7 +1,7 @@
 import { alerts } from '~~/store/alerts'
 
 export const api = (url, options = {}) =>
-  $fetch(`https://api-pewpewbuy.bexram.online/${url}`, {
+  $fetch(`http://bexram.online:8500/${url}`, {
     retry: 0,
     headers: {
       'Content-Type': 'application/json',
