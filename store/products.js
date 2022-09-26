@@ -41,6 +41,17 @@ export const products = defineStore('products', {
       } catch (error) {
         return error.response
       }
+    },
+    async GET_CATEGORY_PRODUCTS(category) {
+      try {
+        const response = await api('products/get_category_products/?slug=' + category, {
+          method: 'GET',
+          errorAlert: 'при загрузке товара'
+        })
+        this.allProducts = response.results
+      } catch (error) {
+        return error.response
+      }
     }
   },
 

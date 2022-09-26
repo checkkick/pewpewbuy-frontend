@@ -5,7 +5,7 @@
       <label class="filter-bar__select__label" for="popular"
       >Популярность
       </label>
-      <select id="popular" class="filter-bar__select" name="popular">
+      <select id="popular" class="filter-bar__select" name="popular" v-model="popularity" v-on:change="unset_filtred">
         <option value="По возрастанию">По возрастанию</option>
         <option value="По убыванию">По убыванию</option>
       </select>
@@ -18,68 +18,87 @@
           v-model="priceStart"
           class="filter-bar__input"
           type="number"
-          name="start-price"/>
+          name="start-price"
+          v-on:change="unset_filtred"/>
         р. до
         <input
           v-model="priceEnd"
           class="filter-bar__input"
           type="number"
-          name="end-price"/>
+          name="end-price"
+          v-on:change="unset_filtred"/>
         р.
       </p>
     </div>
-    <div class="filter-bar__date-add">
-      <span class="filter-bar__date-add__watch"></span>
-      <label class="filter-bar__select__label" for="date-add"
-      >Время добавления</label
-      >
-      <select id="date-add" class="filter-bar__select" name="date-add">
-        <option value="Две недели назад">Две недели назад</option>
-        <option value="Месяц назад">Месяц назад</option>
-      </select>
-    </div>
-    <button class="filter-bar__sort-btn" v-on:click="get_filtred_products()">Отсортировать</button>
+<!--    <div class="filter-bar__date-add">-->
+<!--      <span class="filter-bar__date-add__watch"></span>-->
+<!--      <label class="filter-bar__select__label" for="date-add"-->
+<!--      >Время добавления</label-->
+<!--      >-->
+<!--      <select id="date-add" class="filter-bar__select" name="date-add">-->
+<!--        <option value="Две недели назад">Две недели назад</option>-->
+<!--        <option value="Месяц назад">Месяц назад</option>-->
+<!--      </select>-->
+<!--    </div>-->
+    <button class="filter-bar__sort-btn" v-if="!filtred" v-on:click="get_filtred_products()">Отсортировать</button>
+    <button class="filter-bar__sort-btn" v-if="filtred" v-on:click="get_all_products()">Сбросить фильтр</button>
   </section>
 </template>
 
 <script>
-  import { products } from '../store/products'
+  import { defineStore, mapStores } from 'pinia'
 
+  const useProductStore = defineStore('products', {})
   export default {
     setup() {
-      const store = products()
-      const priceStart = ref(null)
-      const priceEnd = ref(null)
-      const popularity = ref(null)
-      const add_time = ref(null)
-      const search = ref('')
-      function get_filtred_products() {
-        let filter = ''
-        if ((priceStart !== null) && (priceEnd !== null)) {
-          filter += 'min_price=' + priceStart + '&max_price=' + priceEnd
-        }
-        if (popularity !== null) {
-          filter += ''
-        }
-        if (add_time !== null) {
-          filter += ''
-        }
-        store.GET_FILTRED_PRODUCTS(filter)
-      }
-      return {
-        store,
-        all_products: computed(() => store.ALL_PRODUCTS),
-        get_filtred_products,
-        priceStart,
-        priceEnd,
-        popularity,
-        add_time,
-        search,
-      }
     },
     data: () => {
-      return {}
+      return {
+        priceStart: null,
+        priceEnd: null,
+        popularity: null,
+        add_time: null,
+        filtred: false
+      }
+    },
+    computed: {
+      ...mapStores(useProductStore)
+    },
+    methods: {
+      async get_filtred_products() {
+        let filter = ''
+        if ((this.priceStart !== null) || (this.priceEnd !== null)) {
+          if (this.priceStart === null) {
+            this.priceStart = 0
+          }
+          if (this.priceEnd === null) {
+            this.priceEnd = 500000
+          }
+          filter += 'min_price=' + this.priceStart + '&max_price=' + this.priceEnd + '&'
+        }
+        if (this.popularity === 'По убыванию') {
+          filter += 'ordering=-views_count'
+        }
+        if (this.popularity === 'По возрастанию') {
+          filter += 'ordering=+views_count'
+        }
+        this.filtred = true
+        await this.productsStore.GET_FILTRED_PRODUCTS(filter)
+
+      },
+
+      async get_all_products() {
+        this.priceStart = null
+        this.priceEnd = null
+        this.popularity = null
+        await this.productsStore.GET_ALL_PRODUCTS()
+        this.filtred = false
+      },
+      unset_filtred() {
+        this.filtred = false
+      }
     }
+
   }
 </script>
 
