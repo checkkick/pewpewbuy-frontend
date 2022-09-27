@@ -23,6 +23,7 @@
     "sass": "^1.54.0"
   },
   "dependencies": {
+    "cookie-universal-nuxt": "^2.2.2",
     "swiper": "^8.3.2"
   }
 }

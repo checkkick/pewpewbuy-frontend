@@ -4,7 +4,7 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'pewpewbuy-frontend',
+      title: 'PEWPEWBUY | Страйкбольная барахолка',
       htmlAttrs: {
         lang: 'ru',
       },
@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         { hid: 'description', name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'assets/css/normalize.css' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'assets/img/favicon.ico' }, { rel: 'stylesheet', href: 'assets/css/normalize.css' }],
     },
   },
   css: ['assets/scss/main.scss'],
@@ -33,4 +33,7 @@ export default defineNuxtConfig({
     // https://composition-api.nuxtjs.org/getting-started/setup#quick-start
     '@pinia/nuxt',
   ],
+  modules: [
+    // Simple usage
+    'cookie-universal-nuxt',]
 })

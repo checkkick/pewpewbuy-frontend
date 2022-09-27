@@ -30,16 +30,16 @@
         р.
       </p>
     </div>
-<!--    <div class="filter-bar__date-add">-->
-<!--      <span class="filter-bar__date-add__watch"></span>-->
-<!--      <label class="filter-bar__select__label" for="date-add"-->
-<!--      >Время добавления</label-->
-<!--      >-->
-<!--      <select id="date-add" class="filter-bar__select" name="date-add">-->
-<!--        <option value="Две недели назад">Две недели назад</option>-->
-<!--        <option value="Месяц назад">Месяц назад</option>-->
-<!--      </select>-->
-<!--    </div>-->
+    <div class="filter-bar__date-add">
+      <span class="filter-bar__date-add__watch"></span>
+      <label class="filter-bar__select__label" for="date-add"
+      >Время добавления</label
+      >
+      <select id="date-add" class="filter-bar__select" name="date-add">
+        <option value="Две недели назад">Две недели назад</option>
+        <option value="Месяц назад">Месяц назад</option>
+      </select>
+    </div>
     <button class="filter-bar__sort-btn" v-if="!filtred" v-on:click="get_filtred_products()">Отсортировать</button>
     <button class="filter-bar__sort-btn" v-if="filtred" v-on:click="get_all_products()">Сбросить фильтр</button>
   </section>
