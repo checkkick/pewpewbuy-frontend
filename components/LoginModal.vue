@@ -55,9 +55,7 @@
 
 <script>
   import { auth } from '../store/auth.js'
-  import { defineStore, mapStores } from 'pinia'
 
-  const useAuthStore = defineStore('auth', {})
   export default {
     setup() {
       const store = auth()
@@ -73,9 +71,7 @@
         password: ''
       }
     },
-    computed: {
-      ...mapStores(useAuthStore)
-    },
+
     mounted() {
       document.getElementsByTagName('body')[0].style.overflow = 'hidden'
     },
@@ -86,14 +82,17 @@
         this.$emit('closeLoginWindow')
       },
       send_code() {
-        if (this.authStore.SEND_CODE(this.email)) {
-          this.sended = true
-        }
+        this.store.GET_SELF()
+        this.$router.push('/profile')
+        // if (this.store.SEND_CODE(this.email)) {
+        //   this.sended = true
+        // }
 
       },
       login() {
-        if(this.authStore.GET_TOKEN(this.email, this.password)){
-
+        if (this.store.GET_TOKEN(this.email, this.password)) {
+          this.store.GET_SELF()
+          this.$router.push('/profile')
         }
       }
     }

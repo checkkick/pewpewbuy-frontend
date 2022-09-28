@@ -3,9 +3,6 @@ import { alerts } from '~~/store/alerts'
 export const api = (url, options = {}) =>
   $fetch(`http://bexram.online:8500/${url}`, {
     retry: 0,
-    headers: {
-      'Content-Type': 'application/json',
-    },
     ...options,
 
     onRequestError() {
@@ -13,10 +10,10 @@ export const api = (url, options = {}) =>
 
       storeAlerts.alerts.push({
         id: storeAlerts.counter,
-        alert: options.errorAlert,
+        alert: options.errorAlert
       })
       storeAlerts.counter++
 
       return false
-    },
+    }
   })
