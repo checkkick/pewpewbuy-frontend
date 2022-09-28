@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from '~~/composables/api'
-import { get, set, check_cookies } from '~~/plugins/cookies'
+import { get, set, check_cookies } from '~~/cookies/cookies'
 
 export const auth = defineStore('auth', {
   state: () => {
@@ -19,9 +19,9 @@ export const auth = defineStore('auth', {
         })
         set('access_pew', response.access)
         set('refresh_pew', response.refresh)
-        return response.success
+        return response
       } catch (error) {
-        return error.response
+        return error.response.status
       }
     },
 
@@ -30,16 +30,15 @@ export const auth = defineStore('auth', {
         const response = await api('auth/send_code/', {
           body: { 'login': mail },
           method: 'POST',
-          errorAlert: 'при загрузке товара'
-
+          errorAlert: 'Ошибка. Попробуйте снова'
         })
-        return response.success
+        return response
       } catch (error) {
-        return error.response
+
+        return error.response.status
       }
     },
     async GET_SELF() {
-      console.log(check_cookies())
       try {
         const response = await api('clients/getself/', {
           method: 'GET',
@@ -50,8 +49,34 @@ export const auth = defineStore('auth', {
       } catch (error) {
         return error.response
       }
-    }
+    },
+    async CHECK_MAIL(mail) {
+      try {
+        const response = await api('auth/check_mail/', {
+          body: { 'mail': mail },
+          method: 'POST',
+          errorAlert: 'Ошибка. Попробуйте снова'
+        })
+        return response
+      } catch (error) {
+        return error.response.status
+      }
+    },
+    async CONFIRM_MAIL(mail,code) {
+      try {
+        const response = await api('auth/confirm_mail/', {
+          body: { 'mail': mail ,'code':code},
+          method: 'POST',
+          errorAlert: 'Ошибка. Попробуйте снова'
+        })
+        return response
+      } catch (error) {
+        return error.response.status
+      }
+    },
   },
+
+
 
   getters: {}
 })

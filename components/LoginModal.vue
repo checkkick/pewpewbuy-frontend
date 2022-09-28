@@ -39,7 +39,8 @@
         @click="login()">
         Войти
       </button>
-      <a href="#" class="modal-window__link" @click.prevent>Забыли пароль?</a>
+<!--      <a href="#" class="modal-window__link" @click.prevent>Забыли пароль?</a>-->
+      <p style="color:red" v-if="send_error!==''">{{send_error}}</p>
       <p class="modal-window__text">
         Еще нет личного кабинета?
         <a
@@ -68,7 +69,8 @@
       return {
         sended: '',
         email: '',
-        password: ''
+        password: '',
+        send_error: ''
       }
     },
 
@@ -81,18 +83,29 @@
         document.getElementsByTagName('body')[0].style.overflow = null
         this.$emit('closeLoginWindow')
       },
-      send_code() {
-        this.store.GET_SELF()
-        this.$router.push('/profile')
-        // if (this.store.SEND_CODE(this.email)) {
-        //   this.sended = true
-        // }
+      async send_code() {
+        const response = await this.store.SEND_CODE(this.email)
+        if (response.email===this.email) {
+          this.send_error = ''
+          this.sended = true
+        } else if (response == 404) {
+          this.send_error = 'Пользователь с такой почтой не найден'
+        } else if (response == 400) {
+          this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+        }
 
       },
-      login() {
-        if (this.store.GET_TOKEN(this.email, this.password)) {
-          this.store.GET_SELF()
+      async login() {
+        const response = await this.store.GET_TOKEN(this.email, this.password)
+        if (response.access) {
+          this.send_error = ''
+          await this.store.GET_SELF()
+          this.closeWindow()
           this.$router.push('/profile')
+        } else if (response == 401) {
+          this.send_error = 'Неверный код'
+        } else if (response == 400) {
+          this.send_error = 'Произошла ошибка. Попробуйте еще раз'
         }
       }
     }

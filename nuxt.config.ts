@@ -33,7 +33,4 @@ export default defineNuxtConfig({
     // https://composition-api.nuxtjs.org/getting-started/setup#quick-start
     '@pinia/nuxt',
   ],
-  modules: [
-    // Simple usage
-    'cookie-universal-nuxt',]
 })
