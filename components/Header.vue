@@ -18,9 +18,15 @@
           <div class="header__items__favorite__counter">10</div>
         </a>
         <a
+          v-if="!authorized"
           href="#"
           class="header__items__persone"
           @click.prevent="$emit('openLoginWindow')"></a>
+        <a
+          v-if="authorized"
+          href="#"
+          class="header__items__persone"
+          @click.prevent="$router.push('/profile')"></a>
       </div>
     </header>
   </div>
@@ -29,10 +35,11 @@
 <script>
 
   import { products } from '../store/products'
-
+  import { auth } from '../store/auth.js'
   export default {
     setup() {
       const store = products()
+      const authStore = auth()
       const search = ref('')
 
 
@@ -46,9 +53,11 @@
       }
 
       return {
+        authStore,
         store,
         all_products: computed(() => store.ALL_PRODUCTS),
         get_searched_products,
+        authorized: computed(() => authStore.AUTHORIZED),
         search
       }
     },

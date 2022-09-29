@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { api } from '~~/composables/api'
-import { get, set, check_cookies } from '~~/cookies/cookies'
+import { get, set } from '~~/cookies/cookies'
+import { check_cookies } from '~/cookies/cookies'
 
 export const auth = defineStore('auth', {
   state: () => {
     return {
-      user:{}
+      user: {},
+      authorized: false
     }
   },
 
@@ -19,6 +21,22 @@ export const auth = defineStore('auth', {
         })
         set('access_pew', response.access)
         set('refresh_pew', response.refresh)
+        this.authorized=true
+        return response
+      } catch (error) {
+        return error.response.status
+      }
+    },
+    async REFRESH_TOKEN() {
+      try {
+        const response = await api('auth/refresh/', {
+          body: { 'refresh': get('refresh_pew') },
+          method: 'POST',
+          errorAlert: 'при загрузке товара'
+        })
+        set('access_pew', response.access)
+        set('refresh_pew', response.refresh)
+        this.authorized=true
         return response
       } catch (error) {
         return error.response.status
@@ -43,7 +61,7 @@ export const auth = defineStore('auth', {
         const response = await api('clients/getself/', {
           method: 'GET',
           errorAlert: 'при загрузке товара',
-          headers: { 'Authorization': 'Bearer '+ get('access_pew') }
+          headers: { 'Authorization': 'Bearer ' + get('access_pew') }
         })
         this.user = response
       } catch (error) {
@@ -62,10 +80,10 @@ export const auth = defineStore('auth', {
         return error.response.status
       }
     },
-    async CONFIRM_MAIL(mail,code) {
+    async CONFIRM_MAIL(mail, code) {
       try {
         const response = await api('auth/confirm_mail/', {
-          body: { 'mail': mail ,'code':code},
+          body: { 'mail': mail, 'code': code },
           method: 'POST',
           errorAlert: 'Ошибка. Попробуйте снова'
         })
@@ -74,9 +92,29 @@ export const auth = defineStore('auth', {
         return error.response.status
       }
     },
+    async CHECK_AUTH() {
+      const coockie_state=check_cookies()
+      if (coockie_state==='access') {
+        this.authorized=true
+        return true
+      }
+      else if(coockie_state==='refresh'){
+        await this.REFRESH_TOKEN()
+        this.authorized=true
+        return true
+      }
+      else if(coockie_state==='login'){
+        return false
+      }
+
+    }
+
   },
 
 
+  getters: {
+    USER_STATE: state => state.user,
+    AUTHORIZED: state => state.authorized
 
-  getters: {}
+  }
 })
