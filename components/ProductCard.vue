@@ -3,9 +3,9 @@
     <img
       class="product-card__image"
       :src=product.photo[0].file
-      alt="product" />
+      alt="product"/>
     <h4 class="product-card__title">
-     {{product.manufacturer}} {{product.name}}
+      {{product.manufacturer}} {{product.name}}
     </h4>
     <p class="product-card__location">Местоположение: {{product.location}}</p>
     <div class="product-card__flex">
@@ -16,10 +16,10 @@
       <button class="product-card__btn">Профиль продавца</button>
       <button class="product-card__btn accent">Подробнее</button>
     </div>
-    <a
-      class="product-card__like"
-      :class="{ active: like }"
-      @click.prevent="like = !like">
+    <a v-if="authorized"
+       class="product-card__like"
+       :class="{ active: like }"
+       @click.prevent="onLike()">
       <svg
         width="24"
         height="21"
@@ -31,125 +31,170 @@
           stroke="black"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round" />
+          stroke-linejoin="round"/>
       </svg>
     </a>
   </div>
 </template>
 
 <script>
-export default {
-  props: {
-    product: null,
-  },
-  data: () => {
-    return {
-      like: false,
-    }
-  },
-}
-</script>
+  import { auth } from '../store/auth'
+  import { products } from '../store/products'
 
-<style lang="scss" scoped>
-.product-card {
-  @include defineFontMontserrat(500, 20px, 1.4);
-  color: $black;
-  width: calc((100% - (20px * 3)) / 4);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-between;
-  transition: transform 0.3s ease-in-out;
+  export default {
+    props: {
+      product: null,
+      liked: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
+    },
+    setup() {
+      const useAuthStore = auth()
+      const useProductStore = products()
+      return {
+        useAuthStore,
+        useProductStore,
+        authorized: computed(() => useAuthStore.AUTHORIZED)
+      }
+    },
+    data: () => {
+      return {
+        like: false
+      }
+    },
+    async mounted() {
+      console.log(this.liked)
+      if (Object.keys(this.liked).length != 0) {
+        this.like = true
+      }
+    },
+    methods: {
+      async onLike() {
+        if (!this.like) {
+          const response = await this.useProductStore.ADD_FAVORITE(this.product.id)
+          if (response !== 400 && response !== 401) {
+            this.like = true
+          }
 
-  @media (max-width: 1000px) {
-    width: calc((100% - (20px * 2)) / 3);
-  }
+        } else {
+          const response = await this.useProductStore.REMOVE_FAVORITE(this.product.id)
+          if (response !== 400 && response !== 401) {
+            this.like = false
+          }
 
-  @media (max-width: 800px) {
-    width: calc((100% - (20px * 1)) / 2);
-  }
-
-  @media (max-width: 650px) {
-    width: 100%;
-  }
-
-  &:hover {
-    transform: translateY(-15px);
-  }
-  &:hover &__image {
-    filter: drop-shadow(0px 11px 18px rgba(128, 173, 241, 0.13));
-  }
-
-  &__image {
-    width: 100%;
-    height: 400px;
-    border-radius: 15px;
-    object-fit: cover;
-  }
-
-  &__title {
-    font-weight: 700;
-  }
-
-  &__flex {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-
-    &__price {
-      font-weight: 700;
-      font-size: 22px;
-    }
-  }
-
-  &__btn {
-    cursor: pointer;
-    @include defineBtnPrimary(18px, 35px, 18px, 26px);
-    &.accent {
-      color: $black-light;
-      border: 1px solid #515151;
-      background: transparent;
-
-      &:hover {
-        background-color: #515151;
-        color: $white;
+        }
       }
     }
   }
+</script>
 
-  &__like {
-    cursor: pointer;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 48px;
-    height: 48px;
-    background-color: $grey;
-    border-radius: 100%;
+<style lang="scss" scoped>
+  .product-card {
+    @include defineFontMontserrat(500, 20px, 1.4);
+    color: $black;
+    width: calc((100% - (20px * 3)) / 4);
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
 
-    &.active > svg {
-      fill: $accent-dark;
-    }
-    &.active > svg path {
-      stroke: $accent-dark;
-    }
-
-    &:hover > svg {
-      fill: $accent-dark;
-    }
-    &:hover > svg path {
-      stroke: $accent-dark;
+    @media (max-width: 1000px) {
+      width: calc((100% - (20px * 2)) / 3);
     }
 
-    &:active {
-      background-color: #eaeaea;
+    @media (max-width: 800px) {
+      width: calc((100% - (20px * 1)) / 2);
+    }
+
+    @media (max-width: 650px) {
+      width: 100%;
+    }
+
+    &:hover {
+      transform: translateY(-15px);
+    }
+
+    &:hover &__image {
+      filter: drop-shadow(0px 11px 18px rgba(128, 173, 241, 0.13));
+    }
+
+    &__image {
+      width: 100%;
+      height: 400px;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+
+    &__title {
+      font-weight: 700;
+    }
+
+    &__flex {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+
+      &__price {
+        font-weight: 700;
+        font-size: 22px;
+      }
+    }
+
+    &__btn {
+      cursor: pointer;
+      @include defineBtnPrimary(18px, 35px, 18px, 26px);
+
+      &.accent {
+        color: $black-light;
+        border: 1px solid #515151;
+        background: transparent;
+
+        &:hover {
+          background-color: #515151;
+          color: $white;
+        }
+      }
+    }
+
+    &__like {
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 48px;
+      height: 48px;
+      background-color: $grey;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.active > svg {
+        fill: $accent-dark;
+      }
+
+      &.active > svg path {
+        stroke: $accent-dark;
+      }
+
+      &:hover > svg {
+        fill: $accent-dark;
+      }
+
+      &:hover > svg path {
+        stroke: $accent-dark;
+      }
+
+      &:active {
+        background-color: #eaeaea;
+      }
     }
   }
-}
 </style>

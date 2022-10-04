@@ -117,7 +117,7 @@
                   </p>
                   <p
                     class="profile__main__info-layout__personal-info__about-flex__line__text">
-                    г. Москва
+                    {{user.city}}
                   </p>
                 </div>
                 <!--                <div-->
@@ -146,18 +146,18 @@
               navigation
               :pagination="{ clickable: true }">
               <swiper-slide
-                v-for="text in reviewsExample"
-                :key="text"
+                v-for="review in user.review"
+                :key="review.id"
                 class="profile__main__info-layout__reviews__swiper__slide">
-                <UserReview :text="text"/>
+                <UserReview :review="review"/>
               </swiper-slide>
             </swiper>
           </div>
         </div>
       </section>
       <section class="profile__main__active-adv">
-        <Advertisment :active-publ="true"/>
-        <Advertisment :inactive-publ="true"/>
+        <Advertisment :active-publ="true" :publications="active"/>
+        <Advertisment :inactive-publ="true" :publications="inactive"/>
         <FavoriteAndHistory :favorite-publ="true"/>
         <FavoriteAndHistory :history-publ="true"/>
       </section>
@@ -198,14 +198,11 @@
     },
     data() {
       return {
-        reviewsExample: [
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nihil similique perferendis pariatur, recusandae sequi debitis ducimus quas sapiente, architecto aliquam. Deleniti ea beatae dignissimos dolor, dicta odit aspernatur et.',
-          'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Деревни путь толку пунктуация страна парадигматическая от всех эта, себя продолжил всеми однажды использовало наш собрал курсивных языкового раз прямо речью.',
-          'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui repellat amet id eligendi voluptate libero dolores pariatur dolorum nobis, quibusdam nihil laudantium sunt rerum officia dolorem, odit doloremque voluptatibus cum!'
-        ],
         tg: 'https://t.me/',
         vk: 'https://vk.com/',
-        avatar: 'http://bexram.online:8500'
+        avatar: 'http://bexram.online:8500',
+        active:[],
+        inactive: [],
       }
     },
     async mounted() {
@@ -216,6 +213,14 @@
           this.tg += this.user.tg
           this.vk += this.user.vk
           this.avatar += this.user.avatar
+          this.user.products.forEach((product, index)=> {
+            if(product.status==='Active'){
+              this.active.push(product)
+            }
+            else {
+              this.inactive.push(product)
+            }
+          })
         }
       }
     }

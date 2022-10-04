@@ -106,8 +106,8 @@ export const auth = defineStore('auth', {
       else if(coockie_state==='login'){
         return false
       }
+    },
 
-    }
 
   },
 

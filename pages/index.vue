@@ -8,7 +8,9 @@
       <section class="main__section-products">
         <ProductCard v-for="product in all_products"
                      :product="product"
-                     :key="product.id">
+                     :liked="favorite_products.find(elem => elem.product.id === product.id)"
+                     :key="product.id"
+                     >
         </ProductCard>
 
       </section>
@@ -18,17 +20,24 @@
 
 <script>
   import { products } from '../store/products.js'
-  import { onMounted } from '../.nuxt/imports'
+  import { auth } from '../store/auth.js'
 
   export default {
     setup() {
-      const store = products()
-      onMounted(() => {
-        store.GET_ALL_PRODUCTS()
-      })
+      const useProductStore = products()
+      const useAuthStore = auth()
       return {
-        store,
-        all_products: computed(() => store.ALL_PRODUCTS)
+        useAuthStore,
+        useProductStore,
+        all_products: computed(() => useProductStore.ALL_PRODUCTS),
+        favorite_products: computed(() => useProductStore.FAVORITE_PRODUCTS),
+        authorized: computed(() => useAuthStore.AUTHORIZED)
+      }
+    },
+    async mounted() {
+      await this.useProductStore.GET_ALL_PRODUCTS()
+      if(this.authorized) {
+          await this.useProductStore.GET_FAVORITE()
       }
     }
 

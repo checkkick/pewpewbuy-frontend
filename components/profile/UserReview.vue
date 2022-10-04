@@ -11,14 +11,14 @@
       <div class="user-review__about__grade">
         <p class="user-review__about__grade__title">Оценка:</p>
         <div class="user-review__about__grade__rating">
-          <p class="user-review__about__grade__rating__text">4,0</p>
-          <RatingCalc :stars="4" :size="16" />
+          <p class="user-review__about__grade__rating__text">{{review.estimate}}</p>
+          <RatingCalc :stars="review.estimate" :size="16" />
         </div>
       </div>
       <p class="user-review__about__text">
-        {{ text }}
+        {{ review.text }}
       </p>
-      <p class="user-review__about__date">22.04.2022</p>
+      <p class="user-review__about__date">{{new Date(review.created).toLocaleDateString()}}</p>
     </div>
   </div>
 </template>
@@ -28,11 +28,7 @@ import RatingCalc from './RatingCalc.vue'
 export default {
   components: { RatingCalc },
   props: {
-    text: {
-      type: String,
-      default:
-        'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. До образ букв он запятой безорфографичный прямо страну маленький пунктуация она переписывается ручеек возвращайся, над пустился назад коварных снова подзаголовок.',
-    },
+    review: {},
   },
 }
 </script>

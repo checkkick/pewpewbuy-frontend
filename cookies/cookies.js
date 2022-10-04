@@ -41,3 +41,6 @@ export function check_cookies() {
     return 'login'
   }
 }
+export function add_backend(url) {
+  return 'http://bexram.online:8500'+url
+}

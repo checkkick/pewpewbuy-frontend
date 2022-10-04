@@ -46,7 +46,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.stars)
     this.nonStars = 5 - this.stars
   },
 }

@@ -5,26 +5,26 @@
     </a>
     <p class="publication__status">
       Статус:
-      <span v-if="activePubl" class="active">опубликовано</span>
-      <span v-if="inactivePubl" class="inactive">не опубликовано</span>
+      <span v-if="activePubl" class="active">{{status}}</span>
+      <span v-if="inactivePubl" class="inactive">{{status}}</span>
     </p>
     <div v-if="activePubl" class="publication__views">
-      <p class="publication__views__text">1267 просмотров</p>
+      <p class="publication__views__text">{{publ.views_count}} просмотров</p>
     </div>
     <div class="publication__image-slider" :class="{ inactivePubl }">
-      <img src="@/assets/img/product-example.png" alt="product-example" />
+      <img :src="photo" alt="product-example" />
     </div>
     <h4 class="publication__title">
-      Страйкбольный карабин Cyma Colt model 609 - ХМ177Е1 (CM009E)
+      {{publ.manufacturer}} {{publ.name}}
     </h4>
     <div class="publication__advanced">
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Местоположение:</p>
-        <p class="publication__advanced__line__text">г. Москва</p>
+        <p class="publication__advanced__line__text">{{publ.location}}</p>
       </div>
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Цена:</p>
-        <p class="publication__advanced__line__text-bold">22 500 р.</p>
+        <p class="publication__advanced__line__text-bold">{{publ.price}} руб.</p>
       </div>
     </div>
   </div>
@@ -35,7 +35,29 @@ export default {
   props: {
     activePubl: { type: Boolean, default: false },
     inactivePubl: { type: Boolean, default: false },
+    publ: {},
   },
+  data() {
+    return{
+      photo:'http://bexram.online:8500',
+      status: ''
+    }
+  },
+  mounted() {
+    this.photo+=this.publ.photo[0].file
+    if (this.publ.status === 'Active') {
+      this.status='Опубликовано'
+    }
+    else if (this.publ.status === 'Sold'){
+      this.status='Продано'
+    }
+    else if (this.publ.status === 'Publication off'){
+      this.status='Снято с публикации'
+    }
+    else if (this.publ.status === 'On moderation'){
+      this.status='На модерации'
+    }
+  }
 }
 </script>
 
@@ -98,6 +120,7 @@ export default {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    width: 100%;
 
     &.inactivePubl {
       opacity: 0.5;
@@ -105,6 +128,8 @@ export default {
 
     & img {
       width: 100%;
+      height: 300px;
+      object-fit: cover;
     }
   }
 
