@@ -146,7 +146,7 @@
               navigation
               :pagination="{ clickable: true }">
               <swiper-slide
-                v-for="review in user.review"
+                v-for="review in user.about_me_reviews"
                 :key="review.id"
                 class="profile__main__info-layout__reviews__swiper__slide">
                 <UserReview :review="review"/>
@@ -158,8 +158,8 @@
       <section class="profile__main__active-adv">
         <Advertisment :active-publ="true" :publications="active"/>
         <Advertisment :inactive-publ="true" :publications="inactive"/>
-        <FavoriteAndHistory :favorite-publ="true"/>
-        <FavoriteAndHistory :history-publ="true"/>
+        <FavoriteAndHistory id="favorites" :favorite-publ="true" :publications="user.favortie_user"/>
+        <FavoriteAndHistory :history-publ="true" :publications="user.history_user"/>
       </section>
     </main>
   </div>

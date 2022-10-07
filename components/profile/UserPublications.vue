@@ -122,6 +122,8 @@ export default {
     border-radius: 15px;
     width: 100%;
 
+
+
     &.inactivePubl {
       opacity: 0.5;
     }

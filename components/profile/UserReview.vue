@@ -5,7 +5,7 @@
         src="@/assets/img/profile-example.png"
         alt="profile picture"
         class="user-review__title__img" />
-      <p class="user-review__title__name">Кирилл</p>
+      <p class="user-review__title__name">{{review.user.first_name}} {{review.user.last_name}}</p>
     </div>
     <div class="user-review__about">
       <div class="user-review__about__grade">

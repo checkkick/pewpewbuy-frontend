@@ -14,8 +14,8 @@
           name="find"
           placeholder="Поиск"
           v-on:change="get_searched_products"/>
-        <a href="#" class="header__items__favorite" @click.prevent>
-          <div class="header__items__favorite__counter">10</div>
+        <a v-if="authorized" href="#" class="header__items__favorite" @click.prevent="$router.push('/profile#favorites')">
+          <div class="header__items__favorite__counter">{{favorite_products.length}}</div>
         </a>
         <a
           v-if="!authorized"
@@ -56,6 +56,7 @@
         authStore,
         store,
         all_products: computed(() => store.ALL_PRODUCTS),
+        favorite_products: computed(() => store.FAVORITE_PRODUCTS),
         get_searched_products,
         authorized: computed(() => authStore.AUTHORIZED),
         search

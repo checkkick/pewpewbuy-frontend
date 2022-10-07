@@ -14,7 +14,7 @@
     </div>
     <div class="product-card__flex">
       <button class="product-card__btn">Профиль продавца</button>
-      <button class="product-card__btn accent">Подробнее</button>
+      <button class="product-card__btn accent" @click.prevent="getDetail()">Подробнее</button>
     </div>
     <a v-if="authorized"
        class="product-card__like"
@@ -62,9 +62,11 @@
     },
     data: () => {
       return {
-        like: false
+        like: false,
+
       }
     },
+
     async mounted() {
       console.log(this.liked)
       if (Object.keys(this.liked).length != 0) {
@@ -85,6 +87,13 @@
             this.like = false
           }
 
+        }
+      },
+      async getDetail() {
+        if (this.authorized) {
+          const response = await this.useProductStore.GET_DETAIL_PRODUCT(this.product.id)
+          if (response !== 400 && response !== 401) {
+          }
         }
       }
     }

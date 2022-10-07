@@ -6,7 +6,8 @@ export const products = defineStore('products', {
   state: () => {
     return {
       allProducts: [],
-      favoriteProducts: []
+      favoriteProducts: [],
+      detailProduct: {}
     }
   },
 
@@ -90,11 +91,24 @@ export const products = defineStore('products', {
       } catch (error) {
         return error.response.status
       }
-    }
+    },
+    async GET_DETAIL_PRODUCT(product) {
+      try {
+        const response = await api('products/detail/'+product+'/', {
+          method: 'GET',
+          errorAlert: 'Ошибка. Попробуйте снова',
+          headers: { 'Authorization': 'Bearer ' + get('access_pew') }
+        })
+        this.detailProduct = response
+      } catch (error) {
+        return error.response.status
+      }
+    },
   },
 
   getters: {
     ALL_PRODUCTS: state => state.allProducts,
-    FAVORITE_PRODUCTS: state => state.favoriteProducts
+    FAVORITE_PRODUCTS: state => state.favoriteProducts,
+    DETAIL_PRODUCTS: state => state.detailProduct
   }
 })
