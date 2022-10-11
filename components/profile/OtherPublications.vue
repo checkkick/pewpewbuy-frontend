@@ -20,29 +20,29 @@
     </a>
     <div class="publication__user">
       <img
-        src="@/assets/img/profile-example.png"
+        :src="publication.user.avatar"
         alt="user photo"
         class="publication__user__image"/>
       <div class="publication__user__about">
-        <p class="publication__user__about__name">Игорь</p>
+        <p class="publication__user__about__name">{{publication.user.first_name}} {{publication.user.last_name}}</p>
         <p class="publication__user__about__date">Публикация: {{new
-          Date(publication.product.created).toLocaleDateString()}}</p>
+          Date(publication.created).toLocaleDateString()}}</p>
       </div>
     </div>
     <div class="publication__image-slider">
-      <img :src="photo" alt="product-example"/>
+      <img :src="publication.photo[0].file" alt="product-example"/>
     </div>
     <h4 class="publication__title">
-      {{publication.product.manufacturer}} {{publication.product.name}}
+      {{publication.manufacturer}} {{publication.name}}
     </h4>
     <div class="publication__advanced">
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Местоположение:</p>
-        <p class="publication__advanced__line__text">{{publication.product.location}}</p>
+        <p class="publication__advanced__line__text">{{publication.location}}</p>
       </div>
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Цена:</p>
-        <p class="publication__advanced__line__text-bold">{{publication.product.price}} р.</p>
+        <p class="publication__advanced__line__text-bold">{{publication.price}} р.</p>
       </div>
     </div>
   </div>
@@ -69,23 +69,21 @@
     data() {
       return {
         like: false,
-        photo: 'http://bexram.online:8500'
       }
     },
     mounted() {
-      this.photo += this.publication.product.photo[0].file
       this.like = this.liked
     },
     methods: {
       async onLike() {
         if (!this.like) {
-          const response = await this.useProductStore.ADD_FAVORITE(this.publication.product.id)
+          const response = await this.useProductStore.ADD_FAVORITE(this.publication.id)
           if (response !== 400 && response !== 401) {
             this.like = true
           }
 
         } else {
-          const response = await this.useProductStore.REMOVE_FAVORITE(this.publication.product.id)
+          const response = await this.useProductStore.REMOVE_FAVORITE(this.publication.id)
           if (response !== 400 && response !== 401) {
             this.like = false
           }

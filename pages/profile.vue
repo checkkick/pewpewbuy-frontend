@@ -29,7 +29,7 @@
                 class="profile__main__info-layout__personal-info__about-flex">
                 <img
                   class="profile__main__info-layout__personal-info__about-flex__img"
-                  :src="avatar"
+                  :src="user.avatar"
                   alt="profile picture"/>
                 <div
                   class="profile__main__info-layout__personal-info__about-flex__contacts">
@@ -158,8 +158,8 @@
       <section class="profile__main__active-adv">
         <Advertisment :active-publ="true" :publications="active"/>
         <Advertisment :inactive-publ="true" :publications="inactive"/>
-        <FavoriteAndHistory id="favorites" :favorite-publ="true" :publications="user.favortie_user"/>
-        <FavoriteAndHistory :history-publ="true" :publications="user.history_user"/>
+        <FavoriteAndHistory id="favorites" :favorite-publ="true" :publications="user.favortie_products"/>
+        <FavoriteAndHistory :history-publ="true" :publications="user.history_products"/>
       </section>
     </main>
   </div>
@@ -200,7 +200,6 @@
       return {
         tg: 'https://t.me/',
         vk: 'https://vk.com/',
-        avatar: 'http://bexram.online:8500',
         active:[],
         inactive: [],
       }
@@ -212,7 +211,6 @@
           await this.store.GET_SELF()
           this.tg += this.user.tg
           this.vk += this.user.vk
-          this.avatar += this.user.avatar
           this.user.products.forEach((product, index)=> {
             if(product.status==='Active'){
               this.active.push(product)

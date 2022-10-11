@@ -43,7 +43,12 @@
 
   export default {
     props: {
-      product: null,
+      product: {
+        type: Object,
+        default() {
+          return {}
+        }
+      },
       liked: {
         type: Object,
         default() {
@@ -62,16 +67,13 @@
     },
     data: () => {
       return {
-        like: false,
+        like: false
 
       }
     },
 
     async mounted() {
-      console.log(this.liked)
-      if (Object.keys(this.liked).length != 0) {
-        this.like = true
-      }
+      this.like = this.product.is_favourite
     },
     methods: {
       async onLike() {

@@ -12,7 +12,7 @@
       <p class="publication__views__text">{{publ.views_count}} просмотров</p>
     </div>
     <div class="publication__image-slider" :class="{ inactivePubl }">
-      <img :src="photo" alt="product-example" />
+      <img :src="publ.photo[0].file" alt="product-example" />
     </div>
     <h4 class="publication__title">
       {{publ.manufacturer}} {{publ.name}}
@@ -39,12 +39,10 @@ export default {
   },
   data() {
     return{
-      photo:'http://bexram.online:8500',
       status: ''
     }
   },
   mounted() {
-    this.photo+=this.publ.photo[0].file
     if (this.publ.status === 'Active') {
       this.status='Опубликовано'
     }

@@ -8,7 +8,6 @@
       <section class="main__section-products">
         <ProductCard v-for="product in all_products"
                      :product="product"
-                     :liked="favorite_products.find(elem => elem.product.id === product.id)"
                      :key="product.id"
                      >
         </ProductCard>
@@ -36,9 +35,6 @@
     },
     async mounted() {
       await this.useProductStore.GET_ALL_PRODUCTS()
-      if(this.authorized) {
-          await this.useProductStore.GET_FAVORITE()
-      }
     }
 
   }

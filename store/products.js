@@ -13,12 +13,17 @@ export const products = defineStore('products', {
 
   actions: {
     async GET_ALL_PRODUCTS() {
+      let options={
+        method: 'GET',
+        errorAlert: 'при загрузке товара'
+      }
+      if (get('access_pew')) {
+
+        options['headers'] ={ 'Authorization': 'Bearer ' + get('access_pew')}
+      }
       try {
-        const response = await api('products/all/', {
-          method: 'GET',
-          errorAlert: 'при загрузке товара'
-        })
-        this.allProducts = response.results
+        const response = await api('products/all/', options)
+        this.allProducts = response
       } catch (error) {
         return error.response
       }

@@ -2,7 +2,7 @@
   <div class="user-review">
     <div class="user-review__title">
       <img
-        src="@/assets/img/profile-example.png"
+        :src="review.user.avatar"
         alt="profile picture"
         class="user-review__title__img" />
       <p class="user-review__title__name">{{review.user.first_name}} {{review.user.last_name}}</p>
