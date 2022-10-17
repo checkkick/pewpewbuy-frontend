@@ -5,20 +5,26 @@
         :src="review.user.avatar"
         alt="profile picture"
         class="user-review__title__img" />
-      <p class="user-review__title__name">{{review.user.first_name}} {{review.user.last_name}}</p>
+      <p class="user-review__title__name">
+        {{ review.user.first_name }} {{ review.user.last_name }}
+      </p>
     </div>
     <div class="user-review__about">
       <div class="user-review__about__grade">
         <p class="user-review__about__grade__title">Оценка:</p>
         <div class="user-review__about__grade__rating">
-          <p class="user-review__about__grade__rating__text">{{review.estimate}}</p>
+          <p class="user-review__about__grade__rating__text">
+            {{ review.estimate }}
+          </p>
           <RatingCalc :stars="review.estimate" :size="16" />
         </div>
       </div>
       <p class="user-review__about__text">
         {{ review.text }}
       </p>
-      <p class="user-review__about__date">{{new Date(review.created).toLocaleDateString()}}</p>
+      <p class="user-review__about__date">
+        {{ new Date(review.created).toLocaleDateString() }}
+      </p>
     </div>
   </div>
 </template>
@@ -28,7 +34,7 @@ import RatingCalc from './RatingCalc.vue'
 export default {
   components: { RatingCalc },
   props: {
-    review: {},
+    review: { type: Object, default: () => {} },
   },
 }
 </script>

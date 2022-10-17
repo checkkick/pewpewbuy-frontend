@@ -5,26 +5,26 @@
     </a>
     <p class="publication__status">
       Статус:
-      <span v-if="activePubl" class="active">{{status}}</span>
-      <span v-if="inactivePubl" class="inactive">{{status}}</span>
+      <span v-if="activePubl" class="active">{{ status }}</span>
+      <span v-if="inactivePubl" class="inactive">{{ status }}</span>
     </p>
     <div v-if="activePubl" class="publication__views">
-      <p class="publication__views__text">{{publ.views_count}} просмотров</p>
+      <p class="publication__views__text">{{ publ.views_count }} просмотров</p>
     </div>
     <div class="publication__image-slider" :class="{ inactivePubl }">
       <img :src="publ.photo[0].file" alt="product-example" />
     </div>
-    <h4 class="publication__title">
-      {{publ.manufacturer}} {{publ.name}}
-    </h4>
+    <h4 class="publication__title">{{ publ.manufacturer }} {{ publ.name }}</h4>
     <div class="publication__advanced">
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Местоположение:</p>
-        <p class="publication__advanced__line__text">{{publ.location}}</p>
+        <p class="publication__advanced__line__text">{{ publ.location }}</p>
       </div>
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Цена:</p>
-        <p class="publication__advanced__line__text-bold">{{publ.price}} руб.</p>
+        <p class="publication__advanced__line__text-bold">
+          {{ publ.price }} руб.
+        </p>
       </div>
     </div>
   </div>
@@ -35,27 +35,24 @@ export default {
   props: {
     activePubl: { type: Boolean, default: false },
     inactivePubl: { type: Boolean, default: false },
-    publ: {},
+    publ: { type: Object, default: () => {} },
   },
   data() {
-    return{
-      status: ''
+    return {
+      status: '',
     }
   },
   mounted() {
     if (this.publ.status === 'Active') {
-      this.status='Опубликовано'
+      this.status = 'Опубликовано'
+    } else if (this.publ.status === 'Sold') {
+      this.status = 'Продано'
+    } else if (this.publ.status === 'Publication off') {
+      this.status = 'Снято с публикации'
+    } else if (this.publ.status === 'On moderation') {
+      this.status = 'На модерации'
     }
-    else if (this.publ.status === 'Sold'){
-      this.status='Продано'
-    }
-    else if (this.publ.status === 'Publication off'){
-      this.status='Снято с публикации'
-    }
-    else if (this.publ.status === 'On moderation'){
-      this.status='На модерации'
-    }
-  }
+  },
 }
 </script>
 
@@ -119,8 +116,6 @@ export default {
     align-items: center;
     border-radius: 15px;
     width: 100%;
-
-
 
     &.inactivePubl {
       opacity: 0.5;

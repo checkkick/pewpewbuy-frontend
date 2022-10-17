@@ -7,12 +7,12 @@
       <label class="modal-window__label" for="email-register">Email</label>
       <input
         id="email-login"
+        v-model="mail"
         class="modal-window__input"
         type="email"
         name="email"
-        v-model="mail"
-        placeholder="yourmail@gmail.com"/>
-      <div class="modal-window__password-title" v-if="sended">
+        placeholder="yourmail@gmail.com" />
+      <div v-if="sended" class="modal-window__password-title">
         <label class="modal-window__password-title__label" for="password-login">
           Код-пароль
         </label>
@@ -21,13 +21,13 @@
       <input
         v-if="sended"
         id="password-login"
+        v-model="code"
         class="modal-window__input"
         name="password"
         type="password"
-        v-model="code"
-        placeholder="****"/>
+        placeholder="****" />
 
-      <p style="color:red" v-if="send_error!==''">{{send_error}}</p>
+      <p v-if="send_error !== ''" style="color: red">{{ send_error }}</p>
       <!--      <label class="modal-window__label" for="fio-register">-->
       <!--        Имя пользователя-->
       <!--      </label>-->
@@ -50,7 +50,12 @@
         @click="confirm_mail()">
         Подтвердить
       </button>
-      <button v-if="!sended" class="modal-window__enter-btn" @click="check_mail()">Зарегистрироваться</button>
+      <button
+        v-if="!sended"
+        class="modal-window__enter-btn"
+        @click="check_mail()">
+        Зарегистрироваться
+      </button>
       <p class="modal-window__text">
         Уже есть личный кабинет?
         <a
@@ -65,198 +70,195 @@
 </template>
 
 <script>
-  import { auth } from '../store/auth.js'
+import { auth } from '../store/auth.js'
 
-  export default {
-    setup() {
-      const store = auth()
-      return {
-        store
-      }
-    },
-
-    emits: ['closeRegisterWindow', 'openLoginWindow'],
-    data: () => {
-      return {
-        mail: '',
-        code:'',
-        send_error: '',
-        sended: false
-      }
-    },
-    mounted() {
-      document.getElementsByTagName('body')[0].style.overflow = 'hidden'
-    },
-    methods: {
-      closeWindow() {
-        document.getElementsByTagName('body')[0].style.overflow = null
-        this.$emit('closeRegisterWindow')
-      },
-      async check_mail() {
-        const response = await this.store.CHECK_MAIL(this.mail)
-        console.log(response)
-        if (response.message === 'Message sended') {
-          this.send_error = ''
-          this.sended = true
-        } else if (response.message === 'Existed') {
-          this.send_error = 'Пользователь с такой почтой уже существует'
-        } else if (response == 400) {
-          this.send_error = 'Произошла ошибка. Попробуйте еще раз'
-        }
-      },
-
-      async confirm_mail() {
-        const response = await this.store.CONFIRM_MAIL(this.mail,this.code)
-        console.log(response)
-        if (response.message === 'Mail confirmed') {
-          this.send_error = ''
-          this.sended = true
-          await this.store.GET_TOKEN(this.mail,this.code)
-          await this.store.GET_SELF()
-          this.closeWindow()
-          this.$router.push('/profile')
-          this.sended = true
-        } else if (response.message === 'Mail not exist') {
-          this.send_error = 'Неверный код'
-        } else if (response == 400) {
-          this.send_error = 'Произошла ошибка. Попробуйте еще раз'
-        }
-      }
+export default {
+  emits: ['closeRegisterWindow', 'openLoginWindow'],
+  setup() {
+    const store = auth()
+    return {
+      store,
     }
-  }
+  },
+  data: () => {
+    return {
+      mail: '',
+      code: '',
+      send_error: '',
+      sended: false,
+    }
+  },
+  mounted() {
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+  },
+  methods: {
+    closeWindow() {
+      document.getElementsByTagName('body')[0].style.overflow = null
+      this.$emit('closeRegisterWindow')
+    },
+    async check_mail() {
+      const response = await this.store.CHECK_MAIL(this.mail)
+      if (response.message === 'Message sended') {
+        this.send_error = ''
+        this.sended = true
+      } else if (response.message === 'Existed') {
+        this.send_error = 'Пользователь с такой почтой уже существует'
+      } else if (response === 400) {
+        this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+      }
+    },
+
+    async confirm_mail() {
+      const response = await this.store.CONFIRM_MAIL(this.mail, this.code)
+      if (response.message === 'Mail confirmed') {
+        this.send_error = ''
+        this.sended = true
+        await this.store.GET_TOKEN(this.mail, this.code)
+        await this.store.GET_SELF()
+        this.closeWindow()
+        this.$router.push('/profile')
+        this.sended = true
+      } else if (response.message === 'Mail not exist') {
+        this.send_error = 'Неверный код'
+      } else if (response === 400) {
+        this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+      }
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  .modal-background {
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal-background {
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(31, 31, 31, 0.87);
+}
+
+.modal-window {
+  position: relative;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $modal-background;
+  border-radius: 38px;
+  padding: 75px;
+
+  &__close {
+    cursor: pointer;
     position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(31, 31, 31, 0.87);
-  }
+    width: 20px;
+    height: 20px;
+    top: 41px;
+    right: 41px;
 
-  .modal-window {
-    position: relative;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: $modal-background;
-    border-radius: 38px;
-    padding: 75px;
-
-    &__close {
-      cursor: pointer;
+    &::before {
+      content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
-      top: 41px;
-      right: 41px;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 10px;
-        width: 21px;
-        height: 2px;
-        background-color: $black;
-        transform: rotate(45deg);
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 10px;
-        width: 21px;
-        height: 2px;
-        background-color: $black;
-        transform: rotate(-45deg);
-      }
-    }
-    &__password-title {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 3px;
-
-      &__label {
-        @include defineFontMontserrat(400, 20px, 23px);
-      }
-
-      &__show {
-        @include defineFontMontserrat(400, 17px, 20px);
-        cursor: pointer;
-        border: none;
-        outline: none;
-        padding: 0 0 0 20px;
-        background-color: transparent;
-        background: url('@/assets/img/password-eye.svg') no-repeat center left;
-      }
-    }
-    &__enter-btn {
-      cursor: pointer;
-      @include defineBtnPrimary(20px, 12px, 23px, 88px);
-      margin-bottom: 36px;
+      top: 10px;
+      width: 21px;
+      height: 2px;
+      background-color: $black;
+      transform: rotate(45deg);
     }
 
-    &__input {
-      @include defineFontMontserrat(600, 20px, 23px);
-      outline: none;
-      border: none;
-      background: #eaeaea;
-      border-radius: 12px;
-      padding: 22px 24px;
-      align-self: stretch;
-      margin-bottom: 20px;
-
-      &::placeholder {
-        color: rgba(0, 0, 0, 0.2);
-      }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      width: 21px;
+      height: 2px;
+      background-color: $black;
+      transform: rotate(-45deg);
     }
-
-    &__title {
-      @include defineFontMontserrat(600, 30px, 37px);
-      margin: 0;
-      color: $black;
-      margin-bottom: 38px;
-    }
+  }
+  &__password-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
 
     &__label {
       @include defineFontMontserrat(400, 20px, 23px);
-      align-self: flex-start;
-      margin-bottom: 3px;
+    }
+
+    &__show {
+      @include defineFontMontserrat(400, 17px, 20px);
+      cursor: pointer;
+      border: none;
+      outline: none;
+      padding: 0 0 0 20px;
+      background-color: transparent;
+      background: url('@/assets/img/password-eye.svg') no-repeat center left;
+    }
+  }
+  &__enter-btn {
+    cursor: pointer;
+    @include defineBtnPrimary(20px, 12px, 23px, 88px);
+    margin-bottom: 36px;
+  }
+
+  &__input {
+    @include defineFontMontserrat(600, 20px, 23px);
+    outline: none;
+    border: none;
+    background: #eaeaea;
+    border-radius: 12px;
+    padding: 22px 24px;
+    align-self: stretch;
+    margin-bottom: 20px;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__title {
+    @include defineFontMontserrat(600, 30px, 37px);
+    margin: 0;
+    color: $black;
+    margin-bottom: 38px;
+  }
+
+  &__label {
+    @include defineFontMontserrat(400, 20px, 23px);
+    align-self: flex-start;
+    margin-bottom: 3px;
+  }
+
+  &__link {
+    @include defineFontMontserrat(400, 18px, 21px);
+    color: $black;
+    text-decoration: none;
+    border-bottom: 1px solid $black;
+    margin-bottom: 45px;
+  }
+
+  &__text {
+    @include defineFontMontserrat(400, 20px, 23px);
+    margin: 0;
+    color: $black;
+    text-align: center;
+
+    &.margin {
+      margin-bottom: 31px;
     }
 
     &__link {
-      @include defineFontMontserrat(400, 18px, 21px);
       color: $black;
       text-decoration: none;
       border-bottom: 1px solid $black;
-      margin-bottom: 45px;
-    }
-
-    &__text {
-      @include defineFontMontserrat(400, 20px, 23px);
-      margin: 0;
-      color: $black;
-      text-align: center;
-
-      &.margin {
-        margin-bottom: 31px;
-      }
-
-      &__link {
-        color: $black;
-        text-decoration: none;
-        border-bottom: 1px solid $black;
-      }
     }
   }
+}
 </style>

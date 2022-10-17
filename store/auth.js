@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import { api } from '@/composables/api'
 import { checkСookies, get, set } from '@/store/cookies'
 import { defineStore } from 'pinia'
