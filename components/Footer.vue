@@ -203,7 +203,7 @@ const filterMenu = {
   z-index: 998;
 
   &.active {
-    padding: 70px;
+    padding: 70px 0;
   }
 
   &__link {
