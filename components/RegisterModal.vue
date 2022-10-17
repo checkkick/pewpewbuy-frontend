@@ -12,31 +12,28 @@
         type="email"
         name="email"
         placeholder="yourmail@gmail.com" />
+
       <div v-if="sended" class="modal-window__password-title">
         <label class="modal-window__password-title__label" for="password-login">
           Код-пароль
         </label>
-        <button class="modal-window__password-title__show">Показать</button>
+        <button
+          class="modal-window__password-title__show"
+          @click="showPwd = !showPwd">
+          Показать
+        </button>
       </div>
+
       <input
         v-if="sended"
         id="password-login"
         v-model="code"
         class="modal-window__input"
         name="password"
-        type="password"
+        :type="showPwd ? 'text' : 'password'"
         placeholder="****" />
 
       <p v-if="send_error !== ''" style="color: red">{{ send_error }}</p>
-      <!--      <label class="modal-window__label" for="fio-register">-->
-      <!--        Имя пользователя-->
-      <!--      </label>-->
-      <!--      <input-->
-      <!--        id="fio-register"-->
-      <!--        class="modal-window__input"-->
-      <!--        type="text"-->
-      <!--        name="fio"-->
-      <!--        placeholder="Иван Иванов"/>-->
 
       <p class="modal-window__text margin">
         Нажимая на кнопку вы соглашаетесь с
@@ -44,18 +41,21 @@
           политикой конфиденциальности
         </a>
       </p>
+
       <button
         v-if="sended"
         class="modal-window__enter-btn"
         @click="confirm_mail()">
         Подтвердить
       </button>
+
       <button
         v-if="!sended"
         class="modal-window__enter-btn"
         @click="check_mail()">
         Зарегистрироваться
       </button>
+
       <p class="modal-window__text">
         Уже есть личный кабинет?
         <a
@@ -82,6 +82,7 @@ export default {
   },
   data: () => {
     return {
+      showPwd: false,
       mail: '',
       code: '',
       send_error: '',
@@ -205,7 +206,7 @@ export default {
   &__enter-btn {
     cursor: pointer;
     @include defineBtnPrimary(20px, 12px, 23px, 88px);
-    margin-bottom: 36px;
+    margin-bottom: 20px;
   }
 
   &__input {
@@ -251,7 +252,7 @@ export default {
     text-align: center;
 
     &.margin {
-      margin-bottom: 31px;
+      margin-bottom: 20px;
     }
 
     &__link {

@@ -17,27 +17,37 @@
         <label class="modal-window__password-title__label" for="password-login">
           Код-пароль
         </label>
-        <button class="modal-window__password-title__show">Показать</button>
+        <button
+          class="modal-window__password-title__show"
+          @click="showPwd = !showPwd">
+          Показать
+        </button>
       </div>
+
       <input
         v-if="sended"
         id="password-login"
         v-model="password"
         class="modal-window__input"
         name="password"
-        type="password"
+        :type="showPwd ? 'text' : 'password'"
         placeholder="****" />
+
+      <p v-if="sendError !== ''" class="modal-window__text error">
+        {{ sendError }}
+      </p>
+
       <button
         v-if="!sended"
         class="modal-window__enter-btn"
         @click="send_code()">
         Отправить код
       </button>
+
       <button v-if="sended" class="modal-window__enter-btn" @click="login()">
         Войти
       </button>
-      <!--      <a href="#" class="modal-window__link" @click.prevent>Забыли пароль?</a>-->
-      <p v-if="send_error !== ''" style="color: red">{{ send_error }}</p>
+
       <p class="modal-window__text">
         Еще нет личного кабинета?
         <a
@@ -64,10 +74,11 @@ export default {
   },
   data: () => {
     return {
+      showPwd: false,
       sended: '',
       email: '',
       password: '',
-      send_error: '',
+      sendError: '',
     }
   },
 
@@ -83,25 +94,25 @@ export default {
     async send_code() {
       const response = await this.store.SEND_CODE(this.email)
       if (response.email === this.email) {
-        this.send_error = ''
+        this.sendError = ''
         this.sended = true
       } else if (response === 404) {
-        this.send_error = 'Пользователь с такой почтой не найден'
+        this.sendError = 'Пользователь с такой почтой не найден'
       } else if (response === 400) {
-        this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+        this.sendError = 'Произошла ошибка. Попробуйте еще раз'
       }
     },
     async login() {
       const response = await this.store.GET_TOKEN(this.email, this.password)
       if (response.access) {
-        this.send_error = ''
+        this.sendError = ''
         await this.store.GET_SELF()
         this.closeWindow()
         this.$router.push('/profile')
       } else if (response === 401) {
-        this.send_error = 'Неверный код'
+        this.sendError = 'Неверный код'
       } else if (response === 400) {
-        this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+        this.sendError = 'Произошла ошибка. Попробуйте еще раз'
       }
     },
   },
@@ -165,11 +176,11 @@ export default {
   &__enter-btn {
     cursor: pointer;
     @include defineBtnPrimary(20px, 12px, 23px, 88px);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   &__input {
-    @include defineFontMontserrat(600, 20px, 23px);
+    @include defineFontMontserrat(400, 20px, 23px);
     outline: none;
     border: none;
     background: #eaeaea;
@@ -177,6 +188,7 @@ export default {
     padding: 22px 24px;
     align-self: stretch;
     margin-bottom: 20px;
+    color: #5a5a5a;
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
@@ -227,9 +239,15 @@ export default {
   }
 
   &__text {
-    @include defineFontMontserrat(400, 20px, 23px);
+    @include defineFontMontserrat(400, 20px, 25px);
     margin: 0;
+    text-align: center;
     color: $black;
+
+    &.error {
+      color: red;
+      margin-bottom: 20px;
+    }
 
     &__link {
       color: $black;
