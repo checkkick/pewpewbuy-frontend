@@ -30,7 +30,7 @@
       @before-leave="beforeLeave"
       @leave="leave">
       <div
-        v-show="open"
+        v-show="open && publications.length > 0"
         class="favorite__wrapper"
         :class="{ favoritePubl, historyPubl }">
         <swiper

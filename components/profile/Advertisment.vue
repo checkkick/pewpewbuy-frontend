@@ -5,7 +5,7 @@
         class="advertisment__title__logo"
         :class="{ activePubl, inactivePubl }"></span>
       <h3 v-if="activePubl" class="advertisment__title__name">
-        Активные объявления ({{ publications.length }}/5)
+        Активные объявления ({{ publications.length }})
       </h3>
       <h3 v-if="inactivePubl" class="advertisment__title__name">
         Неактивные объявления ({{ publications.length }})
@@ -33,7 +33,7 @@
       @before-leave="beforeLeave"
       @leave="leave">
       <div
-        v-show="open"
+        v-show="open && (publications.length > 0 || activePubl)"
         class="advertisment__wrapper"
         :class="{ activePubl, inactivePubl }">
         <swiper
