@@ -60,6 +60,7 @@ html {
 *,
 *::before,
 *::after {
+  scroll-behavior: smooth;
   box-sizing: inherit;
 }
 
