@@ -5,7 +5,6 @@ import { defineStore } from 'pinia'
 export const auth = defineStore('auth', {
   state: () => {
     return {
-      user: {},
       authorized: false,
     }
   },
@@ -54,18 +53,6 @@ export const auth = defineStore('auth', {
         return error.response.status
       }
     },
-    async GET_SELF() {
-      try {
-        const response = await api('clients/getself/', {
-          method: 'GET',
-          errorAlert: 'при загрузке товара',
-          headers: { Authorization: 'Bearer ' + get('access_pew') },
-        })
-        this.user = response
-      } catch (error) {
-        return error.response
-      }
-    },
     async CHECK_MAIL(mail) {
       try {
         const response = await api('auth/check_mail/', {
@@ -106,7 +93,6 @@ export const auth = defineStore('auth', {
   },
 
   getters: {
-    USER_STATE: state => state.user,
     AUTHORIZED: state => state.authorized,
   },
 })

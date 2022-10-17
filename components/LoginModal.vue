@@ -62,14 +62,17 @@
 </template>
 
 <script>
-import { auth } from '../store/auth.js'
+import { auth } from '@/store/auth'
+import { clients } from '@/store/clients'
 
 export default {
   emits: ['closeLoginWindow', 'openRegisterWindow'],
   setup() {
     const store = auth()
+    const clientsStore = clients()
     return {
       store,
+      clientsStore,
     }
   },
   data: () => {
@@ -106,7 +109,7 @@ export default {
       const response = await this.store.GET_TOKEN(this.email, this.password)
       if (response.access) {
         this.sendError = ''
-        await this.store.GET_SELF()
+        await this.clientsStore.GET_SELF()
         this.closeWindow()
         this.$router.push('/profile')
       } else if (response === 401) {
