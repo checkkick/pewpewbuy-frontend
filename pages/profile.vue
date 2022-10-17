@@ -20,8 +20,9 @@
               {{ user.first_name }} {{ user.last_name }}
             </h4>
             <a
+              v-if="user.email"
               class="profile__main__info-layout__personal-info__edit"
-              @click.prevent>
+              @click.prevent="editProfile = true">
               <img src="@/assets/img/profile-edit.svg" alt="profile-edit" />
             </a>
             <div class="profile__main__info-layout__personal-info__about">
@@ -98,17 +99,6 @@
                     {{ user.call_sign }}
                   </p>
                 </div>
-                <!--                <div-->
-                <!--                  class="profile__main__info-layout__personal-info__about-flex__line">-->
-                <!--                  <p-->
-                <!--                    class="profile__main__info-layout__personal-info__about-flex__line__title">-->
-                <!--                    Пол-->
-                <!--                  </p>-->
-                <!--                  <p-->
-                <!--                    class="profile__main__info-layout__personal-info__about-flex__line__text">-->
-                <!--                    мужской-->
-                <!--                  </p>-->
-                <!--                </div>-->
                 <div
                   class="profile__main__info-layout__personal-info__about-flex__line">
                   <p
@@ -120,17 +110,6 @@
                     {{ user.city }}
                   </p>
                 </div>
-                <!--                <div-->
-                <!--                  class="profile__main__info-layout__personal-info__about-flex__line">-->
-                <!--                  <p-->
-                <!--                    class="profile__main__info-layout__personal-info__about-flex__line__title">-->
-                <!--                    Телефон-->
-                <!--                  </p>-->
-                <!--                  <p-->
-                <!--                    class="profile__main__info-layout__personal-info__about-flex__line__text">-->
-                <!--                    8(909)909-78-89-->
-                <!--                  </p>-->
-                <!--                </div>-->
               </div>
             </div>
           </div>
@@ -155,6 +134,7 @@
           </div>
         </div>
       </section>
+
       <section class="profile__main__active-adv">
         <Advertisment :active-publ="true" :publications="active" />
         <Advertisment :inactive-publ="true" :publications="inactive" />
@@ -166,12 +146,17 @@
           :history-publ="true"
           :publications="user.history_products" />
       </section>
+
+      <EditProfile
+        v-if="editProfile"
+        @close-edit-window="editProfile = false" />
     </main>
   </div>
 </template>
 
 <script>
 import Advertisment from '@/components/profile/Advertisment.vue'
+import EditProfile from '@/components/profile/EditProfile.vue'
 import FavoriteAndHistory from '@/components/profile/FavoriteAndHistory.vue'
 import RatingCalc from '@/components/profile/RatingCalc.vue'
 import UserReview from '@/components/profile/UserReview.vue'
@@ -181,6 +166,7 @@ import 'swiper/scss/pagination'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 import { auth } from '@/store/auth.js'
+import { clients } from '@/store/clients'
 
 export default {
   components: {
@@ -190,14 +176,17 @@ export default {
     UserReview,
     Advertisment,
     FavoriteAndHistory,
+    EditProfile,
   },
   setup() {
     const store = auth()
+    const clientsStore = clients()
     return {
       store,
+      clientsStore,
       modules: [Navigation, Pagination],
       authorized: computed(() => store.AUTHORIZED),
-      user: computed(() => store.USER_STATE),
+      user: computed(() => clientsStore.USER_STATE),
     }
   },
   data() {
@@ -206,13 +195,14 @@ export default {
       vk: 'https://vk.com/',
       active: [],
       inactive: [],
+      editProfile: false,
     }
   },
   async mounted() {
     await this.store.CHECK_AUTH()
     if (this.authorized) {
       if (this.user !== {}) {
-        await this.store.GET_SELF()
+        await this.clientsStore.GET_SELF()
         this.tg += this.user.tg
         this.vk += this.user.vk
         this.user.products.forEach(product => {
