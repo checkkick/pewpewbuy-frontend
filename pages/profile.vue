@@ -325,8 +325,8 @@ export default {
             }
 
             &__img {
-              max-width: 181px;
-              max-height: 181px;
+              width: 181px;
+              height: 181px;
               border-radius: 50%;
             }
 
