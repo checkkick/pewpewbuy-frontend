@@ -9,10 +9,12 @@
         Заполните информацию о себе
       </h3>
 
-      <div class="profile__main__edit__window__photo">
+      <div
+        class="profile__main__edit__window__photo"
+        @click="$refs.image.click()">
         <img
           class="profile__main__edit__window__photo__image"
-          :src="user.avatar ? user.avatar : noImage"
+          :src="image"
           alt="no-photo" />
         <a
           href=""
@@ -20,6 +22,11 @@
           @click.prevent
           >Изменить фотографию</a
         >
+        <input
+          ref="image"
+          class="profile__main__edit__window__photo__input"
+          type="file"
+          @change="changeImage" />
       </div>
 
       <div class="profile__main__edit__window__field">
@@ -143,6 +150,7 @@ export default {
   data: () => {
     return {
       saveDisable: true,
+      image: '',
       user: {},
     }
   },
@@ -166,6 +174,12 @@ export default {
       this.user[key] = this.clientsStore.USER_STATE[key]
     }
 
+    if (this.user.avatar) {
+      this.image = this.user.avatar
+    } else {
+      this.image = noPhoto
+    }
+
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
   },
   methods: {
@@ -180,6 +194,16 @@ export default {
 
       this.clientsStore.UPDATE_USER(this.clientsStore.USER_STATE.id, data)
       this.closeWindow()
+    },
+    changeImage(e) {
+      const file = e.target.files[0]
+      this.user.avatar = file
+      const reader = new FileReader()
+      const that = this
+      reader.readAsDataURL(file)
+      reader.onload = function (e) {
+        that.image = e.target.result
+      }
     },
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null
@@ -262,8 +286,8 @@ export default {
       gap: 15px;
 
       &__image {
-        max-width: 106px;
-        max-height: 106px;
+        width: 106px;
+        height: 106px;
         border-radius: 50%;
       }
 
@@ -272,6 +296,12 @@ export default {
         text-decoration: none;
         border-bottom: 1px solid $black;
         color: $black;
+      }
+
+      &__input {
+        position: absolute;
+        top: -100%;
+        visibility: hidden;
       }
     }
 

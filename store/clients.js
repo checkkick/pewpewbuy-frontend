@@ -28,7 +28,9 @@ export const clients = defineStore('clients', {
           method: 'PATCH',
           body: data,
           errorAlert: 'при обновлении данных пользователя',
-          headers: { Authorization: 'Bearer ' + get('access_pew') },
+          headers: {
+            Authorization: 'Bearer ' + get('access_pew'),
+          },
         })
 
         for (const key in response) {
