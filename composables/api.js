@@ -10,10 +10,10 @@ export const api = (url, options = {}) =>
 
       storeAlerts.alerts.push({
         id: storeAlerts.counter,
-        alert: options.errorAlert
+        alert: options.errorAlert,
       })
       storeAlerts.counter++
 
       return false
-    }
+    },
   })

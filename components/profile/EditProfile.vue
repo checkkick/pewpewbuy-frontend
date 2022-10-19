@@ -184,11 +184,11 @@ export default {
   },
   methods: {
     updateUserData() {
-      const data = {}
+      const data = new FormData()
 
       for (const key in this.user) {
         if (this.user[key] !== this.clientsStore.USER_STATE[key]) {
-          data[key] = this.user[key]
+          data.append(key, this.user[key])
         }
       }
 
