@@ -30,11 +30,12 @@
                 class="profile__main__info-layout__personal-info__about-flex">
                 <img
                   class="profile__main__info-layout__personal-info__about-flex__img"
-                  :src="user.avatar"
+                  :src="user.avatar ? user.avatar : noImage"
                   alt="profile picture" />
                 <div
                   class="profile__main__info-layout__personal-info__about-flex__contacts">
                   <a
+                    v-if="user.tg"
                     :href="tg"
                     class="profile__main__info-layout__personal-info__about-flex__contacts__item">
                     <svg
@@ -49,6 +50,7 @@
                     </svg>
                   </a>
                   <a
+                    v-if="user.vk"
                     :href="vk"
                     class="profile__main__info-layout__personal-info__about-flex__contacts__item">
                     <svg
@@ -168,6 +170,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { auth } from '@/store/auth.js'
 import { clients } from '@/store/clients'
 
+import noPhoto from '@/assets/img/no-photo.png'
+
 export default {
   components: {
     Swiper,
@@ -187,6 +191,7 @@ export default {
       modules: [Navigation, Pagination],
       authorized: computed(() => store.AUTHORIZED),
       user: computed(() => clientsStore.USER_STATE),
+      noImage: noPhoto,
     }
   },
   data() {
@@ -327,8 +332,9 @@ export default {
 
             &__contacts {
               display: flex;
-              align-items: center;
-              justify-content: space-around;
+              align-items: flex-end;
+              justify-content: center;
+              gap: 15px;
             }
 
             &__line {

@@ -12,7 +12,7 @@
       <div class="profile__main__edit__window__photo">
         <img
           class="profile__main__edit__window__photo__image"
-          src="@/assets/img/no-photo.png"
+          :src="user.avatar ? user.avatar : noImage"
           alt="no-photo" />
         <a
           href=""
@@ -91,7 +91,8 @@
           v-model="user.email"
           class="profile__main__edit__window__field__input"
           type="email"
-          placeholder="yourmail@gmail.com" />
+          placeholder="yourmail@gmail.com"
+          disabled />
       </div>
 
       <div class="profile__main__edit__window__field">
@@ -118,7 +119,8 @@
 
       <button
         class="profile__main__edit__window__save-btn"
-        :disabled="saveDisable">
+        :disabled="saveDisable"
+        @click="updateUserData">
         Сохранить
       </button>
     </div>
@@ -126,14 +128,16 @@
 </template>
 
 <script>
+import noPhoto from '@/assets/img/no-photo.png'
 import { clients } from '@/store/clients'
 
 export default {
   emits: ['closeEditWindow'],
   setup() {
-    const userStore = clients().USER_STATE
+    const clientsStore = clients()
     return {
-      userStore,
+      clientsStore,
+      noImage: noPhoto,
     }
   },
   data: () => {
@@ -146,7 +150,7 @@ export default {
     user: {
       handler() {
         for (const key in this.user) {
-          if (this.user[key] !== this.userStore[key]) {
+          if (this.user[key] !== this.clientsStore.USER_STATE[key]) {
             this.saveDisable = false
             return
           } else {
@@ -158,13 +162,25 @@ export default {
     },
   },
   mounted() {
-    for (const key in this.userStore) {
-      this.user[key] = this.userStore[key]
+    for (const key in this.clientsStore.USER_STATE) {
+      this.user[key] = this.clientsStore.USER_STATE[key]
     }
 
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
   },
   methods: {
+    updateUserData() {
+      const data = {}
+
+      for (const key in this.user) {
+        if (this.user[key] !== this.clientsStore.USER_STATE[key]) {
+          data[key] = this.user[key]
+        }
+      }
+
+      this.clientsStore.UPDATE_USER(this.clientsStore.USER_STATE.id, data)
+      this.closeWindow()
+    },
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null
       this.$emit('closeEditWindow')
@@ -283,6 +299,11 @@ export default {
 
         &::placeholder {
           color: rgba(0, 0, 0, 0.2);
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          color: #5a5a5a6a;
         }
       }
     }
