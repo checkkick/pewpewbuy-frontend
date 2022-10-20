@@ -1,13 +1,12 @@
 import { defineStore } from 'pinia'
-import { get } from '~~/store/cookies'
 import { api } from '~~/composables/api'
+import { get } from '~~/store/cookies'
 
 export const products = defineStore('products', {
   state: () => {
     return {
       allProducts: [],
       favoriteProducts: [],
-      detailProduct: {},
     }
   },
 
@@ -99,22 +98,18 @@ export const products = defineStore('products', {
       }
     },
     async GET_DETAIL_PRODUCT(product) {
-      try {
-        const response = await api('products/detail/' + product + '/', {
-          method: 'GET',
-          errorAlert: 'Ошибка. Попробуйте снова',
-          headers: { Authorization: 'Bearer ' + get('access_pew') },
-        })
-        this.detailProduct = response
-      } catch (error) {
-        return error.response.status
-      }
+      const response = await api('products/detail/' + product + '/', {
+        method: 'GET',
+        errorAlert: 'Ошибка. Попробуйте снова',
+        headers: { Authorization: 'Bearer ' + get('access_pew') },
+      })
+
+      return response
     },
   },
 
   getters: {
     ALL_PRODUCTS: state => state.allProducts,
     FAVORITE_PRODUCTS: state => state.favoriteProducts,
-    DETAIL_PRODUCTS: state => state.detailProduct,
   },
 })

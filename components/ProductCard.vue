@@ -14,7 +14,9 @@
     </div>
     <div class="product-card__flex">
       <button class="product-card__btn">Профиль продавца</button>
-      <button class="product-card__btn accent" @click.prevent="getDetail()">
+      <button
+        class="product-card__btn accent"
+        @click.prevent="$router.push('/product/' + product.id)">
         Подробнее
       </button>
     </div>
@@ -41,8 +43,8 @@
 </template>
 
 <script>
-import { auth } from '../store/auth'
-import { products } from '../store/products'
+import { auth } from '@/store/auth'
+import { products } from '@/store/products'
 
 export default {
   props: {
@@ -93,11 +95,6 @@ export default {
         if (response !== 400 && response !== 401) {
           this.like = false
         }
-      }
-    },
-    async getDetail() {
-      if (this.authorized) {
-        await this.useProductStore.GET_DETAIL_PRODUCT(this.product.id)
       }
     },
   },
