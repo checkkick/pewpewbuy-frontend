@@ -13,7 +13,7 @@
         fill="#F8B94E" />
     </svg>
     <svg
-      v-for="item in nonStars"
+      v-for="item in 5 - stars"
       :key="item"
       :width="size"
       height="22"
@@ -39,14 +39,6 @@ export default {
       type: Number,
       default: 24,
     },
-  },
-  data() {
-    return {
-      nonStars: 0,
-    }
-  },
-  mounted() {
-    this.nonStars = 5 - this.stars
   },
 }
 </script>
