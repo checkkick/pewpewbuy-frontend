@@ -176,8 +176,6 @@ export default {
         this.userImage = noPhoto
       }
 
-      console.log(this.detProduct)
-
       this.crumbs.push(
         this.detProduct.category.parent_category.name,
         this.detProduct.category.name,
