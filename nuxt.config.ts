@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         { hid: 'description', name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'assets/img/favicon.ico' }, { rel: 'stylesheet', href: 'assets/css/normalize.css' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/assets/img/favicon.ico' }, { rel: 'stylesheet', href: '/assets/css/normalize.css' }],
     },
   },
   css: ['assets/scss/main.scss'],
