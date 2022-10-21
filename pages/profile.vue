@@ -17,7 +17,8 @@
           <h3 class="profile__main__info-layout__title">Личная информация</h3>
           <div class="profile__main__info-layout__personal-info">
             <h4 class="profile__main__info-layout__personal-info__name">
-              {{ user.first_name }} {{ user.last_name }}
+              {{ user.first_name ? user.first_name : 'Имя пользователя' }}
+              {{ user.last_name }}
             </h4>
             <a
               v-if="user.email"
@@ -50,8 +51,14 @@
                     Игровой позывной
                   </p>
                   <p
+                    v-if="user.call_sign"
                     class="profile__main__info-layout__personal-info__about-flex__line__text">
-                    {{ user.call_sign }}
+                    {{ user.call_sign ? user.call_sign : 'не заполнено' }}
+                  </p>
+                  <p
+                    v-else
+                    class="profile__main__info-layout__personal-info__about-flex__line__text inactive">
+                    не заполнено
                   </p>
                 </div>
                 <div
@@ -61,8 +68,14 @@
                     Местоположение
                   </p>
                   <p
+                    v-if="user.city"
                     class="profile__main__info-layout__personal-info__about-flex__line__text">
                     {{ user.city }}
+                  </p>
+                  <p
+                    v-else
+                    class="profile__main__info-layout__personal-info__about-flex__line__text inactive">
+                    не заполнено
                   </p>
                 </div>
               </div>
@@ -119,6 +132,9 @@
           <h3 class="profile__main__info-layout__title">Отзывы</h3>
           <div class="profile__main__info-layout__reviews">
             <swiper
+              v-if="
+                user.about_me_reviews ? user.about_me_reviews.length > 0 : false
+              "
               class="profile__main__info-layout__reviews__swiper"
               :modules="modules"
               :slides-per-view="2"
@@ -132,6 +148,24 @@
                 <UserReview :review="review" />
               </swiper-slide>
             </swiper>
+
+            <div v-else class="review-empty">
+              <div class="review-user">
+                <span class="review-user__photo-empty"></span>
+                <p class="review-user__name">Имя пользователя</p>
+              </div>
+              <div class="review-card">
+                <div class="review-value">
+                  <p class="review-value__title">Оценка:</p>
+                  <div class="review-rating">
+                    <p class="review-rating__value">0,0</p>
+                    <RatingCalc :stars="0" />
+                  </div>
+                </div>
+                <p class="review-card__text">Комментарии пока отсутствуют...</p>
+                <p class="review-card__date">Дата публикации</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -344,17 +378,21 @@ export default {
                 @include defineFontMontserrat(400, 18px, 22px);
                 width: 100%;
                 margin: 0;
+                &.inactive {
+                  color: #b1b1b1;
+                }
               }
             }
           }
         }
 
         &__contacts {
+          padding-left: 35px;
           align-self: flex-start;
           display: flex;
-          align-items: flex-end;
+          align-items: center;
           justify-content: center;
-          gap: 15px;
+          gap: 20px;
         }
       }
 
@@ -377,6 +415,68 @@ export default {
         }
       }
     }
+  }
+}
+
+.review-empty {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.review-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &__photo-empty {
+    width: 52px;
+    height: 52px;
+    background-color: #efefef;
+    border-radius: 50%;
+  }
+
+  &__name {
+    @include defineFontMontserrat(600, 20px, 24px);
+  }
+}
+.review-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 18px 22px;
+
+  &__text {
+    @include defineFontMontserrat(400, 18px, 1.6);
+    color: #bbbbbb;
+  }
+
+  &__date {
+    @include defineFontMontserrat(400, 14px, 1.6);
+    color: #bbbbbb;
+    align-self: flex-end;
+  }
+}
+.review-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__title {
+    @include defineFontMontserrat(600, 18px, 1.6);
+  }
+}
+.review-rating {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+
+  &__value {
+    @include defineFontMontserrat(400, 17px, 1.6);
   }
 }
 </style>
