@@ -15,200 +15,210 @@
           stroke="black"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round"/>
+          stroke-linejoin="round" />
       </svg>
     </a>
     <div class="publication__user">
       <img
         :src="publication.user.avatar"
         alt="user photo"
-        class="publication__user__image"/>
+        class="publication__user__image" />
       <div class="publication__user__about">
-        <p class="publication__user__about__name">{{publication.user.first_name}} {{publication.user.last_name}}</p>
-        <p class="publication__user__about__date">Публикация: {{new
-          Date(publication.created).toLocaleDateString()}}</p>
+        <p class="publication__user__about__name">
+          {{ publication.user.first_name }} {{ publication.user.last_name }}
+        </p>
+        <p class="publication__user__about__date">
+          Публикация: {{ new Date(publication.created).toLocaleDateString() }}
+        </p>
       </div>
     </div>
     <div class="publication__image-slider">
-      <img :src="publication.photo[0].file" alt="product-example"/>
+      <img :src="publication.photo[0].file" alt="product-example" />
     </div>
     <h4 class="publication__title">
-      {{publication.manufacturer}} {{publication.name}}
+      {{ publication.manufacturer }} {{ publication.name }}
     </h4>
     <div class="publication__advanced">
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Местоположение:</p>
-        <p class="publication__advanced__line__text">{{publication.location}}</p>
+        <p class="publication__advanced__line__text">
+          {{ publication.location }}
+        </p>
       </div>
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Цена:</p>
-        <p class="publication__advanced__line__text-bold">{{publication.price}} р.</p>
+        <p class="publication__advanced__line__text-bold">
+          {{ publication.price }} р.
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { products } from '../../store/products'
+import { products } from '../../store/products'
 
-  export default {
-    props: {
-      liked: { type: Boolean, default: false },
-      publication: {
-        type: Object, default() {
-          return {}
-        }
-      }
+export default {
+  props: {
+    liked: { type: Boolean, default: false },
+    publication: {
+      type: Object,
+      default() {
+        return {}
+      },
     },
-    setup() {
-      const useProductStore = products()
-      return {
-        useProductStore
-      }
-    },
-    data() {
-      return {
-        like: false,
-      }
-    },
-    mounted() {
-      this.like = this.liked
-    },
-    methods: {
-      async onLike() {
-        if (!this.like) {
-          const response = await this.useProductStore.ADD_FAVORITE(this.publication.id)
-          if (response !== 400 && response !== 401) {
-            this.like = true
-          }
-
-        } else {
-          const response = await this.useProductStore.REMOVE_FAVORITE(this.publication.id)
-          if (response !== 400 && response !== 401) {
-            this.like = false
-          }
-
-        }
-      }
+  },
+  setup() {
+    const useProductStore = products()
+    return {
+      useProductStore,
     }
-
-  }
+  },
+  data() {
+    return {
+      like: false,
+    }
+  },
+  mounted() {
+    this.like = this.liked
+  },
+  methods: {
+    async onLike() {
+      if (!this.like) {
+        const response = await this.useProductStore.ADD_FAVORITE(
+          this.publication.id
+        )
+        if (response !== 400 && response !== 401) {
+          this.like = true
+        }
+      } else {
+        const response = await this.useProductStore.REMOVE_FAVORITE(
+          this.publication.id
+        )
+        if (response !== 400 && response !== 401) {
+          this.like = false
+        }
+      }
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  .publication {
+.publication {
+  cursor: pointer;
+  position: relative;
+  background-color: $white;
+  border-radius: 20px;
+  padding: 25px 35px 45px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__like {
     cursor: pointer;
-    position: relative;
-    background-color: $white;
-    border-radius: 20px;
-    padding: 25px 35px 45px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background-color: $grey;
+    border-radius: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
 
-    &__like {
-      cursor: pointer;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 48px;
-      height: 48px;
-      background-color: $grey;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &.active > svg {
-        fill: $accent-dark;
-      }
-
-      &.active > svg path {
-        stroke: $accent-dark;
-      }
-
-      &:hover > svg {
-        fill: $accent-dark;
-      }
-
-      &:hover > svg path {
-        stroke: $accent-dark;
-      }
-
-      &:active {
-        background-color: #eaeaea;
-      }
+    &.active > svg {
+      fill: $accent-dark;
     }
 
-    &__user {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      &__image {
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-      }
-
-      &__about {
-        &__name {
-          @include defineFontMontserrat(700, 18px, 22px);
-          margin-bottom: 2px;
-        }
-
-        &__date {
-          @include defineFontMontserrat(400, 13px, 16px);
-          color: rgba(122, 122, 122, 0.9);
-        }
-      }
+    &.active > svg path {
+      stroke: $accent-dark;
     }
 
-    &__image-slider {
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      border-radius: 15px;
-      height: 300px;
-      object-fit: cover;
-
-      &.inactivePubl {
-        opacity: 0.5;
-      }
-
-      & img {
-        width: 100%;
-      }
+    &:hover > svg {
+      fill: $accent-dark;
     }
 
-    &__title {
-      @include defineFontMontserrat(700, 18px, 1.4);
-      margin: 0 0 14px 0;
+    &:hover > svg path {
+      stroke: $accent-dark;
     }
 
-    &__advanced {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 11px;
+    &:active {
+      background-color: #eaeaea;
+    }
+  }
 
-      &__line {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: space-between;
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-        &__text {
-          @include defineFontMontserrat(400, 20px, 1.4);
-          margin: 0;
-        }
+    &__image {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+    }
 
-        &__text-bold {
-          @include defineFontMontserrat(700, 20px, 1.4);
-          margin: 0;
-        }
+    &__about {
+      &__name {
+        @include defineFontMontserrat(700, 18px, 22px);
+        margin-bottom: 2px;
+      }
+
+      &__date {
+        @include defineFontMontserrat(400, 13px, 16px);
+        color: rgba(122, 122, 122, 0.9);
       }
     }
   }
+
+  &__image-slider {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    height: 300px;
+    object-fit: cover;
+
+    &.inactivePubl {
+      opacity: 0.5;
+    }
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    @include defineFontMontserrat(700, 18px, 1.4);
+    margin: 0 0 14px 0;
+  }
+
+  &__advanced {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+
+    &__line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      &__text {
+        @include defineFontMontserrat(400, 20px, 1.4);
+        margin: 0;
+      }
+
+      &__text-bold {
+        @include defineFontMontserrat(700, 20px, 1.4);
+        margin: 0;
+      }
+    }
+  }
+}
 </style>
