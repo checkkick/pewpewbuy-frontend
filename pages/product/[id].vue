@@ -73,53 +73,103 @@
             </swiper>
           </div>
 
-          <ul class="product-about">
-            <li class="product-about__item">
-              <p class="product-about__label">Модель оружия</p>
-              <p class="product-about__value">{{ detProduct.name }}</p>
-            </li>
-            <li class="product-about__item">
-              <p class="product-about__label">Емкость магазина</p>
-              <p class="product-about__value">350 шаров</p>
-            </li>
-            <li class="product-about__item">
-              <p class="product-about__label">Тип магазина</p>
-              <p class="product-about__value">Бункерный</p>
-            </li>
-            <li class="product-about__item">
-              <p class="product-about__label">Производитель</p>
-              <p class="product-about__value">Cyma, Китай</p>
-            </li>
-            <li class="product-about__item">
+          <ul
+            v-if="
+              detProduct.valueassets ? detProduct.valueassets.length > 0 : false
+            "
+            class="product-about">
+            <li
+              v-for="item in detProduct.valueassets"
+              :key="item.id"
+              class="product-about__item">
               <p class="product-about__label">
-                Скорость выхлопа/дульная энергия
+                {{ item.asset.name }}
               </p>
-              <p class="product-about__value">1,7 Дж</p>
-            </li>
-            <li class="product-about__item">
-              <p class="product-about__label">Принцип действия</p>
-              <p class="product-about__value">AEG</p>
-            </li>
-            <li class="product-about__item">
-              <p class="product-about__label">Разъем аккумулятора (если АЕГ)</p>
-              <p class="product-about__value">Mini-tamya</p>
-            </li>
-            <li class="product-about__item">
-              <p class="product-about__label">Комплектация</p>
               <p class="product-about__value">
-                магазин, шарики, инструкция, аккумулятор, зарядное устройство,
-                шомпол
+                {{ item.value }} {{ item.asset.measure_units }}
               </p>
             </li>
           </ul>
+
+          <p v-else class="no-product-about">
+            Нет данных о характеристиках товара
+          </p>
+        </div>
+
+        <div class="row-more">
+          <div class="switcher">
+            <p
+              class="switcher__about-product"
+              :class="
+                switcher === 'about-product'
+                  ? 'switcher__about-product_active'
+                  : ''
+              "
+              @click="switcher = 'about-product'">
+              Описание
+            </p>
+            <p
+              class="switcher__reviews"
+              :class="switcher === 'reviews' ? 'switcher__reviews_active' : ''"
+              @click="switcher = 'reviews'">
+              Отзывы о продавце
+            </p>
+          </div>
+          <div class="price">
+            <p class="price__value">22 150 р.</p>
+            <button class="price__btn-contact" @click="showContacts = true">
+              Написать продавцу
+            </button>
+            <NuxtLink href="#" class="price__all-products"
+              >Все товары продавца</NuxtLink
+            >
+          </div>
+        </div>
+
+        <div v-if="switcher === 'about-product'" class="product-description">
+          <p class="product-description__text">{{ detProduct.description }}</p>
+        </div>
+
+        <div v-if="switcher === 'reviews'" class="user-reviews">
+          <div class="review">
+            <div class="about-user">
+              <img
+                src="@/assets/img/no-photo.png"
+                alt=""
+                class="about-user__photo" />
+              <p class="about-user__name">Кирилл</p>
+              <p class="about-user__rating">5,0</p>
+              <RatingCalc :stars="5" />
+              <p class="about-user__date">22.04.2022</p>
+            </div>
+
+            <p class="review__text">
+              Отличный продавец! Все в точности, как было в описании к товару.
+              Приятный в общении, ответственный! Продавца 100% рекомендую!
+              Отличный продавец! Все в точности, как было в описании к товару.
+              Приятный в общении, ответственный! Продавца 100% рекомендую!
+              Приятный в общении, ответственный! Продавца 100%
+              рекомендую!Приятный в общении, ответственный! Продавца 100%
+              рекомендую!
+            </p>
+          </div>
         </div>
       </section>
+
+      <ContactsModal
+        v-if="showContacts"
+        :fio="`${detProduct.user.first_name} ${detProduct.user.last_name}`"
+        :email="detProduct.user.email"
+        :vk="detProduct.user.vk"
+        :tg="detProduct.user.tg"
+        @close-login-window="showContacts = false" />
     </main>
   </div>
 </template>
 
 <script>
 import noPhoto from '@/assets/img/no-photo.png'
+import ContactsModal from '@/components/product/ContactsModal.vue'
 import RatingCalc from '@/components/profile/RatingCalc.vue'
 import { products } from '@/store/products'
 
@@ -134,6 +184,7 @@ export default {
     RatingCalc,
     Swiper,
     SwiperSlide,
+    ContactsModal,
   },
   setup() {
     const thumbsSwiper = ref(null)
@@ -162,6 +213,8 @@ export default {
       },
       crumbs: [],
       userImage: '',
+      switcher: 'about-product',
+      showContacts: false,
     }
   },
   async mounted() {
@@ -230,6 +283,7 @@ export default {
   box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
   border-radius: 32px;
   padding: 50px 105px;
+  margin-bottom: 116px;
 
   &__title {
     @include defineFontMontserrat(600, 30px, 1.4);
@@ -279,6 +333,10 @@ export default {
   justify-content: stretch;
   width: 100%;
   gap: 45px;
+
+  &:nth-child(3) {
+    margin-bottom: 90px;
+  }
 }
 .swiper {
   position: static;
@@ -300,8 +358,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $filter-background;
-    border-radius: 32px;
+    background-color: $modal-background;
+    border-radius: 12px;
   }
 
   &__photo {
@@ -315,7 +373,7 @@ export default {
   &__preview-carousel {
     height: 20%;
     box-sizing: border-box;
-    padding: 10px 0 10px 2px;
+    padding: 18px 0 18px 2px;
     & .swiper-slide-thumb-active {
       opacity: 1;
       outline: 2px solid #f8b94e;
@@ -323,12 +381,12 @@ export default {
   }
 
   &__preview-slide {
-    border-radius: 12px;
+    border-radius: 5px;
     cursor: pointer;
     width: 25%;
     height: 100%;
     opacity: 0.4;
-    background-color: $filter-background;
+    background-color: $modal-background;
   }
 
   &__preview-photo {
@@ -360,6 +418,117 @@ export default {
   &__value {
     @include defineFontMontserrat(600, 22px, 1.4);
     width: 100%;
+  }
+}
+.no-product-about {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  @include defineFontMontserrat(500, 28px, 1.4);
+  color: $black-light;
+}
+.row-more {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.switcher {
+  width: 85%;
+  display: flex;
+  margin-right: 75px;
+
+  &__about-product,
+  &__reviews {
+    cursor: pointer;
+    position: relative;
+    @include defineFontMontserrat(600, 25px, 1.4);
+    color: #070707;
+    padding: 19px 10%;
+    border-bottom: 2px solid #bdbdbd;
+  }
+
+  &__about-product_active:after,
+  &__reviews_active:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    border-bottom: 2px solid #101010;
+  }
+}
+.price {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  &__value {
+    @include defineFontMontserrat(700, 47px, 1.4);
+    letter-spacing: -0.5px;
+  }
+
+  &__btn-contact {
+    @include defineBtnPrimary(20px, 91px, 21px, 32px);
+  }
+
+  &__all-products {
+    @include defineFontMontserrat(600, 20px, 24px);
+    color: $primary;
+    letter-spacing: -0.5px;
+  }
+}
+.product-description {
+  padding-top: 53px;
+
+  &__text {
+    @include defineFontMontserrat(400, 25px, 1.75);
+    margin: 0;
+    padding: 0;
+  }
+}
+.user-reviews {
+  padding-top: 68px;
+}
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 35px;
+
+  &__text {
+    @include defineFontMontserrat(400, 25px, 1.75);
+    margin: 0;
+    padding: 0;
+  }
+}
+.about-user {
+  display: flex;
+  align-items: center;
+
+  &__photo {
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    margin-right: 20px;
+  }
+  &__name {
+    @include defineFontMontserrat(600, 20px, 24px);
+    margin-right: 30px;
+    padding: 0;
+  }
+  &__rating {
+    @include defineFontMontserrat(400, 17px, 1.6);
+    margin-right: 10px;
+    padding: 0;
+  }
+  &__date {
+    @include defineFontMontserrat(400, 17px, 21px);
+    padding: 0 0 0 35px;
+    color: rgba(65, 65, 65, 0.65);
   }
 }
 </style>
