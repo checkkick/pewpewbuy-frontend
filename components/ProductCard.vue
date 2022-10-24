@@ -126,7 +126,7 @@ export default {
   }
 
   &:hover {
-    transform: translateY(-15px);
+    transform: translateY(-10px);
   }
 
   &:hover &__image {
