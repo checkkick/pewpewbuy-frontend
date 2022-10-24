@@ -86,7 +86,7 @@
           v-model="user.tg"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="http://t.me/..." />
+          placeholder="https://t.me/123456789" />
       </div>
 
       <div class="profile__main__edit__window__field">
@@ -104,14 +104,14 @@
 
       <div class="profile__main__edit__window__field">
         <label class="profile__main__edit__window__field__label" for="vk"
-          >VK</label
+          >Ссылка на VK</label
         >
         <input
           id="vk"
           v-model="user.vk"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="id123456789" />
+          placeholder="https://vk.com/id123456789" />
       </div>
 
       <p class="profile__main__edit__window__agree">

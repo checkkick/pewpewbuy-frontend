@@ -83,7 +83,8 @@
             <div class="profile__main__info-layout__personal-info__contacts">
               <a
                 v-if="user.tg"
-                :href="tg"
+                :href="user.tg"
+                target="_blank"
                 class="profile__main__info-layout__personal-info__contacts__item">
                 <svg
                   width="22"
@@ -98,7 +99,8 @@
               </a>
               <a
                 v-if="user.vk"
-                :href="vk"
+                :href="user.vk"
+                target="_blank"
                 class="profile__main__info-layout__personal-info__contacts__item">
                 <svg
                   width="20"
@@ -112,7 +114,7 @@
                 </svg>
               </a>
               <a
-                :href="user.email"
+                :href="`mailto:${user.email}`"
                 class="profile__main__info-layout__personal-info__contacts__item">
                 <svg
                   width="24"
@@ -229,8 +231,6 @@ export default {
   },
   data() {
     return {
-      tg: 'https://t.me/',
-      vk: 'https://vk.com/',
       active: [],
       inactive: [],
       editProfile: false,
@@ -241,8 +241,6 @@ export default {
     if (this.authorized) {
       if (this.user !== {}) {
         await this.clientsStore.GET_SELF()
-        this.tg += this.user.tg
-        this.vk += this.user.vk
         this.user.products.forEach(product => {
           if (product.status === 'Active') {
             this.active.push(product)
