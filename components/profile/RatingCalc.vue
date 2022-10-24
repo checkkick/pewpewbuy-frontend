@@ -3,7 +3,7 @@
     <svg
       v-for="item in stars"
       :key="item"
-      :width="size"
+      width="24"
       height="22"
       viewBox="0 0 24 22"
       fill="none"
@@ -15,7 +15,7 @@
     <svg
       v-for="item in 5 - stars"
       :key="item"
-      :width="size"
+      width="24"
       height="22"
       viewBox="0 0 24 22"
       fill="none"
@@ -34,10 +34,6 @@ export default {
       type: Number,
       required: true,
       default: 0,
-    },
-    size: {
-      type: Number,
-      default: 24,
     },
   },
 }

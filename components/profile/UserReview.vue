@@ -16,7 +16,7 @@
           <p class="user-review__about__grade__rating__text">
             {{ review.estimate }}
           </p>
-          <RatingCalc :stars="review.estimate" :size="16" />
+          <RatingCalc :stars="review.estimate" />
         </div>
       </div>
       <p class="user-review__about__text">
