@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { auth } from '../store/auth.js'
-import { products } from '../store/products.js'
+import { auth } from '@/store/auth.js'
+import { products } from '@/store/products.js'
 
 export default {
   setup() {
