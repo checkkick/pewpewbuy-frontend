@@ -541,21 +541,29 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:hover::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:hover::before {
+.profile__main__info-layout__reviews__swiper
+  .swiper-button-prev:not(.swiper-button-disabled):hover::before,
+.profile__main__info-layout__reviews__swiper
+  .swiper-button-next:not(.swiper-button-disabled):hover::before {
   background-color: #1875ff;
   border: none;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:hover::after,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:hover::after {
-  border-color: $white;
+.profile__main__info-layout__reviews__swiper
+  .swiper-button-prev:not(.swiper-button-disabled):hover::after,
+.profile__main__info-layout__reviews__swiper
+  .swiper-button-next:not(.swiper-button-disabled):hover::after {
+    border-color: $white;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:active::before,
 .profile__main__info-layout__reviews__swiper
-  .swiper-button-next:active::before {
-  background-color: #2c73dd;
+  .swiper-button-prev:not(.swiper-button-disabled):active::before,
+.profile__main__info-layout__reviews__swiper
+  .swiper-button-next:not(.swiper-button-disabled):active::before {
+    background-color: #2c73dd;
   border: none;
+}
+.profile__main__info-layout__reviews__swiper .swiper-button-disabled {
+  opacity: 0.3;
 }
 </style>
