@@ -359,7 +359,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: $modal-background;
-    border-radius: 12px;
+    border-radius: 7px;
   }
 
   &__photo {
@@ -367,7 +367,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 32px;
+    border-radius: 7px;
   }
 
   &__preview-carousel {
@@ -381,7 +381,7 @@ export default {
   }
 
   &__preview-slide {
-    border-radius: 5px;
+    border-radius: 2px;
     cursor: pointer;
     width: 25%;
     height: 100%;
@@ -394,7 +394,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 12px;
+    border-radius: 2px;
   }
 }
 .product-about {
