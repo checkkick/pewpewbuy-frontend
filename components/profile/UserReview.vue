@@ -2,7 +2,7 @@
   <div class="user-review">
     <div class="user-review__title">
       <img
-        :src="review.user.avatar"
+      :src="review.user.avatar ? review.user.avatar : noImage"
         alt="profile picture"
         class="user-review__title__img" />
       <p class="user-review__title__name">
@@ -31,10 +31,17 @@
 
 <script>
 import RatingCalc from './RatingCalc.vue'
+import noPhoto from '@/assets/img/no-photo.png'
+
 export default {
   components: { RatingCalc },
   props: {
     review: { type: Object, default: () => {} },
+  },
+  data: () => {
+    return {
+      noImage: noPhoto,
+    }
   },
 }
 </script>
