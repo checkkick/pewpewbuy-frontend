@@ -116,7 +116,7 @@
             </p>
           </div>
           <div class="price">
-            <p class="price__value">22 150 р.</p>
+            <p class="price__value">{{ detProduct.price ? detProduct.price.toLocaleString() : '0' }} р.</p>
             <button class="price__btn-contact" @click="showContacts = true">
               Написать продавцу
             </button>
