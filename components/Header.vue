@@ -28,42 +28,55 @@
           href="#"
           class="header__items__persone"
           @click.prevent="$emit('openLoginWindow')"></a>
-        <a
+        <img
           v-if="authorized"
-          href="#"
-          class="header__items__persone"
-          @click.prevent="$router.push('/profile')"></a>
+          :src="clientsStore.user.avatar"
+          alt="user avatar"
+          class="header__items__user-photo"
+          @click.prevent="$router.push('/profile')" />
       </div>
     </header>
   </div>
 </template>
 
 <script>
-import { auth } from '../store/auth.js'
-import { products } from '../store/products'
+import { auth } from '@/store/auth.js'
+import { products } from '@/store/products'
+import { clients } from '@/store/clients'
+
 export default {
   emits: ['openLoginWindow'],
   setup() {
     const store = products()
     const authStore = auth()
     const search = ref('')
+    const clientsStore = clients()
 
     function getSearchedPproducts() {
-      if (search._value !== '') {
-        store.GET_SEARCHED_PRODUCTS(search._value)
+      if (search.value !== '') {
+        store.GET_SEARCHED_PRODUCTS(search.value)
       } else {
         store.GET_ALL_PRODUCTS()
       }
     }
 
     return {
+      clientsStore,
       authStore,
       store,
       all_products: computed(() => store.ALL_PRODUCTS),
       favorite_products: computed(() => store.FAVORITE_PRODUCTS),
       getSearchedPproducts,
       authorized: computed(() => authStore.AUTHORIZED),
+      user: computed(() => clientsStore.USER_STATE),
       search,
+    }
+  },
+  async mounted() {
+    await this.authStore.CHECK_AUTH()
+
+    if (this.authorized && this.user !== {}) {
+      await this.clientsStore.GET_SELF()
     }
   },
 }
@@ -160,6 +173,13 @@ export default {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center center;
+    }
+
+    &__user-photo {
+      cursor: pointer;
+      width: 47px;
+      height: 47px;
+      border-radius: 50%;
     }
   }
 }

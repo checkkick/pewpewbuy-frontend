@@ -218,6 +218,10 @@ export default {
     EditProfile,
   },
   setup() {
+    definePageMeta({
+      middleware: ['authorization'],
+    })
+
     const store = auth()
     const clientsStore = clients()
     return {
@@ -238,17 +242,17 @@ export default {
   },
   async mounted() {
     await this.store.CHECK_AUTH()
-    if (this.authorized) {
-      if (this.user !== {}) {
-        await this.clientsStore.GET_SELF()
-        this.user.products.forEach(product => {
-          if (product.status === 'Active') {
-            this.active.push(product)
-          } else {
-            this.inactive.push(product)
-          }
-        })
-      }
+
+    if (this.authorized && this.user !== {}) {
+      await this.clientsStore.GET_SELF()
+
+      this.user.products.forEach(product => {
+        if (product.status === 'Active') {
+          this.active.push(product)
+        } else {
+          this.inactive.push(product)
+        }
+      })
     }
   },
 }
@@ -553,14 +557,14 @@ export default {
   .swiper-button-prev:not(.swiper-button-disabled):hover::after,
 .profile__main__info-layout__reviews__swiper
   .swiper-button-next:not(.swiper-button-disabled):hover::after {
-    border-color: $white;
+  border-color: $white;
 }
 
 .profile__main__info-layout__reviews__swiper
   .swiper-button-prev:not(.swiper-button-disabled):active::before,
 .profile__main__info-layout__reviews__swiper
   .swiper-button-next:not(.swiper-button-disabled):active::before {
-    background-color: #2c73dd;
+  background-color: #2c73dd;
   border: none;
 }
 .profile__main__info-layout__reviews__swiper .swiper-button-disabled {
