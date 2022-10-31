@@ -18,7 +18,7 @@
           v-if="authorized"
           href="#"
           class="header__items__favorite"
-          @click.prevent="$router.push('/profile#favorites')">
+          @click.prevent="$router.push('/profile?favorites')">
           <div class="header__items__favorite__counter">
             {{ favorite_products.length }}
           </div>

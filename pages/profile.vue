@@ -240,6 +240,16 @@ export default {
       editProfile: false,
     }
   },
+  watch: {
+    '$route.query': {
+      handler() {
+        if (Object.hasOwn(this.$route.query, 'favorites')) {
+          document.getElementById('favorites').scrollIntoView()
+        }
+      },
+      deep: true,
+    },
+  },
   async mounted() {
     await this.store.CHECK_AUTH()
 
@@ -253,6 +263,10 @@ export default {
           this.inactive.push(product)
         }
       })
+    }
+
+    if (Object.hasOwn(this.$route.query, 'favorites')) {
+      document.getElementById('favorites').scrollIntoView()
     }
   },
 }
