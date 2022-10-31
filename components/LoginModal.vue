@@ -128,6 +128,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 100px;
   position: fixed;
   width: 100%;
   top: 0;
