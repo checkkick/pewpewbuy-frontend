@@ -6,7 +6,9 @@
         <button class="profile__nav__buttons__all-publicity">
           Все объявления
         </button>
-        <button class="profile__nav__buttons__new-publicity">
+        <button
+          class="profile__nav__buttons__new-publicity"
+          @click="showAddProductModal = true">
           Разместить объявление
         </button>
       </div>
@@ -173,7 +175,10 @@
       </section>
 
       <section class="profile__main__active-adv">
-        <Advertisment :active-publ="true" :publications="active" />
+        <Advertisment
+          :active-publ="true"
+          :publications="active"
+          @open-add-product="showAddProductModal = true" />
         <Advertisment :inactive-publ="true" :publications="inactive" />
         <FavoriteAndHistory
           id="favorites"
@@ -188,6 +193,10 @@
         v-if="editProfile"
         @close-edit-window="editProfile = false" />
     </main>
+
+    <AddProductModal
+      v-if="showAddProductModal"
+      @close-add-product-window="showAddProductModal = false" />
   </div>
 </template>
 
@@ -197,6 +206,7 @@ import EditProfile from '@/components/profile/EditProfile.vue'
 import FavoriteAndHistory from '@/components/profile/FavoriteAndHistory.vue'
 import RatingCalc from '@/components/profile/RatingCalc.vue'
 import UserReview from '@/components/profile/UserReview.vue'
+import AddProductModal from '@/components/profile/AddProductModal.vue'
 import { Navigation, Pagination } from 'swiper'
 import 'swiper/scss'
 import 'swiper/scss/pagination'
@@ -216,6 +226,7 @@ export default {
     Advertisment,
     FavoriteAndHistory,
     EditProfile,
+    AddProductModal,
   },
   setup() {
     definePageMeta({
@@ -238,6 +249,7 @@ export default {
       active: [],
       inactive: [],
       editProfile: false,
+      showAddProductModal: false,
     }
   },
   watch: {
@@ -267,6 +279,10 @@ export default {
 
     if (Object.hasOwn(this.$route.query, 'favorites')) {
       document.getElementById('favorites').scrollIntoView()
+    }
+
+    if (Object.hasOwn(this.$route.query, 'addproduct')) {
+      this.showAddProductModal = true
     }
   },
 }

@@ -53,7 +53,8 @@
           </swiper-slide>
           <swiper-slide
             v-if="activePubl"
-            class="advertisment__wrapper__swiper__add">
+            class="advertisment__wrapper__swiper__add"
+            @click="$emit('openAddProduct')">
             <p class="advertisment__wrapper__swiper__add__text">
               Добавить объявление
             </p>
@@ -85,6 +86,7 @@ export default {
     inactivePubl: { type: Boolean, default: false },
     publications: { type: Array, default: () => [] },
   },
+  emits: ['openAddProduct'],
   setup() {
     const open = ref(true)
     return {
