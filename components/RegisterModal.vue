@@ -136,7 +136,6 @@ export default {
 .modal-background {
   z-index: 999;
   display: flex;
-  margin: 100px;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -149,6 +148,7 @@ export default {
 }
 
 .modal-window {
+  margin: 100px;
   position: relative;
   max-width: 600px;
   display: flex;
