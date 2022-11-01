@@ -34,6 +34,16 @@ export default {
       showRegister,
     }
   },
+  watch: {
+    '$route.query': {
+      handler() {
+        if (Object.hasOwn(this.$route.query, 'login')) {
+          this.showLogin = true
+        }
+      },
+      deep: true,
+    },
+  },
   async mounted() {
     if (Object.hasOwn(this.$route.query, 'login')) {
       if (await this.authStore.CHECK_AUTH()) {
