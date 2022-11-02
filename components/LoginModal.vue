@@ -89,6 +89,12 @@ export default {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
   },
 
+  unmounted() {
+    if (Object.hasOwn(this.$route.query, 'login')) {
+      this.$router.push('/')
+    }
+  },
+
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null
