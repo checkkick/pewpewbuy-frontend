@@ -55,7 +55,6 @@
 
 <script>
 import { Navigation } from 'swiper'
-import 'swiper/scss'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import OtherPublications from './OtherPublications.vue'
 
