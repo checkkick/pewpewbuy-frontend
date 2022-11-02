@@ -190,6 +190,14 @@ export default {
     align-items: center;
     justify-content: center;
 
+    & > svg {
+      transition: scale 0.1s ease-in-out, fill 0.1s ease-in-out;
+    }
+
+    & > svg path {
+      transition: stroke 0.3s ease-in-out;
+    }
+
     &.active > svg {
       fill: $accent-dark;
     }
@@ -198,16 +206,12 @@ export default {
       stroke: $accent-dark;
     }
 
-    &:hover > svg {
-      fill: $accent-dark;
-    }
-
     &:hover > svg path {
       stroke: $accent-dark;
     }
 
-    &:active {
-      background-color: #eaeaea;
+    &:active > svg {
+      scale: 1.3;
     }
   }
 }

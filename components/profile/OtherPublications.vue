@@ -60,7 +60,7 @@ import { products } from '../../store/products'
 
 export default {
   props: {
-    liked: { type: Boolean, default: false },
+    favorite: { type: Boolean, default: false },
     publication: {
       type: Object,
       default() {
@@ -80,7 +80,7 @@ export default {
     }
   },
   mounted() {
-    this.like = this.liked
+    this.like = this.favorite
   },
   methods: {
     async onLike() {
@@ -129,24 +129,25 @@ export default {
     align-items: center;
     justify-content: center;
 
-    &.active > svg {
+    & svg {
+      transition: transform 0.1s ease-in-out, fill 0.1s ease-in-out;
+    }
+    & svg path {
+      transition: stroke 0.3s ease-in-out;
+    }
+    &:hover svg path {
+      stroke: $accent-dark;
+    }
+    &:active svg {
+      transform: scale(1.3);
+    }
+
+    &.active svg {
       fill: $accent-dark;
     }
 
-    &.active > svg path {
+    &.active svg path {
       stroke: $accent-dark;
-    }
-
-    &:hover > svg {
-      fill: $accent-dark;
-    }
-
-    &:hover > svg path {
-      stroke: $accent-dark;
-    }
-
-    &:active {
-      background-color: #eaeaea;
     }
   }
 

@@ -45,7 +45,7 @@
             class="favorite__wrapper__swiper__slide">
             <OtherPublications
               :publication="publication"
-              :liked="favoritePubl" />
+              :favorite="favoritePubl" />
           </swiper-slide>
         </swiper>
       </div>
