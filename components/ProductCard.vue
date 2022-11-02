@@ -1,9 +1,22 @@
 <template>
   <div class="product-card">
-    <img
-      class="product-card__image"
-      :src="product.photo[0].file"
-      alt="product" />
+    <swiper
+      class="product-card__swiper"
+      :modules="modules"
+      :slides-per-view="1"
+      :space-between="50"
+      :pagination="{ clickable: true }">
+      <swiper-slide
+        v-for="photo in product.photo"
+        :key="photo.id"
+        class="product-card__swiper__slide">
+        <img
+          class="product-card__swiper__slide__image"
+          :src="photo.file"
+          alt="product" />
+      </swiper-slide>
+    </swiper>
+
     <h4 class="product-card__title">
       {{ product.manufacturer }} {{ product.name }}
     </h4>
@@ -50,7 +63,16 @@
 import { auth } from '@/store/auth'
 import { products } from '@/store/products'
 
+import { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/pagination'
+
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   props: {
     product: {
       type: Object,
@@ -72,6 +94,7 @@ export default {
       useAuthStore,
       useProductStore,
       authorized: computed(() => useAuthStore.AUTHORIZED),
+      modules: [Pagination],
     }
   },
   data: () => {
@@ -137,15 +160,31 @@ export default {
     filter: drop-shadow(0px 11px 18px rgba(128, 173, 241, 0.13));
   }
 
-  &__image {
+  &__swiper {
     width: 100%;
-    height: 400px;
-    border-radius: 15px;
-    object-fit: cover;
+    max-height: 327px;
+    padding-bottom: 25px;
+    margin-bottom: 10px;
+
+    &__slide {
+      cursor: grab;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $white;
+      border-radius: 15px;
+
+      &__image {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        object-fit: cover;
+      }
+    }
   }
 
   &__title {
-    font-weight: 700;
+    @include defineFontMontserrat(700, 20px, 1.4);
   }
 
   &__flex {
@@ -178,6 +217,7 @@ export default {
   }
 
   &__like {
+    z-index: 1;
     cursor: pointer;
     position: absolute;
     top: 15px;
@@ -214,5 +254,29 @@ export default {
       scale: 1.3;
     }
   }
+}
+</style>
+
+<style>
+.product-card__swiper .swiper-pagination-bullet {
+  background-color: #9e9e9e;
+}
+.product-card__swiper .swiper-pagination-bullet-active {
+  background-color: #6f6f6f;
+}
+.product-card__swiper .swiper-pagination-fraction,
+.product-card__swiper .swiper-pagination-custom,
+.product-card__swiper .swiper-horizontal > .swiper-pagination-bullets,
+.product-card__swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-card__swiper .swiper-pagination-lock {
+  display: flex;
+}
+.product-card__swiper .swiper-pagination-bullet:only-child {
+  display: block !important;
 }
 </style>
