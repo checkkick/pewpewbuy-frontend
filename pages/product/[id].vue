@@ -116,7 +116,12 @@
             </p>
           </div>
           <div class="price">
-            <p class="price__value">{{ detProduct.price ? detProduct.price.toLocaleString() : '0' }} р.</p>
+            <p class="price__value">
+              {{
+                detProduct.price ? detProduct.price.toLocaleString() : '0'
+              }}
+              р.
+            </p>
             <button class="price__btn-contact" @click="showContacts = true">
               Написать продавцу
             </button>
@@ -187,6 +192,10 @@ export default {
     ContactsModal,
   },
   setup() {
+    definePageMeta({
+      middleware: ['authorization'],
+    })
+
     const thumbsSwiper = ref(null)
     const setThumbsSwiper = swiper => {
       thumbsSwiper.value = swiper

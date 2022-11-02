@@ -101,6 +101,7 @@ export const products = defineStore('products', {
       const response = await api('products/detail/' + product + '/', {
         method: 'GET',
         errorAlert: 'Ошибка. Попробуйте снова',
+        headers: { Authorization: 'Bearer ' + get('access_pew') },
       })
 
       return response

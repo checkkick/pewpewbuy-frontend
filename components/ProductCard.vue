@@ -16,7 +16,11 @@
       <button class="product-card__btn">Профиль продавца</button>
       <button
         class="product-card__btn accent"
-        @click.prevent="$router.push('/product/' + product.id)">
+        @click.prevent="
+          authorized
+            ? $router.push('/product/' + product.id)
+            : $router.push('/?login')
+        ">
         Подробнее
       </button>
     </div>

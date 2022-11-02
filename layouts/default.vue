@@ -47,7 +47,7 @@ export default {
   async mounted() {
     if (Object.hasOwn(this.$route.query, 'login')) {
       if (await this.authStore.CHECK_AUTH()) {
-        this.$router.push('/profile')
+        this.$router.push(this.$route.query.login)
       } else {
         this.showLogin = true
       }
