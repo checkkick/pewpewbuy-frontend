@@ -32,9 +32,22 @@
         </p>
       </div>
     </div>
-    <div class="publication__image-slider">
-      <img :src="publication.photo[0].file" alt="product-example" />
-    </div>
+    <swiper
+      class="publication__image-swiper"
+      :modules="modules"
+      :slides-per-view="1"
+      :space-between="30"
+      :pagination="{ clickable: true }">
+      <swiper-slide
+        v-for="photo in publication.photo"
+        :key="photo.id"
+        class="publication__image-swiper__slide">
+        <img
+          class="publication__image-swiper__slide__photo"
+          :src="photo.file"
+          alt="product-example" />
+      </swiper-slide>
+    </swiper>
     <h4 class="publication__title">
       {{ publication.manufacturer }} {{ publication.name }}
     </h4>
@@ -56,9 +69,17 @@
 </template>
 
 <script>
-import { products } from '../../store/products'
+import { products } from '@/store/products'
+import { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   props: {
     favorite: { type: Boolean, default: false },
     publication: {
@@ -72,6 +93,7 @@ export default {
     const useProductStore = products()
     return {
       useProductStore,
+      modules: [Pagination],
     }
   },
   data() {
@@ -175,20 +197,26 @@ export default {
     }
   }
 
-  &__image-slider {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
-    height: 300px;
-    object-fit: cover;
+  &__image-swiper {
+    width: 100%;
+    height: 327px;
+    padding-bottom: 25px;
+    margin-bottom: 10px;
 
-    &.inactivePubl {
-      opacity: 0.5;
-    }
+    &__slide {
+      cursor: grab;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $modal-background;
+      border-radius: 15px;
 
-    & img {
-      width: 100%;
+      &__photo {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        object-fit: contain;
+      }
     }
   }
 
@@ -221,5 +249,30 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style>
+.publication__image-swiper .swiper-pagination-bullet {
+  background-color: #9e9e9e;
+}
+.publication__image-swiper .swiper-pagination-bullet-active {
+  background-color: #6f6f6f;
+}
+.publication__image-swiper .swiper-pagination-fraction,
+.publication__image-swiper .swiper-pagination-custom,
+.publication__image-swiper .swiper-horizontal > .swiper-pagination-bullets,
+.publication__image-swiper
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.publication__image-swiper .swiper-pagination-lock {
+  display: flex;
+}
+.publication__image-swiper .swiper-pagination-bullet:only-child {
+  display: block !important;
 }
 </style>

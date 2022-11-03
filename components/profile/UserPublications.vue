@@ -11,9 +11,23 @@
     <div v-if="activePubl" class="publication__views">
       <p class="publication__views__text">{{ publ.views_count }} просмотров</p>
     </div>
-    <div class="publication__image-slider" :class="{ inactivePubl }">
-      <img :src="publ.photo[0].file" alt="product-example" />
-    </div>
+    <swiper
+      class="publication__image-swiper"
+      :modules="modules"
+      :slides-per-view="1"
+      :space-between="30"
+      :pagination="{ clickable: true }">
+      <swiper-slide
+        v-for="photo in publ.photo"
+        :key="photo.id"
+        class="publication__image-swiper__slide"
+        :class="{ inactivePubl }">
+        <img
+          class="publication__image-swiper__slide__photo"
+          :src="photo.file"
+          alt="product-example" />
+      </swiper-slide>
+    </swiper>
     <h4 class="publication__title">{{ publ.manufacturer }} {{ publ.name }}</h4>
     <div class="publication__advanced">
       <div class="publication__advanced__line">
@@ -31,11 +45,25 @@
 </template>
 
 <script>
+import { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/pagination'
+
 export default {
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   props: {
     activePubl: { type: Boolean, default: false },
     inactivePubl: { type: Boolean, default: false },
     publ: { type: Object, default: () => {} },
+  },
+  setup() {
+    return {
+      modules: [Pagination],
+    }
   },
   data() {
     return {
@@ -68,7 +96,7 @@ export default {
   align-items: flex-start;
 
   &__edit {
-    z-index: 1;
+    z-index: 5;
     cursor: pointer;
     width: 43px;
     height: 43px;
@@ -85,7 +113,7 @@ export default {
   &__status {
     @include defineFontMontserrat(700, 18px, 22px);
     color: $black;
-    margin: 0 0 3px 0;
+    margin: 0 0 10px 0;
 
     & .active {
       color: #00ad45;
@@ -101,7 +129,6 @@ export default {
     gap: 7px;
     padding-left: 23px;
     background: url('@/assets/img/views-eye.svg') no-repeat left center;
-    margin-bottom: 32px;
 
     &__text {
       @include defineFontMontserrat(500, 14px, 17px);
@@ -110,21 +137,31 @@ export default {
     }
   }
 
-  &__image-slider {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
+  &__image-swiper {
     width: 100%;
+    height: 327px;
+    margin-top: 20px;
+    padding-bottom: 25px;
+    margin-bottom: 10px;
 
-    &.inactivePubl {
-      opacity: 0.5;
-    }
+    &__slide {
+      cursor: grab;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $modal-background;
+      border-radius: 15px;
 
-    & img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
+      &.inactivePubl {
+        opacity: 0.5;
+      }
+
+      &__photo {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        object-fit: contain;
+      }
     }
   }
 
