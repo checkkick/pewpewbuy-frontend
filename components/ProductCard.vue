@@ -138,7 +138,6 @@ export default {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  transition: transform 0.3s ease-in-out;
 
   @media (max-width: 1000px) {
     width: calc((100% - (20px * 2)) / 3);
@@ -150,10 +149,6 @@ export default {
 
   @media (max-width: 650px) {
     width: 100%;
-  }
-
-  &:hover {
-    transform: translateY(-10px);
   }
 
   &:hover &__image {
