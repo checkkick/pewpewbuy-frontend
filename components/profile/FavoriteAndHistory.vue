@@ -43,9 +43,7 @@
             v-for="publication in publications"
             :key="publication.id"
             class="favorite__wrapper__swiper__slide">
-            <OtherPublications
-              :publication="publication"
-              :favorite="favoritePubl" />
+            <OtherPublications :publication="publication" />
           </swiper-slide>
         </swiper>
       </div>

@@ -81,7 +81,6 @@ export default {
     SwiperSlide,
   },
   props: {
-    favorite: { type: Boolean, default: false },
     publication: {
       type: Object,
       default() {
@@ -102,7 +101,7 @@ export default {
     }
   },
   mounted() {
-    this.like = this.favorite
+    this.like = this.publication.is_favourite
   },
   methods: {
     async onLike() {
