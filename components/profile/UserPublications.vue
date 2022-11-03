@@ -149,7 +149,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: $modal-background;
+      background-color: $filter-background;
       border-radius: 15px;
 
       &.inactivePubl {

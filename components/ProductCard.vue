@@ -171,7 +171,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: $white;
+      background-color: #f0f0f0;
       border-radius: 15px;
 
       &__image {
@@ -229,6 +229,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
 
     & > svg {
       transition: scale 0.1s ease-in-out, fill 0.1s ease-in-out;
