@@ -71,7 +71,7 @@
 
 <script>
 import { Navigation } from 'swiper'
-import 'swiper/scss'
+import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import UserPublications from './UserPublications.vue'
 
