@@ -64,7 +64,7 @@ export default {
       clientsStore,
       authStore,
       store,
-      all_products: computed(() => store.ALL_PRODUCTS),
+      all_products: computed(() => store.ALL_PRODUCTS.results),
       favorite_products: computed(() => store.FAVORITE_PRODUCTS),
       getSearchedPproducts,
       authorized: computed(() => authStore.AUTHORIZED),
