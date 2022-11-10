@@ -11,7 +11,9 @@
         class="modal-window__input"
         type="email"
         name="email"
-        placeholder="yourmail@gmail.com" />
+        :disabled="sended"
+        placeholder="yourmail@gmail.com"
+        @keypress.enter="check_mail()" />
 
       <div v-if="sended" class="modal-window__password-title">
         <label class="modal-window__password-title__label" for="password-login">
@@ -31,7 +33,8 @@
         class="modal-window__input"
         name="password"
         :type="showPwd ? 'text' : 'password'"
-        placeholder="****" />
+        placeholder="****"
+        @keypress.enter="confirm_mail()" />
 
       <p v-if="send_error !== ''" style="color: red">{{ send_error }}</p>
 
@@ -223,7 +226,8 @@ export default {
     align-self: stretch;
     margin-bottom: 20px;
 
-    &::placeholder {
+    &::placeholder,
+    &:disabled {
       color: rgba(0, 0, 0, 0.2);
     }
   }

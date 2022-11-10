@@ -8,10 +8,12 @@
       <input
         id="email-login"
         v-model="email"
+        :disabled="sended"
         class="modal-window__input"
         type="email"
         name="email"
-        placeholder="yourmail@gmail.com" />
+        placeholder="yourmail@gmail.com"
+        @keypress.enter="send_code()" />
 
       <div v-if="sended" class="modal-window__password-title">
         <label class="modal-window__password-title__label" for="password-login">
@@ -31,7 +33,8 @@
         class="modal-window__input"
         name="password"
         :type="showPwd ? 'text' : 'password'"
-        placeholder="****" />
+        placeholder="****"
+        @keypress.enter="login()" />
 
       <p v-if="sendError !== ''" class="modal-window__text error">
         {{ sendError }}
@@ -78,7 +81,7 @@ export default {
   data: () => {
     return {
       showPwd: false,
-      sended: '',
+      sended: false,
       email: '',
       password: '',
       sendError: '',
@@ -200,7 +203,8 @@ export default {
     margin-bottom: 20px;
     color: #5a5a5a;
 
-    &::placeholder {
+    &::placeholder,
+    &:disabled {
       color: rgba(0, 0, 0, 0.2);
     }
   }
