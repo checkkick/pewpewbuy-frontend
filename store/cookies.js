@@ -9,8 +9,9 @@ export function get(key) {
   return Cookies.get(key)
 }
 
-export function remove(key) {
-  Cookies.remove(key)
+export function removeCookies() {
+  Cookies.remove('access_pew')
+  Cookies.remove('refresh_pew')
 }
 
 export function checkСookies() {

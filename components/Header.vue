@@ -24,6 +24,13 @@
           </div>
         </a>
         <a
+          v-if="authorized"
+          href="#"
+          class="header__items__exit-profile"
+          @click.prevent="exitProfile">
+          Выйти
+        </a>
+        <a
           v-if="!authorized"
           href="#"
           class="header__items__persone"
@@ -43,6 +50,7 @@
 import { auth } from '@/store/auth.js'
 import { products } from '@/store/products'
 import { clients } from '@/store/clients'
+import { removeCookies } from '@/store/cookies'
 
 export default {
   emits: ['openLoginWindow'],
@@ -79,6 +87,13 @@ export default {
       await this.clientsStore.GET_SELF()
     }
   },
+  methods: {
+    exitProfile() {
+      removeCookies()
+      this.$router.push('/')
+      location.reload()
+    },
+  },
 }
 </script>
 
@@ -111,6 +126,7 @@ export default {
   }
 
   &__items {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -162,6 +178,14 @@ export default {
         background-color: #4b8ff5;
         color: #ffffff;
       }
+    }
+
+    &__exit-profile {
+      @include defineFontMontserrat(500, 16px, 141%);
+      position: absolute;
+      right: 0;
+      bottom: -1.5rem;
+      color: rgba(36, 36, 36, 0.46);
     }
 
     &__persone {
