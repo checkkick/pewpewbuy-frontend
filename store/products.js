@@ -1,12 +1,32 @@
 import { defineStore } from 'pinia'
-import { api } from '~~/composables/api'
-import { get } from '~~/store/cookies'
+import { api } from '@/composables/api'
+import { get } from '@/store/cookies'
+
+function filterCategories(allCategories) {
+  const tempCategories = {}
+
+  for (const iterator of allCategories) {
+    if (
+      iterator.parent_category &&
+      tempCategories[iterator.parent_category.name]
+    ) {
+      tempCategories[iterator.parent_category.name].push(iterator)
+    } else {
+      tempCategories[iterator.name] = []
+    }
+  }
+
+  console.log(tempCategories)
+
+  return tempCategories
+}
 
 export const products = defineStore('products', {
   state: () => {
     return {
       allProducts: [],
       favoriteProducts: [],
+      categories: {},
     }
   },
 
@@ -105,6 +125,22 @@ export const products = defineStore('products', {
       })
 
       return response
+    },
+    async GET_CATEGORIES_ALL() {
+      try {
+        const response = await api('products/get_categories/', {
+          method: 'GET',
+          errorAlert: 'Ошибка при загрузке товаров',
+        })
+
+        console.log(response)
+
+        this.categories = filterCategories(response)
+
+        return this.categories
+      } catch (error) {
+        return error
+      }
     },
   },
 

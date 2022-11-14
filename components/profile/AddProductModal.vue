@@ -7,113 +7,67 @@
         <div class="block">
           <h3 class="modal-window__subtitle">Выберите категорию товара</h3>
           <div class="radio-row">
-            <input
-              id="strike"
-              class="radio-row__radiobutton"
-              type="radio"
-              name="category" />
-            <label class="radio-row__label" for="strike"
-              >Страйкбольное оружие</label
-            >
-
-            <input
-              id="vnesh"
-              class="radio-row__radiobutton"
-              type="radio"
-              name="category" />
-            <label class="radio-row__label" for="vnesh">Внешний тюнинг</label>
-
-            <input
-              id="vnutr"
-              class="radio-row__radiobutton"
-              type="radio"
-              name="category" />
-            <label class="radio-row__label" for="vnutr"
-              >Внутренний тюнинг</label
-            >
-
-            <input
-              id="outfit"
-              class="radio-row__radiobutton"
-              type="radio"
-              name="category" />
-            <label class="radio-row__label" for="outfit">Снаряжение</label>
+            <div
+              v-for="(item, idx) in Object.keys(useProductStore.categories)"
+              :key="idx">
+              <input
+                :id="idx"
+                v-model="chooseCategory"
+                :value="item"
+                class="radio-row__radiobutton"
+                type="radio"
+                :name="item" />
+              <label class="radio-row__label" :for="idx">
+                {{ item }}
+              </label>
+            </div>
           </div>
         </div>
 
-        <div class="block">
+        <div v-if="useProductStore.categories[chooseCategory]" class="block">
           <h3 class="modal-window__subtitle">Выберите подкатегорию товара</h3>
           <div class="checkbox-row">
-            <input
-              id="ak"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="ak">АК-серия</label>
-
-            <input
-              id="pulemet"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="pulemet">Пулеметы</label>
-
-            <input
-              id="automats"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="automats">Автоматы</label>
-
-            <input
-              id="val"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="val"
-              >АС ВАЛ, ВСС, СР-3М</label
-            >
-
-            <input
-              id="snpiers"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="snpiers">Винтовки</label>
-
-            <input
-              id="shotguns"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="shotguns">Дробовики</label>
-
-            <input
-              id="rockets"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="rockets">Гранатометы</label>
-
-            <input
-              id="others"
-              class="checkbox-row__checkbox"
-              type="checkbox"
-              name="subcategory" />
-            <label class="checkbox-row__label" for="others"
-              >Автоматы прочие модели</label
-            >
+            <div
+              v-for="item in useProductStore.categories[chooseCategory]"
+              :key="item.id">
+              <input
+                :id="item.slug"
+                v-model="chooseSubcategory"
+                :value="item.name"
+                class="checkbox-row__checkbox"
+                type="checkbox"
+                :name="item.name" />
+              <label class="checkbox-row__label" :for="item.slug">{{
+                item.name
+              }}</label>
+            </div>
           </div>
         </div>
 
         <div class="block">
           <h3 class="modal-window__subtitle">Добавьте фотографию товара</h3>
+          <input
+            ref="image"
+            class="modal-window__image"
+            type="file"
+            @change="addPhotoProduct" />
           <swiper
             class="photo-swiper"
             :slides-per-view="4"
             :space-between="50"
             :centered-slides="true">
-            <swiper-slide class="photo-swiper__add-slide">
+            <swiper-slide
+              v-for="(item, idx) in photos"
+              :key="idx"
+              class="photo-swiper__slide-photo">
+              <img
+                :src="item"
+                :alt="'photo-' + idx"
+                class="photo-swiper__image" />
+            </swiper-slide>
+            <swiper-slide
+              class="photo-swiper__add-slide"
+              @click="$refs.image.click()">
               <p class="photo-swiper__text">Добавить фото</p>
             </swiper-slide>
           </swiper>
@@ -229,6 +183,7 @@
 </template>
 
 <script>
+import { products } from '@/store/products'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
@@ -240,20 +195,43 @@ export default {
 
   emits: ['closeAddProductWindow'],
 
-  setup() {},
-
-  data: () => {
-    return {}
+  setup() {
+    const useProductStore = products()
+    return {
+      useProductStore,
+    }
   },
 
-  mounted() {
+  data: () => {
+    return {
+      chooseCategory: '',
+      chooseSubcategory: [],
+      photos: [],
+    }
+  },
+
+  async mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+
+    if (Object.keys(this.useProductStore.categories).length === 0) {
+      await this.useProductStore.GET_CATEGORIES_ALL()
+    }
   },
 
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null
       this.$emit('closeAddProductWindow')
+    },
+    addPhotoProduct(e) {
+      const file = e.target.files[0]
+      // this.user.avatar = file
+      const reader = new FileReader()
+      const that = this
+      reader.readAsDataURL(file)
+      reader.onload = function (e) {
+        that.photos.push(e.target.result)
+      }
     },
   },
 }
@@ -284,6 +262,7 @@ export default {
   border-radius: 21px;
   padding: 75px;
   margin: 100px;
+  width: 100%;
   max-height: 90vh;
   overflow: auto;
 
@@ -328,6 +307,12 @@ export default {
     @include defineFontMontserrat(600, 18px, 22px);
     margin-bottom: 30px;
     text-align: center;
+  }
+
+  &__image {
+    position: absolute;
+    top: -100%;
+    visibility: hidden;
   }
 
   &__help-text {
@@ -483,8 +468,24 @@ export default {
     border-radius: 20px;
   }
 
+  &__slide-photo {
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #4b8ff5;
+    border-radius: 20px;
+    height: 200px;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: contain;
+  }
+
   &__text {
     @include defineFontMontserrat(400, 18px, 22px);
+    text-align: center;
     padding-bottom: 40px;
     background: url('@/assets/img/add-publication.svg') no-repeat center bottom /
       28px 28px;
