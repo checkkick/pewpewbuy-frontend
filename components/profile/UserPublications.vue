@@ -1,6 +1,6 @@
 <template>
   <div class="publication">
-    <a class="publication__edit" @click.prevent>
+    <a class="publication__edit" @click.prevent="showSettings = !showSettings">
       <img src="@/assets/img/profile-edit.svg" alt="profile-edit" />
     </a>
     <p class="publication__status">
@@ -41,6 +41,39 @@
         </p>
       </div>
     </div>
+
+    <transition name="fade">
+      <div v-if="showSettings" class="hidden-settings">
+        <div
+          class="settings-substrat"
+          @click="showSettings = !showSettings"></div>
+        <ul class="setting-list">
+          <li class="setting-list__item">
+            <a
+              href=""
+              class="setting-list__link"
+              @click.prevent="$router.push('product/' + publ.id)"
+              >Открыть карточку</a
+            >
+          </li>
+          <li class="setting-list__item">
+            <a href="" class="setting-list__link" @click.prevent
+              >Редактировать</a
+            >
+          </li>
+          <li v-if="activePubl" class="setting-list__item">
+            <a href="" class="setting-list__link" @click.prevent
+              >Снять с публикации</a
+            >
+          </li>
+          <li class="setting-list__item">
+            <a href="" class="setting-list__link" @click.prevent
+              >Удалить публикацию</a
+            >
+          </li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -68,6 +101,7 @@ export default {
   data() {
     return {
       status: '',
+      showSettings: false,
     }
   },
   mounted() {
@@ -193,6 +227,66 @@ export default {
         margin: 0;
       }
     }
+  }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.hidden-settings {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 60px;
+}
+.settings-substrat {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(60, 60, 60, 0.37);
+  border-radius: 20px;
+}
+.setting-list {
+  z-index: 1;
+  background: #fafafa;
+  border: 1px solid #dedede;
+  box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  margin: 0;
+  padding: 24px 0;
+  list-style: none;
+
+  &__item {
+    padding: 10px 26px;
+    text-align: center;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+      background-color: $primary;
+    }
+  }
+  &__item:hover &__link {
+    color: $white;
+  }
+
+  &__link {
+    @include defineFontMontserrat(500, 16px, 1.4);
+    text-decoration: none;
+    color: $black;
+    transition: color 0.1s ease-in-out;
   }
 }
 </style>
