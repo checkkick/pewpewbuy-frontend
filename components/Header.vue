@@ -212,7 +212,7 @@ export default {
       justify-content: center;
       padding-left: 5px;
       background: $white;
-      box-shadow: 0px 4px 12px rgba(99, 99, 99, 0.06);
+      border: 1px solid #dcdcdc;
       border-radius: 50%;
       width: 100%;
       max-width: 48px;
