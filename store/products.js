@@ -16,8 +16,6 @@ function filterCategories(allCategories) {
     }
   }
 
-  console.log(tempCategories)
-
   return tempCategories
 }
 
@@ -132,8 +130,6 @@ export const products = defineStore('products', {
           method: 'GET',
           errorAlert: 'Ошибка при загрузке товаров',
         })
-
-        console.log(response)
 
         this.categories = filterCategories(response)
 
