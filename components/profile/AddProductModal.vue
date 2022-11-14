@@ -1,5 +1,6 @@
 <template>
   <div class="modal-background">
+    <div class="close-background" @click="closeWindow"></div>
     <div class="modal-window">
       <span class="modal-window__close" @click="closeWindow"></span>
       <h2 class="modal-window__title">Заполните информацию о товаре</h2>
@@ -251,8 +252,15 @@ export default {
   bottom: 0;
   background: $modal-dark-background;
 }
-
+.close-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 .modal-window {
+  z-index: 1;
   position: relative;
   max-width: 1023px;
   display: flex;

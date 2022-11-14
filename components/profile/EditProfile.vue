@@ -1,5 +1,6 @@
 <template>
-  <section class="profile__main__edit">
+  <div class="profile__main__edit">
+    <div class="close-background" @click="closeWindow"></div>
     <div class="profile__main__edit__window">
       <button
         class="profile__main__edit__window__close"
@@ -131,7 +132,7 @@
         Сохранить
       </button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -214,6 +215,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.close-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 .profile__main__edit {
   z-index: 999;
   position: fixed;
