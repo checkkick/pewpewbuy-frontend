@@ -24,13 +24,6 @@
           </div>
         </a>
         <a
-          v-if="authorized"
-          href="#"
-          class="header__items__exit-profile"
-          @click.prevent="exitProfile">
-          Выйти
-        </a>
-        <a
           v-if="!authorized"
           href="#"
           class="header__items__persone"
@@ -41,6 +34,37 @@
           alt="user avatar"
           class="header__items__user-photo"
           @click.prevent="$router.push('/profile')" />
+        <a
+          v-if="authorized"
+          href="#"
+          class="header__items__exit-profile"
+          @click.prevent="exitProfile">
+          <svg
+            width="22"
+            height="17"
+            viewBox="0 0 22 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13.75 4.75V2.875C13.75 2.37772 13.5525 1.90081 13.2008 1.54917C12.8492 1.19754 12.3723 1 11.875 1H2.875C2.37772 1 1.90081 1.19754 1.54917 1.54917C1.19754 1.90081 1 2.37772 1 2.875V14.125C1 14.6223 1.19754 15.0992 1.54917 15.4508C1.90081 15.8025 2.37772 16 2.875 16H11.875C12.3723 16 12.8492 15.8025 13.2008 15.4508C13.5525 15.0992 13.75 14.6223 13.75 14.125V12.25"
+              stroke="black"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M16.75 4.75L20.5 8.5L16.75 12.25"
+              stroke="black"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M7.70312 8.5H20.5"
+              stroke="black"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
       </div>
     </header>
   </div>
@@ -130,7 +154,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 40px;
+    gap: 30px;
 
     &__find {
       @include defineFontMontserrat(400, 16px, 22px);
@@ -143,6 +167,7 @@ export default {
       background-size: 21px 21px;
       background-repeat: no-repeat;
       background-position: calc(100% - 20px) center;
+      margin-right: 10px;
 
       &::placeholder {
         @include defineFontMontserrat(400, 16px, 22px);
@@ -163,6 +188,7 @@ export default {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center center;
+      margin-right: 10px;
 
       &__counter {
         @include defineFontMontserrat(500, 13px, 140%);
@@ -176,16 +202,21 @@ export default {
         left: 50%;
         border-radius: 50%;
         background-color: #4b8ff5;
-        color: #ffffff;
+        color: $white;
       }
     }
 
     &__exit-profile {
-      @include defineFontMontserrat(500, 16px, 141%);
-      position: absolute;
-      right: 0;
-      bottom: -1.5rem;
-      color: rgba(36, 36, 36, 0.46);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 5px;
+      background: $white;
+      box-shadow: 0px 4px 12px rgba(99, 99, 99, 0.06);
+      border-radius: 50%;
+      width: 100%;
+      max-width: 48px;
+      height: 48px;
     }
 
     &__persone {
