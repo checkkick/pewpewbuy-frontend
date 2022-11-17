@@ -29,6 +29,19 @@ export const products = defineStore('products', {
   },
 
   actions: {
+    async CREATE_PRODUCT(data) {
+      try {
+        return await api('products/create_product/', {
+          body: data,
+          method: 'POST',
+          errorAlert: 'Ошибка. Попробуйте снова',
+          headers: { Authorization: 'Bearer ' + get('access_pew') },
+        })
+      } catch (error) {
+        return error.response.status
+      }
+    },
+
     async GET_ALL_PRODUCTS() {
       const options = {
         method: 'GET',
@@ -44,6 +57,7 @@ export const products = defineStore('products', {
         return error.response
       }
     },
+
     async GET_FILTRED_PRODUCTS(filter) {
       try {
         const response = await api('products/filter/?' + filter, {
@@ -55,6 +69,7 @@ export const products = defineStore('products', {
         return error.response
       }
     },
+
     async GET_SEARCHED_PRODUCTS(search) {
       try {
         const response = await api('products/?search=' + search, {
@@ -66,6 +81,7 @@ export const products = defineStore('products', {
         return error.response
       }
     },
+
     async GET_CATEGORY_PRODUCTS(category) {
       try {
         const response = await api(
@@ -80,6 +96,7 @@ export const products = defineStore('products', {
         return error.response
       }
     },
+
     async GET_FAVORITE() {
       try {
         const response = await api('products/get_favorite/', {
@@ -92,6 +109,7 @@ export const products = defineStore('products', {
         return error.response
       }
     },
+
     async ADD_FAVORITE(product) {
       try {
         return await api('products/create_favorite/', {
@@ -104,6 +122,7 @@ export const products = defineStore('products', {
         return error.response.status
       }
     },
+
     async REMOVE_FAVORITE(product) {
       try {
         return await api('products/delete_favorite/' + product + '/', {
@@ -115,6 +134,7 @@ export const products = defineStore('products', {
         return error.response.status
       }
     },
+
     async GET_DETAIL_PRODUCT(product) {
       const response = await api('products/detail/' + product + '/', {
         method: 'GET',
@@ -124,6 +144,7 @@ export const products = defineStore('products', {
 
       return response
     },
+
     async GET_ASSET_TEMPLATE(categoryId) {
       const response = await api(
         'products/get_asset_template/' + categoryId + '/',
@@ -136,6 +157,7 @@ export const products = defineStore('products', {
 
       return response
     },
+
     async GET_CATEGORIES_ALL() {
       try {
         const response = await api('products/get_categories/', {

@@ -58,7 +58,7 @@
             :space-between="50"
             :centered-slides="true">
             <swiper-slide
-              v-for="(item, idx) in photos"
+              v-for="(item, idx) in tempPhotos"
               :key="idx"
               class="photo-swiper__slide-photo">
               <img
@@ -78,44 +78,51 @@
         <div class="block">
           <h3 class="modal-window__subtitle">Добавьте характеристики товара</h3>
           <div class="property">
-            <label class="property__label" for="model">Модель оружия</label>
+            <label class="property__label" for="model">Модель оружия *</label>
             <input
               id="model"
+              v-model="newProduct.name"
               class="property__input"
               type="text"
-              name="model" />
+              name="model"
+              placeholder="Colt AR15" />
           </div>
 
           <div class="property">
             <label class="property__label" for="proizvod">Производитель</label>
             <input
               id="proizvod"
+              v-model="newProduct.manufacturer"
               class="property__input"
               type="text"
-              name="proizvod" />
+              name="proizvod"
+              placeholder="Cyma" />
           </div>
 
           <div class="property">
             <label class="property__label" for="location">Местоположение</label>
             <input
               id="location"
+              v-model="newProduct.location"
               class="property__input"
               type="text"
-              name="location" />
+              name="location"
+              placeholder="г. Москва" />
           </div>
 
           <div
             v-for="item in assetCategory"
             :key="item.asset.id"
             class="property">
-            <label class="property__label" for="location">{{
+            <label class="property__label" :for="item.asset.slug">{{
               item.asset.name
             }}</label>
             <input
-              id="location"
+              :id="item.asset.slug"
+              v-model="newProduct.assets[item.asset.slug]"
               class="property__input"
               type="text"
-              name="location"
+              :name="item.asset.slug"
               :placeholder="item.asset.measure_units" />
           </div>
 
@@ -125,6 +132,7 @@
             >
             <textarea
               id="comment"
+              v-model="newProduct.description"
               class="property__textarea"
               name="comment"
               rows="3"></textarea>
@@ -134,16 +142,19 @@
         <div class="block">
           <h3 class="modal-window__subtitle">Добавьте стоимость товара</h3>
           <div class="property">
-            <label class="property__label" for="price">Цена</label>
+            <label class="property__label" for="price">Цена *</label>
             <input
               id="price"
+              v-model="newProduct.price"
               class="property__input"
               type="text"
               name="price" />
           </div>
         </div>
 
-        <button class="modal-window__btn">Сохранить</button>
+        <button class="modal-window__btn" @click="createProduct">
+          Сохранить
+        </button>
       </div>
     </div>
   </div>
@@ -175,7 +186,18 @@ export default {
       chooseSubcategory: '',
       subcategoryObject: {},
       assetCategory: [],
-      photos: [],
+      tempPhotos: [],
+      filesToPhoto: [],
+      newProduct: {
+        assets: {},
+        category: 0,
+        manufacturer: '',
+        name: '',
+        price: '',
+        description: '',
+        location: '',
+        parent_product: null,
+      },
     }
   },
 
@@ -188,6 +210,8 @@ export default {
       this.assetCategory = await this.useProductStore.GET_ASSET_TEMPLATE(
         this.subcategoryObject.id
       )
+
+      this.newProduct.category = parseInt(this.subcategoryObject.id)
     },
   },
 
@@ -206,12 +230,21 @@ export default {
     },
     addPhotoProduct(e) {
       const file = e.target.files[0]
-      // this.user.avatar = file
+      this.filesToPhoto.push(file)
       const reader = new FileReader()
       const that = this
       reader.readAsDataURL(file)
       reader.onload = function (e) {
-        that.photos.push(e.target.result)
+        that.tempPhotos.push(e.target.result)
+      }
+    },
+    async createProduct() {
+      if (
+        this.newProduct.category > 0 &&
+        this.newProduct.name.length > 0 &&
+        this.newProduct.price.length > 0
+      ) {
+        await this.useProductStore.CREATE_PRODUCT(this.newProduct)
       }
     },
   },
@@ -468,6 +501,7 @@ export default {
 
   &__image {
     width: 100%;
+    max-height: 200px;
     object-fit: contain;
   }
 
