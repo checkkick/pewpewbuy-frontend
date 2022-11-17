@@ -36,7 +36,7 @@
                 v-model="chooseSubcategory"
                 :value="item.name"
                 class="checkbox-row__checkbox"
-                type="checkbox"
+                type="radio"
                 :name="item.name" />
               <label class="checkbox-row__label" :for="item.slug">{{
                 item.name
@@ -87,26 +87,6 @@
           </div>
 
           <div class="property">
-            <label class="property__label" for="emkost">Емкость магазина</label>
-            <input
-              id="emkost"
-              class="property__input"
-              type="text"
-              name="emkost" />
-          </div>
-
-          <div class="property">
-            <label class="property__label" for="type-magazine"
-              >Тип магазина</label
-            >
-            <input
-              id="type-magazine"
-              class="property__input"
-              type="text"
-              name="type-magazine" />
-          </div>
-
-          <div class="property">
             <label class="property__label" for="proizvod">Производитель</label>
             <input
               id="proizvod"
@@ -116,43 +96,29 @@
           </div>
 
           <div class="property">
-            <label class="property__label" for="skorost"
-              >Скорость выхлопа/дульная энергия</label
-            >
+            <label class="property__label" for="location">Местоположение</label>
             <input
-              id="skorost"
+              id="location"
               class="property__input"
               type="text"
-              name="skorost" />
+              name="location" />
           </div>
-          <div class="property">
-            <label class="property__label" for="principe"
-              >Принцип действия</label
-            >
+
+          <div
+            v-for="item in assetCategory"
+            :key="item.asset.id"
+            class="property">
+            <label class="property__label" for="location">{{
+              item.asset.name
+            }}</label>
             <input
-              id="principe"
+              id="location"
               class="property__input"
               type="text"
-              name="principe" />
+              name="location"
+              :placeholder="item.asset.measure_units" />
           </div>
-          <div class="property">
-            <label class="property__label" for="accum"
-              >Разъем аккумулятора (если АЕГ)</label
-            >
-            <input
-              id="accum"
-              class="property__input"
-              type="text"
-              name="accum" />
-          </div>
-          <div class="property">
-            <label class="property__label" for="complect">Комплектация</label>
-            <input
-              id="complect"
-              class="property__input"
-              type="text"
-              name="complect" />
-          </div>
+
           <div class="property">
             <label class="property__label" for="comment"
               >Дополнительная информация</label
@@ -206,9 +172,23 @@ export default {
   data: () => {
     return {
       chooseCategory: '',
-      chooseSubcategory: [],
+      chooseSubcategory: '',
+      subcategoryObject: {},
+      assetCategory: [],
       photos: [],
     }
+  },
+
+  watch: {
+    async chooseSubcategory() {
+      this.subcategoryObject = this.useProductStore.categories[
+        this.chooseCategory
+      ].find(item => item.name === this.chooseSubcategory)
+
+      this.assetCategory = await this.useProductStore.GET_ASSET_TEMPLATE(
+        this.subcategoryObject.id
+      )
+    },
   },
 
   async mounted() {

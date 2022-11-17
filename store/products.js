@@ -124,6 +124,18 @@ export const products = defineStore('products', {
 
       return response
     },
+    async GET_ASSET_TEMPLATE(categoryId) {
+      const response = await api(
+        'products/get_asset_template/' + categoryId + '/',
+        {
+          method: 'GET',
+          errorAlert: 'Ошибка. Попробуйте снова',
+          headers: { Authorization: 'Bearer ' + get('access_pew') },
+        }
+      )
+
+      return response
+    },
     async GET_CATEGORIES_ALL() {
       try {
         const response = await api('products/get_categories/', {
