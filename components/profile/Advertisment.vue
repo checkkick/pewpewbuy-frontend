@@ -33,7 +33,7 @@
       @before-leave="beforeLeave"
       @leave="leave">
       <div
-        v-show="open && (publications.length > 0 || activePubl)"
+        v-if="open && (publications.length > 0 || activePubl)"
         class="advertisment__wrapper"
         :class="{ activePubl, inactivePubl }">
         <swiper
