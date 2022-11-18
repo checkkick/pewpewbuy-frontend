@@ -100,7 +100,9 @@
           </div>
 
           <div class="property">
-            <label class="property__label" for="location">Местоположение</label>
+            <label class="property__label" for="location"
+              >Местоположение *</label
+            >
             <input
               id="location"
               v-model="newProduct.location"
@@ -187,7 +189,6 @@ export default {
       subcategoryObject: {},
       assetCategory: [],
       tempPhotos: [],
-      filesToPhoto: [],
       newProduct: {
         assets: {},
         category: 0,
@@ -197,6 +198,7 @@ export default {
         description: '',
         location: '',
         parent_product: null,
+        files: [],
       },
     }
   },
@@ -230,7 +232,7 @@ export default {
     },
     addPhotoProduct(e) {
       const file = e.target.files[0]
-      this.filesToPhoto.push(file)
+      this.newProduct.files.push(file)
       const reader = new FileReader()
       const that = this
       reader.readAsDataURL(file)
@@ -242,9 +244,13 @@ export default {
       if (
         this.newProduct.category > 0 &&
         this.newProduct.name.length > 0 &&
-        this.newProduct.price.length > 0
+        this.newProduct.price.length > 0 &&
+        this.newProduct.files.length > 0
       ) {
-        await this.useProductStore.CREATE_PRODUCT(this.newProduct)
+        const response = await this.useProductStore.CREATE_PRODUCT(
+          this.newProduct
+        )
+        console.log(response.id)
       }
     },
   },
