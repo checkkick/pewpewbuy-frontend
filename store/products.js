@@ -34,7 +34,19 @@ export const products = defineStore('products', {
         return await api('products/create_product/', {
           body: data,
           method: 'POST',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка добавления товара',
+          headers: { Authorization: 'Bearer ' + get('access_pew') },
+        })
+      } catch (error) {
+        return error.response.status
+      }
+    },
+
+    async REMOVE_PRODUCT(productId) {
+      try {
+        return await api('products/delete_product/' + productId + '/', {
+          method: 'DELETE',
+          errorAlert: 'Ошибка удаления товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
       } catch (error) {

@@ -49,7 +49,8 @@
             <UserPublications
               :active-publ="activePubl"
               :inactive-publ="inactivePubl"
-              :publ="publication" />
+              :publ="publication"
+              @refresh-products="$emit('refreshProducts')" />
           </swiper-slide>
           <swiper-slide
             v-if="activePubl"
@@ -86,7 +87,7 @@ export default {
     inactivePubl: { type: Boolean, default: false },
     publications: { type: Array, default: () => [] },
   },
-  emits: ['openAddProduct'],
+  emits: ['openAddProduct', 'refreshProducts'],
   setup() {
     const open = ref(true)
     return {

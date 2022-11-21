@@ -178,8 +178,12 @@
         <Advertisment
           :active-publ="true"
           :publications="active"
-          @open-add-product="showAddProductModal = true" />
-        <Advertisment :inactive-publ="true" :publications="inactive" />
+          @open-add-product="showAddProductModal = true"
+          @refresh-products="refreshProducts(true)" />
+        <Advertisment
+          :inactive-publ="true"
+          :publications="inactive"
+          @refresh-products="refreshProducts(true)" />
         <FavoriteAndHistory
           id="favorites"
           :favorite-publ="true"
@@ -284,17 +288,23 @@ export default {
     }
   },
   methods: {
-    refreshProducts() {
-      this.active = []
-      this.inactive = []
-
-      this.user.products.forEach(product => {
-        if (product.status === 'Active') {
-          this.active.push(product)
-        } else {
-          this.inactive.push(product)
+    async refreshProducts(reshreshSelf = false) {
+      if (this.authorized && this.user !== {}) {
+        if (reshreshSelf) {
+          await this.clientsStore.GET_SELF()
         }
-      })
+
+        this.active = []
+        this.inactive = []
+
+        this.user.products.forEach(product => {
+          if (product.status === 'Active') {
+            this.active.push(product)
+          } else {
+            this.inactive.push(product)
+          }
+        })
+      }
     },
   },
 }

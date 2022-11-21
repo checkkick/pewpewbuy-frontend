@@ -67,7 +67,10 @@
             >
           </li>
           <li class="setting-list__item">
-            <a href="" class="setting-list__link" @click.prevent
+            <a
+              href=""
+              class="setting-list__link"
+              @click.prevent="deleteProduct(publ.id)"
               >Удалить публикацию</a
             >
           </li>
@@ -78,6 +81,7 @@
 </template>
 
 <script>
+import { products } from '@/store/products'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
@@ -93,8 +97,11 @@ export default {
     inactivePubl: { type: Boolean, default: false },
     publ: { type: Object, default: () => {} },
   },
+  emits: ['refreshProducts'],
   setup() {
+    const removeProduct = products().REMOVE_PRODUCT
     return {
+      removeProduct,
       modules: [Pagination],
     }
   },
@@ -114,6 +121,13 @@ export default {
     } else if (this.publ.status === 'On moderation') {
       this.status = 'На модерации'
     }
+  },
+  methods: {
+    async deleteProduct(id) {
+      await this.removeProduct(id)
+      this.$emit('refreshProducts')
+      this.showSettings = false
+    },
   },
 }
 </script>
