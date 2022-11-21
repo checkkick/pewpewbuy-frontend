@@ -199,7 +199,8 @@
     <transition name="fade">
       <AddProductModal
         v-if="showAddProductModal"
-        @close-add-product-window="showAddProductModal = false" />
+        @close-add-product-window="showAddProductModal = false"
+        @refresh-products="refreshProducts()" />
     </transition>
   </div>
 </template>
@@ -271,14 +272,7 @@ export default {
 
     if (this.authorized && this.user !== {}) {
       await this.clientsStore.GET_SELF()
-
-      this.user.products.forEach(product => {
-        if (product.status === 'Active') {
-          this.active.push(product)
-        } else {
-          this.inactive.push(product)
-        }
-      })
+      this.refreshProducts()
     }
 
     if (Object.hasOwn(this.$route.query, 'favorites')) {
@@ -288,6 +282,20 @@ export default {
     if (Object.hasOwn(this.$route.query, 'addproduct')) {
       this.showAddProductModal = true
     }
+  },
+  methods: {
+    refreshProducts() {
+      this.active = []
+      this.inactive = []
+
+      this.user.products.forEach(product => {
+        if (product.status === 'Active') {
+          this.active.push(product)
+        } else {
+          this.inactive.push(product)
+        }
+      })
+    },
   },
 }
 </script>

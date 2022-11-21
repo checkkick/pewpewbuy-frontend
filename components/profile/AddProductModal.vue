@@ -154,8 +154,13 @@
           </div>
         </div>
 
-        <button class="modal-window__btn" @click="createProduct">
+        <button
+          class="modal-window__btn"
+          :class="{ 'modal-window__btn--active': btnProcess }"
+          :disabled="btnProcess"
+          @click="createProduct">
           Сохранить
+          <span v-if="btnProcess" class="spinner"></span>
         </button>
       </div>
     </div>
@@ -164,6 +169,7 @@
 
 <script>
 import { products } from '@/store/products'
+import { clients } from '@/store/clients'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
@@ -173,12 +179,14 @@ export default {
     SwiperSlide,
   },
 
-  emits: ['closeAddProductWindow'],
+  emits: ['closeAddProductWindow', 'refreshProducts'],
 
   setup() {
     const useProductStore = products()
+    const clientsStore = clients()
     return {
       useProductStore,
+      clientsStore,
     }
   },
 
@@ -197,9 +205,10 @@ export default {
         price: '',
         description: '',
         location: '',
-        parent_product: null,
+        parent_product: '',
         files: [],
       },
+      btnProcess: false,
     }
   },
 
@@ -247,10 +256,32 @@ export default {
         this.newProduct.price.length > 0 &&
         this.newProduct.files.length > 0
       ) {
-        const response = await this.useProductStore.CREATE_PRODUCT(
-          this.newProduct
-        )
-        console.log(response.id)
+        this.btnProcess = true
+
+        const data = new FormData()
+
+        for (const key in this.newProduct) {
+          if (key === 'assets') {
+            data.append(key, JSON.stringify(this.newProduct[key]))
+          } else if (key === 'files') {
+            for (const iterator of this.newProduct[key]) {
+              data.append('files', iterator)
+            }
+          } else {
+            data.append(key, this.newProduct[key])
+          }
+        }
+
+        const response = await this.useProductStore.CREATE_PRODUCT(data)
+
+        if (response.id) {
+          await this.clientsStore.GET_SELF()
+          this.btnProcess = false
+          this.$emit('refreshProducts')
+          this.closeWindow()
+        }
+
+        this.btnProcess = false
       }
     },
   },
@@ -258,6 +289,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.spinner {
+  position: absolute;
+  left: 80px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 3px solid;
+  border-color: #6ebeff #6ebeff transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+  &::after,
+  &::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid;
+    border-color: transparent transparent #337ab7 #337ab7;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotationBack 0.5s linear infinite;
+    transform-origin: center center;
+  }
+
+  &::before {
+    width: 22px;
+    height: 22px;
+    border-color: #6ebeff #6ebeff transparent transparent;
+    animation: rotation 1.5s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotationBack {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+}
 .modal-background {
   z-index: 999;
   display: flex;
@@ -358,6 +445,23 @@ export default {
 
   &__btn {
     @include defineBtnPrimary(20px, 91px, 18px, 44px);
+    transition: all 0.2s ease-in-out;
+
+    & ~ &--active {
+      opacity: 0;
+    }
+    & ~ :not(&--active) {
+      opacity: 1;
+    }
+
+    &--active {
+      position: relative;
+      background-color: $filter-border;
+      outline: 2px solid $primary;
+      outline-offset: -2px;
+      color: transparent;
+      transition: all 0.2s ease-in-out;
+    }
   }
 }
 
