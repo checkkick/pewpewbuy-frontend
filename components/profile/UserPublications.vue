@@ -61,11 +61,6 @@
               >Редактировать</a
             >
           </li>
-          <li v-if="activePubl" class="setting-list__item">
-            <a href="" class="setting-list__link" @click.prevent
-              >Снять с публикации</a
-            >
-          </li>
           <li class="setting-list__item">
             <a
               href=""
