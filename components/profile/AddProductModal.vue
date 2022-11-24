@@ -65,6 +65,9 @@
                 :src="item"
                 :alt="'photo-' + idx"
                 class="photo-swiper__image" />
+              <button
+                class="photo-swiper__delete-btn"
+                @click="deleteImage(idx)"></button>
             </swiper-slide>
             <swiper-slide
               class="photo-swiper__add-slide"
@@ -249,6 +252,10 @@ export default {
         that.tempPhotos.push(e.target.result)
       }
     },
+    deleteImage(id) {
+      this.tempPhotos.splice(id, 1)
+      this.newProduct.files.splice(id, 1)
+    },
     async createProduct() {
       if (
         this.newProduct.category > 0 &&
@@ -419,7 +426,7 @@ export default {
 
   &__subtitle {
     @include defineFontMontserrat(600, 18px, 22px);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
   }
 
@@ -587,6 +594,7 @@ export default {
 
 .photo-swiper {
   margin-bottom: 13px;
+  padding-top: 10px;
 
   &__add-slide {
     cursor: pointer;
@@ -607,6 +615,40 @@ export default {
     border: 2px dashed #4b8ff5;
     border-radius: 20px;
     height: 200px;
+  }
+
+  &__delete-btn {
+    cursor: pointer;
+    width: 15px;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: $white;
+    border-radius: 100%;
+    border: 1px solid rgba(175, 175, 175, 0.39);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 6px;
+      transform: rotate(45deg);
+      width: 12px;
+      height: 1px;
+      background-color: $black;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 6px;
+      transform: rotate(-45deg);
+      width: 12px;
+      height: 1px;
+      background-color: $black;
+    }
   }
 
   &__image {
