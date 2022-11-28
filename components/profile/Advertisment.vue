@@ -50,7 +50,8 @@
               :active-publ="activePubl"
               :inactive-publ="inactivePubl"
               :publ="publication"
-              @refresh-products="$emit('refreshProducts')" />
+              @refresh-products="$emit('refreshProducts')"
+              @show-edit-product-modal="showEditModalMethod" />
           </swiper-slide>
           <swiper-slide
             v-if="activePubl"
@@ -87,7 +88,7 @@ export default {
     inactivePubl: { type: Boolean, default: false },
     publications: { type: Array, default: () => [] },
   },
-  emits: ['openAddProduct', 'refreshProducts'],
+  emits: ['openAddProduct', 'refreshProducts', 'showEditProductModal'],
   setup() {
     const open = ref(true)
     return {
@@ -107,6 +108,9 @@ export default {
     },
     leave: function (el) {
       el.style.height = '0'
+    },
+    showEditModalMethod(id) {
+      this.$emit('showEditProductModal', id)
     },
   },
 }

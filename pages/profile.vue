@@ -179,11 +179,13 @@
           :active-publ="true"
           :publications="active"
           @open-add-product="showAddProductModal = true"
-          @refresh-products="refreshProducts(true)" />
+          @refresh-products="refreshProducts(true)"
+          @show-edit-product-modal="showEditProductModalMethod" />
         <Advertisment
           :inactive-publ="true"
           :publications="inactive"
-          @refresh-products="refreshProducts(true)" />
+          @refresh-products="refreshProducts(true)"
+          @show-edit-product-modal="showEditProductModalMethod" />
         <FavoriteAndHistory
           id="favorites"
           :favorite-publ="true"
@@ -200,12 +202,17 @@
       </transition>
     </main>
 
-    <transition name="fade">
+    <TransitionGroup name="fade">
       <AddProductModal
         v-if="showAddProductModal"
         @close-add-product-window="showAddProductModal = false"
         @refresh-products="refreshProducts()" />
-    </transition>
+      <EditProductModal
+        v-if="editProductModal.show"
+        :publication-id="editProductModal.publicationId"
+        @close-edit-product-window="editProductModal.show = false"
+        @refresh-products="refreshProducts()" />
+    </TransitionGroup>
   </div>
 </template>
 
@@ -216,6 +223,7 @@ import FavoriteAndHistory from '@/components/profile/FavoriteAndHistory.vue'
 import RatingCalc from '@/components/profile/RatingCalc.vue'
 import UserReview from '@/components/profile/UserReview.vue'
 import AddProductModal from '@/components/profile/AddProductModal.vue'
+import EditProductModal from '@/components/profile/EditProductModal.vue'
 import { Navigation, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -236,6 +244,7 @@ export default {
     FavoriteAndHistory,
     EditProfile,
     AddProductModal,
+    EditProductModal,
   },
   setup() {
     definePageMeta({
@@ -259,6 +268,10 @@ export default {
       inactive: [],
       editProfile: false,
       showAddProductModal: false,
+      editProductModal: {
+        show: false,
+        publicationId: 0,
+      },
     }
   },
   watch: {
@@ -305,6 +318,10 @@ export default {
           }
         })
       }
+    },
+    showEditProductModalMethod(id) {
+      this.editProductModal.show = true
+      this.editProductModal.publicationId = id
     },
   },
 }

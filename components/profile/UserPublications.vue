@@ -57,7 +57,10 @@
             >
           </li>
           <li class="setting-list__item">
-            <a href="" class="setting-list__link" @click.prevent
+            <a
+              href=""
+              class="setting-list__link"
+              @click.prevent="$emit('showEditProductModal', publ.id)"
               >Редактировать</a
             >
           </li>
@@ -92,7 +95,7 @@ export default {
     inactivePubl: { type: Boolean, default: false },
     publ: { type: Object, default: () => {} },
   },
-  emits: ['refreshProducts'],
+  emits: ['refreshProducts', 'showEditProductModal'],
   setup() {
     const removeProduct = products().REMOVE_PRODUCT
     return {
