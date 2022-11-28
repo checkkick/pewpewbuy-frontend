@@ -217,6 +217,8 @@ export default {
 
   watch: {
     async chooseSubcategory() {
+      this.newProduct.assets = {}
+
       this.subcategoryObject = this.useProductStore.categories[
         this.chooseCategory
       ].find(item => item.name === this.chooseSubcategory)
