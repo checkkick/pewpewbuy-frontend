@@ -28,12 +28,16 @@
           href="#"
           class="header__items__persone"
           @click.prevent="$emit('openLoginWindow')"></a>
-        <img
+        <a
           v-if="authorized"
-          :src="clientsStore.user.avatar"
-          alt="user avatar"
           class="header__items__user-photo"
-          @click.prevent="$router.push('/profile')" />
+          href="#"
+          @click.prevent="$router.push('/profile')">
+          <img
+            class="header__items__user-photo__image"
+            :src="clientsStore.user.avatar"
+            alt="user avatar" />
+        </a>
         <a
           v-if="authorized"
           href="#"
@@ -232,9 +236,21 @@ export default {
 
     &__user-photo {
       cursor: pointer;
-      width: 47px;
-      height: 47px;
+      width: 100%;
+      height: 100%;
+      max-width: 47px;
+      max-height: 47px;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__image {
+        width: 100%;
+        height: 47px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
     }
   }
 }
