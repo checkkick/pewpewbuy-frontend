@@ -173,7 +173,7 @@ export default {
     }
 
     &__dropdown-list {
-      z-index: 1;
+      z-index: 2;
       position: absolute;
       top: 93px;
       left: 20px;
