@@ -197,7 +197,6 @@ export default {
     return {
       chooseCategory: '',
       chooseSubcategory: '',
-      subcategoryObject: {},
       assetCategory: [],
       tempPhotos: [],
       newProduct: {
@@ -219,15 +218,15 @@ export default {
     async chooseSubcategory() {
       this.newProduct.assets = {}
 
-      this.subcategoryObject = this.useProductStore.categories[
+      const subcategoryObject = this.useProductStore.categories[
         this.chooseCategory
       ].find(item => item.name === this.chooseSubcategory)
 
       this.assetCategory = await this.useProductStore.GET_ASSET_TEMPLATE(
-        this.subcategoryObject.id
+        subcategoryObject.id
       )
 
-      this.newProduct.category = parseInt(this.subcategoryObject.id)
+      this.newProduct.category = parseInt(subcategoryObject.id)
     },
   },
 
