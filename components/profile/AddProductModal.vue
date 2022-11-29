@@ -55,7 +55,7 @@
           <swiper
             class="photo-swiper"
             :slides-per-view="4"
-            :space-between="50"
+            :space-between="30"
             :centered-slides="true">
             <swiper-slide
               v-for="(item, idx) in tempPhotos"
