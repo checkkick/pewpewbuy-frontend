@@ -56,7 +56,7 @@
             v-if="tempPhotos.length > 0"
             class="photo-swiper"
             :slides-per-view="4"
-            :space-between="50"
+            :space-between="30"
             :initial-slide="tempPhotos.length"
             :centered-slides="true">
             <swiper-slide
@@ -83,35 +83,69 @@
         <div class="block">
           <h3 class="modal-window__subtitle">Добавьте характеристики товара</h3>
           <div class="property">
-            <label class="property__label" for="model">Модель оружия *</label>
+            <label
+              class="property__label"
+              :class="{
+                'property__label--change':
+                  productData.name !== cloneProductData.name,
+              }"
+              for="model"
+              >Модель оружия *</label
+            >
             <input
               id="model"
-              v-model="newProduct.name"
+              v-model="productData.name"
               class="property__input"
+              :class="{
+                'property__input--change':
+                  productData.name !== cloneProductData.name,
+              }"
               type="text"
               name="model"
               placeholder="Colt AR15" />
           </div>
 
           <div class="property">
-            <label class="property__label" for="proizvod">Производитель</label>
+            <label
+              class="property__label"
+              :class="{
+                'property__label--change':
+                  productData.manufacturer !== cloneProductData.manufacturer,
+              }"
+              for="proizvod"
+              >Производитель</label
+            >
             <input
               id="proizvod"
-              v-model="newProduct.manufacturer"
+              v-model="productData.manufacturer"
               class="property__input"
+              :class="{
+                'property__input--change':
+                  productData.manufacturer !== cloneProductData.manufacturer,
+              }"
               type="text"
               name="proizvod"
               placeholder="Cyma" />
           </div>
 
           <div class="property">
-            <label class="property__label" for="location"
+            <label
+              class="property__label"
+              :class="{
+                'property__label--change':
+                  productData.location !== cloneProductData.location,
+              }"
+              for="location"
               >Местоположение *</label
             >
             <input
               id="location"
-              v-model="newProduct.location"
+              v-model="productData.location"
               class="property__input"
+              :class="{
+                'property__input--change':
+                  productData.location !== cloneProductData.location,
+              }"
               type="text"
               name="location"
               placeholder="г. Москва" />
@@ -121,25 +155,47 @@
             v-for="item in assetCategory"
             :key="item.asset.id"
             class="property">
-            <label class="property__label" :for="item.asset.slug">{{
-              item.asset.name
-            }}</label>
+            <label
+              class="property__label"
+              :class="{
+                'property__label--change':
+                  productData.assets[item.asset.slug] !==
+                  cloneProductData.assets[item.asset.slug],
+              }"
+              :for="item.asset.slug"
+              >{{ item.asset.name }}</label
+            >
             <input
               :id="item.asset.slug"
-              v-model="newProduct.assets[item.asset.slug]"
+              v-model="productData.assets[item.asset.slug]"
               class="property__input"
+              :class="{
+                'property__input--change':
+                  productData.assets[item.asset.slug] !==
+                  cloneProductData.assets[item.asset.slug],
+              }"
               type="text"
               :name="item.asset.slug"
               :placeholder="item.asset.measure_units" />
           </div>
 
           <div class="property">
-            <label class="property__label" for="comment"
+            <label
+              class="property__label"
+              :class="{
+                'property__label--change':
+                  productData.description !== cloneProductData.description,
+              }"
+              for="comment"
               >Дополнительная информация</label
             >
             <textarea
               id="comment"
-              v-model="newProduct.description"
+              v-model="productData.description"
+              :class="{
+                'property__textarea--change':
+                  productData.description !== cloneProductData.description,
+              }"
               class="property__textarea"
               name="comment"
               rows="3"></textarea>
@@ -149,24 +205,44 @@
         <div class="block">
           <h3 class="modal-window__subtitle">Добавьте стоимость товара</h3>
           <div class="property">
-            <label class="property__label" for="price">Цена *</label>
+            <label
+              class="property__label"
+              :class="{
+                'property__label--change':
+                  parseInt(productData.price) !==
+                  parseInt(cloneProductData.price),
+              }"
+              for="price"
+              >Цена *</label
+            >
             <input
               id="price"
-              v-model="newProduct.price"
+              v-model="productData.price"
               class="property__input"
+              :class="{
+                'property__input--change':
+                  parseInt(productData.price) !==
+                  parseInt(cloneProductData.price),
+              }"
               type="text"
-              name="price" />
+              name="price"
+              @keypress="numbersPrevent" />
           </div>
         </div>
 
-        <button
-          class="modal-window__btn"
-          :class="{ 'modal-window__btn--active': btnProcess }"
-          :disabled="btnProcess"
-          @click="createProduct">
-          Сохранить
-          <span v-if="btnProcess" class="spinner"></span>
-        </button>
+        <div class="button-group">
+          <button
+            class="modal-window__btn"
+            :class="{ 'modal-window__btn--active': btnProcess }"
+            :disabled="btnProcess"
+            @click="createProduct">
+            Сохранить изменения
+            <span v-if="btnProcess" class="spinner"></span>
+          </button>
+          <button class="modal-window__btn-exit" @click="closeWindow">
+            Отменить
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -206,10 +282,9 @@ export default {
     return {
       chooseCategory: '',
       chooseSubcategory: '',
-      subcategoryObject: {},
       assetCategory: [],
       tempPhotos: [],
-      newProduct: {
+      productData: {
         assets: {},
         category: 0,
         manufacturer: '',
@@ -220,6 +295,7 @@ export default {
         parent_product: '',
         files: [],
       },
+      cloneProductData: {},
       productDetails: {},
       btnProcess: false,
       firstLoad: true,
@@ -229,20 +305,20 @@ export default {
   watch: {
     async chooseSubcategory() {
       if (!this.firstLoad) {
-        this.newProduct.assets = {}
+        this.productData.assets = {}
       } else {
         this.firstLoad = false
       }
 
-      this.subcategoryObject = this.useProductStore.categories[
+      const subcategoryObject = this.useProductStore.categories[
         this.chooseCategory
       ].find(item => item.name === this.chooseSubcategory)
 
       this.assetCategory = await this.useProductStore.GET_ASSET_TEMPLATE(
-        this.subcategoryObject.id
+        subcategoryObject.id
       )
 
-      this.newProduct.category = parseInt(this.subcategoryObject.id)
+      this.productData.category = parseInt(subcategoryObject.id)
     },
   },
 
@@ -261,16 +337,18 @@ export default {
     this.chooseSubcategory = this.productDetails.category.name
     this.tempPhotos = this.productDetails.photo.map(item => item.file)
 
-    this.newProduct.category = this.productDetails.category.id
-    this.newProduct.files = this.productDetails.photo.map(item => item.file)
-    this.newProduct.manufacturer = this.productDetails.manufacturer
-    this.newProduct.name = this.productDetails.name
-    this.newProduct.price = this.productDetails.price
-    this.newProduct.description = this.productDetails.description
-    this.newProduct.location = this.productDetails.location
+    this.productData.category = this.productDetails.category.id
+    this.productData.files = this.productDetails.photo.map(item => item.file)
+    this.productData.manufacturer = this.productDetails.manufacturer
+    this.productData.name = this.productDetails.name
+    this.productData.price = this.productDetails.price
+    this.productData.description = this.productDetails.description
+    this.productData.location = this.productDetails.location
     this.productDetails.valueassets.forEach(item => {
-      this.newProduct.assets[item.asset.slug] = item.value
+      this.productData.assets[item.asset.slug] = item.value
     })
+
+    Object.assign(this.cloneProductData, this.productData)
   },
 
   methods: {
@@ -280,7 +358,7 @@ export default {
     },
     addPhotoProduct(e) {
       const file = e.target.files[0]
-      this.newProduct.files.push(file)
+      this.productData.files.push(file)
       const reader = new FileReader()
       const that = this
       reader.readAsDataURL(file)
@@ -290,43 +368,62 @@ export default {
     },
     deleteImage(id) {
       this.tempPhotos.splice(id, 1)
-      this.newProduct.files.splice(id, 1)
+      this.productData.files.splice(id, 1)
     },
-    // async createProduct() {
-    //   if (
-    //     this.newProduct.category > 0 &&
-    //     this.newProduct.name.length > 0 &&
-    //     this.newProduct.price.length > 0 &&
-    //     this.newProduct.files.length > 0
-    //   ) {
-    //     this.btnProcess = true
+    numbersPrevent(evt) {
+      const theEvent = evt || window.event
+      let key = theEvent.keyCode || theEvent.which
+      key = String.fromCharCode(key)
+      const regex = /[0-9]|\./
+      if (!regex.test(key)) {
+        theEvent.returnValue = false
+        if (theEvent.preventDefault) theEvent.preventDefault()
+      }
+    },
+    async createProduct() {
+      const tempData = {}
 
-    //     const data = new FormData()
+      for (const key in this.productData) {
+        if (
+          Object.hasOwnProperty.call(this.productData, key) &&
+          this.productData[key] !== this.cloneProductData[key]
+        ) {
+          tempData[key] = this.productData[key]
+        }
+      }
 
-    //     for (const key in this.newProduct) {
-    //       if (key === 'assets') {
-    //         data.append(key, JSON.stringify(this.newProduct[key]))
-    //       } else if (key === 'files') {
-    //         for (const iterator of this.newProduct[key]) {
-    //           data.append('files', iterator)
-    //         }
-    //       } else {
-    //         data.append(key, this.newProduct[key])
-    //       }
-    //     }
+      if (Object.keys(tempData).length > 0) {
+        this.btnProcess = true
 
-    //     const response = await this.useProductStore.CREATE_PRODUCT(data)
+        const data = new FormData()
 
-    //     if (response.id) {
-    //       await this.clientsStore.GET_SELF()
-    //       this.btnProcess = false
-    //       this.$emit('refreshProducts')
-    //       this.closeWindow()
-    //     }
+        for (const key in tempData) {
+          if (key === 'assets') {
+            data.append(key, JSON.stringify(tempData[key]))
+          } else if (key === 'files') {
+            for (const iterator of tempData[key]) {
+              data.append('files', iterator)
+            }
+          } else {
+            data.append(key, tempData[key])
+          }
+        }
 
-    //     this.btnProcess = false
-    //   }
-    // },
+        const response = await this.useProductStore.UPDATE_PRODUCT(
+          this.publicationId,
+          data
+        )
+
+        if (response.id) {
+          await this.clientsStore.GET_SELF()
+          this.btnProcess = false
+          this.$emit('refreshProducts')
+          this.closeWindow()
+        }
+
+        this.btnProcess = false
+      }
+    },
   },
 }
 </script>
@@ -334,7 +431,7 @@ export default {
 <style lang="scss" scoped>
 .spinner {
   position: absolute;
-  left: 80px;
+  left: 150px;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -505,6 +602,10 @@ export default {
       color: transparent;
       transition: all 0.2s ease-in-out;
     }
+  }
+
+  &__btn-exit {
+    @include defineBtnAccent(20px, 91px, 18px, 44px);
   }
 }
 
@@ -717,9 +818,20 @@ export default {
 
   &__label {
     @include defineFontMontserrat(400, 18px, 22px);
+    position: relative;
+
+    &--change::before {
+      content: 'внесены изменения';
+      position: absolute;
+      top: 0;
+      right: 0;
+      @include defineFontMontserrat(400, 16px, 20px);
+      color: $accent;
+    }
   }
 
   &__input {
+    position: relative;
     @include defineFontMontserrat(400, 18px, 22px);
     outline: none;
     border: none;
@@ -727,6 +839,10 @@ export default {
     border-radius: 8px;
     padding: 16px 15px;
     color: $black;
+
+    &--change {
+      outline: 1px solid $accent-dark;
+    }
 
     &::placeholder,
     &:disabled {
@@ -744,10 +860,20 @@ export default {
     padding: 16px 15px;
     color: $black;
 
+    &--change {
+      outline: 1px solid $accent-dark;
+    }
+
     &::placeholder,
     &:disabled {
       color: rgba(0, 0, 0, 0.2);
     }
   }
+}
+.button-group {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
 }
 </style>

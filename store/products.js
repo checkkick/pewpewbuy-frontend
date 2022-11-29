@@ -54,6 +54,19 @@ export const products = defineStore('products', {
       }
     },
 
+    async UPDATE_PRODUCT(productId, data) {
+      try {
+        return await api('products/update_product/' + productId + '/', {
+          body: data,
+          method: 'PATCH',
+          errorAlert: 'Ошибка обновления товара',
+          headers: { Authorization: 'Bearer ' + get('access_pew') },
+        })
+      } catch (error) {
+        return error.response.status
+      }
+    },
+
     async GET_ALL_PRODUCTS() {
       const options = {
         method: 'GET',
