@@ -153,7 +153,8 @@
               v-model="newProduct.price"
               class="property__input"
               type="text"
-              name="price" />
+              name="price"
+              @keypress="numbersPrevent" />
           </div>
         </div>
 
@@ -256,6 +257,16 @@ export default {
     deleteImage(id) {
       this.tempPhotos.splice(id, 1)
       this.newProduct.files.splice(id, 1)
+    },
+    numbersPrevent(evt) {
+      const theEvent = evt || window.event
+      let key = theEvent.keyCode || theEvent.which
+      key = String.fromCharCode(key)
+      const regex = /[0-9]|\./
+      if (!regex.test(key)) {
+        theEvent.returnValue = false
+        if (theEvent.preventDefault) theEvent.preventDefault()
+      }
     },
     async createProduct() {
       if (
