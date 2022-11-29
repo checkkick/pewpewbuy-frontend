@@ -442,6 +442,7 @@ export default {
               width: 181px;
               height: 181px;
               border-radius: 50%;
+              object-fit: cover;
             }
 
             &__line {
