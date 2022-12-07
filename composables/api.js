@@ -22,10 +22,17 @@ export const api = (url, options = {}) =>
     onResponseError() {
       const storeAlerts = alerts()
 
+      const id = storeAlerts.counter
+
       storeAlerts.alerts.push({
-        id: storeAlerts.counter,
+        id,
         alert: options.errorAlert,
       })
+
+      setTimeout(() => {
+        storeAlerts.DELETE_ALERT(id)
+      }, 30 * 1000)
+
       storeAlerts.counter++
 
       return false

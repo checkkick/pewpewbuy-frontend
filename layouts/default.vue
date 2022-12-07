@@ -87,7 +87,7 @@ export default {
   list-style: none;
   margin: 0;
   position: absolute;
-  top: 60%;
+  top: 350px;
   right: 0;
 
   &__item {
