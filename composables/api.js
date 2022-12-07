@@ -1,4 +1,4 @@
-import { notifications } from '~~/store/notifications'
+import { notifications } from '@/store/notifications'
 
 export const api = (url, options = {}) =>
   $fetch(`http://bexram.online:8500/${url}`, {

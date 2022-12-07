@@ -1,5 +1,6 @@
 import { api } from '@/composables/api'
 import { get } from '@/store/cookies'
+import { notifications } from '@/store/notifications'
 import { defineStore } from 'pinia'
 
 export const clients = defineStore('clients', {
@@ -38,6 +39,12 @@ export const clients = defineStore('clients', {
             this.user[key] = response[key]
           }
         }
+
+        notifications().ADD_NOTIFICATION(
+          'Изменение профиля',
+          'Профиль успешно изменен',
+          'success'
+        )
 
         return true
       } catch (error) {

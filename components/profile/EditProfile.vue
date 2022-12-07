@@ -203,11 +203,6 @@ export default {
           data
         )
       ) {
-        this.addNotifications(
-          'Изменение профиля',
-          'Профиль успешно изменен',
-          'success'
-        )
         this.closeWindow()
       }
     },
