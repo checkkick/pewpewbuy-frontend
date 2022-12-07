@@ -8,6 +8,16 @@ export const alerts = defineStore('alerts', {
     }
   },
 
+  actions: {
+    DELETE_ALERT(id) {
+      const index = this.alerts.findIndex(n => n.id === id)
+
+      if (index !== -1) {
+        this.alerts.splice(index, 1)
+      }
+    },
+  },
+
   getters: {
     ALL_ALERTS: state => state.alerts,
   },
