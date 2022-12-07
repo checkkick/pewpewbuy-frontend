@@ -98,6 +98,7 @@ export default {
   emits: ['refreshProducts', 'showEditProductModal'],
   setup() {
     const removeProduct = products().REMOVE_PRODUCT
+
     return {
       removeProduct,
       modules: [Pagination],
@@ -122,9 +123,10 @@ export default {
   },
   methods: {
     async deleteProduct(id) {
-      await this.removeProduct(id)
-      this.$emit('refreshProducts')
-      this.showSettings = false
+      if (await this.removeProduct(id)) {
+        this.$emit('refreshProducts')
+        this.showSettings = false
+      }
     },
   },
 }

@@ -235,7 +235,7 @@
             class="modal-window__btn"
             :class="{ 'modal-window__btn--active': btnProcess }"
             :disabled="btnProcess"
-            @click="createProduct">
+            @click="editProduct">
             Сохранить изменения
             <span v-if="btnProcess" class="spinner"></span>
           </button>
@@ -272,6 +272,7 @@ export default {
   setup() {
     const useProductStore = products()
     const clientsStore = clients()
+
     return {
       useProductStore,
       clientsStore,
@@ -380,7 +381,7 @@ export default {
         if (theEvent.preventDefault) theEvent.preventDefault()
       }
     },
-    async createProduct() {
+    async editProduct() {
       const tempData = {}
 
       for (const key in this.productData) {
@@ -409,12 +410,9 @@ export default {
           }
         }
 
-        const response = await this.useProductStore.UPDATE_PRODUCT(
-          this.publicationId,
-          data
-        )
-
-        if (response.id) {
+        if (
+          await this.useProductStore.UPDATE_PRODUCT(this.publicationId, data)
+        ) {
           await this.clientsStore.GET_SELF()
           this.btnProcess = false
           this.$emit('refreshProducts')

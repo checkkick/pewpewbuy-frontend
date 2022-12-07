@@ -136,6 +136,7 @@
 </template>
 
 <script>
+import { notifications } from '@/store/notifications'
 import noPhoto from '@/assets/img/no-photo.png'
 import { clients } from '@/store/clients'
 
@@ -143,9 +144,12 @@ export default {
   emits: ['closeEditWindow'],
   setup() {
     const clientsStore = clients()
+    const addNotifications = notifications().ADD_NOTIFICATION
+
     return {
       clientsStore,
       noImage: noPhoto,
+      addNotifications,
     }
   },
   data: () => {
@@ -184,7 +188,7 @@ export default {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden'
   },
   methods: {
-    updateUserData() {
+    async updateUserData() {
       const data = new FormData()
 
       for (const key in this.user) {
@@ -193,8 +197,19 @@ export default {
         }
       }
 
-      this.clientsStore.UPDATE_USER(this.clientsStore.USER_STATE.id, data)
-      this.closeWindow()
+      if (
+        await this.clientsStore.UPDATE_USER(
+          this.clientsStore.USER_STATE.id,
+          data
+        )
+      ) {
+        this.addNotifications(
+          'Изменение профиля',
+          'Профиль успешно изменен',
+          'success'
+        )
+        this.closeWindow()
+      }
     },
     changeImage(e) {
       const file = e.target.files[0]

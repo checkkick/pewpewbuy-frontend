@@ -291,9 +291,7 @@ export default {
           }
         }
 
-        const response = await this.useProductStore.CREATE_PRODUCT(data)
-
-        if (response.id) {
+        if (await this.useProductStore.CREATE_PRODUCT(data)) {
           await this.clientsStore.GET_SELF()
           this.btnProcess = false
           this.$emit('refreshProducts')

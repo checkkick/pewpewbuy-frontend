@@ -1,4 +1,4 @@
-import { alerts } from '@/store/alerts'
+import { notifications } from '~~/store/notifications'
 
 export const api = (url, options = {}) =>
   $fetch(`http://bexram.online:8500/${url}`, {
@@ -17,23 +17,16 @@ export const api = (url, options = {}) =>
     // },
     // async onRequestError({ request, options, error }) {
     //   console.log('[fetch request error]')
-    // }
+    // },
 
-    onResponseError() {
-      const storeAlerts = alerts()
+    onResponseError({ options }) {
+      const storeNotifications = notifications()
 
-      const id = storeAlerts.counter
-
-      storeAlerts.alerts.push({
-        id,
-        alert: options.errorAlert,
-      })
-
-      setTimeout(() => {
-        storeAlerts.DELETE_ALERT(id)
-      }, 30 * 1000)
-
-      storeAlerts.counter++
+      storeNotifications.ADD_NOTIFICATION(
+        options.errorAlert,
+        'Системная ошибка',
+        'alert'
+      )
 
       return false
     },

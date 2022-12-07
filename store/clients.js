@@ -19,7 +19,7 @@ export const clients = defineStore('clients', {
         })
         this.user = response
       } catch (error) {
-        return error.response
+        return false
       }
     },
     async UPDATE_USER(id, data) {
@@ -38,8 +38,10 @@ export const clients = defineStore('clients', {
             this.user[key] = response[key]
           }
         }
+
+        return true
       } catch (error) {
-        return error.response
+        return false
       }
     },
   },

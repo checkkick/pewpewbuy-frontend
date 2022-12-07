@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { notifications } from '@/store/notifications'
 import { api } from '@/composables/api'
 import { get } from '@/store/cookies'
 
@@ -31,39 +32,63 @@ export const products = defineStore('products', {
   actions: {
     async CREATE_PRODUCT(data) {
       try {
-        return await api('products/create_product/', {
+        await api('products/create_product/', {
           body: data,
           method: 'POST',
           errorAlert: 'Ошибка при добавлении товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
+
+        notifications().ADD_NOTIFICATION(
+          'Добавление карточки товара',
+          'Карточка товара успешно добавлена',
+          'success'
+        )
+
+        return true
       } catch (error) {
-        return error.response.status
+        return false
       }
     },
 
     async REMOVE_PRODUCT(productId) {
       try {
-        return await api('products/delete_product/' + productId + '/', {
+        await api('products/delete_product/' + productId + '/', {
           method: 'DELETE',
           errorAlert: 'Ошибка при удалении товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
+
+        notifications().ADD_NOTIFICATION(
+          'Удаление карточки товара',
+          'Карточка товара успешно удалена',
+          'delete'
+        )
+
+        return true
       } catch (error) {
-        return error.response.status
+        return false
       }
     },
 
     async UPDATE_PRODUCT(productId, data) {
       try {
-        return await api('products/update_product/' + productId + '/', {
+        await api('products/update_product/' + productId + '/', {
           body: data,
           method: 'PATCH',
           errorAlert: 'Ошибка при обновлении товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
+
+        notifications().ADD_NOTIFICATION(
+          'Изменение карточки товара',
+          'Изменения успешно внесены',
+          'edit'
+        )
+
+        return true
       } catch (error) {
-        return error.response.status
+        return false
       }
     },
 
