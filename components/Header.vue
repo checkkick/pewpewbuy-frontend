@@ -139,6 +139,8 @@ export default {
     color: #191b1d;
     text-decoration: none;
     text-align: center;
+    padding-left: 55px;
+    background: url('@/assets/img/header-logo.png') no-repeat center left / contain;
   }
 
   &__title {
