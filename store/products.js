@@ -34,7 +34,7 @@ export const products = defineStore('products', {
         return await api('products/create_product/', {
           body: data,
           method: 'POST',
-          errorAlert: 'Ошибка добавления товара',
+          errorAlert: 'Ошибка при добавлении товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
       } catch (error) {
@@ -46,7 +46,7 @@ export const products = defineStore('products', {
       try {
         return await api('products/delete_product/' + productId + '/', {
           method: 'DELETE',
-          errorAlert: 'Ошибка удаления товара',
+          errorAlert: 'Ошибка при удалении товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
       } catch (error) {
@@ -59,7 +59,7 @@ export const products = defineStore('products', {
         return await api('products/update_product/' + productId + '/', {
           body: data,
           method: 'PATCH',
-          errorAlert: 'Ошибка обновления товара',
+          errorAlert: 'Ошибка при обновлении товара',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
       } catch (error) {
@@ -67,27 +67,11 @@ export const products = defineStore('products', {
       }
     },
 
-    async GET_ALL_PRODUCTS() {
-      const options = {
-        method: 'GET',
-        errorAlert: 'при загрузке товара',
-      }
-      if (get('access_pew')) {
-        options.headers = { Authorization: 'Bearer ' + get('access_pew') }
-      }
-      try {
-        const response = await api('products/all/', options)
-        this.allProducts = response
-      } catch (error) {
-        return error.response
-      }
-    },
-
     async GET_FILTRED_PRODUCTS(filter) {
       try {
         const response = await api('products/filter/?' + filter, {
           method: 'GET',
-          errorAlert: 'при загрузке товара',
+          errorAlert: 'Ошибка при фильтрации',
         })
         this.allProducts = response.results
       } catch (error) {
@@ -99,7 +83,7 @@ export const products = defineStore('products', {
       try {
         const response = await api('products/?search=' + search, {
           method: 'GET',
-          errorAlert: 'при загрузке товара',
+          errorAlert: 'Ошибка при поиске товара',
         })
         this.allProducts = response.results
       } catch (error) {
@@ -113,7 +97,7 @@ export const products = defineStore('products', {
           'products/get_category_products/?slug=' + category,
           {
             method: 'GET',
-            errorAlert: 'при загрузке товара',
+            errorAlert: 'Ошибка при загрузке категорий товаров',
           }
         )
         this.allProducts = response.results
@@ -126,7 +110,7 @@ export const products = defineStore('products', {
       try {
         const response = await api('products/get_favorite/', {
           method: 'GET',
-          errorAlert: 'при загрузке товара',
+          errorAlert: 'Ошибка при загрузке избранных товаров',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
         this.favoriteProducts = response
@@ -140,7 +124,7 @@ export const products = defineStore('products', {
         return await api('products/create_favorite/', {
           body: { product },
           method: 'POST',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка при добавлении товара в избранное',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
       } catch (error) {
@@ -152,7 +136,7 @@ export const products = defineStore('products', {
       try {
         return await api('products/delete_favorite/' + product + '/', {
           method: 'DELETE',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка при удалении товара из избранного',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
       } catch (error) {
@@ -160,10 +144,26 @@ export const products = defineStore('products', {
       }
     },
 
+    async GET_ALL_PRODUCTS() {
+      const options = {
+        method: 'GET',
+        errorAlert: 'Ошибка при загрузке товара',
+      }
+      if (get('access_pew')) {
+        options.headers = { Authorization: 'Bearer ' + get('access_pew') }
+      }
+      try {
+        const response = await api('products/all/', options)
+        this.allProducts = response
+      } catch (error) {
+        return error.response
+      }
+    },
+
     async GET_DETAIL_PRODUCT(product) {
       const response = await api('products/detail/' + product + '/', {
         method: 'GET',
-        errorAlert: 'Ошибка. Попробуйте снова',
+        errorAlert: 'Ошибка при загрузке подробной информации о продукте',
         headers: { Authorization: 'Bearer ' + get('access_pew') },
       })
 
@@ -175,7 +175,7 @@ export const products = defineStore('products', {
         'products/get_asset_template/' + categoryId + '/',
         {
           method: 'GET',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка при загрузке шаблонов',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         }
       )
@@ -187,7 +187,7 @@ export const products = defineStore('products', {
       try {
         const response = await api('products/get_categories/', {
           method: 'GET',
-          errorAlert: 'Ошибка при загрузке товаров',
+          errorAlert: 'Ошибка при загрузке категорий',
         })
 
         this.categories = filterCategories(response)

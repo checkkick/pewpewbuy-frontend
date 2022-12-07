@@ -15,7 +15,7 @@ export const auth = defineStore('auth', {
         const response = await api('auth/login/', {
           body: { email: mail, password },
           method: 'POST',
-          errorAlert: 'при загрузке товара',
+          errorAlert: 'Ошибка при получении токена доступа к ресурсу',
         })
         set('access_pew', response.access)
         set('refresh_pew', response.refresh)
@@ -30,7 +30,7 @@ export const auth = defineStore('auth', {
         const response = await api('auth/refresh/', {
           body: { refresh: get('refresh_pew') },
           method: 'POST',
-          errorAlert: 'при загрузке товара',
+          errorAlert: 'Ошибка при обновлении токена доступа к ресурсу',
         })
         set('access_pew', response.access)
         set('refresh_pew', response.refresh)
@@ -46,7 +46,7 @@ export const auth = defineStore('auth', {
         const response = await api('auth/send_code/', {
           body: { login: mail },
           method: 'POST',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка при отправке кода',
         })
         return response
       } catch (error) {
@@ -58,7 +58,7 @@ export const auth = defineStore('auth', {
         const response = await api('auth/check_mail/', {
           body: { mail },
           method: 'POST',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка при проверки почты',
         })
         return response
       } catch (error) {
@@ -70,7 +70,7 @@ export const auth = defineStore('auth', {
         const response = await api('auth/confirm_mail/', {
           body: { mail, code },
           method: 'POST',
-          errorAlert: 'Ошибка. Попробуйте снова',
+          errorAlert: 'Ошибка при подтверждении почты',
         })
         return response
       } catch (error) {

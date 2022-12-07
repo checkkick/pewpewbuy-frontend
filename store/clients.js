@@ -14,7 +14,7 @@ export const clients = defineStore('clients', {
       try {
         const response = await api('clients/getself/', {
           method: 'GET',
-          errorAlert: 'при загрузке данных пользователя',
+          errorAlert: 'Ошибка при загрузке данных пользователя',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
         this.user = response
@@ -27,7 +27,7 @@ export const clients = defineStore('clients', {
         const response = await api(`clients/updateuser/${id}/`, {
           method: 'PATCH',
           body: data,
-          errorAlert: 'при обновлении данных пользователя',
+          errorAlert: 'Ошибка при обновлении данных пользователя',
           headers: {
             Authorization: 'Bearer ' + get('access_pew'),
           },
