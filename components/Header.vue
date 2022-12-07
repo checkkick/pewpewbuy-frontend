@@ -164,7 +164,7 @@ export default {
       @include defineFontMontserrat(400, 16px, 22px);
       width: 100%;
       padding: 19px 30px;
-      background: #f2f2f2;
+      background: $white;
       border: 1px solid #dcdcdc;
       border-radius: 54px;
       background-image: url('@/assets/img/finder.svg');

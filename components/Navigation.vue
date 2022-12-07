@@ -137,7 +137,7 @@ export default {
   margin-bottom: 40px;
 
   &__filter {
-    background: $filter-background;
+    background: $white;
     border: 1px solid $filter-border;
     box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
     border-radius: 91px;
@@ -181,7 +181,7 @@ export default {
       padding: 0;
       margin: 0;
       list-style: none;
-      background: $filter-background;
+      background: $white;
       border: 1px solid $filter-border;
       box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.15);
       border-radius: 14px;
@@ -214,7 +214,7 @@ export default {
   }
 
   &__btn-create {
-    @include defineBtnAccent(24px, 91px, 32px, 28px);
+    @include defineBtnAccent(20px, 91px, 25px, 26px);
     cursor: pointer;
   }
 }
