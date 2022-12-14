@@ -109,19 +109,11 @@ export default {
   methods: {
     async onLike() {
       if (!this.like) {
-        const response = await this.useProductStore.ADD_FAVORITE(
-          this.product.id
-        )
-        if (response !== 400 && response !== 401) {
+        if (await this.useProductStore.ADD_FAVORITE(this.product.id)) {
           this.like = true
         }
-      } else {
-        const response = await this.useProductStore.REMOVE_FAVORITE(
-          this.product.id
-        )
-        if (response !== 400 && response !== 401) {
-          this.like = false
-        }
+      } else if (await this.useProductStore.REMOVE_FAVORITE(this.product.id)) {
+        this.like = false
       }
     },
   },
