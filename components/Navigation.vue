@@ -1,30 +1,29 @@
 <template>
-  <div class="nav">
+  <div class="nav" @mouseleave="leaveBar()">
     <nav class="nav__filter">
       <ul class="nav__filter__list">
         <li
-          v-for="(filterItem, idx) in Object.keys(filterMenu)"
+          v-for="(filterItem, idx) in Object.keys(categories)"
           :key="idx"
           class="nav__filter__list__item"
           :class="{ active: filterItem === chooseFilter }"
-          @click.self="chooseCategory(filterItem)">
-          <a
-            href="#"
-            class="nav__filter__list__item__link"
-            @click.self="chooseCategory(filterItem)"
-            >{{ filterItem }}</a
-          >
+          @mouseenter=";(chooseFilter = filterItem), (showSubFilter = true)">
+          <a href="#" class="nav__filter__list__item__link">{{ filterItem }}</a>
           <ul
-            v-if="filterItem === chooseFilter && showFilter"
+            v-if="
+              filterItem === chooseFilter &&
+              showSubFilter &&
+              categories[filterItem].length > 0
+            "
             class="nav__filter__dropdown-list">
             <li
-              v-for="(item, index) in filterMenu[filterItem]"
-              :key="index"
+              v-for="item in categories[filterItem]"
+              :key="item.id"
               class="nav__filter__dropdown-list__item"
-              :class="{ active: item[1] === chooseSubfilter }"
-              @click="chooseSubCategory(item[1])">
+              :class="{ active: item.id === chooseSubfilter.id }"
+              @click="chooseSubCategory(item)">
               <a class="nav__filter__dropdown-list__item__link">{{
-                item[0]
+                item.name
               }}</a>
             </li>
           </ul>
@@ -44,85 +43,50 @@
 </template>
 
 <script>
-import { defineStore, mapStores } from 'pinia'
 import { auth } from '@/store/auth.js'
-
-const useProductStore = defineStore('products', {})
+import { products } from '@/store/products'
 
 export default {
-  setup() {
-    const authorization = auth()
+  async setup() {
+    const authorization = auth().CHECK_AUTH()
+    const categories = await products().GET_CATEGORIES_ALL()
+    const filterProducts = products().GET_CATEGORY_PRODUCTS
+    const getAllProducts = products().GET_ALL_PRODUCTS
 
     return {
-      authorization: onMounted(() => {
-        return authorization.CHECK_AUTH()
-      }),
+      authorization,
+      categories,
+      filterProducts,
+      getAllProducts,
     }
   },
   data: () => {
     return {
-      showFilter: false,
+      showSubFilter: false,
       chooseFilter: '',
-      chooseSubfilter: '',
-      filterMenu: {
-        'Страйкбольное оружие': [
-          ['АК-серия', 'ak-series'],
-          ['М-серия', 'm-series'],
-          ['Винтовки', 'rifles'],
-          ['Пулеметы', 'machineguns'],
-          ['Дробовики', 'shotgun'],
-          ['Автоматы прочие модели', 'auto_other'],
-          ['АС ВАЛ, ВСС, СР-3М', 'val'],
-          ['Пистолеты', 'pistols'],
-          ['Гранатометы', 'launchers'],
-        ],
-        'Внешний тюнинг': [
-          ['Трассерные насадки', 'tracers'],
-          ['Магазины', 'magazines'],
-          ['Глушители', 'silencers'],
-          ['Прицелы', 'scopes'],
-          ['Крепления', 'bracing'],
-          ['Рукоятки', 'handle'],
-          ['Прочее', 'external_other'],
-        ],
-        'Внутренний тюнинг': [
-          ['Гирбоксы', 'gearboxs'],
-          ['Пружины', 'springs'],
-          ['Моторы', 'motors'],
-          ['ВВД-системы', 'vvd'],
-          ['Аккумуляторы', 'batteries'],
-          ['Прочее', 'internal_other'],
-        ],
-        Снаряжение: [
-          ['Шлемы', 'helmets'],
-          ['Одежда', 'clothes'],
-          ['Очки', 'glasses'],
-          ['Подсумки', 'pouch'],
-          ['Чехлы, сумки', 'bags'],
-          ['Рюкзаки', 'backpacks'],
-          ['Разгрузочные системы', 'unloading'],
-          ['Средства связи', 'communication'],
-          ['Наушники', 'headphones'],
-          ['Бронежилеты и плитники', 'armors'],
-          ['Фонари и маркеры', 'flashlights'],
-          ['Ремни', 'belts'],
-          ['Прочее', 'equipment_other'],
-        ],
-      },
+      chooseSubfilter: {},
     }
   },
-  computed: {
-    ...mapStores(useProductStore),
-  },
   methods: {
-    chooseCategory(item) {
-      this.showFilter = !this.showFilter
-      this.chooseFilter = item
+    async chooseSubCategory(item) {
+      if (this.chooseSubfilter === item) {
+        this.chooseSubfilter = ''
+        this.chooseFilter = ''
+        this.showSubFilter = false
+        await this.getAllProducts()
+      } else {
+        this.chooseSubfilter = item
+        this.showSubFilter = false
+        await this.filterProducts(item.slug)
+      }
     },
-    chooseSubCategory(item) {
-      this.showFilter = !this.showFilter
-      this.chooseSubfilter = item
-      this.productsStore.GET_CATEGORY_PRODUCTS(item)
+    leaveBar() {
+      if (Object.keys(this.chooseSubfilter).length > 0) {
+        this.chooseFilter = this.chooseSubfilter.parent_category.name
+      } else {
+        this.chooseFilter = ''
+      }
+      this.showSubFilter = false
     },
   },
 }
@@ -134,7 +98,8 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 42px;
-  margin-bottom: 40px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
 
   &__filter {
     background: $white;
@@ -155,13 +120,15 @@ export default {
       &__item {
         @include defineFontMontserrat(500, 24px, 29px);
         position: relative;
+        cursor: pointer;
         text-align: center;
         padding: 22px 27px;
         border-radius: 91px;
         color: $black;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
         &.active {
-          background: $primary;
+          background-color: $primary;
           color: $white;
         }
 
@@ -187,12 +154,14 @@ export default {
       border-radius: 14px;
 
       &__item {
+        cursor: pointer;
         @include defineFontMontserrat(500, 18px, 22px);
         text-align: center;
         padding: 14px 17px;
         color: $black;
 
-        &.active {
+        &.active,
+        &:hover {
           background: $primary;
           color: $white;
         }

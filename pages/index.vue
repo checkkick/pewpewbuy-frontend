@@ -27,7 +27,7 @@ export default {
     return {
       useAuthStore,
       useProductStore,
-      all_products: computed(() => useProductStore.ALL_PRODUCTS.results),
+      all_products: computed(() => useProductStore.ALL_PRODUCTS),
       favorite_products: computed(() => useProductStore.FAVORITE_PRODUCTS),
       authorized: computed(() => useAuthStore.AUTHORIZED),
     }

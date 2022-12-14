@@ -93,96 +93,108 @@ export const products = defineStore('products', {
     },
 
     async GET_FILTRED_PRODUCTS(filter) {
-      try {
-        const response = await api('products/filter/?' + filter, {
-          method: 'GET',
-          errorAlert: 'Ошибка при фильтрации',
-        })
-        this.allProducts = response.results
-      } catch (error) {
-        return error.response
-      }
+      const response = await api('products/filter/?' + filter, {
+        method: 'GET',
+        errorAlert: 'Ошибка при фильтрации',
+      })
+      this.allProducts = response.results
+
+      return response
     },
 
     async GET_SEARCHED_PRODUCTS(search) {
-      try {
-        const response = await api('products/?search=' + search, {
-          method: 'GET',
-          errorAlert: 'Ошибка при поиске товара',
-        })
-        this.allProducts = response.results
-      } catch (error) {
-        return error.response
-      }
+      const response = await api('products/?search=' + search, {
+        method: 'GET',
+        errorAlert: 'Ошибка при поиске товара',
+      })
+      this.allProducts = response.results
+
+      return response
     },
 
     async GET_CATEGORY_PRODUCTS(category) {
-      try {
-        const response = await api(
-          'products/get_category_products/?slug=' + category,
-          {
-            method: 'GET',
-            errorAlert: 'Ошибка при загрузке категорий товаров',
-          }
-        )
-        this.allProducts = response.results
-      } catch (error) {
-        return error.response
-      }
+      const response = await api(
+        'products/get_category_products/?slug=' + category,
+        {
+          method: 'GET',
+          errorAlert: 'Ошибка при загрузке отфильтрованных товаров',
+        }
+      )
+
+      this.allProducts = response.results
+
+      return response
     },
 
     async GET_FAVORITE() {
-      try {
-        const response = await api('products/get_favorite/', {
-          method: 'GET',
-          errorAlert: 'Ошибка при загрузке избранных товаров',
-          headers: { Authorization: 'Bearer ' + get('access_pew') },
-        })
-        this.favoriteProducts = response
-      } catch (error) {
-        return error.response
-      }
+      const response = await api('products/get_favorite/', {
+        method: 'GET',
+        errorAlert: 'Ошибка при загрузке избранных товаров',
+        headers: { Authorization: 'Bearer ' + get('access_pew') },
+      })
+
+      this.favoriteProducts = response
+
+      return response
     },
 
     async ADD_FAVORITE(product) {
       try {
-        return await api('products/create_favorite/', {
+        await api('products/create_favorite/', {
           body: { product },
           method: 'POST',
           errorAlert: 'Ошибка при добавлении товара в избранное',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
+
+        notifications().ADD_NOTIFICATION(
+          'Добавление товара в избранное',
+          'Товар успешно добавлен в избранное',
+          'success'
+        )
+
+        return true
       } catch (error) {
-        return error.response.status
+        return false
       }
     },
 
     async REMOVE_FAVORITE(product) {
       try {
-        return await api('products/delete_favorite/' + product + '/', {
+        await api('products/delete_favorite/' + product + '/', {
           method: 'DELETE',
           errorAlert: 'Ошибка при удалении товара из избранного',
           headers: { Authorization: 'Bearer ' + get('access_pew') },
         })
+
+        notifications().ADD_NOTIFICATION(
+          'Удаление товара из избранного',
+          'Товар успешно удален из избранного',
+          'delete'
+        )
+
+        return true
       } catch (error) {
-        return error.response.status
+        return false
       }
     },
 
     async GET_ALL_PRODUCTS() {
       const options = {
         method: 'GET',
-        errorAlert: 'Ошибка при загрузке товара',
+        errorAlert: 'Ошибка при загрузке товаров',
       }
-      if (get('access_pew')) {
-        options.headers = { Authorization: 'Bearer ' + get('access_pew') }
+
+      const access = get('access_pew')
+
+      if (access) {
+        options.headers = { Authorization: 'Bearer ' + access }
       }
-      try {
-        const response = await api('products/all/', options)
-        this.allProducts = response
-      } catch (error) {
-        return error.response
-      }
+
+      const response = await api('products/all/', options)
+      this.allProducts = response.results
+
+      return response
     },
 
     async GET_DETAIL_PRODUCT(product) {
@@ -209,18 +221,14 @@ export const products = defineStore('products', {
     },
 
     async GET_CATEGORIES_ALL() {
-      try {
-        const response = await api('products/get_categories/', {
-          method: 'GET',
-          errorAlert: 'Ошибка при загрузке категорий',
-        })
+      const response = await api('products/get_categories/', {
+        method: 'GET',
+        errorAlert: 'Ошибка при загрузке категорий',
+      })
 
-        this.categories = filterCategories(response)
+      this.categories = filterCategories(response)
 
-        return this.categories
-      } catch (error) {
-        return error
-      }
+      return this.categories
     },
   },
 
