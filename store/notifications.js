@@ -21,7 +21,7 @@ export const notifications = defineStore('notifications', {
 
       setTimeout(() => {
         this.DELETE_NOTIFICATION(id)
-      }, 30 * 1000)
+      }, 10 * 1000)
 
       this.counter++
     },
