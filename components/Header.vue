@@ -140,7 +140,8 @@ export default {
     text-decoration: none;
     text-align: center;
     padding-left: 55px;
-    background: url('@/assets/img/header-logo.png') no-repeat center left / contain;
+    background: url('@/assets/img/header-logo.png') no-repeat center left /
+      contain;
   }
 
   &__title {
@@ -207,7 +208,7 @@ export default {
         top: 50%;
         left: 50%;
         border-radius: 50%;
-        background-color: #4b8ff5;
+        background-color: $primary;
         color: $white;
       }
     }
@@ -223,6 +224,21 @@ export default {
       width: 100%;
       max-width: 48px;
       height: 48px;
+      transition: background-color 0.2s ease-in-out,
+        border-color 0.2s ease-in-out;
+
+      & > svg > path {
+        transition: stroke 0.2s ease-in-out;
+      }
+
+      &:hover {
+        background-color: $primary;
+        border-color: $primary;
+      }
+
+      &:hover > svg > path {
+        stroke: $white;
+      }
     }
 
     &__persone {
