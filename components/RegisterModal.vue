@@ -226,9 +226,12 @@ export default {
     align-self: stretch;
     margin-bottom: 20px;
 
-    &::placeholder,
-    &:disabled {
+    &::placeholder {
       color: rgba(0, 0, 0, 0.2);
+    }
+    &:disabled {
+      cursor: not-allowed;
+      color: rgba(0, 0, 0, 0.5);
     }
   }
 

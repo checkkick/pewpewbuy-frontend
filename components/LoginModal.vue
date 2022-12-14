@@ -203,9 +203,12 @@ export default {
     margin-bottom: 20px;
     color: #5a5a5a;
 
-    &::placeholder,
-    &:disabled {
+    &::placeholder {
       color: rgba(0, 0, 0, 0.2);
+    }
+    &:disabled {
+      cursor: not-allowed;
+      color: rgba(0, 0, 0, 0.5);
     }
   }
 
