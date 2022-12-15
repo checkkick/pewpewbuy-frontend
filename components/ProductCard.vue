@@ -158,7 +158,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f0f0f0;
+      background-color: $filter-background;
       border-radius: 15px;
 
       &__image {
@@ -193,11 +193,12 @@ export default {
 
     &.accent {
       color: $black-light;
-      border: 1px solid #515151;
+      border: 1px solid $input-login-color;
       background: transparent;
 
       &:hover {
-        background-color: #515151;
+        box-shadow: none;
+        background-color: $input-login-color;
         color: $white;
       }
     }
@@ -245,12 +246,12 @@ export default {
 }
 </style>
 
-<style>
+<style lang="scss">
 .product-card__swiper .swiper-pagination-bullet {
-  background-color: #9e9e9e;
+  background-color: $black;
 }
 .product-card__swiper .swiper-pagination-bullet-active {
-  background-color: #6f6f6f;
+  background-color: $input-login-color;
 }
 .product-card__swiper .swiper-pagination-fraction,
 .product-card__swiper .swiper-pagination-custom,

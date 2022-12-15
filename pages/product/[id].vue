@@ -117,9 +117,7 @@
           </div>
           <div class="price">
             <p class="price__value">
-              {{
-                detProduct.price ? detProduct.price.toLocaleString() : '0'
-              }}
+              {{ detProduct.price ? detProduct.price.toLocaleString() : '0' }}
               р.
             </p>
             <button class="price__btn-contact" @click="showContacts = true">
@@ -287,8 +285,8 @@ export default {
   }
 }
 .card {
-  background: #ffffff;
-  border: 1px solid #dedede;
+  background: $white;
+  border: 1px solid $filter-border;
   box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
   border-radius: 32px;
   padding: 50px 105px;
@@ -296,7 +294,7 @@ export default {
 
   &__title {
     @include defineFontMontserrat(600, 30px, 1.4);
-    color: #4b8ff5;
+    color: $primary;
     margin-bottom: 35px;
   }
 }
@@ -315,9 +313,9 @@ export default {
 
   &__profile-link {
     @include defineFontMontserrat(500, 20px, 1.4);
-    color: #4b8ff5;
+    color: $primary;
     text-decoration: none;
-    border-bottom: 1px solid #4b8ff5;
+    border-bottom: 1px solid $primary;
   }
 }
 .seller-info {
@@ -385,7 +383,7 @@ export default {
     padding: 18px 0 18px 2px;
     & .swiper-slide-thumb-active {
       opacity: 1;
-      outline: 2px solid #f8b94e;
+      outline: 2px solid $accent-dark;
     }
   }
 
@@ -452,7 +450,7 @@ export default {
     cursor: pointer;
     position: relative;
     @include defineFontMontserrat(600, 25px, 1.4);
-    color: #070707;
+    color: $black-contrast;
     padding: 19px 10%;
     border-bottom: 2px solid #bdbdbd;
   }
@@ -573,8 +571,8 @@ export default {
 .swiper__carousel .swiper-button-next::before {
   content: '';
   position: absolute;
-  background-color: #f7f7f7;
-  border: 1px solid #dedede;
+  background-color: $grey-light;
+  border: 1px solid $filter-border;
   width: 100%;
   height: 100%;
   border-radius: 50%;

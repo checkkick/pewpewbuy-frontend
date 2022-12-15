@@ -138,11 +138,11 @@ export default {
       border-radius: 50%;
 
       &.activePubl {
-        background-color: #00ad45;
+        background-color: $success;
       }
 
       &.inactivePubl {
-        background-color: #e70000;
+        background-color: $alert;
       }
     }
 
@@ -238,8 +238,8 @@ export default {
 .advertisment__wrapper__swiper .swiper-button-next::before {
   content: '';
   position: absolute;
-  background-color: #f7f7f7;
-  border: 1px solid #dedede;
+  background-color: $grey-light;
+  border: 1px solid $filter-border;
   width: 100%;
   height: 100%;
   border-radius: 50%;

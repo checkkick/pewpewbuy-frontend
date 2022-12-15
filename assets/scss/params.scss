@@ -1,19 +1,33 @@
 $primary: #4b8ff5;
+$primary-hover: #1875ff;
+$primary-active: #2c73dd;
 $primary-blur: #d8e3ff;
 
 $accent: #ffc96d;
 $accent-dark: #f8b94e;
+$accent-active: #ffb22f;
 
 $filter-background: #f2f2f2;
 $filter-border: #dedede;
 
 $input-background: #eaeaea;
+$input-login-color: #5a5a5a;
+
+$btn-spinner: #6ebeff;
+$btn-spinner-dark: #337ab7;
+
+$alert: #e70000;
+$success: #00ad45;
 
 $modal-background: #f8f8f8;
+$modal-dark-background: rgba(31, 31, 31, 0.87);
 
 $white: #ffffff;
+
 $grey: rgba(238, 238, 238, 0.9);
-$modal-dark-background: rgba(31, 31, 31, 0.87);
+$grey-light: #f7f7f7;
+
 $black: rgba(0, 0, 0, 0.9);
+$black-inactive: #b1b1b1;
 $black-light: rgba(36, 36, 36, 0.9);
 $black-contrast: #1b1414;

@@ -220,7 +220,7 @@ export default {
     @include defineFontMontserrat(600, 20px, 23px);
     outline: none;
     border: none;
-    background: #eaeaea;
+    background: $input-background;
     border-radius: 12px;
     padding: 22px 24px;
     align-self: stretch;

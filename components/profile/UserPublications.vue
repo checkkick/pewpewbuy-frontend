@@ -164,10 +164,10 @@ export default {
     margin: 0 0 10px 0;
 
     & .active {
-      color: #00ad45;
+      color: $success;
     }
     & .inactive {
-      color: #f50000;
+      color: $alert;
     }
   }
 
@@ -276,7 +276,7 @@ export default {
 .setting-list {
   z-index: 1;
   background: #fafafa;
-  border: 1px solid #dedede;
+  border: 1px solid $filter-border;
   box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.06);
   border-radius: 14px;
   margin: 0;

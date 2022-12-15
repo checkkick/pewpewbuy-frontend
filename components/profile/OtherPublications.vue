@@ -246,12 +246,12 @@ export default {
 }
 </style>
 
-<style>
+<style lang="scss">
 .publication__image-swiper .swiper-pagination-bullet {
-  background-color: #9e9e9e;
+  background-color: $black;
 }
 .publication__image-swiper .swiper-pagination-bullet-active {
-  background-color: #6f6f6f;
+  background-color: $input-login-color;
 }
 .publication__image-swiper .swiper-pagination-fraction,
 .publication__image-swiper .swiper-pagination-custom,

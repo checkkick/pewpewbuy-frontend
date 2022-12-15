@@ -244,6 +244,10 @@ async function chooseSubCategory(name) {
       &:hover {
         background-color: $accent;
       }
+
+      &:active {
+        background-color: $accent-active;
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="user-review">
     <div class="user-review__title">
       <img
-      :src="review.user.avatar ? review.user.avatar : noImage"
+        :src="review.user.avatar ? review.user.avatar : noImage"
         alt="profile picture"
         class="user-review__title__img" />
       <p class="user-review__title__name">
@@ -78,7 +78,7 @@ export default {
     align-items: stretch;
     justify-content: stretch;
     padding: 16px;
-    background: #f7f7f7;
+    background: $grey-light;
     border-radius: 12px;
 
     &__grade {

@@ -25,14 +25,13 @@
           type="number"
           name="start-price"
           @change="unset_filtred" />
-        р. до
+        до
         <input
           v-model="priceEnd"
           class="filter-bar__input"
           type="number"
           name="end-price"
           @change="unset_filtred" />
-        р.
       </p>
     </div>
     <div class="filter-bar__date-add">
@@ -186,8 +185,8 @@ export default {
       width: 49px;
       height: 49px;
       border-radius: 8px;
-      background: #d8e3ff url('assets/img/filter-star.svg') no-repeat center
-        center;
+      background: $primary-blur url('assets/img/filter-star.svg') no-repeat
+        center center;
     }
   }
 
@@ -201,8 +200,8 @@ export default {
       width: 49px;
       height: 49px;
       border-radius: 8px;
-      background: #d8e3ff url('assets/img/filter-dollar.svg') no-repeat center
-        center;
+      background: $primary-blur url('assets/img/filter-dollar.svg') no-repeat
+        center center;
     }
 
     &__text {
@@ -222,8 +221,8 @@ export default {
       width: 49px;
       height: 49px;
       border-radius: 8px;
-      background: #d8e3ff url('assets/img/filter-watch.svg') no-repeat center
-        center;
+      background: $primary-blur url('assets/img/filter-watch.svg') no-repeat
+        center center;
     }
   }
 

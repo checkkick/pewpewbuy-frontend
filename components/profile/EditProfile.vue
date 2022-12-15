@@ -291,7 +291,7 @@ export default {
 
     &__title {
       @include defineFontMontserrat(700, 24px, 29px);
-      color: #4b8ff5;
+      color: $primary;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
@@ -343,7 +343,7 @@ export default {
         background: $input-background;
         border-radius: 8px;
         padding: 18px 15px;
-        color: #5a5a5a;
+        color: $input-login-color;
 
         &::placeholder {
           color: rgba(0, 0, 0, 0.2);
@@ -351,7 +351,6 @@ export default {
 
         &:disabled {
           cursor: not-allowed;
-          color: #5a5a5a6a;
         }
       }
     }

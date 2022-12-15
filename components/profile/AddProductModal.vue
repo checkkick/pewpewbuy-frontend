@@ -314,7 +314,7 @@ export default {
   border-radius: 50%;
   display: inline-block;
   border: 3px solid;
-  border-color: #6ebeff #6ebeff transparent transparent;
+  border-color: $btn-spinner $btn-spinner transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 
@@ -329,7 +329,7 @@ export default {
     bottom: 0;
     margin: auto;
     border: 3px solid;
-    border-color: transparent transparent #337ab7 #337ab7;
+    border-color: transparent transparent $btn-spinner-dark $btn-spinner-dark;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -341,7 +341,7 @@ export default {
   &::before {
     width: 22px;
     height: 22px;
-    border-color: #6ebeff #6ebeff transparent transparent;
+    border-color: $btn-spinner $btn-spinner transparent transparent;
     animation: rotation 1.5s linear infinite;
   }
 
@@ -431,7 +431,7 @@ export default {
     color: $black;
     margin-bottom: 49px;
     text-transform: uppercase;
-    color: #4b8ff5;
+    color: $primary;
   }
 
   &__subtitle {
@@ -449,7 +449,7 @@ export default {
   &__help-text {
     @include defineFontMontserrat(300, 16px, 20px);
     text-align: center;
-    color: #484848;
+    color: $input-login-color;
   }
 
   &__column {
@@ -523,7 +523,7 @@ export default {
     content: '';
     width: 9px;
     height: 9px;
-    background: #4b8ff5;
+    background: $primary;
     position: absolute;
     top: 6px;
     left: 4px;
@@ -613,7 +613,7 @@ export default {
     align-items: center;
     justify-content: center;
     background: #fbfbfb;
-    border: 2px dashed #4b8ff5;
+    border: 2px dashed $primary;
     border-radius: 20px;
   }
 
@@ -622,7 +622,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px dashed #4b8ff5;
+    border: 2px dashed $primary;
     border-radius: 20px;
     height: 200px;
   }
@@ -697,7 +697,7 @@ export default {
     @include defineFontMontserrat(400, 18px, 22px);
     outline: none;
     border: none;
-    background: #f2f2f2;
+    background: $filter-background;
     border-radius: 8px;
     padding: 16px 15px;
     color: $black;
@@ -713,7 +713,7 @@ export default {
     resize: none;
     outline: none;
     border: none;
-    background: #f2f2f2;
+    background: $filter-background;
     border-radius: 8px;
     padding: 16px 15px;
     color: $black;

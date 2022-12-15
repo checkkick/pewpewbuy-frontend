@@ -460,7 +460,7 @@ export default {
                 width: 100%;
                 margin: 0;
                 &.inactive {
-                  color: #b1b1b1;
+                  color: $black-inactive;
                 }
               }
             }
@@ -514,7 +514,7 @@ export default {
   &__photo-empty {
     width: 52px;
     height: 52px;
-    background-color: #efefef;
+    background-color: $input-background;
     border-radius: 50%;
   }
 
@@ -527,18 +527,18 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #f7f7f7;
+  background: $grey-light;
   border-radius: 12px;
   padding: 18px 22px;
 
   &__text {
     @include defineFontMontserrat(400, 18px, 1.6);
-    color: #bbbbbb;
+    color: $grey;
   }
 
   &__date {
     @include defineFontMontserrat(400, 14px, 1.6);
-    color: #bbbbbb;
+    color: $grey;
     align-self: flex-end;
   }
 }
@@ -585,15 +585,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #007aff;
+  color: $primary;
 }
 
 .profile__main__info-layout__reviews__swiper .swiper-button-prev::before,
 .profile__main__info-layout__reviews__swiper .swiper-button-next::before {
   content: '';
   position: absolute;
-  background-color: #f7f7f7;
-  border: 1px solid #dedede;
+  background-color: $grey-light;
+  border: 1px solid $filter-border;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -628,7 +628,7 @@ export default {
   .swiper-button-prev:not(.swiper-button-disabled):hover::before,
 .profile__main__info-layout__reviews__swiper
   .swiper-button-next:not(.swiper-button-disabled):hover::before {
-  background-color: #1875ff;
+  background-color: $primary-hover;
   border: none;
 }
 
@@ -643,7 +643,7 @@ export default {
   .swiper-button-prev:not(.swiper-button-disabled):active::before,
 .profile__main__info-layout__reviews__swiper
   .swiper-button-next:not(.swiper-button-disabled):active::before {
-  background-color: #2c73dd;
+  background-color: $primary-active;
   border: none;
 }
 .profile__main__info-layout__reviews__swiper .swiper-button-disabled {

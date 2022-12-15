@@ -136,7 +136,6 @@ export default {
 
   &__logo {
     @include defineFontSairaStencilOne(34px, 54px);
-    color: #191b1d;
     text-decoration: none;
     text-align: center;
     padding-left: 55px;
@@ -151,7 +150,7 @@ export default {
     &__text {
       @include defineFontMontserrat(700, 36px, 44px);
       margin: 0;
-      color: rgba(0, 0, 0, 0.9);
+      color: $black;
       text-align: center;
     }
   }
