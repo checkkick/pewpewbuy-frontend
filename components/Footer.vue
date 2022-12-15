@@ -41,87 +41,34 @@
               </a>
             </div>
             <p class="footer__flex__about__contacts__copyright">
-              © 2011-2022 «PEWPEW BUY» — продажа страйкбольного оружия,
+              «PEWPEW BUY» — платформа для продажи страйкбольного оружия,
               пневматики и аксессуаров
             </p>
           </div>
         </div>
         <ul class="footer__flex__map">
-          <li class="footer__flex__map__item" :class="{ active: openFooter }">
-            <a href="#" class="footer__link" @click.prevent
-              >Страйкбольное оружие</a
+          <li
+            v-for="(item, index) in Object.keys(categories)"
+            :key="index"
+            class="footer__flex__map__item"
+            :class="{ active: openFooter }">
+            <a
+              href="#"
+              class="footer__link"
+              @click.prevent="openFooter = true"
+              >{{ item }}</a
             >
 
             <ul v-if="openFooter" class="footer__flex__categories">
               <li
-                v-for="item in filterMenu['Страйкбольное оружие']"
-                :key="item"
+                v-for="subItem in categories[item]"
+                :key="subItem.id"
                 class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
-              </li>
-            </ul>
-          </li>
-          <li class="footer__flex__map__item" :class="{ active: openFooter }">
-            <a href="#" class="footer__link" @click.prevent>Внешний тюнинг</a>
-
-            <ul v-if="openFooter" class="footer__flex__categories">
-              <li
-                v-for="item in filterMenu['Внешний тюнинг']"
-                :key="item"
-                class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
-              </li>
-            </ul>
-          </li>
-          <li class="footer__flex__map__item" :class="{ active: openFooter }">
-            <a href="#" class="footer__link" @click.prevent
-              >Внутренний тюнинг</a
-            >
-
-            <ul v-if="openFooter" class="footer__flex__categories">
-              <li
-                v-for="item in filterMenu['Внутренний тюнинг']"
-                :key="item"
-                class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
-              </li>
-            </ul>
-          </li>
-          <li class="footer__flex__map__item" :class="{ active: openFooter }">
-            <a href="#" class="footer__link" @click.prevent>Снаряжение</a>
-
-            <ul v-if="openFooter" class="footer__flex__categories">
-              <li
-                v-for="item in filterMenu['Снаряжение']"
-                :key="item"
-                class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent>{{ item }}</a>
-              </li>
-            </ul>
-          </li>
-          <li class="footer__flex__map__item" :class="{ active: openFooter }">
-            <a href="#" class="footer__link" @click.prevent>Поддержка</a>
-
-            <ul v-if="openFooter" class="footer__flex__categories">
-              <li class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent>Центр помощи</a>
-              </li>
-              <li class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent
-                  >Информация о безопасности</a
-                >
-              </li>
-              <li class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent>Чат-бот</a>
-              </li>
-              <li class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent
-                  >Договор оферта</a
-                >
-              </li>
-              <li class="footer__flex__categories__item">
-                <a href="#" class="footer__link" @click.prevent
-                  >Политика конфиденциальности</a
+                <a
+                  href="#"
+                  class="footer__link"
+                  @click.prevent="chooseSubCategory(subItem.slug)"
+                  >{{ subItem.name }}</a
                 >
               </li>
             </ul>
@@ -149,44 +96,16 @@
 </template>
 
 <script setup>
+import { products } from '@/store/products'
+
 const openFooter = ref(false)
-const filterMenu = {
-  'Страйкбольное оружие': [
-    'АК-серия',
-    'Винтовки',
-    'Пулеметы',
-    'Дробовики',
-    'Автоматы',
-    'Автоматы прочие модели',
-    'АС ВАЛ, ВСС, СР-3М',
-    'Гранатометы',
-  ],
-  'Внешний тюнинг': [
-    'Антабки',
-    'Трассерные насадки',
-    'Глушители',
-    'Переходники к глушителям',
-    'Коллиматоры',
-    'Крепления',
-  ],
-  'Внутренний тюнинг': [
-    'Втулки и подшипники',
-    'Направляющие пружин',
-    'Гирбоксы',
-    'Ноззл',
-    'Моторы',
-    'Планка переводчика огня',
-  ],
-  Снаряжение: [
-    'Кобуры',
-    'Ножи тренировочные',
-    'Питьевые системы',
-    'Подсумки',
-    'Чехлы, сумки',
-    'Рюкзаки',
-    'Фонари и маркеры',
-    'Ремни для оружия',
-  ],
+const categories = await products().GET_CATEGORIES_ALL()
+const router = useRouter()
+
+async function chooseSubCategory(name) {
+  router.push('/?slug=' + name)
+  await products().GET_CATEGORY_PRODUCTS(name)
+  openFooter.value = false
 }
 </script>
 
@@ -315,11 +234,15 @@ const filterMenu = {
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.5s ease-in-out;
+      transition: transform 0.5s ease-in-out, background-color 0.2s ease-in-out;
 
       &.active {
         background-color: $accent;
         transform: rotate(180deg);
+      }
+
+      &:hover {
+        background-color: $accent;
       }
     }
   }

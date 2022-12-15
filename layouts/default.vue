@@ -37,7 +37,7 @@ export default {
     }
   },
   watch: {
-    '$route.query': {
+    '$route.query.login': {
       handler() {
         if (Object.hasOwn(this.$route.query, 'login')) {
           this.showLogin = true

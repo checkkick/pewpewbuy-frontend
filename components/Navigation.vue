@@ -67,17 +67,51 @@ export default {
       chooseSubfilter: {},
     }
   },
+  watch: {
+    '$route.query.slug': {
+      handler() {
+        this.loadproductsFromSlug()
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    this.loadproductsFromSlug()
+  },
   methods: {
     async chooseSubCategory(item) {
       if (this.chooseSubfilter === item) {
         this.chooseSubfilter = ''
         this.chooseFilter = ''
         this.showSubFilter = false
+
+        if (Object.hasOwn(this.$route.query, 'slug')) this.$router.push('/')
+
         await this.getAllProducts()
       } else {
         this.chooseSubfilter = item
         this.showSubFilter = false
         await this.filterProducts(item.slug)
+        this.$router.push('/?slug=' + item.slug)
+      }
+    },
+    loadproductsFromSlug() {
+      if (Object.hasOwn(this.$route.query, 'slug')) {
+        let itemCategory = {}
+
+        for (const iterator in this.categories) {
+          const tempIteration = this.categories[iterator].find(
+            item => item.slug === this.$route.query.slug
+          )
+
+          if (tempIteration) {
+            itemCategory = tempIteration
+            break
+          }
+        }
+
+        this.chooseFilter = itemCategory.parent_category.name
+        this.chooseSubfilter = itemCategory
       }
     },
     leaveBar() {
