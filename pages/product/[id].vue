@@ -463,7 +463,7 @@ export default {
     bottom: -2px;
     left: 0;
     right: 0;
-    border-bottom: 2px solid #101010;
+    border-bottom: 2px solid $black-light;
   }
 }
 .price {

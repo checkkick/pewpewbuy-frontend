@@ -275,7 +275,7 @@ export default {
 }
 .setting-list {
   z-index: 1;
-  background: #fafafa;
+  background: $modal-background;
   border: 1px solid $filter-border;
   box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.06);
   border-radius: 14px;

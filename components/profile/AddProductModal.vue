@@ -514,9 +514,9 @@ export default {
     top: 2px;
     width: 17px;
     height: 17px;
-    border: 1px solid #afafaf;
+    border: 1px solid $black-inactive;
     border-radius: 100%;
-    background: #fff;
+    background: $white;
   }
   &__radiobutton:checked + &__label:after,
   &__radiobutton:not(:checked) + &__label:after {
@@ -572,8 +572,8 @@ export default {
     top: 2px;
     width: 17px;
     height: 17px;
-    border: 1px solid #afafaf;
-    background: #fff;
+    border: 1px solid $black-inactive;
+    background: $white;
   }
   &__checkbox:checked + &__label:after,
   &__checkbox:not(:checked) + &__label:after {
@@ -612,7 +612,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fbfbfb;
+    background-color: $grey-light;
     border: 2px dashed $primary;
     border-radius: 20px;
   }

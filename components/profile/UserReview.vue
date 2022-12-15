@@ -121,15 +121,20 @@ export default {
         linear,
         left top,
         left bottom,
-        from(#000),
-        color-stop(#000),
+        from($black),
+        color-stop($black),
         to(rgba(0, 0, 0, 0))
       );
-      background-image: -o-linear-gradient(top, #000, #000, rgba(0, 0, 0, 0));
+      background-image: -o-linear-gradient(
+        top,
+        $black,
+        $black,
+        rgba(0, 0, 0, 0)
+      );
       background-image: linear-gradient(
         to bottom,
-        #000,
-        #000,
+        $black,
+        $black,
         rgba(0, 0, 0, 0)
       );
     }

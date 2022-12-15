@@ -134,7 +134,7 @@ export default {
     outline: none;
     border: none;
     padding: 10px 22px;
-    background: #e8e8e8;
+    background: $input-background;
     border-radius: 6px;
     appearance: none;
 
@@ -158,7 +158,7 @@ export default {
     outline: none;
     border: none;
     padding: 10px 22px;
-    background: #e8e8e8;
+    background: $input-background;
     border-radius: 6px;
 
     &:active,
