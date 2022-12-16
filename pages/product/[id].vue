@@ -14,7 +14,7 @@
         <div class="about-seller">
           <img
             class="about-seller__photo"
-            :src="userImage"
+            :src="detProduct.user.avatar ? detProduct.user.avatar : noImage"
             alt="seller photo" />
           <div class="seller-info">
             <h4 class="seller-info__name">
@@ -134,26 +134,27 @@
         </div>
 
         <div v-if="switcher === 'reviews'" class="user-reviews">
-          <div class="review">
+          <div
+            v-for="user in detProduct.user.about_user_reviews"
+            :key="user.id"
+            class="review">
             <div class="about-user">
               <img
-                src="@/assets/img/no-photo.png"
-                alt=""
+                :src="user.user.avatar ? user.user.avatar : noImage"
+                :alt="user.user.first_name"
                 class="about-user__photo" />
-              <p class="about-user__name">Кирилл</p>
-              <p class="about-user__rating">5,0</p>
-              <RatingCalc :stars="5" />
-              <p class="about-user__date">22.04.2022</p>
+              <p class="about-user__name">
+                {{ user.user.first_name }}
+              </p>
+              <p class="about-user__rating">{{ user.estimate }}</p>
+              <RatingCalc :stars="user.estimate" />
+              <p class="about-user__date">
+                {{ new Date(user.created).toLocaleDateString() }}
+              </p>
             </div>
 
             <p class="review__text">
-              Отличный продавец! Все в точности, как было в описании к товару.
-              Приятный в общении, ответственный! Продавца 100% рекомендую!
-              Отличный продавец! Все в точности, как было в описании к товару.
-              Приятный в общении, ответственный! Продавца 100% рекомендую!
-              Приятный в общении, ответственный! Продавца 100%
-              рекомендую!Приятный в общении, ответственный! Продавца 100%
-              рекомендую!
+              {{ user.text }}
             </p>
           </div>
         </div>
@@ -212,36 +213,28 @@ export default {
     return {
       detProduct: {
         user: {
-          first_name: '',
-          last_name: '',
-          call_sign: '',
+          first_name: 'Имя',
+          last_name: 'Фамилия',
+          call_sign: 'Позывной',
           rep: 0,
         },
       },
       crumbs: [],
-      userImage: '',
+      noImage: noPhoto,
       switcher: 'about-product',
       showContacts: false,
     }
   },
   async mounted() {
-    try {
-      this.detProduct = await this.useProductStore.GET_DETAIL_PRODUCT(
-        this.$route.params.id
-      )
+    this.detProduct = await this.useProductStore.GET_DETAIL_PRODUCT(
+      this.$route.params.id
+    )
 
-      if (this.detProduct.user.avatar) {
-        this.userImage = this.detProduct.user.avatar
-      } else {
-        this.userImage = noPhoto
-      }
-
-      this.crumbs.push(
-        this.detProduct.category.parent_category.name,
-        this.detProduct.category.name,
-        `${this.detProduct.manufacturer} ${this.detProduct.name}`
-      )
-    } catch (error) {}
+    this.crumbs.push(
+      this.detProduct.category.parent_category.name,
+      this.detProduct.category.name,
+      `${this.detProduct.manufacturer} ${this.detProduct.name}`
+    )
   },
 }
 </script>
@@ -498,13 +491,16 @@ export default {
   }
 }
 .user-reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   padding-top: 68px;
 }
 .review {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 35px;
+  gap: 15px;
 
   &__text {
     @include defineFontMontserrat(400, 25px, 1.75);
@@ -524,6 +520,7 @@ export default {
   }
   &__name {
     @include defineFontMontserrat(600, 20px, 24px);
+    width: 100%;
     margin-right: 30px;
     padding: 0;
   }
