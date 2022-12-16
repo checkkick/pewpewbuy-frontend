@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <header class="header">
-      <NuxtLink class="header__logo" to="/">PEWPEW BUY</NuxtLink>
-      <NuxtLink class="header__title" to="/">
+      <NuxtLink class="header__logo" to="/?slug=">PEWPEW BUY</NuxtLink>
+      <NuxtLink class="header__title" to="/?slug=">
         <h1 class="header__title__text">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
       </NuxtLink>
       <div class="header__items">
@@ -35,7 +35,7 @@
           @click.prevent="$router.push('/profile')">
           <img
             class="header__items__user-photo__image"
-            :src="clientsStore.user.avatar"
+            :src="clientsStore.user.avatar ? clientsStore.user.avatar : noImage"
             alt="user avatar" />
         </a>
         <a
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import noPhoto from '@/assets/img/no-photo.png'
 import { auth } from '@/store/auth.js'
 import { products } from '@/store/products'
 import { clients } from '@/store/clients'
@@ -106,6 +107,11 @@ export default {
       authorized: computed(() => authStore.AUTHORIZED),
       user: computed(() => clientsStore.USER_STATE),
       search,
+    }
+  },
+  data: () => {
+    return {
+      noImage: noPhoto,
     }
   },
   async mounted() {

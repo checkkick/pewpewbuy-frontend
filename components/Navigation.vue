@@ -69,25 +69,19 @@ export default {
   },
   watch: {
     '$route.query.slug': {
-      handler() {
-        this.loadproductsFromSlug()
+      async handler() {
+        await this.loadproductsFromSlug()
       },
       deep: true,
     },
   },
-  mounted() {
-    this.loadproductsFromSlug()
+  async mounted() {
+    await this.loadproductsFromSlug()
   },
   methods: {
     async chooseSubCategory(item) {
       if (this.chooseSubfilter === item) {
-        this.chooseSubfilter = ''
-        this.chooseFilter = ''
-        this.showSubFilter = false
-
-        if (Object.hasOwn(this.$route.query, 'slug')) this.$router.push('/')
-
-        await this.getAllProducts()
+        this.$router.push('/?slug=')
       } else {
         this.chooseSubfilter = item
         this.showSubFilter = false
@@ -95,23 +89,31 @@ export default {
         this.$router.push('/?slug=' + item.slug)
       }
     },
-    loadproductsFromSlug() {
+    async loadproductsFromSlug() {
       if (Object.hasOwn(this.$route.query, 'slug')) {
-        let itemCategory = {}
+        if (this.$route.query.slug) {
+          let itemCategory = {}
 
-        for (const iterator in this.categories) {
-          const tempIteration = this.categories[iterator].find(
-            item => item.slug === this.$route.query.slug
-          )
+          for (const iterator in this.categories) {
+            const tempIteration = this.categories[iterator].find(
+              item => item.slug === this.$route.query.slug
+            )
 
-          if (tempIteration) {
-            itemCategory = tempIteration
-            break
+            if (tempIteration) {
+              itemCategory = tempIteration
+              break
+            }
           }
-        }
 
-        this.chooseFilter = itemCategory.parent_category.name
-        this.chooseSubfilter = itemCategory
+          this.chooseFilter = itemCategory.parent_category.name
+          this.chooseSubfilter = itemCategory
+        } else {
+          this.chooseSubfilter = ''
+          this.chooseFilter = ''
+          this.showSubFilter = false
+          this.$router.push('/')
+          await this.getAllProducts()
+        }
       }
     },
     leaveBar() {
