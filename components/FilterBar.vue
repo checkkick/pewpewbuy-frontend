@@ -116,13 +116,13 @@ export default {
 
 <style lang="scss" scoped>
 .filter-bar {
-  margin: 0 0 40px 0;
   @include defineFontMontserrat(500, 20px, 24px);
   color: $black;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin: 0 0 30px 0;
 
   &__select {
     @include defineFontMontserrat(500, 16px, 20px);
