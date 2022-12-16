@@ -47,7 +47,7 @@
         <div
           class="settings-substrat"
           @click="showSettings = !showSettings"></div>
-        <ul class="setting-list">
+        <ul v-if="mainSettnigs" class="setting-list">
           <li class="setting-list__item">
             <a
               href=""
@@ -68,11 +68,29 @@
             <a
               href=""
               class="setting-list__link"
-              @click.prevent="deleteProduct(publ.id)"
+              @click.prevent="mainSettnigs = false"
               >Удалить публикацию</a
             >
           </li>
         </ul>
+
+        <div v-else class="remove-accept setting-list">
+          <p class="remove-accept__text">
+            Вы точно уверены, что хотите удалить публикацию?
+          </p>
+          <div class="remove-accept__row">
+            <button
+              class="remove-accept__btn-primary"
+              @click="deleteProduct(publ.id)">
+              Да
+            </button>
+            <button
+              class="remove-accept__btn-secondary"
+              @click="mainSettnigs = true">
+              Нет
+            </button>
+          </div>
+        </div>
       </div>
     </transition>
   </div>
@@ -108,6 +126,7 @@ export default {
     return {
       status: '',
       showSettings: false,
+      mainSettnigs: true,
     }
   },
   mounted() {
@@ -253,6 +272,7 @@ export default {
   opacity: 0;
 }
 .hidden-settings {
+  cursor: auto;
   z-index: 10;
   position: absolute;
   top: 0;
@@ -284,6 +304,7 @@ export default {
   list-style: none;
 
   &__item {
+    cursor: pointer;
     padding: 10px 26px;
     text-align: center;
     transition: background-color 0.1s ease-in-out;
@@ -301,6 +322,44 @@ export default {
     text-decoration: none;
     color: $black;
     transition: color 0.1s ease-in-out;
+  }
+}
+.remove-accept {
+  padding: 24px 20px;
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__text {
+    @include defineFontMontserrat(400, 16px, 1.4);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  &__btn-primary {
+    @include defineBtnPrimary(14px, 5px, 8px, 28px);
+  }
+
+  &__btn-secondary {
+    @include defineBtnPrimary(14px, 5px, 8px, 28px);
+    background-color: $filter-border;
+    color: $black;
+
+    &:not(:disabled):hover {
+      background-color: $filter-border-hover;
+      box-shadow: none;
+    }
+
+    &:not(:disabled):active {
+      background-color: $filter-border-hover;
+    }
   }
 }
 </style>
