@@ -149,6 +149,7 @@ async function chooseSubCategory(name) {
       &__title {
         @include defineFontSairaStencilOne(16px, 25px);
         margin: 0;
+        color: $white;
       }
 
       &__subtitle {
