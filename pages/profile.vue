@@ -3,7 +3,9 @@
     <nav class="profile__nav">
       <h2 class="profile__nav__title">Личный кабинет</h2>
       <div class="profile__nav__buttons">
-        <button class="profile__nav__buttons__all-publicity">
+        <button
+          class="profile__nav__buttons__all-publicity"
+          @click="$router.push('/')">
           Все объявления
         </button>
         <button
