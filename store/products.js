@@ -113,14 +113,21 @@ export const products = defineStore('products', {
     },
 
     async GET_CATEGORY_PRODUCTS(category) {
+      const options = {
+        method: 'GET',
+        errorAlert: 'Ошибка при загрузке отфильтрованных товаров',
+      }
+
+      const access = get('access_pew')
+
+      if (access) {
+        options.headers = { Authorization: 'Bearer ' + access }
+      }
+
       const response = await api(
         'products/get_category_products/?slug=' + category,
-        {
-          method: 'GET',
-          errorAlert: 'Ошибка при загрузке отфильтрованных товаров',
-        }
+        options
       )
-
       this.allProducts = response.results
 
       return response

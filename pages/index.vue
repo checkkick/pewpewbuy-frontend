@@ -33,7 +33,9 @@ export default {
     }
   },
   async mounted() {
-    await this.useProductStore.GET_ALL_PRODUCTS()
+    if (!Object.hasOwn(this.$route.query, 'slug')) {
+      await this.useProductStore.GET_ALL_PRODUCTS()
+    }
   },
 }
 </script>

@@ -5,8 +5,13 @@
     <main class="main">
       <h2 class="main__title">Доска объявлений</h2>
       <section class="crumbs">
-        <h4 v-for="item in crumbs" :key="item" class="crumbs__title">
-          {{ item }}
+        <h4
+          v-for="(item, idx) in crumbs"
+          :key="idx"
+          class="crumbs__title"
+          :class="{ active: item.slug }"
+          @click="item.slug ? $router.push(`/?slug=${item.slug}`) : ''">
+          {{ item.name }}
         </h4>
       </section>
 
@@ -231,9 +236,15 @@ export default {
     )
 
     this.crumbs.push(
-      this.detProduct.category.parent_category.name,
-      this.detProduct.category.name,
-      `${this.detProduct.manufacturer} ${this.detProduct.name}`
+      { name: this.detProduct.category.parent_category.name, slug: '' },
+      {
+        name: this.detProduct.category.name,
+        slug: this.detProduct.category.slug,
+      },
+      {
+        name: `${this.detProduct.manufacturer} ${this.detProduct.name}`,
+        slug: '',
+      }
     )
   },
 }
@@ -258,6 +269,16 @@ export default {
     position: relative;
     @include defineFontMontserrat(500, 24px, 1.4);
     padding-right: 32px;
+
+    &.active {
+      cursor: pointer;
+      text-decoration: underline;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: $black-inactive;
+      }
+    }
 
     &::after {
       content: '';

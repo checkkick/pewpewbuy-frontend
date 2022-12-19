@@ -79,13 +79,12 @@ export default {
     await this.loadproductsFromSlug()
   },
   methods: {
-    async chooseSubCategory(item) {
+    chooseSubCategory(item) {
       if (this.chooseSubfilter === item) {
         this.$router.push('/?slug=')
       } else {
         this.chooseSubfilter = item
         this.showSubFilter = false
-        await this.filterProducts(item.slug)
         this.$router.push('/?slug=' + item.slug)
       }
     },
@@ -107,12 +106,14 @@ export default {
 
           this.chooseFilter = itemCategory.parent_category.name
           this.chooseSubfilter = itemCategory
+
+          await this.filterProducts(this.$route.query.slug)
         } else {
           this.chooseSubfilter = ''
           this.chooseFilter = ''
           this.showSubFilter = false
-          this.$router.push('/')
           await this.getAllProducts()
+          this.$router.push('/')
         }
       }
     },
