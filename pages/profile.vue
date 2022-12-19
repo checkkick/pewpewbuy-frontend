@@ -468,7 +468,8 @@ export default {
         }
 
         &__contacts {
-          padding-left: 35px;
+          width: 100%;
+          max-width: 181px;
           align-self: flex-start;
           display: flex;
           align-items: center;
