@@ -1,5 +1,7 @@
 <template>
-  <div class="publication">
+  <div
+    class="publication"
+    @click.self="$router.push(`/product/${publication.id}`)">
     <a
       class="publication__like"
       :class="{ active: like }"
@@ -48,10 +50,14 @@
           alt="product-example" />
       </swiper-slide>
     </swiper>
-    <h4 class="publication__title">
+    <h4
+      class="publication__title"
+      @click="$router.push(`/product/${publication.id}`)">
       {{ publication.manufacturer }} {{ publication.name }}
     </h4>
-    <div class="publication__advanced">
+    <div
+      class="publication__advanced"
+      @click="$router.push(`/product/${publication.id}`)">
       <div class="publication__advanced__line">
         <p class="publication__advanced__line__text">Местоположение:</p>
         <p class="publication__advanced__line__text">
@@ -126,7 +132,6 @@ export default {
   background-color: $white;
   border-radius: 20px;
   padding: 25px 35px 45px;
-  gap: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -171,6 +176,7 @@ export default {
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-bottom: 20px;
 
     &__image {
       width: 52px;
@@ -216,7 +222,7 @@ export default {
 
   &__title {
     @include defineFontMontserrat(700, 18px, 1.4);
-    margin: 0 0 14px 0;
+    margin-bottom: 15px;
   }
 
   &__advanced {
