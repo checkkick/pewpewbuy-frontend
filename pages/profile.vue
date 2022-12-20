@@ -536,7 +536,7 @@ export default {
 
   &__text {
     @include defineFontMontserrat(400, 18px, 1.6);
-    color: $grey;
+    color: $black-inactive;
   }
 
   &__date {
