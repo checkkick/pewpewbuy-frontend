@@ -32,7 +32,13 @@
               <RatingCalc :stars="Math.floor(detProduct.user.rep)" />
             </div>
           </div>
-          <NuxtLink href="/profile" class="about-seller__profile-link"
+          <NuxtLink
+            :href="
+              userStore.id === detProduct.user.id
+                ? '/profile'
+                : `/profile/${detProduct.user.id}`
+            "
+            class="about-seller__profile-link"
             >Профиль продавца</NuxtLink
           >
         </div>
@@ -128,7 +134,13 @@
             <button class="price__btn-contact" @click="showContacts = true">
               Написать продавцу
             </button>
-            <NuxtLink href="#" class="price__all-products"
+            <NuxtLink
+              :href="
+                userStore.id === detProduct.user.id
+                  ? '/profile'
+                  : `/profile/${detProduct.user.id}`
+              "
+              class="price__all-products"
               >Все товары продавца</NuxtLink
             >
           </div>
@@ -180,7 +192,9 @@
 import noPhoto from '@/assets/img/no-photo.png'
 import ContactsModal from '@/components/product/ContactsModal.vue'
 import RatingCalc from '@/components/profile/RatingCalc.vue'
+
 import { products } from '@/store/products'
+import { clients } from '@/store/clients'
 
 import { FreeMode, Navigation, Thumbs } from 'swiper'
 import 'swiper/css'
@@ -204,6 +218,7 @@ export default {
     const setThumbsSwiper = swiper => {
       thumbsSwiper.value = swiper
     }
+    const userStore = clients().USER_STATE
 
     const useProductStore = products()
     return {
@@ -211,6 +226,7 @@ export default {
       Thumbs,
       thumbsSwiper,
       setThumbsSwiper,
+      userStore,
       modules: [FreeMode, Navigation, Thumbs],
     }
   },

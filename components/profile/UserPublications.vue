@@ -1,6 +1,9 @@
 <template>
   <div class="publication">
-    <a class="publication__edit" @click.prevent="showSettings = !showSettings">
+    <a
+      v-if="showEdit"
+      class="publication__edit"
+      @click.prevent="showSettings = !showSettings">
       <img src="@/assets/img/profile-edit.svg" alt="profile-edit" />
     </a>
     <p class="publication__status">
@@ -111,6 +114,7 @@ export default {
   props: {
     activePubl: { type: Boolean, default: false },
     inactivePubl: { type: Boolean, default: false },
+    showEdit: { type: Boolean, default: true },
     publ: { type: Object, default: () => {} },
   },
   emits: ['refreshProducts', 'showEditProductModal'],

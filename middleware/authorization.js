@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware(async to => {
   const checkAuth = await auth().CHECK_AUTH()
 
   if (to.path === '/profile' && !checkAuth) {
-    return navigateTo('/?login=/profile')
+    return navigateTo('/?login=' + to.path)
   } else if (to.path.includes('/product') && !checkAuth) {
     return navigateTo('/?login=' + to.path)
   }

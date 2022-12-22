@@ -50,11 +50,12 @@
               :active-publ="activePubl"
               :inactive-publ="inactivePubl"
               :publ="publication"
+              :show-edit="!guestUser"
               @refresh-products="$emit('refreshProducts')"
               @show-edit-product-modal="showEditModalMethod" />
           </swiper-slide>
           <swiper-slide
-            v-if="activePubl"
+            v-if="activePubl && !guestUser"
             class="advertisment__wrapper__swiper__add"
             @click="$emit('openAddProduct')">
             <p class="advertisment__wrapper__swiper__add__text">
@@ -86,6 +87,7 @@ export default {
   props: {
     activePubl: { type: Boolean, default: false },
     inactivePubl: { type: Boolean, default: false },
+    guestUser: { type: Boolean, default: false },
     publications: { type: Array, default: () => [] },
   },
   emits: ['openAddProduct', 'refreshProducts', 'showEditProductModal'],

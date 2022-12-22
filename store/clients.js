@@ -12,17 +12,15 @@ export const clients = defineStore('clients', {
 
   actions: {
     async GET_SELF() {
-      try {
-        const response = await api('clients/getself/', {
-          method: 'GET',
-          errorAlert: 'Ошибка при загрузке данных пользователя',
-          headers: { Authorization: 'Bearer ' + get('access_pew') },
-        })
-        this.user = response
-      } catch (error) {
-        return false
-      }
+      const response = await api('clients/getself/', {
+        method: 'GET',
+        errorAlert: 'Ошибка при загрузке данных пользователя',
+        headers: { Authorization: 'Bearer ' + get('access_pew') },
+      })
+
+      this.user = response
     },
+
     async UPDATE_USER(id, data) {
       try {
         const response = await api(`clients/updateuser/${id}/`, {
@@ -50,6 +48,16 @@ export const clients = defineStore('clients', {
       } catch (error) {
         return false
       }
+    },
+
+    async GET_DETAIL_USER(id) {
+      const response = await api(`clients/getdetailuser/${id}/`, {
+        method: 'GET',
+        errorAlert: 'Ошибка при загрузке данных пользователя',
+        headers: { Authorization: 'Bearer ' + get('access_pew') },
+      })
+
+      return response
     },
   },
 
