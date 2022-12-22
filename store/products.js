@@ -41,7 +41,7 @@ export const products = defineStore('products', {
 
         notifications().ADD_NOTIFICATION(
           'Добавление карточки товара',
-          'Карточка товара успешно добавлена',
+          'Карточка товара добавлена и отправлена на модерацию',
           'success'
         )
 
