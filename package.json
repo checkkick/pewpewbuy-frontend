@@ -7,19 +7,18 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@volar-plugins/vetur": "latest",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
-    "@pinia/nuxt": "^0.3.0",
+    "@pinia/nuxt": "^0.3.1",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
+    "@volar-plugins/vetur": "latest",
     "@vue/eslint-config-standard": "^8.0.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.3.0",
-    "nuxt": "3.0.0-rc.6",
-    "pinia": "^2.0.16",
+    "nuxt": "3.1.1",
     "prettier": "^2.7.1",
     "sass": "^1.54.0"
   },
@@ -27,6 +26,7 @@
     "cookie-universal-nuxt": "^2.2.2",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
+    "pinia": "^2.0.30",
     "swiper": "^8.3.2"
   }
 }

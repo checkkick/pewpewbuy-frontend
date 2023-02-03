@@ -1,8 +1,7 @@
-import { defineNuxtConfig } from 'nuxt'
-
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
+    buildAssetsDir: '/assetsDir/',
     head: {
       title: 'PEWPEWBUY | Страйкбольная барахолка',
       htmlAttrs: {
@@ -14,7 +13,7 @@ export default defineNuxtConfig({
         { hid: 'description', name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/assets/img/favicon.ico' }, { rel: 'stylesheet', href: '/assets/css/normalize.css' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'assetsDir/assets/img/favicon.ico' }, { rel: 'stylesheet', href: 'assetsDir/assets/css/normalize.css' }],
     },
   },
   css: ['assets/scss/main.scss'],
@@ -29,8 +28,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  buildModules: [
-    // https://composition-api.nuxtjs.org/getting-started/setup#quick-start
+  modules: [
     '@pinia/nuxt',
   ],
 })

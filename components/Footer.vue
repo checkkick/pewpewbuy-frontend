@@ -19,25 +19,25 @@
                 href="#"
                 class="footer__flex__about__contacts__social__link"
                 @click.prevent>
-                <img src="assets/img/telegram.svg" alt="telegram" />
+                <img src="assetsDir/assets/img/telegram.svg" alt="telegram" />
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
                 @click.prevent>
-                <img src="assets/img/whatsapp.svg" alt="whatsapp" />
+                <img src="assetsDir/assets/img/whatsapp.svg" alt="whatsapp" />
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
                 @click.prevent>
-                <img src="assets/img/vk.svg" alt="vk" />
+                <img src="assetsDir/assets/img/vk.svg" alt="vk" />
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
                 @click.prevent>
-                <img src="assets/img/mail.svg" alt="mail" />
+                <img src="assetsDir/assets/img/mail.svg" alt="mail" />
               </a>
             </div>
             <p class="footer__flex__about__contacts__copyright">
