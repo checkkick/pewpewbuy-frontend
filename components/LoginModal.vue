@@ -148,13 +148,13 @@ export default {
 
 .modal-window {
   position: relative;
-  max-width: 600px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: $modal-background;
   border-radius: 38px;
-  padding: 75px;
+  padding: 60px;
   margin: 100px;
 
   &__close {
@@ -188,19 +188,19 @@ export default {
 
   &__enter-btn {
     cursor: pointer;
-    @include defineBtnPrimary(20px, 12px, 23px, 88px);
-    margin-bottom: 20px;
+    @include defineBtnPrimary(15px, 9px, 17px, 66px);
+    margin-bottom: 1rem;
   }
 
   &__input {
-    @include defineFontMontserrat(400, 20px, 23px);
+    @include defineFontMontserrat(400, 15px, 17px);
     outline: none;
     border: none;
     background: $input-background;
-    border-radius: 12px;
-    padding: 22px 24px;
+    border-radius: 9px;
+    padding: 16px 18px;
     align-self: stretch;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
     color: $input-login-color;
 
     &::placeholder {
@@ -220,11 +220,11 @@ export default {
     margin-bottom: 3px;
 
     &__label {
-      @include defineFontMontserrat(400, 20px, 23px);
+      @include defineFontMontserrat(400, 15px, 17px);
     }
 
     &__show {
-      @include defineFontMontserrat(400, 17px, 20px);
+      @include defineFontMontserrat(400, 12px, 15px);
       cursor: pointer;
       border: none;
       outline: none;
@@ -235,20 +235,20 @@ export default {
   }
 
   &__title {
-    @include defineFontMontserrat(600, 30px, 37px);
+    @include defineFontMontserrat(600, 22px, 27px);
     margin: 0;
     color: $black;
-    margin-bottom: 38px;
+    margin-bottom: 2rem;
   }
 
   &__label {
-    @include defineFontMontserrat(400, 20px, 23px);
+    @include defineFontMontserrat(400, 15px, 17px);
     align-self: flex-start;
     margin-bottom: 3px;
   }
 
   &__link {
-    @include defineFontMontserrat(400, 18px, 21px);
+    @include defineFontMontserrat(400, 12px, 15px);
     color: $black;
     text-decoration: none;
     border-bottom: 1px solid $black;
@@ -256,7 +256,7 @@ export default {
   }
 
   &__text {
-    @include defineFontMontserrat(400, 20px, 25px);
+    @include defineFontMontserrat(400, 15px, 17px);
     margin: 0;
     text-align: center;
     color: $black;

@@ -133,18 +133,18 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  padding: 72px 0 0 0;
+  padding: 3rem 0 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  margin-bottom: 48px;
+  margin-bottom: 2rem;
 
   &__logo {
-    @include defineFontSairaStencilOne(34px, 54px);
+    @include defineFontSairaStencilOne(25px, 40px);
     text-decoration: none;
     text-align: center;
-    padding-left: 55px;
+    padding-left: 40px;
     background: url('@/assets/img/header-logo.png') no-repeat center left /
       contain;
   }
@@ -154,7 +154,7 @@ export default {
     text-decoration: none;
 
     &__text {
-      @include defineFontMontserrat(700, 36px, 44px);
+      @include defineFontMontserrat(700, 27px, 33px);
       margin: 0;
       color: $black;
       text-align: center;
@@ -169,20 +169,19 @@ export default {
     gap: 30px;
 
     &__find {
-      @include defineFontMontserrat(400, 16px, 22px);
+      @include defineFontMontserrat(400, 13px, 16px);
       width: 100%;
-      padding: 19px 30px;
+      padding: 14px 22px;
       background: $white;
       border: 1px solid #dcdcdc;
-      border-radius: 54px;
+      border-radius: 40px;
       background-image: url('@/assets/img/finder.svg');
-      background-size: 21px 21px;
+      background-size: 15px 15px;
       background-repeat: no-repeat;
       background-position: calc(100% - 20px) center;
       margin-right: 10px;
 
       &::placeholder {
-        @include defineFontMontserrat(400, 16px, 22px);
         color: rgba(66, 66, 66, 0.42);
       }
 
@@ -194,8 +193,8 @@ export default {
     &__favorite {
       cursor: pointer;
       position: relative;
-      width: 55px;
-      height: 33px;
+      width: 26px;
+      height: 24px;
       background-image: url('@/assets/img/favorite.svg');
       background-size: contain;
       background-repeat: no-repeat;
@@ -249,7 +248,7 @@ export default {
     &__persone {
       cursor: pointer;
       position: relative;
-      width: 48px;
+      width: 30px;
       height: 28px;
       background-image: url('@/assets/img/personal.svg');
       background-size: contain;
