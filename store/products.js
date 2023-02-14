@@ -24,7 +24,6 @@ export const products = defineStore('products', {
   state: () => {
     return {
       allProducts: [],
-      favoriteProducts: [],
       categories: {},
     }
   },
@@ -133,18 +132,6 @@ export const products = defineStore('products', {
       return response
     },
 
-    async GET_FAVORITE() {
-      const response = await api('products/get_favorite/', {
-        method: 'GET',
-        errorAlert: 'Ошибка при загрузке избранных товаров',
-        headers: { Authorization: 'Bearer ' + get('access_pew') },
-      })
-
-      this.favoriteProducts = response
-
-      return response
-    },
-
     async ADD_FAVORITE(product) {
       try {
         await api('products/create_favorite/', {
@@ -241,6 +228,5 @@ export const products = defineStore('products', {
 
   getters: {
     ALL_PRODUCTS: state => state.allProducts,
-    FAVORITE_PRODUCTS: state => state.favoriteProducts,
   },
 })

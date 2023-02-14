@@ -28,7 +28,6 @@ export default {
       useAuthStore,
       useProductStore,
       all_products: computed(() => useProductStore.ALL_PRODUCTS),
-      favorite_products: computed(() => useProductStore.FAVORITE_PRODUCTS),
       authorized: computed(() => useAuthStore.AUTHORIZED),
     }
   },
@@ -50,7 +49,7 @@ export default {
 .main {
   &__title {
     @include defineFontMontserrat(600px, 27px, 33px);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   &__subtitle {

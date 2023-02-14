@@ -28,24 +28,24 @@ const notificationsStore = notifications()
 .notification {
   overflow: auto;
   padding: 15px 0 0 15px;
-  height: 60vh;
+  max-height: 60vh;
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
   list-style: none;
   margin: 0;
   position: fixed;
-  top: 300px;
+  top: 25%;
   right: 0;
 
   &__item {
-    max-width: 568px;
+    max-width: 500px;
     position: relative;
     border: 1px solid $filter-border;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    padding: 29px 30px 29px 102px;
+    padding: 20px 30px 20px 90px;
 
     &.alert {
       background: url('@/assets/img/notification-alert.svg') no-repeat 37px
@@ -72,20 +72,20 @@ const notificationsStore = notifications()
   &__close {
     cursor: pointer;
     position: absolute;
-    top: -14px;
-    left: -14px;
+    top: -12px;
+    left: -12px;
     border-radius: 100%;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     background-color: $white;
     border: 1px solid $filter-border;
 
     &::before {
       content: '';
       position: absolute;
-      top: 15px;
-      left: 8px;
-      width: 18px;
+      top: 14px;
+      left: 7px;
+      width: 16px;
       height: 2px;
       background-color: $black;
       transform: rotate(45deg);
@@ -93,9 +93,9 @@ const notificationsStore = notifications()
     &::after {
       content: '';
       position: absolute;
-      top: 15px;
-      left: 8px;
-      width: 18px;
+      top: 14px;
+      left: 7px;
+      width: 16px;
       height: 2px;
       background-color: $black;
       transform: rotate(-45deg);
@@ -103,12 +103,12 @@ const notificationsStore = notifications()
   }
 
   &__title {
-    @include defineFontMontserrat(600, 22px, 27px);
+    @include defineFontMontserrat(600, 16px, 20px);
     margin-bottom: 8px;
   }
 
   &__text {
-    @include defineFontMontserrat(400, 20px, 24px);
+    @include defineFontMontserrat(400, 15px, 18px);
   }
 }
 </style>

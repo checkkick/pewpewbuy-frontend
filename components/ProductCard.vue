@@ -43,15 +43,15 @@
       :class="{ active: like }"
       @click.prevent="onLike()">
       <svg
-        width="24"
-        height="21"
-        viewBox="0 0 24 21"
+        width="19"
+        height="17"
+        viewBox="0 0 19 17"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M2.56973 10.7847C0.246983 7.76552 1.02123 3.23679 4.89247 1.72722C8.76372 0.217645 11.0865 3.23679 11.8607 4.74637C12.635 3.23679 15.732 0.217645 19.6032 1.72722C23.4744 3.23679 23.4744 7.76552 21.1517 10.7847C18.8289 13.8038 11.8607 19.8421 11.8607 19.8421C11.8607 19.8421 4.89247 13.8038 2.56973 10.7847Z"
+          d="M2.4273 8.83847C0.685237 6.57411 1.26592 3.17756 4.16935 2.04538C7.07279 0.913203 8.81485 3.17756 9.39553 4.30975C9.97622 3.17756 12.299 0.913203 15.2024 2.04538C18.1058 3.17756 18.1058 6.57411 16.3638 8.83847C14.6217 11.1028 9.39553 15.6316 9.39553 15.6316C9.39553 15.6316 4.16935 11.1028 2.4273 8.83847Z"
           stroke="black"
-          stroke-width="2"
+          stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round" />
       </svg>
@@ -200,10 +200,10 @@ export default {
     z-index: 1;
     cursor: pointer;
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 48px;
-    height: 48px;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
     background-color: $grey;
     border-radius: 100%;
     display: flex;
@@ -241,6 +241,8 @@ export default {
 <style lang="scss">
 .product-card__swiper .swiper-pagination-bullet {
   background-color: $black;
+  width: 7px;
+  height: 7px;
 }
 .product-card__swiper .swiper-pagination-bullet-active {
   background-color: $input-login-color;
@@ -249,7 +251,7 @@ export default {
 .product-card__swiper .swiper-pagination-custom,
 .product-card__swiper .swiper-horizontal > .swiper-pagination-bullets,
 .product-card__swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: 5px;
+  bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: center;

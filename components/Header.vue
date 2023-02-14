@@ -2,8 +2,8 @@
   <div class="container">
     <header class="header">
       <NuxtLink class="header__logo" to="/?slug=">PEWPEW BUY</NuxtLink>
-      <NuxtLink class="header__title" to="/?slug=">
-        <h1 class="header__title__text">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
+      <NuxtLink class="header__link" to="/?slug=">
+        <h1 class="header__title">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
       </NuxtLink>
       <div class="header__items">
         <input
@@ -19,9 +19,9 @@
           href="#"
           class="header__items__favorite"
           @click.prevent="$router.push('/profile?favorites')">
-          <div class="header__items__favorite__counter">
-            {{ favorite_products.length }}
-          </div>
+          <p class="header__items__favorite__counter">
+            {{ user.favortie_products ? user.favortie_products.length : '0' }}
+          </p>
         </a>
         <a
           v-if="!authorized"
@@ -102,7 +102,6 @@ export default {
       authStore,
       store,
       all_products: computed(() => store.ALL_PRODUCTS.results),
-      favorite_products: computed(() => store.FAVORITE_PRODUCTS),
       getSearchedPproducts,
       authorized: computed(() => authStore.AUTHORIZED),
       user: computed(() => clientsStore.USER_STATE),
@@ -149,14 +148,14 @@ export default {
       contain;
   }
 
-  &__title {
+  &__link {
     text-decoration: none;
+  }
 
-    &__text {
-      @include defineFontMontserrat(700, 27px, 33px);
-      color: $black;
-      text-align: center;
-    }
+  &__title {
+    @include defineFontMontserrat(700, 27px, 33px);
+    color: $black;
+    text-align: center;
   }
 
   &__items {
@@ -164,11 +163,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
+    gap: 1rem;
 
     &__find {
       @include defineFontMontserrat(400, 13px, 16px);
-      width: 100%;
       padding: 14px 22px;
       background: $white;
       border: 1px solid #dcdcdc;
@@ -191,8 +189,8 @@ export default {
     &__favorite {
       cursor: pointer;
       position: relative;
-      width: 26px;
-      height: 24px;
+      min-width: 26px;
+      min-height: 24px;
       background-image: url('@/assets/img/favorite.svg');
       background-size: contain;
       background-repeat: no-repeat;
@@ -200,7 +198,7 @@ export default {
       margin-right: 10px;
 
       &__counter {
-        @include defineFontMontserrat(500, 13px, 140%);
+        @include defineFontMontserrat(500, 12px, 1.4);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -223,9 +221,8 @@ export default {
       background: $white;
       border: 1px solid #dcdcdc;
       border-radius: 50%;
-      width: 100%;
-      max-width: 48px;
-      height: 48px;
+      min-width: 48px;
+      min-height: 48px;
       transition: background-color 0.2s ease-in-out,
         border-color 0.2s ease-in-out;
 
@@ -246,8 +243,8 @@ export default {
     &__persone {
       cursor: pointer;
       position: relative;
-      width: 30px;
-      height: 28px;
+      min-width: 30px;
+      min-height: 28px;
       background-image: url('@/assets/img/personal.svg');
       background-size: contain;
       background-repeat: no-repeat;
@@ -256,10 +253,8 @@ export default {
 
     &__user-photo {
       cursor: pointer;
-      width: 100%;
-      height: 100%;
-      max-width: 47px;
-      max-height: 47px;
+      width: 47px;
+      height: 47px;
       border-radius: 50%;
       display: flex;
       align-items: center;
