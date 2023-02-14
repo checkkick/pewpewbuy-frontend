@@ -1,4 +1,5 @@
 <template>
+  <!-- Личный просмотр профиля -->
   <div class="container">
     <nav class="profile__nav">
       <h2 class="profile__nav__title">Личный кабинет</h2>
@@ -343,26 +344,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 2rem;
 
   &__title {
-    @include defineFontMontserrat(600, 36px, 44px);
-    margin: 0;
+    @include defineFontMontserrat(600, 27px, 33px);
   }
 
   &__buttons {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1rem;
 
     &__all-publicity {
-      @include defineBtnPrimary(20px, 91px, 16px, 37px);
-      cursor: pointer;
+      @include defineBtnPrimary(15px, 68px, 12px, 27px);
     }
 
     &__new-publicity {
-      @include defineBtnAccent(20px, 91px, 16px, 37px);
-      cursor: pointer;
+      @include defineBtnAccent(15px, 68px, 12px, 27px);
     }
   }
 }
@@ -370,14 +368,14 @@ export default {
 .profile__main {
   display: flex;
   flex-direction: column;
-  margin-bottom: 100px;
+  margin-bottom: 4rem;
 
   &__info {
     display: flex;
     align-items: stretch;
     justify-content: stretch;
-    gap: 25px;
-    margin-bottom: 43px;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 
     &-layout {
       overflow: hidden;
@@ -387,9 +385,9 @@ export default {
       flex-direction: column;
 
       &__title {
-        @include defineFontMontserrat(600, 24px, 29px);
+        @include defineFontMontserrat(600, 18px, 22px);
         color: $primary;
-        margin: 0 0 24px 0;
+        margin-bottom: 1rem;
       }
 
       &__personal-info {
@@ -398,24 +396,24 @@ export default {
         display: flex;
         flex-direction: column;
         background: $white;
-        padding: 45px 60px;
+        padding: 42px 45px;
         border: 1px solid $filter-border;
-        box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
-        border-radius: 32px;
+        box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
+        border-radius: 24px;
 
         &__name {
-          @include defineFontMontserrat(600, 24px, 29px);
+          @include defineFontMontserrat(600, 18px, 22px);
           color: $black;
-          margin: 0 0 34px 0;
+          margin-bottom: 2rem;
         }
 
         &__edit {
           cursor: pointer;
-          width: 43px;
-          height: 43px;
+          width: 32px;
+          height: 32px;
           position: absolute;
-          top: 40px;
-          right: 50px;
+          top: 36px;
+          right: 40px;
           border-radius: 50%;
           background-color: $primary;
           display: flex;
@@ -427,22 +425,22 @@ export default {
           height: 100%;
           display: flex;
           align-items: center;
-          gap: 70px;
-          margin-bottom: 22px;
+          gap: 3rem;
+          margin-bottom: 1rem;
 
           &-flex {
             display: flex;
             align-items: stretch;
             flex-direction: column;
-            gap: 20px;
+            gap: 1rem;
 
             &:last-child {
               width: 100%;
             }
 
             &__img {
-              width: 181px;
-              height: 181px;
+              width: 135px;
+              height: 135px;
               border-radius: 50%;
               object-fit: cover;
             }
@@ -452,15 +450,13 @@ export default {
               align-items: center;
 
               &__title {
-                @include defineFontMontserrat(600, 18px, 22px);
+                @include defineFontMontserrat(600, 13px, 16px);
                 width: 100%;
-                margin: 0;
               }
 
               &__text {
-                @include defineFontMontserrat(400, 18px, 22px);
+                @include defineFontMontserrat(400, 13px, 16px);
                 width: 100%;
-                margin: 0;
                 &.inactive {
                   color: $black-inactive;
                 }
@@ -471,12 +467,12 @@ export default {
 
         &__contacts {
           width: 100%;
-          max-width: 181px;
+          max-width: 135px;
           align-self: flex-start;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 20px;
+          gap: 1rem;
         }
       }
 
@@ -484,10 +480,10 @@ export default {
         position: relative;
         height: 100%;
         background: $white;
-        padding: 45px 68px;
+        padding: 35px 50px;
         border: 1px solid $filter-border;
-        box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
-        border-radius: 32px;
+        box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
+        border-radius: 24px;
 
         &__swiper {
           position: static;
