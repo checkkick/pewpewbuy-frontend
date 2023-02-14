@@ -22,7 +22,7 @@
         <button
           class="modal-window__password-title__show"
           @click="showPwd = !showPwd">
-          Показать
+          {{ showPwd ? 'Скрыть' : 'Показать' }}
         </button>
       </div>
 
