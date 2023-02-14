@@ -80,13 +80,13 @@
           :class="{ active: openFooter }"
           @click.prevent="openFooter = !openFooter">
           <svg
-            width="12"
-            height="7"
-            viewBox="0 0 12 7"
+            width="9"
+            height="6"
+            viewBox="0 0 9 6"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M6.53033 0.469643C6.23744 0.17675 5.76256 0.17675 5.46967 0.469643L0.696699 5.24261C0.403806 5.53551 0.403806 6.01038 0.696699 6.30327C0.989593 6.59617 1.46447 6.59617 1.75736 6.30327L6 2.06063L10.2426 6.30327C10.5355 6.59617 11.0104 6.59617 11.3033 6.30327C11.5962 6.01038 11.5962 5.53551 11.3033 5.24261L6.53033 0.469643ZM6.75 1.58105V0.999974L5.25 0.999974V1.58105H6.75Z"
+              d="M5.14775 1.10177C4.92808 0.882104 4.57192 0.882104 4.35225 1.10177L0.772524 4.6815C0.552855 4.90117 0.552855 5.25733 0.772524 5.477C0.992194 5.69667 1.34835 5.69667 1.56802 5.477L4.75 2.29502L7.93198 5.477C8.15165 5.69667 8.50781 5.69667 8.72748 5.477C8.94715 5.25733 8.94715 4.90117 8.72748 4.6815L5.14775 1.10177ZM5.3125 1.93579V1.49952H4.1875V1.93579H5.3125Z"
               fill="black" />
           </svg>
         </a>
@@ -111,18 +111,18 @@ async function chooseSubCategory(name) {
 
 <style lang="scss" scoped>
 .footer {
-  @include defineFontMontserrat(400, 16px, 1.4);
+  @include defineFontMontserrat(400, 12px, 1.4);
   color: $white;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 0;
+  padding: 12px 0;
   background-color: $black;
   z-index: 998;
 
   &.active {
-    padding: 70px 0;
+    padding: 50px 0;
   }
 
   &__link {
@@ -145,15 +145,15 @@ async function chooseSubCategory(name) {
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-between;
+      gap: 2rem;
 
       &__title {
-        @include defineFontSairaStencilOne(16px, 25px);
-        margin: 0;
+        @include defineFontSairaStencilOne(12px, 19px);
         color: $white;
       }
 
       &__subtitle {
-        font-size: 12px;
+        font-size: 9px;
         line-height: inherit;
         font-weight: inherit;
         margin: 0;
@@ -163,12 +163,12 @@ async function chooseSubCategory(name) {
       &__contacts {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 0.5rem;
 
         &__social {
           display: flex;
           align-items: center;
-          gap: 20px;
+          gap: 1rem;
 
           &__link {
             font-size: 0;
@@ -177,8 +177,7 @@ async function chooseSubCategory(name) {
         }
 
         &__copyright {
-          margin: 0;
-          @include defineFontMontserrat(400, 12px, 1.4);
+          @include defineFontMontserrat(400, 9px, 1.4);
           color: $grey;
         }
       }
@@ -222,19 +221,20 @@ async function chooseSubCategory(name) {
       gap: 10px;
 
       &__item {
-        @include defineFontMontserrat(400, 14px, 17px);
+        @include defineFontMontserrat(400, 12px, 15px);
         color: $grey;
       }
     }
 
     &__arrow {
-      width: 35px;
-      height: 35px;
+      width: 25px;
+      height: 25px;
       background-color: $white;
       border-radius: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      transform-origin: center;
       transition: transform 0.5s ease-in-out, background-color 0.2s ease-in-out;
 
       &.active {

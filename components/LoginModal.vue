@@ -154,7 +154,7 @@ export default {
   align-items: center;
   background: $modal-background;
   border-radius: 38px;
-  padding: 60px;
+  padding: 50px 60px;
   margin: 100px;
 
   &__close {

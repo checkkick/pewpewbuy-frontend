@@ -39,7 +39,11 @@
       <label class="filter-bar__select__label" for="date-add"
         >Время добавления</label
       >
-      <select id="date-add" class="filter-bar__select" name="date-add">
+      <select
+        id="date-add"
+        v-model="date"
+        class="filter-bar__select"
+        name="date-add">
         <option value="Две недели назад">Две недели назад</option>
         <option value="Месяц назад">Месяц назад</option>
       </select>
@@ -67,9 +71,10 @@ export default {
   setup() {},
   data: () => {
     return {
-      priceStart: null,
-      priceEnd: null,
-      popularity: null,
+      priceStart: '4000',
+      priceEnd: '10000',
+      popularity: 'По возрастанию',
+      date: 'Две недели назад',
       add_time: null,
       filtred: false,
     }
@@ -116,16 +121,16 @@ export default {
 
 <style lang="scss" scoped>
 .filter-bar {
-  @include defineFontMontserrat(500, 20px, 24px);
+  @include defineFontMontserrat(500, 15px, 18px);
   color: $black;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin: 0 0 30px 0;
+  margin: 0 0 2rem 0;
 
   &__select {
-    @include defineFontMontserrat(500, 16px, 20px);
+    @include defineFontMontserrat(500, 12px, 15px);
     cursor: pointer;
     max-width: max-content;
     min-width: 2rem;
@@ -133,9 +138,9 @@ export default {
     color: $black;
     outline: none;
     border: none;
-    padding: 10px 22px;
+    padding: 6px 16px;
     background: $input-background;
-    border-radius: 6px;
+    border-radius: 4px;
     appearance: none;
 
     &:active,
@@ -144,22 +149,21 @@ export default {
     }
 
     &__label {
-      padding-right: 23px;
+      padding-right: 1rem;
       background: url('assets/img/arrow.svg') no-repeat center right;
     }
   }
 
   &__input {
-    @include defineFontMontserrat(500, 14px, 17px);
+    @include defineFontMontserrat(500, 12px, 15px);
     color: $black-contrast;
-    max-width: 8em;
-    min-width: 2em;
-    width: 100%;
+    max-width: 5rem;
+    min-width: 1rem;
     outline: none;
     border: none;
-    padding: 10px 22px;
+    padding: 7px 13px;
     background: $input-background;
-    border-radius: 6px;
+    border-radius: 4px;
 
     &:active,
     &:focus {
@@ -179,12 +183,12 @@ export default {
     justify-content: flex-start;
     flex-wrap: wrap;
     flex-grow: 1;
-    gap: 1rem;
+    gap: 0.5rem;
 
     &__star {
-      width: 49px;
-      height: 49px;
-      border-radius: 8px;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
       background: $primary-blur url('assets/img/filter-star.svg') no-repeat
         center center;
     }
@@ -193,18 +197,19 @@ export default {
   &__price {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     flex-grow: 1;
 
     &__dollar {
-      width: 49px;
-      height: 49px;
-      border-radius: 8px;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
       background: $primary-blur url('assets/img/filter-dollar.svg') no-repeat
         center center;
     }
 
     &__text {
+      margin: 0;
       width: 100%;
     }
   }
@@ -214,13 +219,13 @@ export default {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
     flex-grow: 1;
 
     &__watch {
-      width: 49px;
-      height: 49px;
-      border-radius: 8px;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
       background: $primary-blur url('assets/img/filter-watch.svg') no-repeat
         center center;
     }
@@ -228,7 +233,7 @@ export default {
 
   &__sort-btn {
     cursor: pointer;
-    @include defineBtnPrimary(18px, 35px, 16px, 22px);
+    @include defineBtnPrimary(13px, 26px, 12px, 16px);
   }
 }
 </style>

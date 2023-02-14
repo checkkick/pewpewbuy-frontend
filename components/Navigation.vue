@@ -134,16 +134,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 42px;
-  padding-bottom: 10px;
-  margin-bottom: 30px;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 
   &__filter {
     background: $white;
     border: 1px solid $filter-border;
     box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
-    border-radius: 91px;
-    padding: 15px 13px;
+    border-radius: 68px;
+    padding: 11px 9px;
 
     &__list {
       padding: 0;
@@ -152,15 +152,15 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      gap: 15px;
+      gap: 1rem;
 
       &__item {
-        @include defineFontMontserrat(500, 24px, 29px);
+        @include defineFontMontserrat(500, 18px, 22px);
         position: relative;
         cursor: pointer;
         text-align: center;
-        padding: 22px 27px;
-        border-radius: 91px;
+        padding: 16px 20px;
+        border-radius: 68px;
         color: $black;
         transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
@@ -179,22 +179,22 @@ export default {
     &__dropdown-list {
       z-index: 2;
       position: absolute;
-      top: 93px;
       left: 20px;
       right: 20px;
+      top: calc(100% + 1rem);
       padding: 0;
       margin: 0;
       list-style: none;
       background: $white;
       border: 1px solid $filter-border;
       box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.15);
-      border-radius: 14px;
+      border-radius: 10px;
 
       &__item {
         cursor: pointer;
-        @include defineFontMontserrat(500, 18px, 22px);
+        @include defineFontMontserrat(500, 13px, 16px);
         text-align: center;
-        padding: 14px 17px;
+        padding: 10px 12px;
         color: $black;
 
         &.active,
@@ -204,11 +204,11 @@ export default {
         }
 
         &:first-child {
-          border-radius: 14px 14px 0 0;
+          border-radius: 10px 10px 0 0;
         }
 
         &:last-child {
-          border-radius: 0 0 14px 14px;
+          border-radius: 0 0 10px 10px;
         }
 
         &__link {
@@ -220,7 +220,7 @@ export default {
   }
 
   &__btn-create {
-    @include defineBtnAccent(20px, 91px, 25px, 26px);
+    @include defineBtnAccent(15px, 68px, 18px, 19px);
     cursor: pointer;
   }
 }

@@ -133,7 +133,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  padding: 3rem 0 0 0;
+  padding: 2rem 0 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -150,12 +150,10 @@ export default {
   }
 
   &__title {
-    margin: 0 auto;
     text-decoration: none;
 
     &__text {
       @include defineFontMontserrat(700, 27px, 33px);
-      margin: 0;
       color: $black;
       text-align: center;
     }

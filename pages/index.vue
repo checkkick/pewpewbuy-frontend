@@ -49,22 +49,21 @@ export default {
 
 .main {
   &__title {
-    @include defineFontMontserrat(600px, 36px, 44px);
-    margin: 0 0 40px 0;
+    @include defineFontMontserrat(600px, 27px, 33px);
+    margin-bottom: 2rem;
   }
 
   &__subtitle {
-    @include defineFontMontserrat(600px, 24px, 29px);
-    margin: 0;
-    margin: 0 0 40px 0;
+    @include defineFontMontserrat(600px, 18зx, 22px);
+    margin-bottom: 2rem;
   }
 
   &__section-products {
-    margin: 0 0 120px 0;
+    margin: 0 0 7rem 0;
     display: flex;
     align-items: stretch;
-    justify-content: flex-start;
-    gap: 20px;
+    justify-content: stretch;
+    gap: 15px;
     flex-wrap: wrap;
   }
 }

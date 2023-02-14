@@ -122,26 +122,14 @@ export default {
 
 <style lang="scss" scoped>
 .product-card {
-  @include defineFontMontserrat(500, 20px, 1.4);
+  @include defineFontMontserrat(500, 14px, 1.4);
   color: $black;
-  width: calc((100% - (20px * 3)) / 4);
+  width: calc((100% - (15px * 3)) / 4);
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-
-  @media (max-width: 1000px) {
-    width: calc((100% - (20px * 2)) / 3);
-  }
-
-  @media (max-width: 800px) {
-    width: calc((100% - (20px * 1)) / 2);
-  }
-
-  @media (max-width: 650px) {
-    width: 100%;
-  }
 
   &:hover &__image {
     filter: drop-shadow(0px 11px 18px rgba(128, 173, 241, 0.13));
@@ -149,9 +137,11 @@ export default {
 
   &__swiper {
     width: 100%;
+    height: 100%;
     max-height: 327px;
     padding-bottom: 25px;
     margin-bottom: 10px;
+    border-radius: 11px;
 
     &__slide {
       cursor: grab;
@@ -159,19 +149,19 @@ export default {
       justify-content: center;
       align-items: center;
       background-color: $filter-background;
-      border-radius: 15px;
+      border-radius: 11px;
 
       &__image {
         width: 100%;
         height: 100%;
-        border-radius: 15px;
+        border-radius: 11px;
         object-fit: contain;
       }
     }
   }
 
   &__title {
-    @include defineFontMontserrat(700, 20px, 1.4);
+    @include defineFontMontserrat(700, 15px, 1.4);
   }
 
   &__flex {
@@ -179,17 +169,19 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 
     &__price {
       font-weight: 700;
-      font-size: 22px;
+      font-size: 15px;
     }
   }
 
   &__btn {
     cursor: pointer;
-    @include defineBtnPrimary(18px, 35px, 18px, 26px);
+    @include defineBtnPrimary(14px, 26px, 12px, 16px);
+    justify-content: center;
+    flex-grow: 1;
 
     &.accent {
       color: $black-light;
