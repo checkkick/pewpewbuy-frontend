@@ -148,7 +148,6 @@
 
       <button
         class="profile__main__edit__window__save-btn"
-        :disabled="saveDisable"
         @click="updateUserData"
       >
         Сохранить
@@ -175,24 +174,9 @@ export default {
     };
   },
   data: () => ({
-    saveDisable: true,
     image: '',
     user: {},
   }),
-  watch: {
-    user: {
-      handler() {
-        Object.keys(this.user).forEach((key) => {
-          if (this.user[key] !== this.clientsStore.USER_STATE[key]) {
-            this.saveDisable = false;
-            return;
-          }
-          this.saveDisable = true;
-        });
-      },
-      deep: true,
-    },
-  },
   mounted() {
     Object.keys(this.clientsStore.USER_STATE).forEach((key) => {
       this.user[key] = this.clientsStore.USER_STATE[key];
