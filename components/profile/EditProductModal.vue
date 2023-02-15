@@ -409,9 +409,7 @@ export default {
       this.productData.files.push(file);
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = (t) => {
-        that.tempPhotos.push(t.target.result);
-      };
+      reader.onload = (t) => this.tempPhotos.push(t.target.result);
     },
     deleteImage(id) {
       this.tempPhotos.splice(id, 1);
