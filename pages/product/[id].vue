@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <Navigation />
-
     <main class="main">
       <h2 class="main__title">
         Доска объявлений
@@ -250,6 +248,7 @@ export default {
   setup() {
     definePageMeta({
       middleware: ['authorization'],
+      layout: 'auth-nav-layout',
     });
 
     const thumbsSwiper = ref(null);

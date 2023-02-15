@@ -290,6 +290,7 @@ export default {
   setup() {
     definePageMeta({
       middleware: ['authorization'],
+      layout: 'auth-no-nav-layout',
     });
 
     const store = auth();

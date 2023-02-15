@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
     <Header @open-login-window="showLogin = true" />
+    <Navigation />
     <slot />
     <Footer />
 
