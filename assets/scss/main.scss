@@ -1,48 +1,43 @@
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat-Regular'),
-    url('../fonts/Montserrat-Regular.woff2') format('woff2'),
-    url('../fonts/Montserrat-Regular.woff') format('woff');
+  font-family: "Montserrat";
+  src: local("Montserrat-Regular"), url("../fonts/Montserrat-Regular.woff2") format("woff2"),
+    url("../fonts/Montserrat-Regular.woff") format("woff");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat-Medium'),
-    url('../fonts/Montserrat-Medium.woff2') format('woff2'),
-    url('../fonts/Montserrat-Medium.woff') format('woff');
+  font-family: "Montserrat";
+  src: local("Montserrat-Medium"), url("../fonts/Montserrat-Medium.woff2") format("woff2"),
+    url("../fonts/Montserrat-Medium.woff") format("woff");
   font-display: swap;
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat-SemiBold'),
-    url('../fonts/Montserrat-SemiBold.woff2') format('woff2'),
-    url('../fonts/Montserrat-SemiBold.woff') format('woff');
+  font-family: "Montserrat";
+  src: local("Montserrat-SemiBold"), url("../fonts/Montserrat-SemiBold.woff2") format("woff2"),
+    url("../fonts/Montserrat-SemiBold.woff") format("woff");
   font-display: swap;
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat-Bold'),
-    url('../fonts/Montserrat-Bold.woff2') format('woff2'),
-    url('../fonts/Montserrat-Bold.woff') format('woff');
+  font-family: "Montserrat";
+  src: local("Montserrat-Bold"), url("../fonts/Montserrat-Bold.woff2") format("woff2"),
+    url("../fonts/Montserrat-Bold.woff") format("woff");
   font-display: swap;
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'SairaStencilOne';
-  src: local('SairaStencilOne-Regular'),
-    url('../fonts/SairaStencilOne-Regular.woff') format('woff2'),
-    url('../fonts/SairaStencilOne-Regular.woff') format('woff');
+  font-family: "SairaStencilOne";
+  src: local("SairaStencilOne-Regular"), url("../fonts/SairaStencilOne-Regular.woff") format("woff2"),
+    url("../fonts/SairaStencilOne-Regular.woff") format("woff");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
@@ -51,7 +46,7 @@
 body,
 html {
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif, serif;
+  font-family: "Montserrat", sans-serif, serif;
   background-color: $modal-background;
   margin: 0;
   padding: 0;

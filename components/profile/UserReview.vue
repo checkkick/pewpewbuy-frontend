@@ -4,14 +4,17 @@
       <img
         :src="review.user.avatar ? review.user.avatar : noImage"
         alt="profile picture"
-        class="user-review__title__img" />
+        class="user-review__title__img"
+      >
       <p class="user-review__title__name">
         {{ review.user.first_name }} {{ review.user.last_name }}
       </p>
     </div>
     <div class="user-review__about">
       <div class="user-review__about__grade">
-        <p class="user-review__about__grade__title">Оценка:</p>
+        <p class="user-review__about__grade__title">
+          Оценка:
+        </p>
         <div class="user-review__about__grade__rating">
           <p class="user-review__about__grade__rating__text">
             {{ review.estimate }}
@@ -30,20 +33,18 @@
 </template>
 
 <script>
-import RatingCalc from './RatingCalc.vue'
-import noPhoto from '@/assets/img/no-photo.png'
+import noPhoto from '@/assets/img/no-photo.png';
+import RatingCalc from './RatingCalc.vue';
 
 export default {
   components: { RatingCalc },
   props: {
-    review: { type: Object, default: () => {} },
+    review: { type: Object, default: () => { } },
   },
-  data: () => {
-    return {
-      noImage: noPhoto,
-    }
-  },
-}
+  data: () => ({
+    noImage: noPhoto,
+  }),
+};
 </script>
 
 <style lang="scss" scoped>
@@ -117,26 +118,20 @@ export default {
       color: transparent;
       -webkit-background-clip: text;
       background-clip: text;
-      background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        from($black),
-        color-stop($black),
-        to(rgba(0, 0, 0, 0))
-      );
-      background-image: -o-linear-gradient(
-        top,
-        $black,
-        $black,
-        rgba(0, 0, 0, 0)
-      );
-      background-image: linear-gradient(
-        to bottom,
-        $black,
-        $black,
-        rgba(0, 0, 0, 0)
-      );
+      background-image: -webkit-gradient(linear,
+          left top,
+          left bottom,
+          from($black),
+          color-stop($black),
+          to(rgba(0, 0, 0, 0)));
+      background-image: -o-linear-gradient(top,
+          $black,
+          $black,
+          rgba(0, 0, 0, 0));
+      background-image: linear-gradient(to bottom,
+          $black,
+          $black,
+          rgba(0, 0, 0, 0));
     }
 
     &__date {

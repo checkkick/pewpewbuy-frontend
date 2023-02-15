@@ -2,41 +2,45 @@
   <div class="container">
     <Navigation />
     <main class="main">
-      <h2 class="main__title">Доска объявлений</h2>
-      <h3 class="main__subtitle">Страйкбольное оружие</h3>
+      <h2 class="main__title">
+        Доска объявлений
+      </h2>
+      <h3 class="main__subtitle">
+        Страйкбольное оружие
+      </h3>
       <FilterBar />
       <section class="main__section-products">
         <ProductCard
           v-for="product in all_products"
           :key="product.id"
-          :product="product">
-        </ProductCard>
+          :product="product"
+        />
       </section>
     </main>
   </div>
 </template>
 
 <script>
-import { auth } from '@/store/auth.js'
-import { products } from '@/store/products.js'
+import { auth } from '@/store/auth';
+import { products } from '@/store/products';
 
 export default {
   setup() {
-    const useProductStore = products()
-    const useAuthStore = auth()
+    const useProductStore = products();
+    const useAuthStore = auth();
     return {
       useAuthStore,
       useProductStore,
       all_products: computed(() => useProductStore.ALL_PRODUCTS),
       authorized: computed(() => useAuthStore.AUTHORIZED),
-    }
+    };
   },
   async mounted() {
     if (!Object.hasOwn(this.$route.query, 'slug')) {
-      await this.useProductStore.GET_ALL_PRODUCTS()
+      await this.useProductStore.GET_ALL_PRODUCTS();
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

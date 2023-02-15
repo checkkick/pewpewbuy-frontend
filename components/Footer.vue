@@ -1,43 +1,74 @@
 <template>
-  <footer class="footer" :class="{ active: openFooter }">
+  <footer
+    class="footer"
+    :class="{ active: openFooter }"
+  >
     <div class="container">
-      <div class="footer__flex" :class="{ active: openFooter }">
+      <div
+        class="footer__flex"
+        :class="{ active: openFooter }"
+      >
         <div class="footer__flex__about">
           <div>
             <h4 class="footer__flex__about__title">
-              <a href="#" class="footer__link" @click.prevent>PEWPEW BUY</a>
+              <a
+                href="#"
+                class="footer__link"
+                @click.prevent
+              >PEWPEW BUY</a>
             </h4>
             <h5 class="footer__flex__about__subtitle">
-              <a href="#" class="footer__link" @click.prevent
-                >Страйкбольная барахолка</a
-              >
+              <a
+                href="#"
+                class="footer__link"
+                @click.prevent
+              >Страйкбольная барахолка</a>
             </h5>
           </div>
-          <div v-if="openFooter" class="footer__flex__about__contacts">
+          <div
+            v-if="openFooter"
+            class="footer__flex__about__contacts"
+          >
             <div class="footer__flex__about__contacts__social">
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent>
-                <img src="assetsDir/assets/img/telegram.svg" alt="telegram" />
+                @click.prevent
+              >
+                <img
+                  src="/assetsDir/assets/img/telegram.svg"
+                  alt="telegram"
+                >
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent>
-                <img src="assetsDir/assets/img/whatsapp.svg" alt="whatsapp" />
+                @click.prevent
+              >
+                <img
+                  src="/assetsDir/assets/img/whatsapp.svg"
+                  alt="whatsapp"
+                >
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent>
-                <img src="assetsDir/assets/img/vk.svg" alt="vk" />
+                @click.prevent
+              >
+                <img
+                  src="/assetsDir/assets/img/vk.svg"
+                  alt="vk"
+                >
               </a>
               <a
                 href="#"
                 class="footer__flex__about__contacts__social__link"
-                @click.prevent>
-                <img src="assetsDir/assets/img/mail.svg" alt="mail" />
+                @click.prevent
+              >
+                <img
+                  src="/assetsDir/assets/img/mail.svg"
+                  alt="mail"
+                >
               </a>
             </div>
             <p class="footer__flex__about__contacts__copyright">
@@ -51,25 +82,28 @@
             v-for="(item, index) in Object.keys(categories)"
             :key="index"
             class="footer__flex__map__item"
-            :class="{ active: openFooter }">
+            :class="{ active: openFooter }"
+          >
             <a
               href="#"
               class="footer__link"
               @click.prevent="openFooter = true"
-              >{{ item }}</a
-            >
+            >{{ item }}</a>
 
-            <ul v-if="openFooter" class="footer__flex__categories">
+            <ul
+              v-if="openFooter"
+              class="footer__flex__categories"
+            >
               <li
                 v-for="subItem in categories[item]"
                 :key="subItem.id"
-                class="footer__flex__categories__item">
+                class="footer__flex__categories__item"
+              >
                 <a
                   href="#"
                   class="footer__link"
                   @click.prevent="chooseSubCategory(subItem.slug)"
-                  >{{ subItem.name }}</a
-                >
+                >{{ subItem.name }}</a>
               </li>
             </ul>
           </li>
@@ -78,16 +112,19 @@
           href="#"
           class="footer__flex__arrow"
           :class="{ active: openFooter }"
-          @click.prevent="openFooter = !openFooter">
+          @click.prevent="openFooter = !openFooter"
+        >
           <svg
             width="9"
             height="6"
             viewBox="0 0 9 6"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M5.14775 1.10177C4.92808 0.882104 4.57192 0.882104 4.35225 1.10177L0.772524 4.6815C0.552855 4.90117 0.552855 5.25733 0.772524 5.477C0.992194 5.69667 1.34835 5.69667 1.56802 5.477L4.75 2.29502L7.93198 5.477C8.15165 5.69667 8.50781 5.69667 8.72748 5.477C8.94715 5.25733 8.94715 4.90117 8.72748 4.6815L5.14775 1.10177ZM5.3125 1.93579V1.49952H4.1875V1.93579H5.3125Z"
-              fill="black" />
+              fill="black"
+            />
           </svg>
         </a>
       </div>
@@ -95,18 +132,25 @@
   </footer>
 </template>
 
-<script setup>
-import { products } from '@/store/products'
+<script>
+import { products } from '@/store/products';
 
-const openFooter = ref(false)
-const categories = await products().GET_CATEGORIES_ALL()
-const router = useRouter()
-
-async function chooseSubCategory(name) {
-  router.push('/?slug=' + name)
-  await products().GET_CATEGORY_PRODUCTS(name)
-  openFooter.value = false
-}
+export default {
+  data: () => ({
+    openFooter: false,
+    categories: {},
+  }),
+  async mounted() {
+    this.categories = await products().GET_CATEGORIES_ALL();
+  },
+  methods: {
+    async chooseSubCategory(name) {
+      await products().GET_CATEGORY_PRODUCTS(name);
+      this.openFooter = false;
+      this.$router.push(`/?slug=${name}`);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -203,7 +247,7 @@ async function chooseSubCategory(name) {
         align-items: flex-start;
         justify-content: flex-start;
 
-        &.active > .footer__link {
+        &.active>.footer__link {
           font-weight: 700;
           margin-bottom: 20px;
         }

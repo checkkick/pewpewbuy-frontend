@@ -2,23 +2,61 @@
   <Teleport to=".layout">
     <div class="modal-background">
       <div class="modal-window">
-        <span class="modal-window__close" @click="closeWindow"></span>
-        <h2 class="modal-window__title">Контакты продавца</h2>
-        <div v-if="fio" class="fio">
-          <h3 class="fio__title">ФИО</h3>
-          <p class="fio__text">{{ fio }}</p>
+        <span
+          class="modal-window__close"
+          @click="closeWindow"
+        />
+        <h2 class="modal-window__title">
+          Контакты продавца
+        </h2>
+        <div
+          v-if="fio"
+          class="fio"
+        >
+          <h3 class="fio__title">
+            ФИО
+          </h3>
+          <p class="fio__text">
+            {{ fio }}
+          </p>
         </div>
-        <div v-if="email" class="email">
-          <h3 class="email__title">Почта</h3>
-          <a :href="`mailto:${email}`" class="email__text">{{ email }}</a>
+        <div
+          v-if="email"
+          class="email"
+        >
+          <h3 class="email__title">
+            Почта
+          </h3>
+          <a
+            :href="`mailto:${email}`"
+            class="email__text"
+          >{{ email }}</a>
         </div>
-        <div v-if="vk" class="vk">
-          <h3 class="vk__title">Вконтакте</h3>
-          <a target="_blank" :href="vk" class="vk__text">{{ vk }}</a>
+        <div
+          v-if="vk"
+          class="vk"
+        >
+          <h3 class="vk__title">
+            Вконтакте
+          </h3>
+          <a
+            target="_blank"
+            :href="vk"
+            class="vk__text"
+          >{{ vk }}</a>
         </div>
-        <div v-if="tg" class="tg">
-          <h3 class="tg__title">Телеграм</h3>
-          <a target="_blank" :href="tg" class="tg__text">{{ tg }}</a>
+        <div
+          v-if="tg"
+          class="tg"
+        >
+          <h3 class="tg__title">
+            Телеграм
+          </h3>
+          <a
+            target="_blank"
+            :href="tg"
+            class="tg__text"
+          >{{ tg }}</a>
         </div>
       </div>
     </div>
@@ -47,15 +85,15 @@ export default {
   },
   emits: ['closeLoginWindow'],
   mounted() {
-    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null
-      this.$emit('closeLoginWindow')
+      document.getElementsByTagName('body')[0].style.overflow = null;
+      this.$emit('closeLoginWindow');
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,13 +1,11 @@
-import { api } from '@/composables/api'
-import { checkСookies, get, set } from '@/store/cookies'
-import { defineStore } from 'pinia'
+import { api } from '@/composables/api';
+import { checkСookies, get, set } from '@/store/cookies';
+import { defineStore } from 'pinia';
 
 export const auth = defineStore('auth', {
-  state: () => {
-    return {
-      authorized: false,
-    }
-  },
+  state: () => ({
+    authorized: false,
+  }),
 
   actions: {
     async GET_TOKEN(mail, password) {
@@ -16,13 +14,13 @@ export const auth = defineStore('auth', {
           body: { email: mail, password },
           method: 'POST',
           errorAlert: 'Ошибка при получении токена доступа к ресурсу',
-        })
-        set('access_pew', response.access)
-        set('refresh_pew', response.refresh)
-        this.authorized = true
-        return response
+        });
+        set('access_pew', response.access);
+        set('refresh_pew', response.refresh);
+        this.authorized = true;
+        return response;
       } catch (error) {
-        return error.response.status
+        return error.response.status;
       }
     },
     async REFRESH_TOKEN() {
@@ -31,13 +29,13 @@ export const auth = defineStore('auth', {
           body: { refresh: get('refresh_pew') },
           method: 'POST',
           errorAlert: 'Ошибка при обновлении токена доступа к ресурсу',
-        })
-        set('access_pew', response.access)
-        set('refresh_pew', response.refresh)
-        this.authorized = true
-        return response
+        });
+        set('access_pew', response.access);
+        set('refresh_pew', response.refresh);
+        this.authorized = true;
+        return response;
       } catch (error) {
-        return error.response.status
+        return error.response.status;
       }
     },
 
@@ -47,10 +45,10 @@ export const auth = defineStore('auth', {
           body: { login: mail },
           method: 'POST',
           errorAlert: 'Ошибка при отправке кода',
-        })
-        return response
+        });
+        return response;
       } catch (error) {
-        return error.response.status
+        return error.response.status;
       }
     },
     async CHECK_MAIL(mail) {
@@ -59,10 +57,10 @@ export const auth = defineStore('auth', {
           body: { mail },
           method: 'POST',
           errorAlert: 'Ошибка при проверки почты',
-        })
-        return response
+        });
+        return response;
       } catch (error) {
-        return error.response.status
+        return error.response.status;
       }
     },
     async CONFIRM_MAIL(mail, code) {
@@ -71,28 +69,30 @@ export const auth = defineStore('auth', {
           body: { mail, code },
           method: 'POST',
           errorAlert: 'Ошибка при подтверждении почты',
-        })
-        return response
+        });
+        return response;
       } catch (error) {
-        return error.response.status
+        return error.response.status;
       }
     },
     async CHECK_AUTH() {
-      const coockieState = checkСookies()
+      const coockieState = checkСookies();
       if (coockieState === 'access') {
-        this.authorized = true
-        return true
-      } else if (coockieState === 'refresh') {
-        await this.REFRESH_TOKEN()
-        this.authorized = true
-        return true
-      } else if (coockieState === 'login') {
-        return false
+        this.authorized = true;
+        return true;
+      } if (coockieState === 'refresh') {
+        await this.REFRESH_TOKEN();
+        this.authorized = true;
+        return true;
+      } if (coockieState === 'login') {
+        return false;
       }
+
+      return false;
     },
   },
 
   getters: {
-    AUTHORIZED: state => state.authorized,
+    AUTHORIZED: (state) => state.authorized,
   },
-})
+});

@@ -1,30 +1,35 @@
 <template>
   <div
     class="publication"
-    @click.self="$router.push(`/product/${publication.id}`)">
+    @click.self="$router.push(`/product/${publication.id}`)"
+  >
     <a
       class="publication__like"
       :class="{ active: like }"
-      @click.prevent="onLike()">
+      @click.prevent="onLike()"
+    >
       <svg
         width="24"
         height="21"
         viewBox="0 0 24 21"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M2.56973 10.7847C0.246983 7.76552 1.02123 3.23679 4.89247 1.72722C8.76372 0.217645 11.0865 3.23679 11.8607 4.74637C12.635 3.23679 15.732 0.217645 19.6032 1.72722C23.4744 3.23679 23.4744 7.76552 21.1517 10.7847C18.8289 13.8038 11.8607 19.8421 11.8607 19.8421C11.8607 19.8421 4.89247 13.8038 2.56973 10.7847Z"
           stroke="black"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round" />
+          stroke-linejoin="round"
+        />
       </svg>
     </a>
     <div class="publication__user">
       <img
         :src="publication.user.avatar"
         alt="user photo"
-        class="publication__user__image" />
+        class="publication__user__image"
+      >
       <div class="publication__user__about">
         <p class="publication__user__about__name">
           {{ publication.user.first_name }} {{ publication.user.last_name }}
@@ -39,33 +44,42 @@
       :modules="modules"
       :slides-per-view="1"
       :space-between="30"
-      :pagination="{ clickable: true }">
+      :pagination="{ clickable: true }"
+    >
       <swiper-slide
         v-for="photo in publication.photo"
         :key="photo.id"
-        class="publication__image-swiper__slide">
+        class="publication__image-swiper__slide"
+      >
         <img
           class="publication__image-swiper__slide__photo"
           :src="photo.file"
-          alt="product-example" />
+          alt="product-example"
+        >
       </swiper-slide>
     </swiper>
     <h4
       class="publication__title"
-      @click="$router.push(`/product/${publication.id}`)">
+      @click="$router.push(`/product/${publication.id}`)"
+    >
       {{ publication.manufacturer }} {{ publication.name }}
     </h4>
     <div
       class="publication__advanced"
-      @click="$router.push(`/product/${publication.id}`)">
+      @click="$router.push(`/product/${publication.id}`)"
+    >
       <div class="publication__advanced__line">
-        <p class="publication__advanced__line__text">Местоположение:</p>
+        <p class="publication__advanced__line__text">
+          Местоположение:
+        </p>
         <p class="publication__advanced__line__text">
           {{ publication.location }}
         </p>
       </div>
       <div class="publication__advanced__line">
-        <p class="publication__advanced__line__text">Цена:</p>
+        <p class="publication__advanced__line__text">
+          Цена:
+        </p>
         <p class="publication__advanced__line__text-bold">
           {{ publication.price }} р.
         </p>
@@ -75,11 +89,11 @@
 </template>
 
 <script>
-import { products } from '@/store/products'
-import { Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
-import 'swiper/css/pagination'
+import { products } from '@/store/products';
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default {
   components: {
@@ -90,39 +104,39 @@ export default {
     publication: {
       type: Object,
       default() {
-        return {}
+        return {};
       },
     },
   },
   setup() {
-    const useProductStore = products()
+    const useProductStore = products();
     return {
       useProductStore,
       modules: [Pagination],
-    }
+    };
   },
   data() {
     return {
       like: false,
-    }
+    };
   },
   mounted() {
-    this.like = this.publication.is_favourite
+    this.like = this.publication.is_favourite;
   },
   methods: {
     async onLike() {
       if (!this.like) {
         if (await this.useProductStore.ADD_FAVORITE(this.publication.id)) {
-          this.like = true
+          this.like = true;
         }
       } else if (
         await this.useProductStore.REMOVE_FAVORITE(this.publication.id)
       ) {
-        this.like = false
+        this.like = false;
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -153,12 +167,15 @@ export default {
     & svg {
       transition: transform 0.1s ease-in-out, fill 0.1s ease-in-out;
     }
+
     & svg path {
       transition: stroke 0.3s ease-in-out;
     }
+
     &:hover svg path {
       stroke: $accent-dark;
     }
+
     &:active svg {
       transform: scale(1.3);
     }
@@ -256,22 +273,25 @@ export default {
 .publication__image-swiper .swiper-pagination-bullet {
   background-color: $black;
 }
+
 .publication__image-swiper .swiper-pagination-bullet-active {
   background-color: $input-login-color;
 }
+
 .publication__image-swiper .swiper-pagination-fraction,
 .publication__image-swiper .swiper-pagination-custom,
-.publication__image-swiper .swiper-horizontal > .swiper-pagination-bullets,
-.publication__image-swiper
-  .swiper-pagination-bullets.swiper-pagination-horizontal {
+.publication__image-swiper .swiper-horizontal>.swiper-pagination-bullets,
+.publication__image-swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
   bottom: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .publication__image-swiper .swiper-pagination-lock {
   display: flex;
 }
+
 .publication__image-swiper .swiper-pagination-bullet:only-child {
   display: block !important;
 }

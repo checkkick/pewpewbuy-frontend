@@ -1,28 +1,41 @@
 <template>
   <div class="advertisment">
-    <div class="advertisment__title" @click="open = !open">
+    <div
+      class="advertisment__title"
+      @click="open = !open"
+    >
       <span
         class="advertisment__title__logo"
-        :class="{ activePubl, inactivePubl }"></span>
-      <h3 v-if="activePubl" class="advertisment__title__name">
+        :class="{ activePubl, inactivePubl }"
+      />
+      <h3
+        v-if="activePubl"
+        class="advertisment__title__name"
+      >
         Активные объявления ({{ publications.length }})
       </h3>
-      <h3 v-if="inactivePubl" class="advertisment__title__name">
+      <h3
+        v-if="inactivePubl"
+        class="advertisment__title__name"
+      >
         Неактивные объявления ({{ publications.length }})
       </h3>
       <a
         class="advertisment__title__open-arrow"
         :class="{ open }"
-        @click.prevent>
+        @click.prevent
+      >
         <svg
           width="20"
           height="12"
           viewBox="0 0 20 12"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M11.2103 0.790208C10.7026 0.282526 9.87946 0.282526 9.37178 0.790208L1.09863 9.06336C0.590946 9.57104 0.590946 10.3942 1.09863 10.9018C1.60631 11.4095 2.42942 11.4095 2.93711 10.9018L10.291 3.54792L17.6449 10.9018C18.1526 11.4095 18.9757 11.4095 19.4834 10.9018C19.9911 10.3942 19.9911 9.57104 19.4834 9.06336L11.2103 0.790208ZM11.591 2.29053V1.70945L8.99102 1.70945V2.29053H11.591Z"
-            fill="#8D8D8D" />
+            fill="#8D8D8D"
+          />
         </svg>
       </a>
     </div>
@@ -31,40 +44,47 @@
       @before-enter="beforeEnter"
       @enter="enter"
       @before-leave="beforeLeave"
-      @leave="leave">
+      @leave="leave"
+    >
       <div
         v-if="open && (publications.length > 0 || activePubl)"
         class="advertisment__wrapper"
-        :class="{ activePubl, inactivePubl }">
+        :class="{ activePubl, inactivePubl }"
+      >
         <swiper
           class="advertisment__wrapper__swiper"
           :modules="modules"
           :slides-per-view="4"
           :space-between="25"
-          navigation>
+          navigation
+        >
           <swiper-slide
             v-for="publication in publications"
             :key="publication.id"
-            class="advertisment__wrapper__swiper__slide">
+            class="advertisment__wrapper__swiper__slide"
+          >
             <UserPublications
               :active-publ="activePubl"
               :inactive-publ="inactivePubl"
               :publ="publication"
               :show-edit="!guestUser"
               @refresh-products="$emit('refreshProducts')"
-              @show-edit-product-modal="showEditModalMethod" />
+              @show-edit-product-modal="showEditModalMethod"
+            />
           </swiper-slide>
           <swiper-slide
             v-if="activePubl && !guestUser"
             class="advertisment__wrapper__swiper__add"
-            @click="$emit('openAddProduct')">
+            @click="$emit('openAddProduct')"
+          >
             <p class="advertisment__wrapper__swiper__add__text">
               Добавить объявление
             </p>
             <img
               class="advertisment__wrapper__swiper__add__img"
               src="@/assets/img/add-publication.svg"
-              alt="add" />
+              alt="add"
+            >
           </swiper-slide>
         </swiper>
       </div>
@@ -73,10 +93,10 @@
 </template>
 
 <script>
-import { Navigation } from 'swiper'
-import 'swiper/css'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import UserPublications from './UserPublications.vue'
+import { Navigation } from 'swiper';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import UserPublications from './UserPublications.vue';
 
 export default {
   components: {
@@ -92,30 +112,34 @@ export default {
   },
   emits: ['openAddProduct', 'refreshProducts', 'showEditProductModal'],
   setup() {
-    const open = ref(true)
+    const open = ref(true);
     return {
       open,
       modules: [Navigation],
-    }
+    };
   },
   methods: {
-    beforeEnter: function (el) {
-      el.style.height = '0'
+    beforeEnter(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = '0';
     },
-    enter: function (el) {
-      el.style.height = el.scrollHeight + 'px'
+    enter(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = `${el.scrollHeight}px`;
     },
-    beforeLeave: function (el) {
-      el.style.height = el.scrollHeight + 'px'
+    beforeLeave(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = `${el.scrollHeight}px`;
     },
-    leave: function (el) {
-      el.style.height = '0'
+    leave(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = '0';
     },
     showEditModalMethod(id) {
-      this.$emit('showEditProductModal', id)
+      this.$emit('showEditProductModal', id);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

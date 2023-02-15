@@ -3,14 +3,17 @@
     <Navigation />
 
     <main class="main">
-      <h2 class="main__title">Доска объявлений</h2>
+      <h2 class="main__title">
+        Доска объявлений
+      </h2>
       <section class="crumbs">
         <h4
           v-for="(item, idx) in crumbs"
           :key="idx"
           class="crumbs__title"
           :class="{ active: item.slug }"
-          @click="item.slug ? $router.push(`/?slug=${item.slug}`) : ''">
+          @click="item.slug ? $router.push(`/?slug=${item.slug}`) : ''"
+        >
           {{ item.name }}
         </h4>
       </section>
@@ -20,7 +23,8 @@
           <img
             class="about-seller__photo"
             :src="detProduct.user.avatar ? detProduct.user.avatar : noImage"
-            alt="seller photo" />
+            alt="seller photo"
+          >
           <div class="seller-info">
             <h4 class="seller-info__name">
               {{ detProduct.user.first_name }} {{ detProduct.user.last_name }}
@@ -39,8 +43,9 @@
                 : `/profile/${detProduct.user.id}`
             "
             class="about-seller__profile-link"
-            >Профиль продавца</NuxtLink
           >
+            Профиль продавца
+          </NuxtLink>
         </div>
 
         <h3 class="card__title">
@@ -54,12 +59,18 @@
               :navigation="true"
               :thumbs="{ swiper: thumbsSwiper }"
               :modules="modules"
-              class="swiper__carousel">
+              class="swiper__carousel"
+            >
               <swiper-slide
                 v-for="item in detProduct.photo"
                 :key="item.id"
-                class="swiper__slide">
-                <img class="swiper__photo" :src="item.file" alt="photo" />
+                class="swiper__slide"
+              >
+                <img
+                  class="swiper__photo"
+                  :src="item.file"
+                  alt="photo"
+                >
               </swiper-slide>
             </swiper>
 
@@ -70,16 +81,19 @@
               free-mode
               watch-slides-progress
               :modules="[Thumbs]"
-              @swiper="setThumbsSwiper">
+              @swiper="setThumbsSwiper"
+            >
               <swiper-slide
                 v-for="(item, idx) in detProduct.photo"
                 :key="item.id"
                 :class="idx === 0 ? 'swiper-slide-thumb-active' : ''"
-                class="swiper__preview-slide">
+                class="swiper__preview-slide"
+              >
                 <img
                   class="swiper__preview-photo"
                   :src="item.file"
-                  alt="photo" />
+                  alt="photo"
+                >
               </swiper-slide>
             </swiper>
           </div>
@@ -88,11 +102,13 @@
             v-if="
               detProduct.valueassets ? detProduct.valueassets.length > 0 : false
             "
-            class="product-about">
+            class="product-about"
+          >
             <li
               v-for="item in detProduct.valueassets"
               :key="item.id"
-              class="product-about__item">
+              class="product-about__item"
+            >
               <p class="product-about__label">
                 {{ item.asset.name }}
               </p>
@@ -102,7 +118,10 @@
             </li>
           </ul>
 
-          <p v-else class="no-product-about">
+          <p
+            v-else
+            class="no-product-about"
+          >
             Нет данных о характеристиках товара
           </p>
         </div>
@@ -116,13 +135,15 @@
                   ? 'switcher__about-product_active'
                   : ''
               "
-              @click="switcher = 'about-product'">
+              @click="switcher = 'about-product'"
+            >
               Описание
             </p>
             <p
               class="switcher__reviews"
               :class="switcher === 'reviews' ? 'switcher__reviews_active' : ''"
-              @click="switcher = 'reviews'">
+              @click="switcher = 'reviews'"
+            >
               Отзывы о продавце
             </p>
           </div>
@@ -131,7 +152,10 @@
               {{ detProduct.price ? detProduct.price.toLocaleString() : '0' }}
               р.
             </p>
-            <button class="price__btn-contact" @click="showContacts = true">
+            <button
+              class="price__btn-contact"
+              @click="showContacts = true"
+            >
               Написать продавцу
             </button>
             <NuxtLink
@@ -141,29 +165,42 @@
                   : `/profile/${detProduct.user.id}`
               "
               class="price__all-products"
-              >Все товары продавца</NuxtLink
             >
+              Все товары продавца
+            </NuxtLink>
           </div>
         </div>
 
-        <div v-if="switcher === 'about-product'" class="product-description">
-          <p class="product-description__text">{{ detProduct.description }}</p>
+        <div
+          v-if="switcher === 'about-product'"
+          class="product-description"
+        >
+          <p class="product-description__text">
+            {{ detProduct.description }}
+          </p>
         </div>
 
-        <div v-if="switcher === 'reviews'" class="user-reviews">
+        <div
+          v-if="switcher === 'reviews'"
+          class="user-reviews"
+        >
           <div
             v-for="user in detProduct.user.about_user_reviews"
             :key="user.id"
-            class="review">
+            class="review"
+          >
             <div class="about-user">
               <img
                 :src="user.user.avatar ? user.user.avatar : noImage"
                 :alt="user.user.first_name"
-                class="about-user__photo" />
+                class="about-user__photo"
+              >
               <p class="about-user__name">
                 {{ user.user.first_name }}
               </p>
-              <p class="about-user__rating">{{ user.estimate }}</p>
+              <p class="about-user__rating">
+                {{ user.estimate }}
+              </p>
               <RatingCalc :stars="user.estimate" />
               <p class="about-user__date">
                 {{ new Date(user.created).toLocaleDateString() }}
@@ -183,24 +220,25 @@
         :email="detProduct.user.email"
         :vk="detProduct.user.vk"
         :tg="detProduct.user.tg"
-        @close-login-window="showContacts = false" />
+        @close-login-window="showContacts = false"
+      />
     </main>
   </div>
 </template>
 
 <script>
-import noPhoto from '@/assets/img/no-photo.png'
-import ContactsModal from '@/components/product/ContactsModal.vue'
-import RatingCalc from '@/components/profile/RatingCalc.vue'
+import noPhoto from '@/assets/img/no-photo.png';
+import ContactsModal from '@/components/product/ContactsModal.vue';
+import RatingCalc from '@/components/profile/RatingCalc.vue';
 
-import { products } from '@/store/products'
-import { clients } from '@/store/clients'
+import { products } from '@/store/products';
+import { clients } from '@/store/clients';
 
-import { FreeMode, Navigation, Thumbs } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import 'swiper/css/thumbs'
-import { Swiper, SwiperSlide } from 'swiper/vue'
+import { FreeMode, Navigation, Thumbs } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/thumbs';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 export default {
   components: {
@@ -212,15 +250,15 @@ export default {
   setup() {
     definePageMeta({
       middleware: ['authorization'],
-    })
+    });
 
-    const thumbsSwiper = ref(null)
-    const setThumbsSwiper = swiper => {
-      thumbsSwiper.value = swiper
-    }
-    const userStore = clients().USER_STATE
+    const thumbsSwiper = ref(null);
+    const setThumbsSwiper = (swiper) => {
+      thumbsSwiper.value = swiper;
+    };
+    const userStore = clients().USER_STATE;
 
-    const useProductStore = products()
+    const useProductStore = products();
     return {
       useProductStore,
       Thumbs,
@@ -228,28 +266,26 @@ export default {
       setThumbsSwiper,
       userStore,
       modules: [FreeMode, Navigation, Thumbs],
-    }
+    };
   },
-  data: () => {
-    return {
-      detProduct: {
-        user: {
-          first_name: 'Имя',
-          last_name: 'Фамилия',
-          call_sign: 'Позывной',
-          rep: 0,
-        },
+  data: () => ({
+    detProduct: {
+      user: {
+        first_name: 'Имя',
+        last_name: 'Фамилия',
+        call_sign: 'Позывной',
+        rep: 0,
       },
-      crumbs: [],
-      noImage: noPhoto,
-      switcher: 'about-product',
-      showContacts: false,
-    }
-  },
+    },
+    crumbs: [],
+    noImage: noPhoto,
+    switcher: 'about-product',
+    showContacts: false,
+  }),
   async mounted() {
     this.detProduct = await this.useProductStore.GET_DETAIL_PRODUCT(
-      this.$route.params.id
-    )
+      this.$route.params.id,
+    );
 
     this.crumbs.push(
       { name: this.detProduct.category.parent_category.name, slug: '' },
@@ -260,10 +296,10 @@ export default {
       {
         name: `${this.detProduct.manufacturer} ${this.detProduct.name}`,
         slug: '',
-      }
-    )
+      },
+    );
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -273,6 +309,7 @@ export default {
     margin-bottom: 40px;
   }
 }
+
 .crumbs {
   width: 100%;
   display: flex;
@@ -314,6 +351,7 @@ export default {
     }
   }
 }
+
 .card {
   background: $white;
   border: 1px solid $filter-border;
@@ -328,6 +366,7 @@ export default {
     margin-bottom: 35px;
   }
 }
+
 .about-seller {
   display: flex;
   align-items: flex-start;
@@ -348,6 +387,7 @@ export default {
     border-bottom: 1px solid $primary;
   }
 }
+
 .seller-info {
   margin-right: 30px;
 
@@ -356,6 +396,7 @@ export default {
     margin-bottom: 17px;
   }
 }
+
 .seller-detail {
   display: flex;
   align-items: center;
@@ -365,6 +406,7 @@ export default {
     @include defineFontMontserrat(400, 18px, 22px);
   }
 }
+
 .description {
   display: flex;
   justify-content: stretch;
@@ -375,6 +417,7 @@ export default {
     margin-bottom: 90px;
   }
 }
+
 .swiper {
   position: static;
   width: 100%;
@@ -411,6 +454,7 @@ export default {
     height: 20%;
     box-sizing: border-box;
     padding: 18px 0 18px 2px;
+
     & .swiper-slide-thumb-active {
       opacity: 1;
       outline: 2px solid $accent-dark;
@@ -434,6 +478,7 @@ export default {
     border-radius: 2px;
   }
 }
+
 .product-about {
   margin: 0;
   padding: 0;
@@ -452,11 +497,13 @@ export default {
     @include defineFontMontserrat(400, 25px, 1.4);
     width: 100%;
   }
+
   &__value {
     @include defineFontMontserrat(600, 22px, 1.4);
     width: 100%;
   }
 }
+
 .no-product-about {
   text-align: center;
   margin: 0;
@@ -465,11 +512,13 @@ export default {
   @include defineFontMontserrat(500, 28px, 1.4);
   color: $black-light;
 }
+
 .row-more {
   width: 100%;
   display: flex;
   align-items: flex-end;
 }
+
 .switcher {
   width: 85%;
   display: flex;
@@ -496,6 +545,7 @@ export default {
     border-bottom: 2px solid $black-light;
   }
 }
+
 .price {
   width: 100%;
   display: flex;
@@ -518,6 +568,7 @@ export default {
     letter-spacing: -0.5px;
   }
 }
+
 .product-description {
   padding-top: 53px;
 
@@ -527,12 +578,14 @@ export default {
     padding: 0;
   }
 }
+
 .user-reviews {
   display: flex;
   flex-direction: column;
   gap: 40px;
   padding-top: 68px;
 }
+
 .review {
   display: flex;
   flex-direction: column;
@@ -545,6 +598,7 @@ export default {
     padding: 0;
   }
 }
+
 .about-user {
   display: flex;
   align-items: center;
@@ -555,17 +609,20 @@ export default {
     height: 52px;
     margin-right: 20px;
   }
+
   &__name {
     @include defineFontMontserrat(600, 20px, 24px);
     width: 100%;
     margin-right: 30px;
     padding: 0;
   }
+
   &__rating {
     @include defineFontMontserrat(400, 17px, 1.6);
     margin-right: 10px;
     padding: 0;
   }
+
   &__date {
     @include defineFontMontserrat(400, 17px, 21px);
     padding: 0 0 0 35px;
@@ -636,21 +693,18 @@ export default {
   transform: rotate(-45deg);
 }
 
-.swiper__carousel
-  .swiper-button-prev:not(.swiper-button-disabled):hover::before,
-.swiper__carousel
-  .swiper-button-next:not(.swiper-button-disabled):hover::before {
+.swiper__carousel .swiper-button-prev:not(.swiper-button-disabled):hover::before,
+.swiper__carousel .swiper-button-next:not(.swiper-button-disabled):hover::before {
   background-color: $accent;
   border: none;
 }
 
-.swiper__carousel
-  .swiper-button-prev:not(.swiper-button-disabled):active::before,
-.swiper__carousel
-  .swiper-button-next:not(.swiper-button-disabled):active::before {
+.swiper__carousel .swiper-button-prev:not(.swiper-button-disabled):active::before,
+.swiper__carousel .swiper-button-next:not(.swiper-button-disabled):active::before {
   background-color: $accent-dark;
   border: none;
 }
+
 .swiper__carousel .swiper-button-disabled {
   opacity: 0.3;
 }

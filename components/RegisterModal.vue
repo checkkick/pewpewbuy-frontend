@@ -1,10 +1,18 @@
 <template>
   <div class="modal-background">
     <div class="modal-window">
-      <span class="modal-window__close" @click="closeWindow"></span>
-      <h2 class="modal-window__title">Зарегистрироваться</h2>
+      <span
+        class="modal-window__close"
+        @click="closeWindow"
+      />
+      <h2 class="modal-window__title">
+        Зарегистрироваться
+      </h2>
 
-      <label class="modal-window__label" for="email-register">Email</label>
+      <label
+        class="modal-window__label"
+        for="email-register"
+      >Email</label>
       <input
         id="email-login"
         v-model="mail"
@@ -13,16 +21,24 @@
         name="email"
         :disabled="sended"
         placeholder="yourmail@gmail.com"
-        @keypress.enter="check_mail()" />
+        @keypress.enter="check_mail()"
+      >
 
-      <div v-if="sended" class="modal-window__password-title">
-        <label class="modal-window__password-title__label" for="password-login">
+      <div
+        v-if="sended"
+        class="modal-window__password-title"
+      >
+        <label
+          class="modal-window__password-title__label"
+          for="password-login"
+        >
           Код-пароль
         </label>
         <button
           class="modal-window__password-title__show"
-          @click="showPwd = !showPwd">
-          {{ showPwd ? 'Скрыть' : 'Показать' }}
+          @click="showPwd = !showPwd"
+        >
+          {{ showPwd? 'Скрыть': 'Показать' }}
         </button>
       </div>
 
@@ -34,13 +50,23 @@
         name="password"
         :type="showPwd ? 'text' : 'password'"
         placeholder="****"
-        @keypress.enter="confirm_mail()" />
+        @keypress.enter="confirm_mail()"
+      >
 
-      <p v-if="send_error !== ''" style="color: red">{{ send_error }}</p>
+      <p
+        v-if="send_error !== ''"
+        style="color: red"
+      >
+        {{ send_error }}
+      </p>
 
       <p class="modal-window__text margin">
         Нажимая на кнопку вы соглашаетесь с
-        <a href="#" class="modal-window__text__link" @click.prevent>
+        <a
+          href="#"
+          class="modal-window__text__link"
+          @click.prevent
+        >
           политикой конфиденциальности
         </a>
       </p>
@@ -48,14 +74,16 @@
       <button
         v-if="sended"
         class="modal-window__enter-btn"
-        @click="confirm_mail()">
+        @click="confirm_mail()"
+      >
         Подтвердить
       </button>
 
       <button
         v-if="!sended"
         class="modal-window__enter-btn"
-        @click="check_mail()">
+        @click="check_mail()"
+      >
         Зарегистрироваться
       </button>
 
@@ -64,7 +92,8 @@
         <a
           href="#"
           class="modal-window__text__link"
-          @click.prevent="$emit('openLoginWindow')">
+          @click.prevent="$emit('openLoginWindow')"
+        >
           Войти
         </a>
       </p>
@@ -73,66 +102,64 @@
 </template>
 
 <script>
-import { auth } from '@/store/auth.js'
-import { clients } from '@/store/clients'
+import { auth } from '@/store/auth';
+import { clients } from '@/store/clients';
 
 export default {
   emits: ['closeRegisterWindow', 'openLoginWindow'],
   setup() {
-    const store = auth()
-    const clientsStore = clients()
+    const store = auth();
+    const clientsStore = clients();
     return {
       store,
       clientsStore,
-    }
+    };
   },
-  data: () => {
-    return {
-      showPwd: false,
-      mail: '',
-      code: '',
-      send_error: '',
-      sended: false,
-    }
-  },
+  data: () => ({
+    showPwd: false,
+    mail: '',
+    code: '',
+    send_error: '',
+    sended: false,
+  }),
   mounted() {
-    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null
-      this.$emit('closeRegisterWindow')
+      document.getElementsByTagName('body')[0].style.overflow = null;
+      this.$emit('closeRegisterWindow');
     },
     async check_mail() {
-      const response = await this.store.CHECK_MAIL(this.mail)
+      const response = await this.store.CHECK_MAIL(this.mail);
       if (response.message === 'Message sended') {
-        this.send_error = ''
-        this.sended = true
+        this.send_error = '';
+        this.sended = true;
       } else if (response.message === 'Existed') {
-        this.send_error = 'Пользователь с такой почтой уже существует'
+        this.send_error = 'Пользователь с такой почтой уже существует';
       } else if (response === 400) {
-        this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+        this.send_error = 'Произошла ошибка. Попробуйте еще раз';
       }
     },
 
     async confirm_mail() {
-      const response = await this.store.CONFIRM_MAIL(this.mail, this.code)
+      const response = await this.store.CONFIRM_MAIL(this.mail, this.code);
       if (response.message === 'Mail confirmed') {
-        this.send_error = ''
-        this.sended = true
-        await this.store.GET_TOKEN(this.mail, this.code)
-        await this.clientsStore.GET_SELF()
-        this.closeWindow()
-        this.$router.push('/profile')
-        this.sended = true
+        this.send_error = '';
+        this.sended = true;
+        await this.store.GET_TOKEN(this.mail, this.code);
+        await this.clientsStore.GET_SELF();
+        this.closeWindow();
+        this.$router.push('/profile');
+        this.sended = true;
       } else if (response.message === 'Mail not exist') {
-        this.send_error = 'Неверный код'
+        this.send_error = 'Неверный код';
       } else if (response === 400) {
-        this.send_error = 'Произошла ошибка. Попробуйте еще раз'
+        this.send_error = 'Произошла ошибка. Попробуйте еще раз';
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -189,6 +216,7 @@ export default {
       transform: rotate(-45deg);
     }
   }
+
   &__password-title {
     width: 100%;
     display: flex;
@@ -210,6 +238,7 @@ export default {
       background: url('@/assets/img/password-eye.svg') no-repeat center left;
     }
   }
+
   &__enter-btn {
     cursor: pointer;
     @include defineBtnPrimary(15px, 9px, 17px, 66px);
@@ -229,6 +258,7 @@ export default {
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
     }
+
     &:disabled {
       cursor: not-allowed;
       color: rgba(0, 0, 0, 0.5);

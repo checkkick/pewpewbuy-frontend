@@ -1,10 +1,14 @@
 <template>
   <div class="profile__main__edit">
-    <div class="close-background" @click="closeWindow"></div>
+    <div
+      class="close-background"
+      @click="closeWindow"
+    />
     <div class="profile__main__edit__window">
       <button
         class="profile__main__edit__window__close"
-        @click="closeWindow"></button>
+        @click="closeWindow"
+      />
 
       <h3 class="profile__main__edit__window__title">
         Заполните информацию о себе
@@ -12,107 +16,123 @@
 
       <div
         class="profile__main__edit__window__photo"
-        @click="$refs.image.click()">
+        @click="$refs.image.click()"
+      >
         <img
           class="profile__main__edit__window__photo__image"
           :src="image"
-          alt="no-photo" />
+          alt="no-photo"
+        >
         <a
           href=""
           class="profile__main__edit__window__photo__link"
           @click.prevent
-          >Изменить фотографию</a
-        >
+        >Изменить фотографию</a>
         <input
           ref="image"
           class="profile__main__edit__window__photo__input"
           type="file"
-          @change="changeImage" />
+          @change="changeImage"
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="name"
-          >Имя</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="name"
+        >Имя</label>
         <input
           id="name"
           v-model="user.first_name"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="Иван" />
+          placeholder="Иван"
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="lastName"
-          >Фамилия</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="lastName"
+        >Фамилия</label>
         <input
           id="lastName"
           v-model="user.last_name"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="Негрешный" />
+          placeholder="Негрешный"
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="nickname"
-          >Игровой позывной</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="nickname"
+        >Игровой позывной</label>
         <input
           id="nickname"
           v-model="user.call_sign"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="Сокол" />
+          placeholder="Сокол"
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="location"
-          >Местоположение</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="location"
+        >Местоположение</label>
         <input
           id="location"
           v-model="user.city"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="г. Москва" />
+          placeholder="г. Москва"
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="telegram"
-          >Ссылка на телеграмм</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="telegram"
+        >Ссылка на телеграмм</label>
         <input
           id="telegram"
           v-model="user.tg"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="https://t.me/123456789" />
+          placeholder="https://t.me/123456789"
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="email"
-          >Почта</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="email"
+        >Почта</label>
         <input
           id="email"
           v-model="user.email"
           class="profile__main__edit__window__field__input"
           type="email"
           placeholder="yourmail@gmail.com"
-          disabled />
+          disabled
+        >
       </div>
 
       <div class="profile__main__edit__window__field">
-        <label class="profile__main__edit__window__field__label" for="vk"
-          >Ссылка на VK</label
-        >
+        <label
+          class="profile__main__edit__window__field__label"
+          for="vk"
+        >Ссылка на VK</label>
         <input
           id="vk"
           v-model="user.vk"
           class="profile__main__edit__window__field__input"
           type="text"
-          placeholder="https://vk.com/id123456789" />
+          placeholder="https://vk.com/id123456789"
+        >
       </div>
 
       <p class="profile__main__edit__window__agree">
@@ -120,7 +140,8 @@
         <a
           href="#"
           class="profile__main__edit__window__agree__link"
-          @click.prevent>
+          @click.prevent
+        >
           политикой конфиденциальности
         </a>
       </p>
@@ -128,7 +149,8 @@
       <button
         class="profile__main__edit__window__save-btn"
         :disabled="saveDisable"
-        @click="updateUserData">
+        @click="updateUserData"
+      >
         Сохранить
       </button>
     </div>
@@ -136,92 +158,88 @@
 </template>
 
 <script>
-import { notifications } from '@/store/notifications'
-import noPhoto from '@/assets/img/no-photo.png'
-import { clients } from '@/store/clients'
+import { notifications } from '@/store/notifications';
+import noPhoto from '@/assets/img/no-photo.png';
+import { clients } from '@/store/clients';
 
 export default {
   emits: ['closeEditWindow'],
   setup() {
-    const clientsStore = clients()
-    const addNotifications = notifications().ADD_NOTIFICATION
+    const clientsStore = clients();
+    const addNotifications = notifications().ADD_NOTIFICATION;
 
     return {
       clientsStore,
       noImage: noPhoto,
       addNotifications,
-    }
+    };
   },
-  data: () => {
-    return {
-      saveDisable: true,
-      image: '',
-      user: {},
-    }
-  },
+  data: () => ({
+    saveDisable: true,
+    image: '',
+    user: {},
+  }),
   watch: {
     user: {
       handler() {
-        for (const key in this.user) {
+        Object.keys(this.user).forEach((key) => {
           if (this.user[key] !== this.clientsStore.USER_STATE[key]) {
-            this.saveDisable = false
-            return
-          } else {
-            this.saveDisable = true
+            this.saveDisable = false;
+            return;
           }
-        }
+          this.saveDisable = true;
+        });
       },
       deep: true,
     },
   },
   mounted() {
-    for (const key in this.clientsStore.USER_STATE) {
-      this.user[key] = this.clientsStore.USER_STATE[key]
-    }
+    Object.keys(this.clientsStore.USER_STATE).forEach((key) => {
+      this.user[key] = this.clientsStore.USER_STATE[key];
+    });
 
     if (this.user.avatar) {
-      this.image = this.user.avatar
+      this.image = this.user.avatar;
     } else {
-      this.image = noPhoto
+      this.image = noPhoto;
     }
 
-    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
   methods: {
     async updateUserData() {
-      const data = new FormData()
+      const data = new FormData();
 
-      for (const key in this.user) {
+      Object.keys(this.user).forEach((key) => {
         if (this.user[key] !== this.clientsStore.USER_STATE[key]) {
-          data.append(key, this.user[key])
+          data.append(key, this.user[key]);
         }
-      }
+      });
 
       if (
         await this.clientsStore.UPDATE_USER(
           this.clientsStore.USER_STATE.id,
-          data
+          data,
         )
       ) {
-        this.closeWindow()
+        this.closeWindow();
       }
     },
     changeImage(e) {
-      const file = e.target.files[0]
-      this.user.avatar = file
-      const reader = new FileReader()
-      const that = this
-      reader.readAsDataURL(file)
-      reader.onload = function (e) {
-        that.image = e.target.result
-      }
+      const file = e.target.files[0];
+      this.user.avatar = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (t) => {
+        this.image = t.target.result;
+      };
     },
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null
-      this.$emit('closeEditWindow')
+      document.getElementsByTagName('body')[0].style.overflow = null;
+      this.$emit('closeEditWindow');
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -232,6 +250,7 @@ export default {
   right: 0;
   bottom: 0;
 }
+
 .profile__main__edit {
   z-index: 999;
   position: fixed;
@@ -277,6 +296,7 @@ export default {
         background-color: $black;
         transform: rotate(45deg);
       }
+
       &::after {
         content: '';
         position: absolute;

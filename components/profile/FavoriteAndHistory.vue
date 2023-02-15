@@ -1,25 +1,41 @@
 <template>
   <div class="favorite">
-    <div class="favorite__title" @click="open = !open">
+    <div
+      class="favorite__title"
+      @click="open = !open"
+    >
       <span
         class="favorite__title__logo"
-        :class="{ favoritePubl, historyPubl }"></span>
-      <h3 v-if="favoritePubl" class="favorite__title__name">
+        :class="{ favoritePubl, historyPubl }"
+      />
+      <h3
+        v-if="favoritePubl"
+        class="favorite__title__name"
+      >
         Избранное ({{ publications.length }})
       </h3>
-      <h3 v-if="historyPubl" class="favorite__title__name">
+      <h3
+        v-if="historyPubl"
+        class="favorite__title__name"
+      >
         История просмотра
       </h3>
-      <a class="favorite__title__open-arrow" :class="{ open }" @click.prevent>
+      <a
+        class="favorite__title__open-arrow"
+        :class="{ open }"
+        @click.prevent
+      >
         <svg
           width="20"
           height="12"
           viewBox="0 0 20 12"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M11.2103 0.790208C10.7026 0.282526 9.87946 0.282526 9.37178 0.790208L1.09863 9.06336C0.590946 9.57104 0.590946 10.3942 1.09863 10.9018C1.60631 11.4095 2.42942 11.4095 2.93711 10.9018L10.291 3.54792L17.6449 10.9018C18.1526 11.4095 18.9757 11.4095 19.4834 10.9018C19.9911 10.3942 19.9911 9.57104 19.4834 9.06336L11.2103 0.790208ZM11.591 2.29053V1.70945L8.99102 1.70945V2.29053H11.591Z"
-            fill="#8D8D8D" />
+            fill="#8D8D8D"
+          />
         </svg>
       </a>
     </div>
@@ -28,21 +44,25 @@
       @before-enter="beforeEnter"
       @enter="enter"
       @before-leave="beforeLeave"
-      @leave="leave">
+      @leave="leave"
+    >
       <div
         v-if="open && publications.length > 0"
         class="favorite__wrapper"
-        :class="{ favoritePubl, historyPubl }">
+        :class="{ favoritePubl, historyPubl }"
+      >
         <swiper
           class="favorite__wrapper__swiper"
           :modules="modules"
           :slides-per-view="4"
           :space-between="25"
-          navigation>
+          navigation
+        >
           <swiper-slide
             v-for="publication in publications"
             :key="publication.id"
-            class="favorite__wrapper__swiper__slide">
+            class="favorite__wrapper__swiper__slide"
+          >
             <OtherPublications :publication="publication" />
           </swiper-slide>
         </swiper>
@@ -52,9 +72,9 @@
 </template>
 
 <script>
-import { Navigation } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import OtherPublications from './OtherPublications.vue'
+import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import OtherPublications from './OtherPublications.vue';
 
 export default {
   components: {
@@ -68,27 +88,31 @@ export default {
     publications: { type: Array, default: () => [] },
   },
   setup() {
-    const open = ref(true)
+    const open = ref(true);
     return {
       open,
       modules: [Navigation],
-    }
+    };
   },
   methods: {
-    beforeEnter: function (el) {
-      el.style.height = '0'
+    beforeEnter(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = '0';
     },
-    enter: function (el) {
-      el.style.height = el.scrollHeight + 'px'
+    enter(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = `${el.scrollHeight}px`;
     },
-    beforeLeave: function (el) {
-      el.style.height = el.scrollHeight + 'px'
+    beforeLeave(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = `${el.scrollHeight}px`;
     },
-    leave: function (el) {
-      el.style.height = '0'
+    leave(el) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.height = '0';
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -111,13 +135,11 @@ export default {
       height: 34px;
 
       &.favoritePubl {
-        background: url('@/assets/img/profile-favorite.svg') no-repeat center
-          center;
+        background: url('@/assets/img/profile-favorite.svg') no-repeat center center;
       }
 
       &.historyPubl {
-        background: url('@/assets/img/profile-history.svg') no-repeat center
-          center;
+        background: url('@/assets/img/profile-history.svg') no-repeat center center;
       }
     }
 

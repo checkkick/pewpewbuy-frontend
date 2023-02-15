@@ -1,9 +1,19 @@
 <template>
   <div class="container">
     <header class="header">
-      <NuxtLink class="header__logo" to="/?slug=">PEWPEW BUY</NuxtLink>
-      <NuxtLink class="header__link" to="/?slug=">
-        <h1 class="header__title">СТРАЙКБОЛЬНАЯ БАРАХОЛКА</h1>
+      <NuxtLink
+        class="header__logo"
+        to="/?slug="
+      >
+        PEWPEW BUY
+      </NuxtLink>
+      <NuxtLink
+        class="header__link"
+        to="/?slug="
+      >
+        <h1 class="header__title">
+          СТРАЙКБОЛЬНАЯ БАРАХОЛКА
+        </h1>
       </NuxtLink>
       <div class="header__items">
         <input
@@ -13,12 +23,14 @@
           type="text"
           name="find"
           placeholder="Поиск"
-          @change="get_searched_products" />
+          @change="get_searched_products"
+        >
         <a
           v-if="authorized"
           href="#"
           class="header__items__favorite"
-          @click.prevent="$router.push('/profile?favorites')">
+          @click.prevent="$router.push('/profile?favorites')"
+        >
           <p class="header__items__favorite__counter">
             {{ user.favortie_products ? user.favortie_products.length : '0' }}
           </p>
@@ -27,46 +39,54 @@
           v-if="!authorized"
           href="#"
           class="header__items__persone"
-          @click.prevent="$emit('openLoginWindow')"></a>
+          @click.prevent="$emit('openLoginWindow')"
+        />
         <a
           v-if="authorized"
           class="header__items__user-photo"
           href="#"
-          @click.prevent="$router.push('/profile')">
+          @click.prevent="$router.push('/profile')"
+        >
           <img
             class="header__items__user-photo__image"
             :src="clientsStore.user.avatar ? clientsStore.user.avatar : noImage"
-            alt="user avatar" />
+            alt="user avatar"
+          >
         </a>
         <a
           v-if="authorized"
           href="#"
           class="header__items__exit-profile"
-          @click.prevent="exitProfile">
+          @click.prevent="exitProfile"
+        >
           <svg
             width="22"
             height="17"
             viewBox="0 0 22 17"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M13.75 4.75V2.875C13.75 2.37772 13.5525 1.90081 13.2008 1.54917C12.8492 1.19754 12.3723 1 11.875 1H2.875C2.37772 1 1.90081 1.19754 1.54917 1.54917C1.19754 1.90081 1 2.37772 1 2.875V14.125C1 14.6223 1.19754 15.0992 1.54917 15.4508C1.90081 15.8025 2.37772 16 2.875 16H11.875C12.3723 16 12.8492 15.8025 13.2008 15.4508C13.5525 15.0992 13.75 14.6223 13.75 14.125V12.25"
               stroke="black"
               stroke-width="1.4"
               stroke-linecap="round"
-              stroke-linejoin="round" />
+              stroke-linejoin="round"
+            />
             <path
               d="M16.75 4.75L20.5 8.5L16.75 12.25"
               stroke="black"
               stroke-width="1.4"
               stroke-linecap="round"
-              stroke-linejoin="round" />
+              stroke-linejoin="round"
+            />
             <path
               d="M7.70312 8.5H20.5"
               stroke="black"
               stroke-width="1.4"
               stroke-linecap="round"
-              stroke-linejoin="round" />
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
       </div>
@@ -75,25 +95,25 @@
 </template>
 
 <script>
-import noPhoto from '@/assets/img/no-photo.png'
-import { auth } from '@/store/auth.js'
-import { products } from '@/store/products'
-import { clients } from '@/store/clients'
-import { removeCookies } from '@/store/cookies'
+import noPhoto from '@/assets/img/no-photo.png';
+import { auth } from '@/store/auth';
+import { products } from '@/store/products';
+import { clients } from '@/store/clients';
+import { removeCookies } from '@/store/cookies';
 
 export default {
   emits: ['openLoginWindow'],
   setup() {
-    const store = products()
-    const authStore = auth()
-    const search = ref('')
-    const clientsStore = clients()
+    const store = products();
+    const authStore = auth();
+    const search = ref('');
+    const clientsStore = clients();
 
     function getSearchedPproducts() {
       if (search.value !== '') {
-        store.GET_SEARCHED_PRODUCTS(search.value)
+        store.GET_SEARCHED_PRODUCTS(search.value);
       } else {
-        store.GET_ALL_PRODUCTS()
+        store.GET_ALL_PRODUCTS();
       }
     }
 
@@ -106,28 +126,26 @@ export default {
       authorized: computed(() => authStore.AUTHORIZED),
       user: computed(() => clientsStore.USER_STATE),
       search,
-    }
+    };
   },
-  data: () => {
-    return {
-      noImage: noPhoto,
-    }
-  },
+  data: () => ({
+    noImage: noPhoto,
+  }),
   async mounted() {
-    await this.authStore.CHECK_AUTH()
+    await this.authStore.CHECK_AUTH();
 
     if (this.authorized && this.user !== {}) {
-      await this.clientsStore.GET_SELF()
+      await this.clientsStore.GET_SELF();
     }
   },
   methods: {
     exitProfile() {
-      removeCookies()
-      this.$router.push('/')
-      location.reload()
+      removeCookies();
+      this.$router.push('/');
+      window.location.reload();
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -144,8 +162,7 @@ export default {
     text-decoration: none;
     text-align: center;
     padding-left: 40px;
-    background: url('@/assets/img/header-logo.png') no-repeat center left /
-      contain;
+    background: url('@/assets/img/header-logo.png') no-repeat center left / contain;
   }
 
   &__link {
@@ -226,7 +243,7 @@ export default {
       transition: background-color 0.2s ease-in-out,
         border-color 0.2s ease-in-out;
 
-      & > svg > path {
+      &>svg>path {
         transition: stroke 0.2s ease-in-out;
       }
 
@@ -235,7 +252,7 @@ export default {
         border-color: $primary;
       }
 
-      &:hover > svg > path {
+      &:hover>svg>path {
         stroke: $white;
       }
     }

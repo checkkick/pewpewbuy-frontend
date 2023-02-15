@@ -1,22 +1,29 @@
 <template>
   <section class="filter-bar">
     <div class="filter-bar__popular">
-      <span class="filter-bar__popular__star"></span>
-      <label class="filter-bar__select__label" for="popular"
-        >Популярность
+      <span class="filter-bar__popular__star" />
+      <label
+        class="filter-bar__select__label"
+        for="popular"
+      >Популярность
       </label>
       <select
         id="popular"
         v-model="popularity"
         class="filter-bar__select"
         name="popular"
-        @change="unset_filtred">
-        <option value="По возрастанию">По возрастанию</option>
-        <option value="По убыванию">По убыванию</option>
+        @change="unset_filtred"
+      >
+        <option value="По возрастанию">
+          По возрастанию
+        </option>
+        <option value="По убыванию">
+          По убыванию
+        </option>
       </select>
     </div>
     <div class="filter-bar__price">
-      <span class="filter-bar__price__dollar"></span>
+      <span class="filter-bar__price__dollar" />
       <p class="filter-bar__price__text">
         Цена: от
         <input
@@ -24,99 +31,106 @@
           class="filter-bar__input"
           type="number"
           name="start-price"
-          @change="unset_filtred" />
+          @change="unset_filtred"
+        >
         до
         <input
           v-model="priceEnd"
           class="filter-bar__input"
           type="number"
           name="end-price"
-          @change="unset_filtred" />
+          @change="unset_filtred"
+        >
       </p>
     </div>
     <div class="filter-bar__date-add">
-      <span class="filter-bar__date-add__watch"></span>
-      <label class="filter-bar__select__label" for="date-add"
-        >Время добавления</label
-      >
+      <span class="filter-bar__date-add__watch" />
+      <label
+        class="filter-bar__select__label"
+        for="date-add"
+      >Время добавления</label>
       <select
         id="date-add"
         v-model="date"
         class="filter-bar__select"
-        name="date-add">
-        <option value="Две недели назад">Две недели назад</option>
-        <option value="Месяц назад">Месяц назад</option>
+        name="date-add"
+      >
+        <option value="Две недели назад">
+          Две недели назад
+        </option>
+        <option value="Месяц назад">
+          Месяц назад
+        </option>
       </select>
     </div>
     <button
       v-if="!filtred"
       class="filter-bar__sort-btn"
-      @click="get_filtred_products()">
+      @click="get_filtred_products()"
+    >
       Отсортировать
     </button>
     <button
       v-if="filtred"
       class="filter-bar__sort-btn"
-      @click="get_all_products()">
+      @click="get_all_products()"
+    >
       Сбросить фильтр
     </button>
   </section>
 </template>
 
 <script>
-import { defineStore, mapStores } from 'pinia'
+import { defineStore, mapStores } from 'pinia';
 
-const useProductStore = defineStore('products', {})
+const useProductStore = defineStore('products', {});
 export default {
-  setup() {},
-  data: () => {
-    return {
-      priceStart: '4000',
-      priceEnd: '10000',
-      popularity: 'По возрастанию',
-      date: 'Две недели назад',
-      add_time: null,
-      filtred: false,
-    }
-  },
+  data: () => ({
+    priceStart: '4000',
+    priceEnd: '10000',
+    popularity: 'По возрастанию',
+    date: 'Две недели назад',
+    add_time: null,
+    filtred: false,
+  }),
   computed: {
     ...mapStores(useProductStore),
   },
   methods: {
     async get_filtred_products() {
-      let filter = ''
+      let filter = '';
       if (this.priceStart !== null || this.priceEnd !== null) {
         if (this.priceStart === null) {
-          this.priceStart = 0
+          this.priceStart = 0;
         }
         if (this.priceEnd === null) {
-          this.priceEnd = 500000
+          this.priceEnd = 500000;
         }
-        filter +=
-          'min_price=' + this.priceStart + '&max_price=' + this.priceEnd + '&'
+        filter
+          += `min_price=${this.priceStart}&max_price=${this.priceEnd}&`;
       }
       if (this.popularity === 'По убыванию') {
-        filter += 'ordering=-views_count'
+        filter += 'ordering=-views_count';
       }
       if (this.popularity === 'По возрастанию') {
-        filter += 'ordering=+views_count'
+        filter += 'ordering=+views_count';
       }
-      this.filtred = true
-      await this.productsStore.GET_FILTRED_PRODUCTS(filter)
+      this.filtred = true;
+      await this.productsStore.GET_FILTRED_PRODUCTS(filter);
     },
 
     async get_all_products() {
-      this.priceStart = null
-      this.priceEnd = null
-      this.popularity = null
-      await this.productsStore.GET_ALL_PRODUCTS()
-      this.filtred = false
+      this.priceStart = null;
+      this.priceEnd = null;
+      this.popularity = null;
+      await this.productsStore.GET_ALL_PRODUCTS();
+      this.filtred = false;
     },
     unset_filtred() {
-      this.filtred = false
+      this.filtred = false;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -189,8 +203,7 @@ export default {
       width: 2rem;
       height: 2rem;
       border-radius: 6px;
-      background: $primary-blur url('assets/img/filter-star.svg') no-repeat
-        center center;
+      background: $primary-blur url('assets/img/filter-star.svg') no-repeat center center;
     }
   }
 
@@ -204,8 +217,7 @@ export default {
       width: 2rem;
       height: 2rem;
       border-radius: 6px;
-      background: $primary-blur url('assets/img/filter-dollar.svg') no-repeat
-        center center;
+      background: $primary-blur url('assets/img/filter-dollar.svg') no-repeat center center;
     }
 
     &__text {
@@ -226,8 +238,7 @@ export default {
       width: 2rem;
       height: 2rem;
       border-radius: 6px;
-      background: $primary-blur url('assets/img/filter-watch.svg') no-repeat
-        center center;
+      background: $primary-blur url('assets/img/filter-watch.svg') no-repeat center center;
     }
   }
 

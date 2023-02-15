@@ -1,24 +1,22 @@
-import { api } from '@/composables/api'
-import { get } from '@/store/cookies'
-import { notifications } from '@/store/notifications'
-import { defineStore } from 'pinia'
+import { api } from '@/composables/api';
+import { get } from '@/store/cookies';
+import { notifications } from '@/store/notifications';
+import { defineStore } from 'pinia';
 
 export const clients = defineStore('clients', {
-  state: () => {
-    return {
-      user: {},
-    }
-  },
+  state: () => ({
+    user: {},
+  }),
 
   actions: {
     async GET_SELF() {
       const response = await api('clients/getself/', {
         method: 'GET',
         errorAlert: 'Ошибка при загрузке данных пользователя',
-        headers: { Authorization: 'Bearer ' + get('access_pew') },
-      })
+        headers: { Authorization: `Bearer ${get('access_pew')}` },
+      });
 
-      this.user = response
+      this.user = response;
     },
 
     async UPDATE_USER(id, data) {
@@ -28,25 +26,23 @@ export const clients = defineStore('clients', {
           body: data,
           errorAlert: 'Ошибка при обновлении данных пользователя',
           headers: {
-            Authorization: 'Bearer ' + get('access_pew'),
+            Authorization: `Bearer ${get('access_pew')}`,
           },
-        })
+        });
 
-        for (const key in response) {
-          if (Object.hasOwnProperty.call(this.user, key)) {
-            this.user[key] = response[key]
-          }
-        }
+        Object.keys(response).forEach((key) => {
+          this.user[key] = response[key];
+        });
 
         notifications().ADD_NOTIFICATION(
           'Изменение профиля',
           'Профиль успешно изменен',
-          'success'
-        )
+          'success',
+        );
 
-        return true
+        return true;
       } catch (error) {
-        return false
+        return false;
       }
     },
 
@@ -54,14 +50,14 @@ export const clients = defineStore('clients', {
       const response = await api(`clients/getdetailuser/${id}/`, {
         method: 'GET',
         errorAlert: 'Ошибка при загрузке данных пользователя',
-        headers: { Authorization: 'Bearer ' + get('access_pew') },
-      })
+        headers: { Authorization: `Bearer ${get('access_pew')}` },
+      });
 
-      return response
+      return response;
     },
   },
 
   getters: {
-    USER_STATE: state => state.user,
+    USER_STATE: (state) => state.user,
   },
-})
+});

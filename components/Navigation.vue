@@ -1,5 +1,8 @@
 <template>
-  <div class="nav" @mouseleave="leaveBar()">
+  <div
+    class="nav"
+    @mouseleave="leaveBar()"
+  >
     <nav class="nav__filter">
       <ul class="nav__filter__list">
         <li
@@ -7,21 +10,23 @@
           :key="idx"
           class="nav__filter__list__item"
           :class="{ active: filterItem === chooseFilter }"
-          @mouseenter=";(chooseFilter = filterItem), (showSubFilter = true)">
-          <a href="#" class="nav__filter__list__item__link">{{ filterItem }}</a>
+          @mouseenter="; (chooseFilter = filterItem), (showSubFilter = true)"
+        >
+          <a
+            href="#"
+            class="nav__filter__list__item__link"
+          >{{ filterItem }}</a>
           <ul
-            v-if="
-              filterItem === chooseFilter &&
-              showSubFilter &&
-              categories[filterItem].length > 0
-            "
-            class="nav__filter__dropdown-list">
+            v-if="filterItem === chooseFilter && showSubFilter && categories[filterItem].length > 0"
+            class="nav__filter__dropdown-list"
+          >
             <li
               v-for="item in categories[filterItem]"
               :key="item.id"
               class="nav__filter__dropdown-list__item"
               :class="{ active: item.id === chooseSubfilter.id }"
-              @click="chooseSubCategory(item)">
+              @click="chooseSubCategory(item)"
+            >
               <a class="nav__filter__dropdown-list__item__link">{{
                 item.name
               }}</a>
@@ -32,101 +37,95 @@
     </nav>
     <button
       class="nav__btn-create"
-      @click="
-        authorization
-          ? $router.push('/profile?addproduct')
-          : $router.push('/?login')
-      ">
+      @click="authorization ? $router.push('/profile?addproduct') : $router.push('/?login')"
+    >
       Разместить объявление
     </button>
   </div>
 </template>
 
 <script>
-import { auth } from '@/store/auth.js'
-import { products } from '@/store/products'
+import { auth } from '@/store/auth';
+import { products } from '@/store/products';
 
 export default {
   async setup() {
-    const authorization = auth().CHECK_AUTH()
-    const categories = await products().GET_CATEGORIES_ALL()
-    const filterProducts = products().GET_CATEGORY_PRODUCTS
-    const getAllProducts = products().GET_ALL_PRODUCTS
+    const authorization = auth().CHECK_AUTH();
+    const categories = await products().GET_CATEGORIES_ALL();
+    const filterProducts = products().GET_CATEGORY_PRODUCTS;
+    const getAllProducts = products().GET_ALL_PRODUCTS;
 
     return {
       authorization,
       categories,
       filterProducts,
       getAllProducts,
-    }
+    };
   },
-  data: () => {
-    return {
-      showSubFilter: false,
-      chooseFilter: '',
-      chooseSubfilter: {},
-    }
-  },
+  data: () => ({
+    showSubFilter: false,
+    chooseFilter: '',
+    chooseSubfilter: {},
+  }),
   watch: {
     '$route.query.slug': {
       async handler() {
-        await this.loadproductsFromSlug()
+        await this.loadproductsFromSlug();
       },
       deep: true,
     },
   },
   async mounted() {
-    await this.loadproductsFromSlug()
+    await this.loadproductsFromSlug();
   },
   methods: {
     chooseSubCategory(item) {
       if (this.chooseSubfilter === item) {
-        this.$router.push('/?slug=')
+        this.$router.push('/?slug=');
       } else {
-        this.chooseSubfilter = item
-        this.showSubFilter = false
-        this.$router.push('/?slug=' + item.slug)
+        this.chooseSubfilter = item;
+        this.showSubFilter = false;
+        this.$router.push(`/?slug=${item.slug}`);
       }
     },
     async loadproductsFromSlug() {
       if (Object.hasOwn(this.$route.query, 'slug')) {
         if (this.$route.query.slug) {
-          let itemCategory = {}
+          let itemCategory = {};
 
-          for (const iterator in this.categories) {
+          Object.keys(this.categories).forEach((iterator) => {
             const tempIteration = this.categories[iterator].find(
-              item => item.slug === this.$route.query.slug
-            )
+              (item) => item.slug === this.$route.query.slug,
+            );
 
             if (tempIteration) {
-              itemCategory = tempIteration
-              break
+              itemCategory = tempIteration;
             }
-          }
+          });
 
-          this.chooseFilter = itemCategory.parent_category.name
-          this.chooseSubfilter = itemCategory
+          this.chooseFilter = itemCategory.parent_category.name;
+          this.chooseSubfilter = itemCategory;
 
-          await this.filterProducts(this.$route.query.slug)
+          await this.filterProducts(this.$route.query.slug);
         } else {
-          this.chooseSubfilter = ''
-          this.chooseFilter = ''
-          this.showSubFilter = false
-          await this.getAllProducts()
-          this.$router.push('/')
+          this.chooseSubfilter = '';
+          this.chooseFilter = '';
+          this.showSubFilter = false;
+          await this.getAllProducts();
+          this.$router.push('/');
         }
       }
     },
     leaveBar() {
       if (Object.keys(this.chooseSubfilter).length > 0) {
-        this.chooseFilter = this.chooseSubfilter.parent_category.name
+        this.chooseFilter = this.chooseSubfilter.parent_category.name;
       } else {
-        this.chooseFilter = ''
+        this.chooseFilter = '';
       }
-      this.showSubFilter = false
+      this.showSubFilter = false;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

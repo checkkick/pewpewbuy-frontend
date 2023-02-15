@@ -3,42 +3,68 @@
     <a
       v-if="showEdit"
       class="publication__edit"
-      @click.prevent="showSettings = !showSettings">
-      <img src="@/assets/img/profile-edit.svg" alt="profile-edit" />
+      @click.prevent="showSettings = !showSettings"
+    >
+      <img
+        src="@/assets/img/profile-edit.svg"
+        alt="profile-edit"
+      >
     </a>
     <p class="publication__status">
       Статус:
-      <span v-if="activePubl" class="active">{{ status }}</span>
-      <span v-if="inactivePubl" class="inactive">{{ status }}</span>
+      <span
+        v-if="activePubl"
+        class="active"
+      >{{ status }}</span>
+      <span
+        v-if="inactivePubl"
+        class="inactive"
+      >{{ status }}</span>
     </p>
-    <div v-if="activePubl" class="publication__views">
-      <p class="publication__views__text">{{ publ.views_count }} просмотров</p>
+    <div
+      v-if="activePubl"
+      class="publication__views"
+    >
+      <p class="publication__views__text">
+        {{ publ.views_count }} просмотров
+      </p>
     </div>
     <swiper
       class="publication__image-swiper"
       :modules="modules"
       :slides-per-view="1"
       :space-between="30"
-      :pagination="{ clickable: true }">
+      :pagination="{ clickable: true }"
+    >
       <swiper-slide
         v-for="photo in publ.photo"
         :key="photo.id"
         class="publication__image-swiper__slide"
-        :class="{ inactivePubl }">
+        :class="{ inactivePubl }"
+      >
         <img
           class="publication__image-swiper__slide__photo"
           :src="photo.file"
-          alt="product-example" />
+          alt="product-example"
+        >
       </swiper-slide>
     </swiper>
-    <h4 class="publication__title">{{ publ.manufacturer }} {{ publ.name }}</h4>
+    <h4 class="publication__title">
+      {{ publ.manufacturer }} {{ publ.name }}
+    </h4>
     <div class="publication__advanced">
       <div class="publication__advanced__line">
-        <p class="publication__advanced__line__text">Местоположение:</p>
-        <p class="publication__advanced__line__text">{{ publ.location }}</p>
+        <p class="publication__advanced__line__text">
+          Местоположение:
+        </p>
+        <p class="publication__advanced__line__text">
+          {{ publ.location }}
+        </p>
       </div>
       <div class="publication__advanced__line">
-        <p class="publication__advanced__line__text">Цена:</p>
+        <p class="publication__advanced__line__text">
+          Цена:
+        </p>
         <p class="publication__advanced__line__text-bold">
           {{ publ.price }} руб.
         </p>
@@ -46,50 +72,59 @@
     </div>
 
     <transition name="fade">
-      <div v-if="showSettings" class="hidden-settings">
+      <div
+        v-if="showSettings"
+        class="hidden-settings"
+      >
         <div
           class="settings-substrat"
-          @click="showSettings = !showSettings"></div>
-        <ul v-if="mainSettnigs" class="setting-list">
+          @click="showSettings = !showSettings"
+        />
+        <ul
+          v-if="mainSettnigs"
+          class="setting-list"
+        >
           <li class="setting-list__item">
             <a
               href=""
               class="setting-list__link"
               @click.prevent="$router.push('product/' + publ.id)"
-              >Открыть карточку</a
-            >
+            >Открыть карточку</a>
           </li>
           <li class="setting-list__item">
             <a
               href=""
               class="setting-list__link"
               @click.prevent="$emit('showEditProductModal', publ.id)"
-              >Редактировать</a
-            >
+            >Редактировать</a>
           </li>
           <li class="setting-list__item">
             <a
               href=""
               class="setting-list__link"
               @click.prevent="mainSettnigs = false"
-              >Удалить публикацию</a
-            >
+            >Удалить публикацию</a>
           </li>
         </ul>
 
-        <div v-else class="remove-accept setting-list">
+        <div
+          v-else
+          class="remove-accept setting-list"
+        >
           <p class="remove-accept__text">
             Вы точно уверены, что хотите удалить публикацию?
           </p>
           <div class="remove-accept__row">
             <button
               class="remove-accept__btn-primary"
-              @click="deleteProduct(publ.id)">
+              @click="deleteProduct(publ.id)"
+            >
               Да
             </button>
             <button
               class="remove-accept__btn-secondary"
-              @click="mainSettnigs = true">
+              @click="mainSettnigs = true"
+            >
               Нет
             </button>
           </div>
@@ -100,11 +135,11 @@
 </template>
 
 <script>
-import { products } from '@/store/products'
-import { Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
-import 'swiper/css/pagination'
+import { products } from '@/store/products';
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default {
   components: {
@@ -115,44 +150,44 @@ export default {
     activePubl: { type: Boolean, default: false },
     inactivePubl: { type: Boolean, default: false },
     showEdit: { type: Boolean, default: true },
-    publ: { type: Object, default: () => {} },
+    publ: { type: Object, default: () => ({}) },
   },
   emits: ['refreshProducts', 'showEditProductModal'],
   setup() {
-    const removeProduct = products().REMOVE_PRODUCT
+    const removeProduct = products().REMOVE_PRODUCT;
 
     return {
       removeProduct,
       modules: [Pagination],
-    }
+    };
   },
   data() {
     return {
       status: '',
       showSettings: false,
       mainSettnigs: true,
-    }
+    };
   },
   mounted() {
     if (this.publ.status === 'Active') {
-      this.status = 'Опубликовано'
+      this.status = 'Опубликовано';
     } else if (this.publ.status === 'Sold') {
-      this.status = 'Продано'
+      this.status = 'Продано';
     } else if (this.publ.status === 'Publication off') {
-      this.status = 'Снято с публикации'
+      this.status = 'Снято с публикации';
     } else if (this.publ.status === 'On moderation') {
-      this.status = 'На модерации'
+      this.status = 'На модерации';
     }
   },
   methods: {
     async deleteProduct(id) {
       if (await this.removeProduct(id)) {
-        this.$emit('refreshProducts')
-        this.showSettings = false
+        this.$emit('refreshProducts');
+        this.showSettings = false;
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -189,6 +224,7 @@ export default {
     & .active {
       color: $success;
     }
+
     & .inactive {
       color: $alert;
     }
@@ -266,6 +302,7 @@ export default {
     }
   }
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease-in-out;
@@ -275,6 +312,7 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
 .hidden-settings {
   cursor: auto;
   z-index: 10;
@@ -288,6 +326,7 @@ export default {
   align-items: flex-start;
   padding-top: 60px;
 }
+
 .settings-substrat {
   position: absolute;
   top: 0;
@@ -297,6 +336,7 @@ export default {
   background: rgba(60, 60, 60, 0.37);
   border-radius: 20px;
 }
+
 .setting-list {
   z-index: 1;
   background: $modal-background;
@@ -317,6 +357,7 @@ export default {
       background-color: $primary;
     }
   }
+
   &__item:hover &__link {
     color: $white;
   }
@@ -328,6 +369,7 @@ export default {
     transition: color 0.1s ease-in-out;
   }
 }
+
 .remove-accept {
   padding: 24px 20px;
   max-width: 80%;

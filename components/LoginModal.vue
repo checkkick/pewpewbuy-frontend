@@ -1,10 +1,18 @@
 <template>
   <div class="modal-background">
     <div class="modal-window">
-      <span class="modal-window__close" @click="closeWindow"></span>
-      <h2 class="modal-window__title">Войти в личный кабинет</h2>
+      <span
+        class="modal-window__close"
+        @click="closeWindow"
+      />
+      <h2 class="modal-window__title">
+        Войти в личный кабинет
+      </h2>
 
-      <label class="modal-window__label" for="email-login">Email</label>
+      <label
+        class="modal-window__label"
+        for="email-login"
+      >Email</label>
       <input
         id="email-login"
         v-model="email"
@@ -13,15 +21,23 @@
         type="email"
         name="email"
         placeholder="yourmail@gmail.com"
-        @keypress.enter="send_code()" />
+        @keypress.enter="send_code()"
+      >
 
-      <div v-if="sended" class="modal-window__password-title">
-        <label class="modal-window__password-title__label" for="password-login">
+      <div
+        v-if="sended"
+        class="modal-window__password-title"
+      >
+        <label
+          class="modal-window__password-title__label"
+          for="password-login"
+        >
           Код-пароль
         </label>
         <button
           class="modal-window__password-title__show"
-          @click="showPwd = !showPwd">
+          @click="showPwd = !showPwd"
+        >
           {{ showPwd ? 'Скрыть' : 'Показать' }}
         </button>
       </div>
@@ -34,20 +50,29 @@
         name="password"
         :type="showPwd ? 'text' : 'password'"
         placeholder="****"
-        @keypress.enter="login()" />
+        @keypress.enter="login()"
+      >
 
-      <p v-if="sendError !== ''" class="modal-window__text error">
+      <p
+        v-if="sendError !== ''"
+        class="modal-window__text error"
+      >
         {{ sendError }}
       </p>
 
       <button
         v-if="!sended"
         class="modal-window__enter-btn"
-        @click="send_code()">
+        @click="send_code()"
+      >
         Отправить код
       </button>
 
-      <button v-if="sended" class="modal-window__enter-btn" @click="login()">
+      <button
+        v-if="sended"
+        class="modal-window__enter-btn"
+        @click="login()"
+      >
         Войти
       </button>
 
@@ -56,7 +81,8 @@
         <a
           href="#"
           class="modal-window__text__link"
-          @click.prevent="$emit('openRegisterWindow')">
+          @click.prevent="$emit('openRegisterWindow')"
+        >
           Зарегистрируйтесь
         </a>
       </p>
@@ -65,70 +91,68 @@
 </template>
 
 <script>
-import { auth } from '@/store/auth'
-import { clients } from '@/store/clients'
+import { auth } from '@/store/auth';
+import { clients } from '@/store/clients';
 
 export default {
   emits: ['closeLoginWindow', 'openRegisterWindow'],
   setup() {
-    const store = auth()
-    const clientsStore = clients()
+    const store = auth();
+    const clientsStore = clients();
     return {
       store,
       clientsStore,
-    }
+    };
   },
-  data: () => {
-    return {
-      showPwd: false,
-      sended: false,
-      email: '',
-      password: '',
-      sendError: '',
-    }
-  },
+  data: () => ({
+    showPwd: false,
+    sended: false,
+    email: '',
+    password: '',
+    sendError: '',
+  }),
 
   mounted() {
-    document.getElementsByTagName('body')[0].style.overflow = 'hidden'
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
 
   unmounted() {
     if (Object.hasOwn(this.$route.query, 'login')) {
-      this.$router.push('/')
+      this.$router.push('/');
     }
   },
 
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null
-      this.$emit('closeLoginWindow')
+      document.getElementsByTagName('body')[0].style.overflow = null;
+      this.$emit('closeLoginWindow');
     },
     async send_code() {
-      const response = await this.store.SEND_CODE(this.email)
+      const response = await this.store.SEND_CODE(this.email);
       if (response.email === this.email) {
-        this.sendError = ''
-        this.sended = true
+        this.sendError = '';
+        this.sended = true;
       } else if (response === 404) {
-        this.sendError = 'Пользователь с такой почтой не найден'
+        this.sendError = 'Пользователь с такой почтой не найден';
       } else if (response === 400) {
-        this.sendError = 'Произошла ошибка. Попробуйте еще раз'
+        this.sendError = 'Произошла ошибка. Попробуйте еще раз';
       }
     },
     async login() {
-      const response = await this.store.GET_TOKEN(this.email, this.password)
+      const response = await this.store.GET_TOKEN(this.email, this.password);
       if (response.access) {
-        this.sendError = ''
-        await this.clientsStore.GET_SELF()
-        this.closeWindow()
-        this.$router.push('/profile')
+        this.sendError = '';
+        await this.clientsStore.GET_SELF();
+        this.closeWindow();
+        this.$router.push('/profile');
       } else if (response === 401) {
-        this.sendError = 'Неверный код'
+        this.sendError = 'Неверный код';
       } else if (response === 400) {
-        this.sendError = 'Произошла ошибка. Попробуйте еще раз'
+        this.sendError = 'Произошла ошибка. Попробуйте еще раз';
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

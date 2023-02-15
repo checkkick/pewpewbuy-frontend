@@ -1,27 +1,32 @@
 <template>
   <ul
     v-if="notificationsStore.ALL_NOTIFICATIONS.length > 0"
-    class="notification">
+    class="notification"
+  >
     <li
       v-for="item in notificationsStore.ALL_NOTIFICATIONS"
       :key="item.id"
       class="notification__item"
-      :class="item.type">
-      <h4 class="notification__title">{{ item.title }}</h4>
+      :class="item.type"
+    >
+      <h4 class="notification__title">
+        {{ item.title }}
+      </h4>
       <p class="notification__text">
         {{ item.text }}
       </p>
       <button
         class="notification__close"
-        @click="notificationsStore.DELETE_NOTIFICATION(item.id)"></button>
+        @click="notificationsStore.DELETE_NOTIFICATION(item.id)"
+      />
     </li>
   </ul>
 </template>
 
 <script setup>
-import { notifications } from '@/store/notifications'
+import { notifications } from '@/store/notifications';
 
-const notificationsStore = notifications()
+const notificationsStore = notifications();
 </script>
 
 <style lang="scss" scoped>
