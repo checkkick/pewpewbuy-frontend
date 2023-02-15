@@ -7,8 +7,9 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-recommended',
+    'plugin:nuxt/recommended',
     'eslint:recommended',
-    'airbnb-base',
+    'airbnb',
     'plugin:nuxt/recommended',
   ],
   parser: 'vue-eslint-parser',
