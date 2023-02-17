@@ -11,51 +11,51 @@
         </h2>
         <div
           v-if="fio"
-          class="fio"
+          class="item"
         >
-          <h3 class="fio__title">
+          <h3 class="item__title">
             ФИО
           </h3>
-          <p class="fio__text">
+          <p class="item__text item__text--fio">
             {{ fio }}
           </p>
         </div>
         <div
           v-if="email"
-          class="email"
+          class="item"
         >
-          <h3 class="email__title">
+          <h3 class="item__title">
             Почта
           </h3>
           <a
             :href="`mailto:${email}`"
-            class="email__text"
+            class="item__text item__text--email"
           >{{ email }}</a>
         </div>
         <div
           v-if="vk"
-          class="vk"
+          class="item"
         >
-          <h3 class="vk__title">
+          <h3 class="item__title">
             Вконтакте
           </h3>
           <a
             target="_blank"
             :href="vk"
-            class="vk__text"
+            class="item__text item__text--vk"
           >{{ vk }}</a>
         </div>
         <div
           v-if="tg"
-          class="tg"
+          class="item"
         >
-          <h3 class="tg__title">
+          <h3 class="item__title">
             Телеграм
           </h3>
           <a
             target="_blank"
             :href="tg"
-            class="tg__text"
+            class="item__text item__text--tg"
           >{{ tg }}</a>
         </div>
       </div>
@@ -114,23 +114,23 @@ export default {
 .modal-window {
   width: 100%;
   position: relative;
-  max-width: 600px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
+  gap: 1.5rem;
   background: $modal-background;
   border-radius: 38px;
-  padding: 52px 72px;
+  padding: 2rem 4rem;
   margin: 100px;
 
   &__close {
     cursor: pointer;
     position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 41px;
-    right: 41px;
+    width: 15px;
+    height: 15px;
+    top: 2rem;
+    right: 2.5rem;
 
     &::before {
       content: '';
@@ -154,81 +154,41 @@ export default {
   }
 
   &__title {
-    @include defineFontMontserrat(600, 30px, 37px);
+    @include defineFontMontserrat(600, 22px, 27px);
   }
 }
-.fio {
+
+.item {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 
   &__title {
-    @include defineFontMontserrat(600, 28px, 1.4);
-  }
-
-  &__text {
-    padding-left: 35px;
-    @include defineFontMontserrat(400, 24px, 29px);
-    background: url('@/assets/img/products-fio.svg') no-repeat left center /
-      30px 26px;
-  }
-}
-.email {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  &__title {
-    @include defineFontMontserrat(600, 28px, 1.4);
+    @include defineFontMontserrat(600, 20px, 1.4);
   }
 
   &__text {
     text-decoration: none;
-    padding-left: 35px;
     color: $black;
-    @include defineFontMontserrat(400, 24px, 29px);
-    background: url('@/assets/img/products-email.svg') no-repeat left center /
-      30px 22px;
-  }
-}
-.vk {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    padding-left: 2.3rem;
+    @include defineFontMontserrat(400, 18px, 26px);
 
-  &__title {
-    @include defineFontMontserrat(600, 28px, 1.4);
-  }
+    &--fio {
+      background: url('@/assets/img/products-fio.svg') no-repeat left center / 30px 26px;
+    }
 
-  &__text {
-    text-decoration: none;
-    padding-left: 35px;
-    color: $black;
-    @include defineFontMontserrat(400, 24px, 29px);
-    background: url('@/assets/img/products-vk.svg') no-repeat left center / 30px
-      22px;
-  }
-}
-.tg {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    &--email {
+      background: url('@/assets/img/products-email.svg') no-repeat left center / 30px 22px;
+    }
 
-  &__title {
-    @include defineFontMontserrat(600, 28px, 1.4);
-  }
+    &--vk {
+      background: url('@/assets/img/products-vk.svg') no-repeat left center / 30px 22px;
+    }
 
-  &__text {
-    text-decoration: none;
-    padding-left: 35px;
-    color: $black;
-    @include defineFontMontserrat(400, 24px, 29px);
-    background: url('@/assets/img/products-tg.svg') no-repeat left center / 30px
-      22px;
+    &--tg {
+      background: url('@/assets/img/products-tg.svg') no-repeat left center / 30px 22px;
+    }
   }
 }
 </style>

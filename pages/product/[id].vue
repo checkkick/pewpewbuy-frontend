@@ -304,8 +304,8 @@ export default {
 <style lang="scss" scoped>
 .main {
   &__title {
-    @include defineFontMontserrat(600, 36px, 44px);
-    margin-bottom: 40px;
+    @include defineFontMontserrat(600, 27px, 33px);
+    margin-bottom: 2rem;
   }
 }
 
@@ -314,13 +314,13 @@ export default {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 35px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 
   &__title {
     position: relative;
-    @include defineFontMontserrat(500, 24px, 1.4);
-    padding-right: 32px;
+    @include defineFontMontserrat(500, 18px, 22px);
+    padding-right: 1.3rem;
 
     &.active {
       cursor: pointer;
@@ -336,12 +336,12 @@ export default {
       content: '';
       position: absolute;
       right: 0;
-      top: 12px;
+      top: 0.4rem;
       bottom: 0;
-      width: 0.7rem;
-      height: 0.7rem;
-      border-bottom: 3px solid $black;
-      border-right: 3px solid $black;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-bottom: 2px solid $black;
+      border-right: 2px solid $black;
       transform: rotate(-45deg);
     }
 
@@ -354,33 +354,33 @@ export default {
 .card {
   background: $white;
   border: 1px solid $filter-border;
-  box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
-  border-radius: 32px;
-  padding: 50px 105px;
+  box-shadow: 0px 9px 100px rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+  padding: 2.5rem 4.5rem;
   margin-bottom: 116px;
 
   &__title {
-    @include defineFontMontserrat(600, 30px, 1.4);
+    @include defineFontMontserrat(600, 22px, 1.4);
     color: $primary;
-    margin-bottom: 35px;
+    margin-bottom: 1rem;
   }
 }
 
 .about-seller {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 40px;
+  gap: 1rem;
+  margin-bottom: 2rem;
 
   &__photo {
     border-radius: 50%;
     align-self: center;
-    width: 72px;
-    height: 72px;
+    width: 55px;
+    height: 55px;
   }
 
   &__profile-link {
-    @include defineFontMontserrat(500, 20px, 1.4);
+    @include defineFontMontserrat(600, 15px, 1.4);
     color: $primary;
     text-decoration: none;
     border-bottom: 1px solid $primary;
@@ -388,21 +388,21 @@ export default {
 }
 
 .seller-info {
-  margin-right: 30px;
+  margin-right: 1rem;
 
   &__name {
-    @include defineFontMontserrat(500, 24px, 29px);
-    margin-bottom: 17px;
+    @include defineFontMontserrat(600, 18px, 22px);
+    margin-bottom: 0.5rem;
   }
 }
 
 .seller-detail {
   display: flex;
   align-items: center;
-  gap: 19px;
+  gap: 0.7rem;
 
   &__nickname {
-    @include defineFontMontserrat(400, 18px, 22px);
+    @include defineFontMontserrat(400, 14px, 16px);
   }
 }
 
@@ -410,21 +410,21 @@ export default {
   display: flex;
   justify-content: stretch;
   width: 100%;
-  gap: 45px;
+  gap: 3rem;
 
   &:nth-child(3) {
-    margin-bottom: 90px;
+    margin-bottom: 3rem;
   }
 }
 
 .swiper {
   position: static;
   width: 100%;
-  max-height: 550px;
+  max-height: 450px;
 
   &_relative {
-    padding: 0 75px;
-    margin-left: -75px;
+    padding: 0 55px;
+    margin-left: -55px;
     position: relative;
   }
 
@@ -438,7 +438,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: $modal-background;
-    border-radius: 7px;
+    border-radius: 5px;
   }
 
   &__photo {
@@ -446,13 +446,13 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 7px;
+    border-radius: 5px;
   }
 
   &__preview-carousel {
     height: 20%;
     box-sizing: border-box;
-    padding: 18px 0 18px 2px;
+    padding: 14px 0 14px 2px;
 
     & .swiper-slide-thumb-active {
       opacity: 1;
@@ -485,20 +485,20 @@ export default {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 23px;
+  gap: 1rem;
 
   &__item {
     display: flex;
-    gap: 70px;
+    gap: 3rem;
   }
 
   &__label {
-    @include defineFontMontserrat(400, 25px, 1.4);
+    @include defineFontMontserrat(400, 19px, 1.4);
     width: 100%;
   }
 
   &__value {
-    @include defineFontMontserrat(600, 22px, 1.4);
+    @include defineFontMontserrat(600, 17px, 1.4);
     width: 100%;
   }
 }
@@ -508,7 +508,7 @@ export default {
   margin: 0;
   padding: 0;
   width: 100%;
-  @include defineFontMontserrat(500, 28px, 1.4);
+  @include defineFontMontserrat(500, 20px, 1.4);
   color: $black-light;
 }
 
@@ -516,20 +516,20 @@ export default {
   width: 100%;
   display: flex;
   align-items: flex-end;
+  gap: 1rem;
 }
 
 .switcher {
-  width: 85%;
+  width: 100%;
   display: flex;
-  margin-right: 75px;
 
   &__about-product,
   &__reviews {
     cursor: pointer;
     position: relative;
-    @include defineFontMontserrat(600, 25px, 1.4);
+    @include defineFontMontserrat(600, 19px, 1.4);
     color: $black-contrast;
-    padding: 19px 10%;
+    padding: 15px 10%;
     border-bottom: 2px solid #bdbdbd;
   }
 
@@ -550,49 +550,48 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 1rem;
 
   &__value {
-    @include defineFontMontserrat(700, 47px, 1.4);
+    @include defineFontMontserrat(700, 35px, 1.4);
     letter-spacing: -0.5px;
   }
 
   &__btn-contact {
-    @include defineBtnPrimary(20px, 91px, 21px, 32px);
+    justify-content: center;
+    @include defineBtnPrimary(15px, 68px, 15px, 23px);
   }
 
   &__all-products {
-    @include defineFontMontserrat(600, 20px, 24px);
+    @include defineFontMontserrat(600, 15px, 18px);
     color: $primary;
     letter-spacing: -0.5px;
   }
 }
 
 .product-description {
-  padding-top: 53px;
+  padding-top: 1.5rem;
 
   &__text {
-    @include defineFontMontserrat(400, 25px, 1.75);
-    margin: 0;
-    padding: 0;
+    @include defineFontMontserrat(400, 17px, 1.75);
   }
 }
 
 .user-reviews {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding-top: 68px;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 .review {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 15px;
+  gap: 1rem;
 
   &__text {
-    @include defineFontMontserrat(400, 25px, 1.75);
+    @include defineFontMontserrat(400, 15px, 1.75);
     margin: 0;
     padding: 0;
   }
@@ -604,27 +603,26 @@ export default {
 
   &__photo {
     border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
   }
 
   &__name {
-    @include defineFontMontserrat(600, 20px, 24px);
+    @include defineFontMontserrat(600, 15px, 18px);
     width: 100%;
-    margin-right: 30px;
-    padding: 0;
+    margin-right: 1.5rem;
   }
 
   &__rating {
-    @include defineFontMontserrat(400, 17px, 1.6);
-    margin-right: 10px;
+    @include defineFontMontserrat(400, 13px, 1.6);
+    margin-right: 0.3rem;
     padding: 0;
   }
 
   &__date {
-    @include defineFontMontserrat(400, 17px, 21px);
-    padding: 0 0 0 35px;
+    @include defineFontMontserrat(400, 13px, 16px);
+    padding: 0 0 0 1rem;
     color: rgba(65, 65, 65, 0.65);
   }
 }
@@ -645,9 +643,9 @@ export default {
 .swiper__carousel .swiper-button-next {
   position: absolute;
   top: 40%;
-  width: 45px;
-  height: 45px;
-  margin-top: calc(0px - 45px / 2);
+  width: 33px;
+  height: 33px;
+  margin-top: calc(0px - 33px / 2);
   z-index: 10;
   cursor: pointer;
   display: flex;
@@ -672,9 +670,9 @@ export default {
 .swiper__carousel .swiper-button-prev::after {
   content: '';
   position: absolute;
-  left: 19px;
-  width: 10px;
-  height: 10px;
+  left: 14px;
+  width: 8px;
+  height: 8px;
   border-bottom: 1px solid $black;
   border-left: 1px solid $black;
   transform: rotate(45deg);
@@ -684,9 +682,9 @@ export default {
 .swiper__carousel .swiper-button-next::after {
   content: '';
   position: absolute;
-  right: 19px;
-  width: 10px;
-  height: 10px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
   border-bottom: 1px solid $black;
   border-right: 1px solid $black;
   transform: rotate(-45deg);
