@@ -1,6 +1,6 @@
 <template>
-  <!-- Гостевой просмотр профиля -->
   <div class="container">
+    <!-- Гостевой просмотр профиля -->
     <nav class="profile__nav">
       <h2 class="profile__nav__title">
         Личный кабинет
