@@ -141,9 +141,10 @@ export default {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
+  transition: transform 0.2s ease-in-out;
 
-  &:hover &__image {
-    filter: drop-shadow(0px 11px 18px rgba(128, 173, 241, 0.13));
+  &:hover {
+    transform: translateY(-5px);
   }
 
   &__swiper {
