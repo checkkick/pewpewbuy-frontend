@@ -10,7 +10,6 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "devDependencies": {
-    "@esbuild/darwin-arm64": "^0.17.8",
     "@pinia/nuxt": "^0.3.1",
     "@types/node": "^18.13.0",
     "@typescript-eslint/parser": "^5.30.7",
