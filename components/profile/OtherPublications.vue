@@ -5,7 +5,7 @@
   >
     <a
       class="publication__like"
-      :class="{ active: like }"
+      :class="{ 'publication__like--active': like }"
       @click.prevent="onLike()"
     >
       <svg
@@ -181,11 +181,11 @@ export default {
       transform: scale(1.3);
     }
 
-    &.active svg {
+    &.publication__like--active svg {
       fill: $accent-dark;
     }
 
-    &.active svg path {
+    &.publication__like--active svg path {
       stroke: $accent-dark;
     }
   }
