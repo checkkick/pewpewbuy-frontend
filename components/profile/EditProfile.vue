@@ -1,145 +1,145 @@
 <template>
-  <div class="profile__main__edit">
+  <div class="profile-edit">
     <div
       class="close-background"
       @click="closeWindow"
     />
-    <div class="profile__main__edit__window">
+    <div class="profile-edit__window">
       <button
-        class="profile__main__edit__window__close"
+        class="profile-edit__window__close"
         @click="closeWindow"
       />
 
-      <h3 class="profile__main__edit__window__title">
+      <h3 class="profile-edit__window__title">
         Заполните информацию о себе
       </h3>
 
       <div
-        class="profile__main__edit__window__photo"
+        class="profile-edit__window__photo"
         @click="$refs.image.click()"
       >
         <img
-          class="profile__main__edit__window__photo__image"
+          class="profile-edit__window__photo__image"
           :src="image"
           alt="no-photo"
         >
         <a
           href=""
-          class="profile__main__edit__window__photo__link"
+          class="profile-edit__window__photo__link"
           @click.prevent
         >Изменить фотографию</a>
         <input
           ref="image"
-          class="profile__main__edit__window__photo__input"
+          class="profile-edit__window__photo__input"
           type="file"
           @change="changeImage"
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="name"
         >Имя</label>
         <input
           id="name"
           v-model="user.first_name"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="text"
           placeholder="Иван"
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="lastName"
         >Фамилия</label>
         <input
           id="lastName"
           v-model="user.last_name"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="text"
           placeholder="Негрешный"
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="nickname"
         >Игровой позывной</label>
         <input
           id="nickname"
           v-model="user.call_sign"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="text"
           placeholder="Сокол"
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="location"
         >Местоположение</label>
         <input
           id="location"
           v-model="user.city"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="text"
           placeholder="г. Москва"
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="telegram"
         >Ссылка на телеграмм</label>
         <input
           id="telegram"
           v-model="user.tg"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="text"
           placeholder="https://t.me/123456789"
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="email"
         >Почта</label>
         <input
           id="email"
           v-model="user.email"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="email"
           placeholder="yourmail@gmail.com"
           disabled
         >
       </div>
 
-      <div class="profile__main__edit__window__field">
+      <div class="profile-edit__window__field">
         <label
-          class="profile__main__edit__window__field__label"
+          class="profile-edit__window__field__label"
           for="vk"
         >Ссылка на VK</label>
         <input
           id="vk"
           v-model="user.vk"
-          class="profile__main__edit__window__field__input"
+          class="profile-edit__window__field__input"
           type="text"
           placeholder="https://vk.com/id123456789"
         >
       </div>
 
-      <p class="profile__main__edit__window__agree">
+      <p class="profile-edit__window__agree">
         Нажимая на кнопку вы соглашаетесь с
         <a
           href="#"
-          class="profile__main__edit__window__agree__link"
+          class="profile-edit__window__agree__link"
           @click.prevent
         >
           политикой конфиденциальности
@@ -147,7 +147,7 @@
       </p>
 
       <button
-        class="profile__main__edit__window__save-btn"
+        class="profile-edit__window__save-btn"
         @click="updateUserData"
       >
         Сохранить
@@ -235,7 +235,7 @@ export default {
   bottom: 0;
 }
 
-.profile__main__edit {
+.profile-edit {
   z-index: 999;
   position: fixed;
   top: 0;
@@ -250,14 +250,20 @@ export default {
   &__window {
     max-height: 90vh;
     overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     position: relative;
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 15px;
-    padding: 67px 82px;
+    gap: 1rem;
+    padding: 40px 50px;
     background: $modal-background;
-    border-radius: 21px;
+    border-radius: 15px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &__close {
       cursor: pointer;
@@ -265,8 +271,8 @@ export default {
       outline: none;
       border: none;
       background: transparent;
-      top: 35px;
-      right: 35px;
+      top: 20px;
+      right: 20px;
       width: 20px;
       height: 20px;
 
@@ -294,10 +300,10 @@ export default {
     }
 
     &__title {
-      @include defineFontMontserrat(700, 24px, 29px);
+      @include defineFontMontserrat(700, 18px, 22px);
       color: $primary;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 0.5rem;
     }
 
     &__photo {
@@ -305,16 +311,16 @@ export default {
       display: flex;
       align-items: center;
       flex-direction: column;
-      gap: 15px;
+      gap: 0.5rem;
 
       &__image {
-        width: 106px;
-        height: 106px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
       }
 
       &__link {
-        @include defineFontMontserrat(500, 18px, 22px);
+        @include defineFontMontserrat(500, 14px, 16px);
         text-decoration: none;
         border-bottom: 1px solid $black;
         color: $black;
@@ -331,22 +337,22 @@ export default {
       display: flex;
       align-items: flex-start;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.3rem;
       width: 100%;
 
       &__label {
-        @include defineFontMontserrat(500, 18px, 22px);
+        @include defineFontMontserrat(500, 14px, 16px);
         color: $black;
       }
 
       &__input {
-        @include defineFontMontserrat(400, 18px, 22px);
+        @include defineFontMontserrat(400, 14px, 16px);
         width: 100%;
         outline: none;
         border: none;
         background: $input-background;
         border-radius: 8px;
-        padding: 18px 15px;
+        padding: 13px 12px;
         color: $input-login-color;
 
         &::placeholder {
@@ -360,12 +366,12 @@ export default {
     }
 
     &__agree {
-      max-width: 390px;
-      @include defineFontMontserrat(400, 20px, 23px);
+      max-width: 290px;
+      @include defineFontMontserrat(400, 12px, 13px);
       margin: 0;
       color: $black;
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 0.5rem;
 
       &__link {
         color: $black;
@@ -376,7 +382,7 @@ export default {
 
     &__save-btn {
       cursor: pointer;
-      @include defineBtnPrimary(20px, 91px, 18px, 43px);
+      @include defineBtnPrimary(15px, 68px, 13px, 33px);
 
       &:disabled {
         background-color: $input-background;

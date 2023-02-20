@@ -237,7 +237,7 @@
               }"
               class="property__textarea"
               name="comment"
-              rows="3"
+              rows="6"
             />
           </div>
         </div>
@@ -469,8 +469,9 @@ export default {
 
 <style lang="scss" scoped>
 .spinner {
+  scale: 0.8;
   position: absolute;
-  left: 150px;
+  left: 60px;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -553,25 +554,31 @@ export default {
 .modal-window {
   z-index: 1;
   position: relative;
-  max-width: 1023px;
+  max-width: 850px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: $white;
-  border-radius: 21px;
-  padding: 75px;
+  border-radius: 15px;
+  padding: 40px 50px;
   margin: 100px;
   width: 100%;
   max-height: 90vh;
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &__close {
     cursor: pointer;
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 41px;
-    right: 41px;
+    top: 20px;
+    right: 20px;
 
     &::before {
       content: '';
@@ -595,15 +602,15 @@ export default {
   }
 
   &__title {
-    @include defineFontMontserrat(700, 24px, 29px);
+    @include defineFontMontserrat(700, 18px, 22px);
     color: $black;
-    margin-bottom: 49px;
+    margin-bottom: 2rem;
     text-transform: uppercase;
     color: $primary;
   }
 
   &__subtitle {
-    @include defineFontMontserrat(600, 18px, 22px);
+    @include defineFontMontserrat(600, 14px, 16px);
     margin-bottom: 20px;
     text-align: center;
   }
@@ -615,7 +622,7 @@ export default {
   }
 
   &__help-text {
-    @include defineFontMontserrat(300, 16px, 20px);
+    @include defineFontMontserrat(300, 12px, 15px);
     text-align: center;
     color: $input-login-color;
   }
@@ -625,11 +632,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
+    gap: 1.5rem;
   }
 
   &__btn {
-    @include defineBtnPrimary(20px, 91px, 18px, 44px);
+    @include defineBtnPrimary(15px, 68px, 12px, 33px);
     transition: all 0.2s ease-in-out;
 
     &~&--active {
@@ -651,7 +658,7 @@ export default {
   }
 
   &__btn-exit {
-    @include defineBtnAccent(20px, 91px, 18px, 44px);
+    @include defineBtnAccent(15px, 68px, 12px, 33px);
   }
 }
 
@@ -660,11 +667,11 @@ export default {
 }
 
 .radio-row {
-  display: grid;
-  grid-template-columns: repeat(4, max-content);
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px 20px;
+  flex-wrap: wrap;
+  gap: 1rem;
 
   &__radiobutton:checked,
   &__radiobutton:not(:checked) {
@@ -674,9 +681,9 @@ export default {
 
   &__radiobutton:checked+&__label,
   &__radiobutton:not(:checked)+&__label {
-    @include defineFontMontserrat(400, 18px, 22px);
+    @include defineFontMontserrat(400, 14px, 16px);
     position: relative;
-    padding-left: 27px;
+    padding-left: 1rem;
     cursor: pointer;
     display: inline-block;
   }
@@ -686,9 +693,9 @@ export default {
     content: '';
     position: absolute;
     left: 0;
-    top: 2px;
-    width: 17px;
-    height: 17px;
+    top: 1px;
+    width: 13px;
+    height: 13px;
     border: 1px solid $black-inactive;
     border-radius: 100%;
     background: $white;
@@ -697,12 +704,12 @@ export default {
   &__radiobutton:checked+&__label:after,
   &__radiobutton:not(:checked)+&__label:after {
     content: '';
-    width: 9px;
-    height: 9px;
+    width: 7px;
+    height: 7px;
     background: $primary;
     position: absolute;
-    top: 6px;
-    left: 4px;
+    top: 4px;
+    left: 3px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -722,11 +729,11 @@ export default {
 }
 
 .checkbox-row {
-  display: grid;
-  grid-template-columns: repeat(4, max-content);
+  display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px 20px;
+  gap: 1rem;
 
   &__checkbox:checked,
   &__checkbox:not(:checked) {
@@ -736,10 +743,9 @@ export default {
 
   &__checkbox:checked+&__label,
   &__checkbox:not(:checked)+&__label {
-    @include defineFontMontserrat(400, 18px, 22px);
-
+    @include defineFontMontserrat(400, 14px, 16px);
     position: relative;
-    padding-left: 27px;
+    padding-left: 1rem;
     cursor: pointer;
     display: inline-block;
   }
@@ -749,9 +755,9 @@ export default {
     content: '';
     position: absolute;
     left: 0;
-    top: 2px;
-    width: 17px;
-    height: 17px;
+    top: 1px;
+    width: 13px;
+    height: 13px;
     border: 1px solid $black-inactive;
     background: $white;
   }
@@ -761,9 +767,9 @@ export default {
     content: '';
     position: absolute;
     left: 0;
-    top: 2px;
-    width: 17px;
-    height: 17px;
+    top: 1px;
+    width: 12px;
+    height: 12px;
     background: url('@/assets/img/check.svg') no-repeat center center;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -787,18 +793,18 @@ export default {
 }
 
 .photo-swiper {
-  margin-bottom: 13px;
+  margin-bottom: 0.5rem;
   padding-top: 10px;
 
   &__add-slide {
     cursor: pointer;
-    height: 200px;
+    height: 170px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: $grey-light;
     border: 2px dashed $primary;
-    border-radius: 20px;
+    border-radius: 15px;
   }
 
   &__slide-photo {
@@ -807,17 +813,17 @@ export default {
     justify-content: center;
     align-items: center;
     border: 2px dashed $primary;
-    border-radius: 20px;
-    height: 200px;
+    border-radius: 15px;
+    height: 170px;
   }
 
   &__delete-btn {
     cursor: pointer;
-    width: 15px;
+    width: 10px;
     height: 20px;
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -9px;
+    right: -9px;
     background: $white;
     border-radius: 100%;
     border: 1px solid rgba(175, 175, 175, 0.39);
@@ -825,55 +831,55 @@ export default {
     &::before {
       content: '';
       position: absolute;
-      top: 10px;
-      left: 6px;
+      top: 9px;
+      left: 5px;
       transform: rotate(45deg);
       width: 12px;
-      height: 1px;
+      height: 2px;
       background-color: $black;
     }
 
     &::after {
       content: '';
       position: absolute;
-      top: 10px;
-      left: 6px;
+      top: 9px;
+      left: 5px;
       transform: rotate(-45deg);
       width: 12px;
-      height: 1px;
+      height: 2px;
       background-color: $black;
     }
   }
 
   &__image {
     width: 100%;
-    max-height: 200px;
+    height: 100%;
     object-fit: contain;
   }
 
   &__text {
-    @include defineFontMontserrat(400, 18px, 22px);
+    @include defineFontMontserrat(400, 14px, 16px);
     text-align: center;
-    padding-bottom: 40px;
-    background: url('@/assets/img/add-publication.svg') no-repeat center bottom / 28px 28px;
+    padding-bottom: 30px;
+    background: url('@/assets/img/add-publication.svg') no-repeat center bottom / 22px 22px;
   }
 }
 
 .property {
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 8px;
-  margin-bottom: 25px;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 
   &:last-child {
     margin-bottom: 0;
   }
 
   &__label {
-    @include defineFontMontserrat(400, 18px, 22px);
+    @include defineFontMontserrat(400, 14px, 16px);
     position: relative;
 
     &--change::before {
@@ -888,12 +894,12 @@ export default {
 
   &__input {
     position: relative;
-    @include defineFontMontserrat(400, 18px, 22px);
+    @include defineFontMontserrat(400, 14px, 16px);
     outline: none;
     border: none;
     background: $filter-background;
-    border-radius: 8px;
-    padding: 16px 15px;
+    border-radius: 6px;
+    padding: 14px 12px;
     color: $black;
 
     &--change {
@@ -907,13 +913,13 @@ export default {
   }
 
   &__textarea {
-    @include defineFontMontserrat(400, 18px, 22px);
+    @include defineFontMontserrat(400, 14px, 16px);
     resize: none;
     outline: none;
     border: none;
     background: $filter-background;
-    border-radius: 8px;
-    padding: 16px 15px;
+    border-radius: 6px;
+    padding: 14px 12px;
     color: $black;
 
     &--change {

@@ -112,16 +112,16 @@ export default {
 }
 
 .modal-window {
-  width: 100%;
   position: relative;
-  max-width: 450px;
+  min-width: 350px;
+  max-width: 550px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   background: $modal-background;
-  border-radius: 38px;
-  padding: 2rem 4rem;
+  border-radius: 15px;
+  padding: 2rem;
   margin: 100px;
 
   &__close {
@@ -129,8 +129,8 @@ export default {
     position: absolute;
     width: 15px;
     height: 15px;
-    top: 2rem;
-    right: 2.5rem;
+    top: 20px;
+    right: 30px;
 
     &::before {
       content: '';
@@ -154,7 +154,8 @@ export default {
   }
 
   &__title {
-    @include defineFontMontserrat(600, 22px, 27px);
+    @include defineFontMontserrat(600, 18px, 22px);
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -165,29 +166,29 @@ export default {
   gap: 8px;
 
   &__title {
-    @include defineFontMontserrat(600, 20px, 1.4);
+    @include defineFontMontserrat(600, 16px, 1.4);
   }
 
   &__text {
     text-decoration: none;
     color: $black;
-    padding-left: 2.3rem;
-    @include defineFontMontserrat(400, 18px, 26px);
+    padding-left: 1.6rem;
+    @include defineFontMontserrat(400, 16px, 22px);
 
     &--fio {
-      background: url('@/assets/img/products-fio.svg') no-repeat left center / 30px 26px;
+      background: url('@/assets/img/products-fio.svg') no-repeat left center / 20px 19px;
     }
 
     &--email {
-      background: url('@/assets/img/products-email.svg') no-repeat left center / 30px 22px;
+      background: url('@/assets/img/products-email.svg') no-repeat left center / 20px 15px;
     }
 
     &--vk {
-      background: url('@/assets/img/products-vk.svg') no-repeat left center / 30px 22px;
+      background: url('@/assets/img/products-vk.svg') no-repeat left center / 20px 15px;
     }
 
     &--tg {
-      background: url('@/assets/img/products-tg.svg') no-repeat left center / 30px 22px;
+      background: url('@/assets/img/products-tg.svg') no-repeat left center / 20px 15px;
     }
   }
 }
