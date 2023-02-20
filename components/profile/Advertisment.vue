@@ -5,35 +5,35 @@
       @click="open = !open"
     >
       <span
-        class="advertisment__title__logo"
-        :class="{ activePubl, inactivePubl }"
+        class="advertisment__logo"
+        :class="{ 'advertisment__logo--active': activePubl, 'advertisment__logo--inactive': inactivePubl }"
       />
       <h3
         v-if="activePubl"
-        class="advertisment__title__name"
+        class="advertisment__name"
       >
         Активные объявления ({{ publications.length }})
       </h3>
       <h3
         v-if="inactivePubl"
-        class="advertisment__title__name"
+        class="advertisment__name"
       >
         Неактивные объявления ({{ publications.length }})
       </h3>
       <a
-        class="advertisment__title__open-arrow"
-        :class="{ open }"
+        class="advertisment__open-arrow"
+        :class="{ 'advertisment__open-arrow--active': open }"
         @click.prevent
       >
         <svg
-          width="20"
-          height="12"
-          viewBox="0 0 20 12"
+          width="18"
+          height="11"
+          viewBox="0 0 18 11"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M11.2103 0.790208C10.7026 0.282526 9.87946 0.282526 9.37178 0.790208L1.09863 9.06336C0.590946 9.57104 0.590946 10.3942 1.09863 10.9018C1.60631 11.4095 2.42942 11.4095 2.93711 10.9018L10.291 3.54792L17.6449 10.9018C18.1526 11.4095 18.9757 11.4095 19.4834 10.9018C19.9911 10.3942 19.9911 9.57104 19.4834 9.06336L11.2103 0.790208ZM11.591 2.29053V1.70945L8.99102 1.70945V2.29053H11.591Z"
+            d="M9.7955 0.953463C9.35616 0.514123 8.64384 0.514123 8.2045 0.953463L1.04505 8.11292C0.605709 8.55226 0.605709 9.26457 1.04505 9.70391C1.48439 10.1432 2.1967 10.1432 2.63604 9.70391L9 3.33995L15.364 9.70391C15.8033 10.1432 16.5156 10.1432 16.955 9.70391C17.3943 9.26457 17.3943 8.55226 16.955 8.11292L9.7955 0.953463ZM10.125 2.5V1.74896H7.875V2.5H10.125Z"
             fill="#8D8D8D"
           />
         </svg>
@@ -49,19 +49,19 @@
       <div
         v-if="open && (publications.length > 0 || activePubl)"
         class="advertisment__wrapper"
-        :class="{ activePubl, inactivePubl }"
+        :class="{ 'advertisment__wrapper--active': activePubl, 'advertisment__wrapper--inactive': inactivePubl }"
       >
         <swiper
-          class="advertisment__wrapper__swiper"
+          class="advertisment__swiper"
           :modules="modules"
           :slides-per-view="4"
-          :space-between="25"
+          :space-between="15"
           navigation
         >
           <swiper-slide
             v-for="publication in publications"
             :key="publication.id"
-            class="advertisment__wrapper__swiper__slide"
+            class="advertisment__slide"
           >
             <UserPublications
               :active-publ="activePubl"
@@ -74,14 +74,14 @@
           </swiper-slide>
           <swiper-slide
             v-if="activePubl && !guestUser"
-            class="advertisment__wrapper__swiper__add"
+            class="slide-add"
             @click="$emit('openAddProduct')"
           >
-            <p class="advertisment__wrapper__swiper__add__text">
+            <p class="slide-add__text">
               Добавить объявление
             </p>
             <img
-              class="advertisment__wrapper__swiper__add__img"
+              class="slide-add__img"
               src="@/assets/img/add-publication.svg"
               alt="add"
             >
@@ -148,110 +148,118 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 25px;
-  margin-bottom: 30px;
+  gap: 1rem;
+  margin-bottom: 1rem;
 
   &__title {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.7rem;
     cursor: pointer;
+  }
 
-    &__logo {
-      width: 34px;
-      height: 34px;
-      margin-right: 12px;
-      border-radius: 50%;
+  &__logo {
+    width: 25px;
+    height: 25px;
+    margin-right: 0.5rem;
+    border-radius: 50%;
 
-      &.activePubl {
-        background-color: $success;
-      }
-
-      &.inactivePubl {
-        background-color: $alert;
-      }
+    &--active {
+      background-color: $success;
     }
 
-    &__name {
-      @include defineFontMontserrat(600, 24px, 29px);
-      color: $primary;
-      margin: 0;
+    &--inactive {
+      background-color: $alert;
     }
+  }
 
-    &__open-arrow {
-      transition: transform 0.3s ease-in-out;
+  &__name {
+    @include defineFontMontserrat(600, 19px, 22px);
+    color: $primary;
+  }
 
-      &.open {
-        transform: rotate(180deg);
-      }
+  &__open-arrow {
+    transition: transform 0.3s ease-in-out;
+
+    &.advertisment__open-arrow--active {
+      transform: rotate(180deg);
     }
   }
 
   &__wrapper {
     overflow: hidden;
     transition: 0.5s ease-out;
-    border-radius: 20px;
+    border-radius: 15px;
 
-    &.activePubl {
+    &--active {
       background-color: rgba(75, 143, 245, 0.06);
       box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
     }
 
-    &.inactivePubl {
+    &--inactive {
       background: rgba(231, 0, 0, 0.03);
       box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
     }
+  }
 
-    &__swiper__add {
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 13px;
-      background: $white;
-      outline: 2px dashed $primary;
-      outline-offset: -2px;
-      border-radius: 20px;
-      height: auto;
-      min-height: 561px;
+  &__slide {
+    display: flex;
+    height: auto;
+  }
+}
 
-      &__text {
-        @include defineFontMontserrat(500, 20px, 1.4);
-      }
+.slide-add {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: $white;
+  outline: 2px dashed $primary;
+  outline-offset: -2px;
+  border-radius: 15px;
+  height: auto;
+  min-height: 500px;
 
-      &__image {
-        max-width: 45px;
-      }
-    }
+  &__text {
+    @include defineFontMontserrat(500, 15px, 1.4);
+  }
+
+  &__img {
+    max-width: 35px;
   }
 }
 </style>
 
 <style lang="scss">
-.advertisment__wrapper__swiper {
-  margin: 40px 30px;
+.advertisment__swiper {
+  margin: 30px 20px;
   cursor: grab;
   position: static;
 }
 
-.advertisment__wrapper__swiper .swiper-button-prev {
-  right: 50px;
+.advertisment__swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.advertisment__swiper .swiper-button-prev {
+  right: 35px;
   left: auto;
 }
 
-.advertisment__wrapper__swiper .swiper-button-next {
+.advertisment__swiper .swiper-button-next {
   left: auto;
   right: 0;
 }
 
-.advertisment__wrapper__swiper .swiper-button-prev,
-.advertisment__wrapper__swiper .swiper-button-next {
+.advertisment__swiper .swiper-button-prev,
+.advertisment__swiper .swiper-button-next {
   position: absolute;
   top: 14px;
-  width: 38px;
-  height: 38px;
-  margin-top: calc(0px - 38px / 2);
+  width: 25px;
+  height: 25px;
+  margin-top: calc(0px - 25px / 2);
   z-index: 10;
   cursor: pointer;
   display: flex;
@@ -260,8 +268,8 @@ export default {
   color: transparent;
 }
 
-.advertisment__wrapper__swiper .swiper-button-prev::before,
-.advertisment__wrapper__swiper .swiper-button-next::before {
+.advertisment__swiper .swiper-button-prev::before,
+.advertisment__swiper .swiper-button-next::before {
   content: '';
   position: absolute;
   background-color: $grey-light;
@@ -272,38 +280,38 @@ export default {
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-.advertisment__wrapper__swiper .swiper-button-prev::after {
+.advertisment__swiper .swiper-button-prev::after {
   content: '';
   position: absolute;
-  left: 16px;
-  width: 10px;
-  height: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
   border-bottom: 1px solid $black;
   border-left: 1px solid $black;
   transform: rotate(45deg);
   transition: border-color 0.3s ease-in-out;
 }
 
-.advertisment__wrapper__swiper .swiper-button-next::after {
+.advertisment__swiper .swiper-button-next::after {
   content: '';
   position: absolute;
-  right: 16px;
-  width: 10px;
-  height: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
   border-bottom: 1px solid $black;
   border-right: 1px solid $black;
   transform: rotate(-45deg);
   transition: border-color 0.3s ease-in-out;
 }
 
-.advertisment__wrapper__swiper .swiper-button-prev:hover::before,
-.advertisment__wrapper__swiper .swiper-button-next:hover::before {
+.advertisment__swiper .swiper-button-prev:hover::before,
+.advertisment__swiper .swiper-button-next:hover::before {
   background-color: $accent;
   border: none;
 }
 
-.advertisment__wrapper__swiper .swiper-button-prev:active::before,
-.advertisment__wrapper__swiper .swiper-button-next:active::before {
+.advertisment__swiper .swiper-button-prev:active::before,
+.advertisment__swiper .swiper-button-next:active::before {
   background-color: $accent-dark;
   border: none;
 }

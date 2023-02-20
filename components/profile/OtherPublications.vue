@@ -9,38 +9,38 @@
       @click.prevent="onLike()"
     >
       <svg
-        width="24"
-        height="21"
-        viewBox="0 0 24 21"
+        width="19"
+        height="16"
+        viewBox="0 0 19 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M2.56973 10.7847C0.246983 7.76552 1.02123 3.23679 4.89247 1.72722C8.76372 0.217645 11.0865 3.23679 11.8607 4.74637C12.635 3.23679 15.732 0.217645 19.6032 1.72722C23.4744 3.23679 23.4744 7.76552 21.1517 10.7847C18.8289 13.8038 11.8607 19.8421 11.8607 19.8421C11.8607 19.8421 4.89247 13.8038 2.56973 10.7847Z"
+          d="M2.67823 8.34017C0.936027 6.07562 1.51676 2.67879 4.42044 1.54651C7.32412 0.414232 9.06633 2.67879 9.64706 3.81106C10.2278 2.67879 12.5507 0.414232 15.4544 1.54651C18.3581 2.67879 18.3581 6.07562 16.6159 8.34017C14.8737 10.6047 9.64706 15.1338 9.64706 15.1338C9.64706 15.1338 4.42044 10.6047 2.67823 8.34017Z"
           stroke="black"
-          stroke-width="2"
+          stroke-width="1.50013"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
       </svg>
     </a>
-    <div class="publication__user">
+    <div class="user">
       <img
         :src="publication.user.avatar"
         alt="user photo"
-        class="publication__user__image"
+        class="user__image"
       >
-      <div class="publication__user__about">
-        <p class="publication__user__about__name">
+      <div class="user__about">
+        <p class="user__name">
           {{ publication.user.first_name }} {{ publication.user.last_name }}
         </p>
-        <p class="publication__user__about__date">
+        <p class="user__date">
           Публикация: {{ new Date(publication.created).toLocaleDateString() }}
         </p>
       </div>
     </div>
     <swiper
-      class="publication__image-swiper"
+      class="publication__swiper"
       :modules="modules"
       :slides-per-view="1"
       :space-between="30"
@@ -49,10 +49,10 @@
       <swiper-slide
         v-for="photo in publication.photo"
         :key="photo.id"
-        class="publication__image-swiper__slide"
+        class="publication__slide"
       >
         <img
-          class="publication__image-swiper__slide__photo"
+          class="publication__photo"
           :src="photo.file"
           alt="product-example"
         >
@@ -65,22 +65,22 @@
       {{ publication.manufacturer }} {{ publication.name }}
     </h4>
     <div
-      class="publication__advanced"
+      class="advanced"
       @click="$router.push(`/product/${publication.id}`)"
     >
-      <div class="publication__advanced__line">
-        <p class="publication__advanced__line__text">
+      <div class="advanced__line">
+        <p class="advanced__text">
           Местоположение:
         </p>
-        <p class="publication__advanced__line__text">
+        <p class="advanced__text advanced__text--location">
           {{ publication.location }}
         </p>
       </div>
-      <div class="publication__advanced__line">
-        <p class="publication__advanced__line__text">
+      <div class="advanced__line">
+        <p class="advanced__text">
           Цена:
         </p>
-        <p class="publication__advanced__line__text-bold">
+        <p class="advanced__text-bold">
           {{ publication.price }} р.
         </p>
       </div>
@@ -141,22 +141,23 @@ export default {
 
 <style lang="scss" scoped>
 .publication {
+  overflow: hidden;
   cursor: pointer;
-  position: relative;
   background-color: $white;
-  border-radius: 20px;
-  padding: 25px 35px 45px;
+  border-radius: 15px;
+  padding: 18px 20px 35px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: stretch;
 
   &__like {
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
+    top: 15px;
+    right: 15px;
     background-color: $grey;
     border-radius: 100%;
     display: flex;
@@ -189,110 +190,93 @@ export default {
     }
   }
 
-  &__user {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-
-    &__image {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-    }
-
-    &__about {
-      &__name {
-        @include defineFontMontserrat(700, 18px, 22px);
-        margin-bottom: 2px;
-      }
-
-      &__date {
-        @include defineFontMontserrat(400, 13px, 16px);
-        color: rgba(122, 122, 122, 0.9);
-      }
-    }
+  &__swiper {
+    width: 100%;
+    height: 270px;
+    padding-bottom: 1.5rem;
+    margin-bottom: 0;
   }
 
-  &__image-swiper {
+  &__slide {
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $filter-background;
+    border-radius: 10px;
+  }
+
+  &__photo {
     width: 100%;
-    height: 327px;
-    padding-bottom: 25px;
-    margin-bottom: 10px;
-
-    &__slide {
-      cursor: grab;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: $filter-background;
-      border-radius: 15px;
-
-      &__photo {
-        width: 100%;
-        height: 100%;
-        border-radius: 15px;
-        object-fit: contain;
-      }
-    }
+    height: 100%;
+    border-radius: 10px;
+    object-fit: contain;
   }
 
   &__title {
-    @include defineFontMontserrat(700, 18px, 1.4);
-    margin-bottom: 15px;
-  }
-
-  &__advanced {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 11px;
-
-    &__line {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: space-between;
-
-      &__text {
-        @include defineFontMontserrat(400, 20px, 1.4);
-        margin: 0;
-      }
-
-      &__text-bold {
-        @include defineFontMontserrat(700, 20px, 1.4);
-        margin: 0;
-      }
-    }
+    @include defineFontMontserrat(700, 14px, 1.4);
+    margin-bottom: 0.5rem;
   }
 }
-</style>
 
-<style lang="scss">
-.publication__image-swiper .swiper-pagination-bullet {
-  background-color: $black;
-}
-
-.publication__image-swiper .swiper-pagination-bullet-active {
-  background-color: $input-login-color;
-}
-
-.publication__image-swiper .swiper-pagination-fraction,
-.publication__image-swiper .swiper-pagination-custom,
-.publication__image-swiper .swiper-horizontal>.swiper-pagination-bullets,
-.publication__image-swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: 5px;
+.user {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+
+  &__image {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    object-fit: cover
+  }
+
+  &__name {
+    max-width: 95%;
+    @include defineFontMontserrat(700, 14px, 16px);
+  }
+
+  &__date {
+    @include defineFontMontserrat(400, 10px, 12px);
+    color: rgba(122, 122, 122, 0.9);
+  }
 }
 
-.publication__image-swiper .swiper-pagination-lock {
+.advanced {
+  width: 100%;
   display: flex;
-}
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 0.5rem;
 
-.publication__image-swiper .swiper-pagination-bullet:only-child {
-  display: block !important;
+  &__line {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  &__text {
+    width: 40%;
+    @include defineFontMontserrat(400, 14px, 1.4);
+
+    &--location {
+      overflow: hidden;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  &__text-bold {
+    width: 40%;
+    @include defineFontMontserrat(700, 14px, 1.4);
+  }
 }
 </style>

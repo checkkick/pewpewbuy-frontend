@@ -5,24 +5,24 @@
       @click="open = !open"
     >
       <span
-        class="favorite__title__logo"
-        :class="{ favoritePubl, historyPubl }"
+        class="favorite__logo"
+        :class="{ 'favorite__logo--favorite': favoritePubl, 'favorite__logo--history': historyPubl }"
       />
       <h3
         v-if="favoritePubl"
-        class="favorite__title__name"
+        class="favorite__name"
       >
         Избранное ({{ publications.length }})
       </h3>
       <h3
         v-if="historyPubl"
-        class="favorite__title__name"
+        class="favorite__name"
       >
         История просмотра
       </h3>
       <a
-        class="favorite__title__open-arrow"
-        :class="{ open }"
+        class="favorite__open-arrow"
+        :class="{ 'advertisment__open-arrow--active': open }"
         @click.prevent
       >
         <svg
@@ -49,19 +49,19 @@
       <div
         v-if="open && publications.length > 0"
         class="favorite__wrapper"
-        :class="{ favoritePubl, historyPubl }"
+        :class="{ 'favorite__wrapper--favorite': favoritePubl, 'favorite__wrapper--history': historyPubl }"
       >
         <swiper
-          class="favorite__wrapper__swiper"
+          class="favorite__swiper"
           :modules="modules"
           :slides-per-view="4"
-          :space-between="25"
+          :space-between="15"
           navigation
         >
           <swiper-slide
             v-for="publication in publications"
             :key="publication.id"
-            class="favorite__wrapper__swiper__slide"
+            class="favorite__slide"
           >
             <OtherPublications :publication="publication" />
           </swiper-slide>
@@ -121,107 +121,93 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 25px;
-  margin-bottom: 30px;
+  gap: 1rem;
+  margin-bottom: 1rem;
 
   &__title {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.7rem;
     cursor: pointer;
+  }
 
-    &__logo {
-      width: 34px;
-      height: 34px;
+  &__logo {
+    width: 25px;
+    height: 25px;
 
-      &.favoritePubl {
-        background: url('@/assets/img/profile-favorite.svg') no-repeat center center;
-      }
-
-      &.historyPubl {
-        background: url('@/assets/img/profile-history.svg') no-repeat center center;
-      }
+    &--favorite {
+      background: url('@/assets/img/profile-favorite.svg') no-repeat center center;
     }
 
-    &__name {
-      @include defineFontMontserrat(600, 24px, 29px);
-      color: $primary;
-      margin: 0;
+    &--history {
+      background: url('@/assets/img/profile-history.svg') no-repeat center center;
     }
+  }
 
-    &__open-arrow {
-      transition: transform 0.3s ease-in-out;
+  &__name {
+    @include defineFontMontserrat(600, 19px, 22px);
+    color: $primary;
+  }
 
-      &.open {
-        transform: rotate(180deg);
-      }
+  &__open-arrow {
+    transition: transform 0.3s ease-in-out;
+
+    &.advertisment__open-arrow--active {
+      transform: rotate(180deg);
     }
   }
 
   &__wrapper {
     overflow: hidden;
     transition: 0.5s ease-out;
-    border-radius: 20px;
+    border-radius: 15px;
 
-    &.favoritePubl {
+    &--favorite {
       background: rgba(248, 185, 78, 0.05);
       box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
     }
 
-    &.historyPubl {
+    &--history {
       background: rgba(58, 222, 183, 0.04);
       box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
     }
+  }
 
-    &__swiper__add {
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 13px;
-      background: $white;
-      outline: 2px dashed $primary;
-      outline-offset: -2px;
-      border-radius: 20px;
-      height: auto;
-
-      &__text {
-        @include defineFontMontserrat(500, 20px, 1.4);
-      }
-
-      &__image {
-        max-width: 45px;
-      }
-    }
+  &__slide {
+    display: flex;
+    height: auto;
   }
 }
 </style>
 
 <style lang="scss">
-.favorite__wrapper__swiper {
-  margin: 40px 30px;
+.favorite__swiper {
+  margin: 30px 20px;
   cursor: grab;
   position: static;
 }
 
-.favorite__wrapper__swiper .swiper-button-prev {
-  right: 50px;
+.favorite__swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.favorite__swiper .swiper-button-prev {
+  right: 35px;
   left: auto;
 }
 
-.favorite__wrapper__swiper .swiper-button-next {
+.favorite__swiper .swiper-button-next {
   left: auto;
   right: 0;
 }
 
-.favorite__wrapper__swiper .swiper-button-prev,
-.favorite__wrapper__swiper .swiper-button-next {
+.favorite__swiper .swiper-button-prev,
+.favorite__swiper .swiper-button-next {
   position: absolute;
   top: 14px;
-  width: 38px;
-  height: 38px;
-  margin-top: calc(0px - 38px / 2);
+  width: 25px;
+  height: 25px;
+  margin-top: calc(0px - 25px / 2);
   z-index: 10;
   cursor: pointer;
   display: flex;
@@ -230,8 +216,8 @@ export default {
   color: transparent;
 }
 
-.favorite__wrapper__swiper .swiper-button-prev::before,
-.favorite__wrapper__swiper .swiper-button-next::before {
+.favorite__swiper .swiper-button-prev::before,
+.favorite__swiper .swiper-button-next::before {
   content: '';
   position: absolute;
   background-color: $grey-light;
@@ -242,38 +228,38 @@ export default {
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-.favorite__wrapper__swiper .swiper-button-prev::after {
+.favorite__swiper .swiper-button-prev::after {
   content: '';
   position: absolute;
-  left: 16px;
-  width: 10px;
-  height: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
   border-bottom: 1px solid $black;
   border-left: 1px solid $black;
   transform: rotate(45deg);
   transition: border-color 0.3s ease-in-out;
 }
 
-.favorite__wrapper__swiper .swiper-button-next::after {
+.favorite__swiper .swiper-button-next::after {
   content: '';
   position: absolute;
-  right: 16px;
-  width: 10px;
-  height: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
   border-bottom: 1px solid $black;
   border-right: 1px solid $black;
   transform: rotate(-45deg);
   transition: border-color 0.3s ease-in-out;
 }
 
-.favorite__wrapper__swiper .swiper-button-prev:hover::before,
-.favorite__wrapper__swiper .swiper-button-next:hover::before {
+.favorite__swiper .swiper-button-prev:hover::before,
+.favorite__swiper .swiper-button-next:hover::before {
   background-color: $accent;
   border: none;
 }
 
-.favorite__wrapper__swiper .swiper-button-prev:active::before,
-.favorite__wrapper__swiper .swiper-button-next:active::before {
+.favorite__swiper .swiper-button-prev:active::before,
+.favorite__swiper .swiper-button-next:active::before {
   background-color: $accent-dark;
   border: none;
 }
