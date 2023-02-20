@@ -248,27 +248,3 @@ export default {
   }
 }
 </style>
-
-<style lang="scss">
-.product-card__swiper .swiper-pagination-bullet-active {
-  background-color: $input-login-color;
-}
-
-.product-card__swiper .swiper-pagination-fraction,
-.product-card__swiper .swiper-pagination-custom,
-.product-card__swiper .swiper-horizontal>.swiper-pagination-bullets,
-.product-card__swiper .swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.product-card__swiper .swiper-pagination-lock {
-  display: flex;
-}
-
-.product-card__swiper .swiper-pagination-bullet:only-child {
-  display: block !important;
-}
-</style>

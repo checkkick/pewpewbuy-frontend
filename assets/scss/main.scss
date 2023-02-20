@@ -52,6 +52,13 @@ html {
   padding: 0;
 }
 
+:root {
+  --swiper-pagination-bottom: 5px;
+  --swiper-theme-color: #6f6f6f !important;
+  --swiper-pagination-bullet-horizontal-gap: 3px !important;
+  --swiper-pagination-bullet-size: 6px !important;
+}
+
 *,
 *::before,
 *::after {
