@@ -183,6 +183,7 @@ export default {
     gap: 1rem;
 
     &__find {
+      display: none;
       @include defineFontMontserrat(400, 13px, 16px);
       padding: 14px 22px;
       background: $white;
