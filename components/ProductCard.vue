@@ -10,10 +10,10 @@
       <swiper-slide
         v-for="photo in product.photo"
         :key="photo.id"
-        class="product-card__swiper__slide"
+        class="product-card__slide"
       >
         <img
-          class="product-card__swiper__slide__image"
+          class="product-card__image"
           :src="photo.file"
           alt="product"
         >
@@ -28,7 +28,7 @@
     </p>
     <div class="product-card__flex">
       <p>Цена:</p>
-      <p class="product-card__flex__price">
+      <p class="product-card__price">
         {{ product.price }} р.
       </p>
     </div>
@@ -37,7 +37,7 @@
         Профиль продавца
       </button>
       <button
-        class="product-card__btn accent"
+        class="product-card__btn product-card__btn--accent"
         @click.prevent="
           authorized
             ? $router.push('/product/' + product.id)
@@ -153,22 +153,22 @@ export default {
     padding-bottom: 25px;
     margin-bottom: 10px;
     border-radius: 11px;
+  }
 
-    &__slide {
-      cursor: grab;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: $filter-background;
-      border-radius: 11px;
+  &__slide {
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $filter-background;
+    border-radius: 11px;
+  }
 
-      &__image {
-        width: 100%;
-        height: 100%;
-        border-radius: 11px;
-        object-fit: contain;
-      }
-    }
+  &__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 11px;
+    object-fit: contain;
   }
 
   &__title {
@@ -181,11 +181,11 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
+  }
 
-    &__price {
-      font-weight: 700;
-      font-size: 15px;
-    }
+  &__price {
+    font-weight: 700;
+    font-size: 15px;
   }
 
   &__btn {
@@ -194,7 +194,7 @@ export default {
     justify-content: center;
     flex-grow: 1;
 
-    &.accent {
+    &.product-card__btn--accent {
       color: $black-light;
       border: 1px solid $input-login-color;
       background: transparent;
@@ -250,12 +250,6 @@ export default {
 </style>
 
 <style lang="scss">
-.product-card__swiper .swiper-pagination-bullet {
-  background-color: $black;
-  width: 7px;
-  height: 7px;
-}
-
 .product-card__swiper .swiper-pagination-bullet-active {
   background-color: $input-login-color;
 }
