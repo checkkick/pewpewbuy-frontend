@@ -1,39 +1,39 @@
 <template>
   <div class="container">
     <!-- Личный просмотр профиля -->
-    <nav class="profile__nav">
-      <h2 class="profile__nav__title">
+    <nav class="nav">
+      <h2 class="nav__title">
         Личный кабинет
       </h2>
-      <div class="profile__nav__buttons">
+      <div class="nav__buttons">
         <button
-          class="profile__nav__buttons__all-publicity"
+          class="nav__all-publicity"
           @click="$router.push('/')"
         >
           Все объявления
         </button>
         <button
-          class="profile__nav__buttons__new-publicity"
+          class="nav__new-publicity"
           @click="showAddProductModal = true"
         >
           Разместить объявление
         </button>
       </div>
     </nav>
-    <main class="profile__main">
-      <section class="profile__main__info">
-        <div class="profile__main__info-layout">
-          <h3 class="profile__main__info-layout__title">
+    <main class="main">
+      <section class="main__info">
+        <div class="info-layout">
+          <h3 class="info-layout__title">
             Личная информация
           </h3>
-          <div class="profile__main__info-layout__personal-info">
-            <h4 class="profile__main__info-layout__personal-info__name">
+          <div class="personal-info">
+            <h4 class="personal-info__name">
               {{ user.first_name ? user.first_name : "Имя пользователя" }}
               {{ user.last_name }}
             </h4>
             <a
               v-if="user.email"
-              class="profile__main__info-layout__personal-info__edit"
+              class="personal-info__edit"
               @click.prevent="editProfile = true"
             >
               <img
@@ -41,63 +41,63 @@
                 alt="profile-edit"
               >
             </a>
-            <div class="profile__main__info-layout__personal-info__about">
-              <div class="profile__main__info-layout__personal-info__about-flex">
+            <div class="personal-info__about">
+              <div class="personal-info__row">
                 <img
-                  class="profile__main__info-layout__personal-info__about-flex__img"
+                  class="personal-info__img"
                   :src="user.avatar ? user.avatar : noImage"
                   alt="profile picture"
                 >
               </div>
-              <div class="profile__main__info-layout__personal-info__about-flex">
-                <div class="profile__main__info-layout__personal-info__about-flex__line">
-                  <p class="profile__main__info-layout__personal-info__about-flex__line__title">
+              <div class="personal-info__row">
+                <div class="personal-info__line">
+                  <p class="personal-info__title">
                     Рейтинг
                   </p>
                   <RatingCalc :stars="user.rep ? Math.floor(user.rep) : 0" />
                 </div>
-                <div class="profile__main__info-layout__personal-info__about-flex__line">
-                  <p class="profile__main__info-layout__personal-info__about-flex__line__title">
+                <div class="personal-info__line">
+                  <p class="personal-info__title">
                     Игровой позывной
                   </p>
                   <p
                     v-if="user.call_sign"
-                    class="profile__main__info-layout__personal-info__about-flex__line__text"
+                    class="personal-info__text"
                   >
                     {{ user.call_sign ? user.call_sign : "не заполнено" }}
                   </p>
                   <p
                     v-else
-                    class="profile__main__info-layout__personal-info__about-flex__line__text inactive"
+                    class="personal-info__text personal-info__text--inactive"
                   >
                     не заполнено
                   </p>
                 </div>
-                <div class="profile__main__info-layout__personal-info__about-flex__line">
-                  <p class="profile__main__info-layout__personal-info__about-flex__line__title">
+                <div class="personal-info__line">
+                  <p class="personal-info__title">
                     Местоположение
                   </p>
                   <p
                     v-if="user.city"
-                    class="profile__main__info-layout__personal-info__about-flex__line__text"
+                    class="personal-info__text"
                   >
                     {{ user.city }}
                   </p>
                   <p
                     v-else
-                    class="profile__main__info-layout__personal-info__about-flex__line__text inactive"
+                    class="personal-info__text personal-info__text--inactive"
                   >
                     не заполнено
                   </p>
                 </div>
               </div>
             </div>
-            <div class="profile__main__info-layout__personal-info__contacts">
+            <div class="contacts">
               <a
                 v-if="user.tg"
                 :href="user.tg"
                 target="_blank"
-                class="profile__main__info-layout__personal-info__contacts__item"
+                class="contacts__item"
               >
                 <svg
                   width="17"
@@ -111,13 +111,12 @@
                     fill="#1F1F1F"
                   />
                 </svg>
-
               </a>
               <a
                 v-if="user.vk"
                 :href="user.vk"
                 target="_blank"
-                class="profile__main__info-layout__personal-info__contacts__item"
+                class="contacts__item"
               >
                 <svg
                   width="15"
@@ -134,7 +133,7 @@
               </a>
               <a
                 :href="`mailto:${user.email}`"
-                class="profile__main__info-layout__personal-info__contacts__item"
+                class="contacts__item"
               >
                 <svg
                   width="18"
@@ -152,14 +151,14 @@
             </div>
           </div>
         </div>
-        <div class="profile__main__info-layout">
-          <h3 class="profile__main__info-layout__title">
+        <div class="info-layout">
+          <h3 class="info-layout__title">
             Отзывы
           </h3>
-          <div class="profile__main__info-layout__reviews">
+          <div class="reviews">
             <swiper
               v-if="user.about_me_reviews ? user.about_me_reviews.length > 0 : false"
-              class="profile__main__info-layout__reviews__swiper"
+              class="reviews__swiper"
               :modules="modules"
               :slides-per-view="2"
               :space-between="16"
@@ -169,7 +168,7 @@
               <swiper-slide
                 v-for="review in user.about_me_reviews"
                 :key="review.id"
-                class="profile__main__info-layout__reviews__swiper__slide"
+                class="reviews__slide"
               >
                 <UserReview :review="review" />
               </swiper-slide>
@@ -209,7 +208,7 @@
         </div>
       </section>
 
-      <section class="profile__main__active-adv">
+      <section class="main__active-adv">
         <Advertisment
           :active-publ="true"
           :publications="active"
@@ -381,7 +380,7 @@ export default {
   opacity: 0;
 }
 
-.profile__nav {
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -395,18 +394,18 @@ export default {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
 
-    &__all-publicity {
-      @include defineBtnPrimary(15px, 68px, 12px, 27px);
-    }
+  &__all-publicity {
+    @include defineBtnPrimary(15px, 68px, 12px, 27px);
+  }
 
-    &__new-publicity {
-      @include defineBtnAccent(15px, 68px, 12px, 27px);
-    }
+  &__new-publicity {
+    @include defineBtnAccent(15px, 68px, 12px, 27px);
   }
 }
 
-.profile__main {
+.main {
   display: flex;
   flex-direction: column;
   margin-bottom: 4rem;
@@ -417,126 +416,126 @@ export default {
     justify-content: stretch;
     gap: 1.5rem;
     margin-bottom: 2rem;
+  }
+}
 
-    &-layout {
-      overflow: hidden;
+.info-layout {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+
+  &__title {
+    @include defineFontMontserrat(600, 18px, 22px);
+    color: $primary;
+    margin-bottom: 1rem;
+  }
+}
+
+.personal-info {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  padding: 42px 45px;
+  border: 1px solid $filter-border;
+  box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+
+  &__name {
+    @include defineFontMontserrat(600, 18px, 22px);
+    color: $black;
+    margin-bottom: 2rem;
+  }
+
+  &__edit {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 36px;
+    right: 40px;
+    border-radius: 50%;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__about {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  &__row {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
+
+    &:last-child {
       width: 100%;
-      display: flex;
-      align-items: stretch;
-      flex-direction: column;
-
-      &__title {
-        @include defineFontMontserrat(600, 18px, 22px);
-        color: $primary;
-        margin-bottom: 1rem;
-      }
-
-      &__personal-info {
-        position: relative;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        background: $white;
-        padding: 42px 45px;
-        border: 1px solid $filter-border;
-        box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
-        border-radius: 24px;
-
-        &__name {
-          @include defineFontMontserrat(600, 18px, 22px);
-          color: $black;
-          margin-bottom: 2rem;
-        }
-
-        &__edit {
-          cursor: pointer;
-          width: 32px;
-          height: 32px;
-          position: absolute;
-          top: 36px;
-          right: 40px;
-          border-radius: 50%;
-          background-color: $primary;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        &__about {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          gap: 3rem;
-          margin-bottom: 1rem;
-
-          &-flex {
-            display: flex;
-            align-items: stretch;
-            flex-direction: column;
-            gap: 1rem;
-
-            &:last-child {
-              width: 100%;
-            }
-
-            &__img {
-              width: 135px;
-              height: 135px;
-              border-radius: 50%;
-              object-fit: cover;
-            }
-
-            &__line {
-              display: flex;
-              align-items: center;
-
-              &__title {
-                @include defineFontMontserrat(600, 13px, 16px);
-                width: 100%;
-              }
-
-              &__text {
-                @include defineFontMontserrat(400, 13px, 16px);
-                width: 100%;
-
-                &.inactive {
-                  color: $black-inactive;
-                }
-              }
-            }
-          }
-        }
-
-        &__contacts {
-          width: 100%;
-          max-width: 135px;
-          align-self: flex-start;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-        }
-      }
-
-      &__reviews {
-        position: relative;
-        height: 100%;
-        background: $white;
-        padding: 35px 50px;
-        border: 1px solid $filter-border;
-        box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
-        border-radius: 24px;
-
-        &__swiper {
-          position: static;
-
-          &__slide {
-            align-self: stretch;
-            height: auto;
-          }
-        }
-      }
     }
+  }
+
+  &__img {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__line {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    @include defineFontMontserrat(600, 13px, 16px);
+    width: 100%;
+  }
+
+  &__text {
+    @include defineFontMontserrat(400, 13px, 16px);
+    width: 100%;
+
+    &.personal-info__text--inactive {
+      color: $black-inactive;
+    }
+  }
+}
+
+.contacts {
+  width: 100%;
+  max-width: 135px;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.reviews {
+  position: relative;
+  height: 100%;
+  background: $white;
+  padding: 35px 50px;
+  border: 1px solid $filter-border;
+  box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+
+  &__swiper {
+    position: static;
+  }
+
+  &__slide {
+    align-self: stretch;
+    height: auto;
   }
 }
 
@@ -608,18 +607,18 @@ export default {
 </style>
 
 <style lang="scss">
-.profile__main__info-layout__reviews__swiper .swiper-button-prev {
+.main__info-layout__reviews__swiper .swiper-button-prev {
   left: 11px;
   right: auto;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-next {
+.main__info-layout__reviews__swiper .swiper-button-next {
   left: auto;
   right: 11px;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev,
-.profile__main__info-layout__reviews__swiper .swiper-button-next {
+.main__info-layout__reviews__swiper .swiper-button-prev,
+.main__info-layout__reviews__swiper .swiper-button-next {
   position: absolute;
   top: 50%;
   width: 28px;
@@ -633,8 +632,8 @@ export default {
   color: $primary;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next::before {
+.main__info-layout__reviews__swiper .swiper-button-prev::before,
+.main__info-layout__reviews__swiper .swiper-button-next::before {
   content: "";
   position: absolute;
   background-color: $grey-light;
@@ -645,7 +644,7 @@ export default {
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev::after {
+.main__info-layout__reviews__swiper .swiper-button-prev::after {
   content: "";
   position: absolute;
   left: 12px;
@@ -657,7 +656,7 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-next::after {
+.main__info-layout__reviews__swiper .swiper-button-next::after {
   content: "";
   position: absolute;
   right: 12px;
@@ -669,24 +668,24 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::before {
+.main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::before,
+.main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::before {
   background-color: $primary-hover;
   border: none;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::after,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::after {
+.main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::after,
+.main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::after {
   border-color: $white;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):active::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):active::before {
+.main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):active::before,
+.main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):active::before {
   background-color: $primary-active;
   border: none;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-disabled {
+.main__info-layout__reviews__swiper .swiper-button-disabled {
   opacity: 0.3;
 }
 </style>

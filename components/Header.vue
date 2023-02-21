@@ -19,7 +19,7 @@
         <input
           id="find"
           v-model="search"
-          class="header__items__find"
+          class="header__find"
           type="text"
           name="find"
           placeholder="Поиск"
@@ -28,27 +28,27 @@
         <a
           v-if="authorized"
           href="#"
-          class="header__items__favorite"
+          class="header__favorite"
           @click.prevent="$router.push('/profile?favorites')"
         >
-          <p class="header__items__favorite__counter">
+          <p class="header__counter">
             {{ user.favortie_products ? user.favortie_products.length : '0' }}
           </p>
         </a>
         <a
           v-if="!authorized"
           href="#"
-          class="header__items__persone"
+          class="header__persone"
           @click.prevent="$emit('openLoginWindow')"
         />
         <a
           v-if="authorized"
-          class="header__items__user-photo"
+          class="header__user-photo"
           href="#"
           @click.prevent="$router.push('/profile')"
         >
           <img
-            class="header__items__user-photo__image"
+            class="header__image"
             :src="clientsStore.user.avatar ? clientsStore.user.avatar : noImage"
             alt="user avatar"
           >
@@ -56,7 +56,7 @@
         <a
           v-if="authorized"
           href="#"
-          class="header__items__exit-profile"
+          class="header__exit-profile"
           @click.prevent="exitProfile"
         >
           <svg
@@ -181,110 +181,110 @@ export default {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+  }
 
-    &__find {
-      display: none;
-      @include defineFontMontserrat(400, 13px, 16px);
-      padding: 14px 22px;
-      background: $white;
-      border: 1px solid #dcdcdc;
-      border-radius: 40px;
-      background-image: url('@/assets/img/finder.svg');
-      background-size: 15px 15px;
-      background-repeat: no-repeat;
-      background-position: calc(100% - 20px) center;
-      margin-right: 10px;
+  &__find {
+    display: none;
+    @include defineFontMontserrat(400, 13px, 16px);
+    padding: 14px 22px;
+    background: $white;
+    border: 1px solid #dcdcdc;
+    border-radius: 40px;
+    background-image: url('@/assets/img/finder.svg');
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) center;
+    margin-right: 10px;
 
-      &::placeholder {
-        color: rgba(66, 66, 66, 0.42);
-      }
-
-      &:focus {
-        outline: none;
-      }
+    &::placeholder {
+      color: rgba(66, 66, 66, 0.42);
     }
 
-    &__favorite {
-      cursor: pointer;
-      position: relative;
-      min-width: 26px;
-      min-height: 24px;
-      background-image: url('@/assets/img/favorite.svg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
-      margin-right: 10px;
+    &:focus {
+      outline: none;
+    }
+  }
 
-      &__counter {
-        @include defineFontMontserrat(500, 12px, 1.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        top: 50%;
-        left: 50%;
-        border-radius: 50%;
-        background-color: $primary;
-        color: $white;
-      }
+  &__favorite {
+    cursor: pointer;
+    position: relative;
+    min-width: 26px;
+    min-height: 24px;
+    background-image: url('@/assets/img/favorite.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-right: 10px;
+  }
+
+  &__counter {
+    @include defineFontMontserrat(500, 12px, 1.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: $primary;
+    color: $white;
+  }
+
+  &__exit-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5px;
+    background: $white;
+    border: 1px solid #dcdcdc;
+    border-radius: 50%;
+    min-width: 48px;
+    min-height: 48px;
+    transition: background-color 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
+
+    &>svg>path {
+      transition: stroke 0.2s ease-in-out;
     }
 
-    &__exit-profile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-left: 5px;
-      background: $white;
-      border: 1px solid #dcdcdc;
-      border-radius: 50%;
-      min-width: 48px;
-      min-height: 48px;
-      transition: background-color 0.2s ease-in-out,
-        border-color 0.2s ease-in-out;
-
-      &>svg>path {
-        transition: stroke 0.2s ease-in-out;
-      }
-
-      &:hover {
-        background-color: $primary;
-        border-color: $primary;
-      }
-
-      &:hover>svg>path {
-        stroke: $white;
-      }
+    &:hover {
+      background-color: $primary;
+      border-color: $primary;
     }
 
-    &__persone {
-      cursor: pointer;
-      position: relative;
-      min-width: 30px;
-      min-height: 28px;
-      background-image: url('@/assets/img/personal.svg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
+    &:hover>svg>path {
+      stroke: $white;
     }
+  }
 
-    &__user-photo {
-      cursor: pointer;
-      width: 47px;
-      height: 47px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  &__persone {
+    cursor: pointer;
+    position: relative;
+    min-width: 30px;
+    min-height: 28px;
+    background-image: url('@/assets/img/personal.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
 
-      &__image {
-        width: 100%;
-        height: 47px;
-        object-fit: cover;
-        border-radius: 50%;
-      }
-    }
+  &__user-photo {
+    cursor: pointer;
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 100%;
+    height: 47px;
+    object-fit: cover;
+    border-radius: 50%;
   }
 }
 </style>

@@ -26,16 +26,16 @@
 
       <div
         v-if="sended"
-        class="modal-window__password-title"
+        class="password-title"
       >
         <label
-          class="modal-window__password-title__label"
+          class="password-title__label"
           for="password-login"
         >
           Код-пароль
         </label>
         <button
-          class="modal-window__password-title__show"
+          class="password-title__show"
           @click="showPwd = !showPwd"
         >
           {{ showPwd ? 'Скрыть' : 'Показать' }}
@@ -55,7 +55,7 @@
 
       <p
         v-if="sendError !== ''"
-        class="modal-window__text error"
+        class="modal-window__text modal-window__text--error"
       >
         {{ sendError }}
       </p>
@@ -80,7 +80,7 @@
         Еще нет личного кабинета?
         <a
           href="#"
-          class="modal-window__text__link"
+          class="modal-window__text modal-window__text--link"
           @click.prevent="$emit('openRegisterWindow')"
         >
           Зарегистрируйтесь
@@ -230,31 +230,10 @@ export default {
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
     }
+
     &:disabled {
       cursor: not-allowed;
       color: rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  &__password-title {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 3px;
-
-    &__label {
-      @include defineFontMontserrat(400, 15px, 17px);
-    }
-
-    &__show {
-      @include defineFontMontserrat(400, 12px, 15px);
-      cursor: pointer;
-      border: none;
-      outline: none;
-      padding: 0 0 0 20px;
-      background-color: transparent;
-      background: url('@/assets/img/password-eye.svg') no-repeat center left;
     }
   }
 
@@ -280,21 +259,43 @@ export default {
   }
 
   &__text {
-    @include defineFontMontserrat(400, 15px, 17px);
+    @include defineFontMontserrat(400, 15px, 20px);
     margin: 0;
     text-align: center;
     color: $black;
 
-    &.error {
+    &.modal-window__text--error {
       color: red;
       margin-bottom: 20px;
     }
 
-    &__link {
+    &.modal-window__text--link {
       color: $black;
       text-decoration: none;
       border-bottom: 1px solid $black;
     }
+  }
+}
+
+.password-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+
+  &__label {
+    @include defineFontMontserrat(400, 15px, 17px);
+  }
+
+  &__show {
+    @include defineFontMontserrat(400, 12px, 15px);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0 0 0 20px;
+    background-color: transparent;
+    background: url('@/assets/img/password-eye.svg') no-repeat center left;
   }
 }
 </style>

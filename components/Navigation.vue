@@ -3,31 +3,31 @@
     class="nav"
     @mouseleave="leaveBar()"
   >
-    <nav class="nav__filter">
-      <ul class="nav__filter__list">
+    <nav class="filter">
+      <ul class="filter__list">
         <li
           v-for="(filterItem, idx) in Object.keys(categories)"
           :key="idx"
-          class="nav__filter__list__item"
-          :class="{ active: filterItem === chooseFilter }"
+          class="filter__item"
+          :class="{ 'filter__item--active': filterItem === chooseFilter }"
           @mouseenter="; (chooseFilter = filterItem), (showSubFilter = true)"
         >
           <a
             href="#"
-            class="nav__filter__list__item__link"
+            class="filter__link"
           >{{ filterItem }}</a>
           <ul
             v-if="filterItem === chooseFilter && showSubFilter && categories[filterItem].length > 0"
-            class="nav__filter__dropdown-list"
+            class="dropdown-list"
           >
             <li
               v-for="item in categories[filterItem]"
               :key="item.id"
-              class="nav__filter__dropdown-list__item"
-              :class="{ active: item.id === chooseSubfilter.id }"
+              class="dropdown-list__item"
+              :class="{ 'dropdown-list__item--active': item.id === chooseSubfilter.id }"
               @click="chooseSubCategory(item)"
             >
-              <a class="nav__filter__dropdown-list__item__link">{{
+              <a class="dropdown-list__link">{{
                 item.name
               }}</a>
             </li>
@@ -35,6 +35,7 @@
         </li>
       </ul>
     </nav>
+
     <button
       class="nav__btn-create"
       @click="authorization ? $router.push('/profile?addproduct') : $router.push('/?login')"
@@ -137,90 +138,92 @@ export default {
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 
-  &__filter {
-    background: $white;
-    border: 1px solid $filter-border;
-    box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
-    border-radius: 68px;
-    padding: 11px 9px;
-
-    &__list {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      gap: 1rem;
-
-      &__item {
-        @include defineFontMontserrat(500, 18px, 22px);
-        position: relative;
-        cursor: pointer;
-        text-align: center;
-        padding: 16px 20px;
-        border-radius: 68px;
-        color: $black;
-        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-
-        &.active {
-          background-color: $primary;
-          color: $white;
-        }
-
-        &__link {
-          text-decoration: none;
-          color: inherit;
-        }
-      }
-    }
-
-    &__dropdown-list {
-      z-index: 2;
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      top: calc(100% + 1rem);
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      background: $white;
-      border: 1px solid $filter-border;
-      box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.15);
-      border-radius: 10px;
-
-      &__item {
-        cursor: pointer;
-        @include defineFontMontserrat(500, 13px, 16px);
-        text-align: center;
-        padding: 10px 12px;
-        color: $black;
-
-        &.active,
-        &:hover {
-          background: $primary;
-          color: $white;
-        }
-
-        &:first-child {
-          border-radius: 10px 10px 0 0;
-        }
-
-        &:last-child {
-          border-radius: 0 0 10px 10px;
-        }
-
-        &__link {
-          text-decoration: none;
-          color: inherit;
-        }
-      }
-    }
-  }
-
   &__btn-create {
     @include defineBtnAccent(15px, 68px, 18px, 19px);
     cursor: pointer;
+  }
+}
+
+.filter {
+  background: $white;
+  border: 1px solid $filter-border;
+  box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
+  border-radius: 68px;
+  padding: 11px 9px;
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+  }
+
+  &__item {
+    @include defineFontMontserrat(500, 18px, 22px);
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    padding: 16px 20px;
+    border-radius: 68px;
+    color: $black;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+    &.filter__item--active {
+      background-color: $primary;
+      color: $white;
+    }
+
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.dropdown-list {
+  z-index: 2;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: calc(100% + 1rem);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: $white;
+  border: 1px solid $filter-border;
+  box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+
+  &__item {
+    cursor: pointer;
+    @include defineFontMontserrat(500, 13px, 16px);
+    text-align: center;
+    padding: 10px 12px;
+    color: $black;
+
+    &.dropdown-list__item--active,
+    &:hover {
+      background: $primary;
+      color: $white;
+    }
+
+    &:first-child {
+      border-radius: 10px 10px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
+
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
   }
 }
 </style>

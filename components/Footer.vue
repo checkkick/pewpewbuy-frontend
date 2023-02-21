@@ -1,23 +1,23 @@
 <template>
   <footer
     class="footer"
-    :class="{ active: openFooter }"
+    :class="{ 'footer--active': openFooter }"
   >
     <div class="container">
       <div
-        class="footer__flex"
-        :class="{ active: openFooter }"
+        class="footer__row"
+        :class="{ 'footer__row--active': openFooter }"
       >
-        <div class="footer__flex__about">
+        <div class="about">
           <div>
-            <h4 class="footer__flex__about__title">
+            <h4 class="about__title">
               <a
                 href="#"
                 class="footer__link"
                 @click.prevent
               >PEWPEW BUY</a>
             </h4>
-            <h5 class="footer__flex__about__subtitle">
+            <h5 class="about__subtitle">
               <a
                 href="#"
                 class="footer__link"
@@ -27,12 +27,12 @@
           </div>
           <div
             v-if="openFooter"
-            class="footer__flex__about__contacts"
+            class="contacts"
           >
-            <div class="footer__flex__about__contacts__social">
+            <div class="contacts__social">
               <a
                 href="#"
-                class="footer__flex__about__contacts__social__link"
+                class="contacts__link"
                 @click.prevent
               >
                 <img
@@ -42,7 +42,7 @@
               </a>
               <a
                 href="#"
-                class="footer__flex__about__contacts__social__link"
+                class="contacts__link"
                 @click.prevent
               >
                 <img
@@ -52,7 +52,7 @@
               </a>
               <a
                 href="#"
-                class="footer__flex__about__contacts__social__link"
+                class="contacts__link"
                 @click.prevent
               >
                 <img
@@ -62,7 +62,7 @@
               </a>
               <a
                 href="#"
-                class="footer__flex__about__contacts__social__link"
+                class="contacts__link"
                 @click.prevent
               >
                 <img
@@ -71,18 +71,18 @@
                 >
               </a>
             </div>
-            <p class="footer__flex__about__contacts__copyright">
+            <p class="contacts__copyright">
               «PEWPEW BUY» — платформа для продажи страйкбольного оружия,
               пневматики и аксессуаров
             </p>
           </div>
         </div>
-        <ul class="footer__flex__map">
+        <ul class="map">
           <li
             v-for="(item, index) in Object.keys(categories)"
             :key="index"
-            class="footer__flex__map__item"
-            :class="{ active: openFooter }"
+            class="map__item"
+            :class="{ 'map__item--active': openFooter }"
           >
             <a
               href="#"
@@ -92,12 +92,12 @@
 
             <ul
               v-if="openFooter"
-              class="footer__flex__categories"
+              class="categories"
             >
               <li
                 v-for="subItem in categories[item]"
                 :key="subItem.id"
-                class="footer__flex__categories__item"
+                class="categories__item"
               >
                 <a
                   href="#"
@@ -110,8 +110,8 @@
         </ul>
         <a
           href="#"
-          class="footer__flex__arrow"
-          :class="{ active: openFooter }"
+          class="arrow"
+          :class="{ 'arrow--active': openFooter }"
           @click.prevent="openFooter = !openFooter"
         >
           <svg
@@ -165,7 +165,7 @@ export default {
   background-color: $black;
   z-index: 998;
 
-  &.active {
+  &.footer--active {
     padding: 50px 0;
   }
 
@@ -174,126 +174,126 @@ export default {
     color: inherit;
   }
 
-  &__flex {
+  &__row {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 
-    &.active {
+    &.footer__row--active {
       align-items: stretch;
     }
+  }
+}
 
-    &__about {
-      max-width: 15%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 2rem;
+.about {
+  max-width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
 
-      &__title {
-        @include defineFontSairaStencilOne(12px, 19px);
-        color: $white;
-      }
+  &__title {
+    @include defineFontSairaStencilOne(12px, 19px);
+    color: $white;
+  }
 
-      &__subtitle {
-        font-size: 9px;
-        line-height: inherit;
-        font-weight: inherit;
-        margin: 0;
-        color: $grey;
-      }
+  &__subtitle {
+    font-size: 9px;
+    line-height: inherit;
+    font-weight: inherit;
+    margin: 0;
+    color: $grey;
+  }
+}
 
-      &__contacts {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-        &__social {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-          &__link {
-            font-size: 0;
-            line-height: normal;
-          }
-        }
+  &__link {
+    font-size: 0;
+    line-height: normal;
+  }
 
-        &__copyright {
-          @include defineFontMontserrat(400, 9px, 1.4);
-          color: $grey;
-        }
-      }
+  &__copyright {
+    @include defineFontMontserrat(400, 9px, 1.4);
+    color: $grey;
+  }
+}
+
+.map {
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 67px;
+
+  &__item {
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: $grey;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    &.map__item--active>.footer__link {
+      font-weight: 700;
+      margin-bottom: 20px;
     }
+  }
+}
 
-    &__map {
-      flex-grow: 1;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 67px;
+.categories {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
 
-      &__item {
-        font-weight: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        color: $grey;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
+  &__item {
+    @include defineFontMontserrat(400, 12px, 15px);
+    color: $grey;
+  }
+}
 
-        &.active>.footer__link {
-          font-weight: 700;
-          margin-bottom: 20px;
-        }
-      }
-    }
+.arrow {
+  width: 25px;
+  height: 25px;
+  background-color: $white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  transition: transform 0.5s ease-in-out, background-color 0.2s ease-in-out;
 
-    &__categories {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 10px;
+  &.arrow--active {
+    background-color: $accent;
+    transform: rotate(180deg);
+  }
 
-      &__item {
-        @include defineFontMontserrat(400, 12px, 15px);
-        color: $grey;
-      }
-    }
+  &:hover {
+    background-color: $accent;
+  }
 
-    &__arrow {
-      width: 25px;
-      height: 25px;
-      background-color: $white;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform-origin: center;
-      transition: transform 0.5s ease-in-out, background-color 0.2s ease-in-out;
-
-      &.active {
-        background-color: $accent;
-        transform: rotate(180deg);
-      }
-
-      &:hover {
-        background-color: $accent;
-      }
-
-      &:active {
-        background-color: $accent-active;
-      }
-    }
+  &:active {
+    background-color: $accent-active;
   }
 }
 </style>

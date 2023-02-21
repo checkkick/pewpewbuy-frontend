@@ -9,7 +9,7 @@
           v-for="(item, idx) in crumbs"
           :key="idx"
           class="crumbs__title"
-          :class="{ active: item.slug }"
+          :class="{ 'crumbs__title--active': item.slug }"
           @click="item.slug ? $router.push(`/?slug=${item.slug}`) : ''"
         >
           {{ item.name }}
@@ -51,7 +51,7 @@
         </h3>
 
         <div class="description">
-          <div class="swiper swiper_relative">
+          <div class="swiper swiper--relative">
             <swiper
               :space-between="10"
               :navigation="true"
@@ -130,7 +130,7 @@
               class="switcher__about-product"
               :class="
                 switcher === 'about-product'
-                  ? 'switcher__about-product_active'
+                  ? 'switcher__about-product--active'
                   : ''
               "
               @click="switcher = 'about-product'"
@@ -139,7 +139,7 @@
             </p>
             <p
               class="switcher__reviews"
-              :class="switcher === 'reviews' ? 'switcher__reviews_active' : ''"
+              :class="switcher === 'reviews' ? 'switcher__reviews--active' : ''"
               @click="switcher = 'reviews'"
             >
               Отзывы о продавце
@@ -322,7 +322,7 @@ export default {
     @include defineFontMontserrat(500, 18px, 22px);
     padding-right: 1.3rem;
 
-    &.active {
+    &.crumbs__title--active {
       cursor: pointer;
       text-decoration: underline;
       transition: color 0.2s ease-in-out;
@@ -422,7 +422,7 @@ export default {
   width: 100%;
   max-height: 450px;
 
-  &_relative {
+  &--relative {
     padding: 0 55px;
     margin-left: -55px;
     position: relative;
@@ -533,8 +533,8 @@ export default {
     border-bottom: 2px solid #bdbdbd;
   }
 
-  &__about-product_active:after,
-  &__reviews_active:after {
+  &__about-product--active:after,
+  &__reviews--active:after {
     content: '';
     position: absolute;
     top: 0;

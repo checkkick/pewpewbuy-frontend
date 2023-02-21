@@ -7,7 +7,7 @@
       v-for="item in notificationsStore.ALL_NOTIFICATIONS"
       :key="item.id"
       class="notification__item"
-      :class="item.type"
+      :class="'notification__item--' + item.type"
     >
       <h4 class="notification__title">
         {{ item.title }}
@@ -52,24 +52,23 @@ const notificationsStore = notifications();
     border-bottom-left-radius: 15px;
     padding: 20px 30px 20px 90px;
 
-    &.alert {
-      background: url('@/assets/img/notification-alert.svg') no-repeat 37px
-          center / 42px 38px,
+    &.notification__item--alert {
+      background: url('@/assets/img/notification-alert.svg') no-repeat 37px center / 42px 38px,
         $white;
     }
-    &.success {
-      background: url('@/assets/img/notification-success.svg') no-repeat 37px
-          center / 42px 38px,
+
+    &.notification__item--success {
+      background: url('@/assets/img/notification-success.svg') no-repeat 37px center / 42px 38px,
         $white;
     }
-    &.edit {
-      background: url('@/assets/img/notification-edit.svg') no-repeat 37px
-          center / 42px 38px,
+
+    &.notification__item--edit {
+      background: url('@/assets/img/notification-edit.svg') no-repeat 37px center / 42px 38px,
         $white;
     }
-    &.delete {
-      background: url('@/assets/img/notification-delete.svg') no-repeat 37px
-          center / 42px 38px,
+
+    &.notification__item--delete {
+      background: url('@/assets/img/notification-delete.svg') no-repeat 37px center / 42px 38px,
         $white;
     }
   }
@@ -95,6 +94,7 @@ const notificationsStore = notifications();
       background-color: $black;
       transform: rotate(45deg);
     }
+
     &::after {
       content: '';
       position: absolute;

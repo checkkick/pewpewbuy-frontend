@@ -50,7 +50,7 @@
     <a
       v-if="authorized"
       class="product-card__like"
-      :class="{ active: like }"
+      :class="{ 'product-card__like--active': like }"
       @click.prevent="onLike()"
     >
       <svg
@@ -231,11 +231,11 @@ export default {
       transition: stroke 0.3s ease-in-out;
     }
 
-    &.active>svg {
+    &.product-card__like--active>svg {
       fill: $accent-dark;
     }
 
-    &.active>svg path {
+    &.product-card__like--active>svg path {
       stroke: $accent-dark;
     }
 

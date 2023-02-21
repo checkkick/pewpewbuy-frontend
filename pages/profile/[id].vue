@@ -1,103 +1,103 @@
 <template>
   <div class="container">
     <!-- Гостевой просмотр профиля -->
-    <nav class="profile__nav">
-      <h2 class="profile__nav__title">
+    <nav class="nav">
+      <h2 class="nav__title">
         Личный кабинет
       </h2>
-      <div class="profile__nav__buttons">
+      <div class="nav__buttons">
         <button
-          class="profile__nav__buttons__all-publicity"
+          class="nav__all-publicity"
           @click="$router.push('/')"
         >
           Все объявления
         </button>
         <button
-          class="profile__nav__buttons__new-publicity"
+          class="nav__new-publicity"
           @click="showAddProductModal = true"
         >
           Разместить объявление
         </button>
       </div>
     </nav>
-    <main class="profile__main">
-      <section class="profile__main__info">
-        <div class="profile__main__info-layout">
-          <h3 class="profile__main__info-layout__title">
+    <main class="main">
+      <section class="main__info">
+        <div class="info-layout">
+          <h3 class="info-layout__title">
             Личная информация
           </h3>
-          <div class="profile__main__info-layout__personal-info">
-            <h4 class="profile__main__info-layout__personal-info__name">
+          <div class="personal-info">
+            <h4 class="personal-info__name">
               {{ user.first_name ? user.first_name : 'Имя пользователя' }}
               {{ user.last_name }}
             </h4>
-            <div class="profile__main__info-layout__personal-info__about">
-              <div class="profile__main__info-layout__personal-info__about-flex">
+            <div class="personal-info__about">
+              <div class="personal-info__row">
                 <img
-                  class="profile__main__info-layout__personal-info__about-flex__img"
+                  class="personal-info__img"
                   :src="user.avatar ? user.avatar : noImage"
                   alt="profile picture"
                 >
               </div>
-              <div class="profile__main__info-layout__personal-info__about-flex">
-                <div class="profile__main__info-layout__personal-info__about-flex__line">
-                  <p class="profile__main__info-layout__personal-info__about-flex__line__title">
+              <div class="personal-info__row">
+                <div class="personal-info__line">
+                  <p class="personal-info__title">
                     Рейтинг
                   </p>
                   <RatingCalc :stars="user.rep ? Math.floor(user.rep) : 0" />
                 </div>
-                <div class="profile__main__info-layout__personal-info__about-flex__line">
-                  <p class="profile__main__info-layout__personal-info__about-flex__line__title">
+                <div class="personal-info__line">
+                  <p class="personal-info__title">
                     Игровой позывной
                   </p>
                   <p
                     v-if="user.call_sign"
-                    class="profile__main__info-layout__personal-info__about-flex__line__text"
+                    class="personal-info__text"
                   >
                     {{ user.call_sign ? user.call_sign : 'не заполнено' }}
                   </p>
                   <p
                     v-else
-                    class="profile__main__info-layout__personal-info__about-flex__line__text inactive"
+                    class="personal-info__text personal-info__text--inactive"
                   >
                     не заполнено
                   </p>
                 </div>
-                <div class="profile__main__info-layout__personal-info__about-flex__line">
-                  <p class="profile__main__info-layout__personal-info__about-flex__line__title">
+                <div class="personal-info__line">
+                  <p class="personal-info__title">
                     Местоположение
                   </p>
                   <p
                     v-if="user.city"
-                    class="profile__main__info-layout__personal-info__about-flex__line__text"
+                    class="personal-info__text"
                   >
                     {{ user.city }}
                   </p>
                   <p
                     v-else
-                    class="profile__main__info-layout__personal-info__about-flex__line__text inactive"
+                    class="personal-info__text personal-info__text--inactive"
                   >
                     не заполнено
                   </p>
                 </div>
               </div>
             </div>
-            <div class="profile__main__info-layout__personal-info__contacts">
+            <div class="contacts">
               <a
                 v-if="user.tg"
                 :href="user.tg"
                 target="_blank"
-                class="profile__main__info-layout__personal-info__contacts__item"
+                class="contacts__item"
               >
                 <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
+                  width="17"
+                  height="15"
+                  viewBox="0 0 17 15"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M3.94675 0.375C3.0006 0.378687 2.09425 0.756179 1.42521 1.42521C0.756179 2.09425 0.378687 3.0006 0.375 3.94675V16.0532C0.378687 16.9994 0.756179 17.9058 1.42521 18.5748C2.09425 19.2438 3.0006 19.6213 3.94675 19.625H16.0532C16.9994 19.6213 17.9058 19.2438 18.5748 18.5748C19.2438 17.9058 19.6213 16.9994 19.625 16.0532V3.94675C19.6213 3.0006 19.2438 2.09425 18.5748 1.42521C17.9058 0.756179 16.9994 0.378687 16.0532 0.375H3.94675ZM3.94675 2.125H16.0532C16.2929 2.12361 16.5304 2.16978 16.752 2.26083C16.9737 2.35189 17.1751 2.48603 17.3445 2.65547C17.514 2.82492 17.6481 3.0263 17.7392 3.24795C17.8302 3.46961 17.8764 3.70712 17.875 3.94675V16.0532C17.8764 16.2929 17.8302 16.5304 17.7392 16.752C17.6481 16.9737 17.514 17.1751 17.3445 17.3445C17.1751 17.514 16.9737 17.6481 16.752 17.7392C16.5304 17.8302 16.2929 17.8764 16.0532 17.875H3.94675C3.70709 17.8765 3.46952 17.8304 3.24781 17.7394C3.02611 17.6484 2.82468 17.5143 2.65521 17.3448C2.48574 17.1753 2.35161 16.9739 2.2606 16.7522C2.16958 16.5305 2.12349 16.2929 2.125 16.0532V3.94675C2.12361 3.70712 2.16978 3.46961 2.26083 3.24795C2.35189 3.0263 2.48603 2.82492 2.65547 2.65547C2.82492 2.48603 3.0263 2.35189 3.24795 2.26083C3.46961 2.16978 3.70712 2.12361 3.94675 2.125ZM9.75412 6.70125C9.111 6.69512 8.56413 6.70125 8.257 6.85175C8.05138 6.9515 7.89475 7.17637 7.99013 7.18687C8.11 7.20437 8.3795 7.26213 8.52387 7.45725C8.70762 7.70662 8.7015 8.271 8.7015 8.271C8.7015 8.271 8.80387 9.82238 8.45125 10.0175C8.20887 10.1505 7.87725 9.88013 7.15975 8.64637C6.794 8.01113 6.5175 7.31025 6.5175 7.31025C6.5175 7.31025 6.465 7.17988 6.3705 7.11163C6.25413 7.02675 6.09312 6.99875 6.09312 6.99875L4.38075 7.00925C4.38075 7.00925 4.12438 7.01975 4.0325 7.12912C3.94675 7.2315 4.0255 7.43275 4.0255 7.43275C4.0255 7.43275 5.36513 10.567 6.88238 12.1464C8.27363 13.5962 9.853 13.5 9.853 13.5H10.5705C10.5705 13.5 10.7858 13.4764 10.8951 13.36C10.9984 13.2506 10.9949 13.045 10.9949 13.045C10.9949 13.045 10.9809 12.0851 11.4254 11.9416C11.8664 11.8042 12.4264 12.8709 13.0249 13.2812C13.4799 13.5919 13.8246 13.5236 13.8246 13.5236L15.425 13.5C15.425 13.5 16.2589 13.4484 15.8625 12.7886C15.8319 12.7379 15.6332 12.3039 14.6769 11.4149C13.6715 10.4856 13.8054 10.6361 15.0146 9.02612C15.7496 8.04525 16.0436 7.44675 15.9509 7.18687C15.8634 6.9445 15.3226 7.00925 15.3226 7.00925L13.521 7.01975C13.521 7.01975 13.388 7.00225 13.2891 7.06087C13.2211 7.11136 13.167 7.17817 13.1316 7.25513C13.1316 7.25513 12.8446 8.01375 12.4649 8.66037C11.6651 10.0201 11.3405 10.0954 11.211 10.0105C10.9065 9.81187 10.9817 9.21688 10.9817 8.79688C10.9817 7.47388 11.183 6.927 10.5924 6.78437C10.3973 6.73625 10.2537 6.70562 9.755 6.70125H9.75412Z"
+                    d="M15.084 0.501459C14.8895 0.515713 14.6986 0.561677 14.5187 0.637558H14.5163C14.3436 0.706523 13.5226 1.0544 12.2744 1.58171L7.80158 3.47916C4.59208 4.84016 1.43712 6.1804 1.43712 6.1804L1.47468 6.16575C1.47468 6.16575 1.25716 6.23777 1.02995 6.39462C0.889574 6.48459 0.768783 6.60231 0.674884 6.74066C0.563396 6.90545 0.473722 7.1575 0.507047 7.41811C0.561579 7.85875 0.845144 8.12301 1.04873 8.26888C1.25474 8.41657 1.45105 8.48554 1.45105 8.48554H1.4559L4.41455 9.4895C4.54725 9.91855 5.31614 12.4648 5.50094 13.0513C5.61001 13.4016 5.71604 13.6207 5.84874 13.7879C5.91296 13.8734 5.98809 13.9448 6.07837 14.0021C6.12531 14.0296 6.17535 14.0514 6.22743 14.0668L6.19713 14.0595C6.20622 14.0619 6.21349 14.0693 6.22016 14.0717C6.24439 14.0784 6.26075 14.0809 6.29165 14.0857C6.76002 14.2286 7.13629 13.9356 7.13629 13.9356L7.1575 13.9185L8.90433 12.3165L11.8321 14.5789L11.8987 14.6076C12.5089 14.8773 13.1269 14.7272 13.4535 14.4623C13.7825 14.1956 13.9103 13.8544 13.9103 13.8544L13.9316 13.7995L16.194 2.12488C16.2582 1.83682 16.2746 1.56706 16.2037 1.30524C16.1306 1.04026 15.9618 0.812356 15.7305 0.666243C15.5363 0.547302 15.311 0.489893 15.084 0.501459ZM15.0228 1.7526C15.0204 1.79104 15.0276 1.78677 15.0107 1.86062V1.86733L12.7694 13.4205C12.7597 13.437 12.7434 13.473 12.6985 13.509C12.6513 13.5468 12.6137 13.5706 12.4168 13.4919L8.83586 10.7266L6.67277 12.7125L7.1272 9.78916L12.9779 4.29637C13.219 4.07055 13.1384 4.02295 13.1384 4.02295C13.1554 3.74587 12.7743 3.94178 12.7743 3.94178L5.39673 8.54535L5.3943 8.53314L1.85822 7.33388V7.33144L1.84913 7.32961C1.85533 7.32754 1.8614 7.32509 1.86731 7.32229L1.8867 7.31252L1.90548 7.30581C1.90548 7.30581 5.06287 5.96557 8.27237 4.60458C9.87924 3.92286 11.4982 3.23626 12.7434 2.70651C13.4818 2.39342 14.221 2.08216 14.961 1.77274C15.0107 1.75321 14.987 1.75321 15.0228 1.75321V1.7526Z"
                     fill="#1F1F1F"
                   />
                 </svg>
@@ -106,7 +106,7 @@
                 v-if="user.vk"
                 :href="user.vk"
                 target="_blank"
-                class="profile__main__info-layout__personal-info__contacts__item"
+                class="contacts__item"
               >
                 <svg
                   width="15"
@@ -123,7 +123,7 @@
               </a>
               <a
                 :href="`mailto:${user.email}`"
-                class="profile__main__info-layout__personal-info__contacts__item"
+                class="contacts__item"
               >
                 <svg
                   width="18"
@@ -141,14 +141,14 @@
             </div>
           </div>
         </div>
-        <div class="profile__main__info-layout">
-          <h3 class="profile__main__info-layout__title">
+        <div class="info-layout">
+          <h3 class="info-layout__title">
             Отзывы
           </h3>
-          <div class="profile__main__info-layout__reviews">
+          <div class="reviews">
             <swiper
               v-if="user.reviews ? user.reviews.length > 0 : false"
-              class="profile__main__info-layout__reviews__swiper"
+              class="reviews__swiper"
               :modules="modules"
               :slides-per-view="2"
               :space-between="16"
@@ -158,7 +158,7 @@
               <swiper-slide
                 v-for="review in user.reviews"
                 :key="review.id"
-                class="profile__main__info-layout__reviews__swiper__slide"
+                class="reviews__slide"
               >
                 <UserReview :review="review" />
               </swiper-slide>
@@ -198,7 +198,7 @@
         </div>
       </section>
 
-      <section class="profile__main__active-adv">
+      <section class="main__active-adv">
         <Advertisment
           :active-publ="true"
           :publications="active"
@@ -286,7 +286,7 @@ export default {
   opacity: 0;
 }
 
-.profile__nav {
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -301,18 +301,18 @@ export default {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
 
-    &__all-publicity {
-      @include defineBtnPrimary(15px, 68px, 12px, 27px);
-    }
+  &__all-publicity {
+    @include defineBtnPrimary(15px, 68px, 12px, 27px);
+  }
 
-    &__new-publicity {
-      @include defineBtnAccent(15px, 68px, 12px, 27px);
-    }
+  &__new-publicity {
+    @include defineBtnAccent(15px, 68px, 12px, 27px);
   }
 }
 
-.profile__main {
+.main {
   display: flex;
   flex-direction: column;
   margin-bottom: 4rem;
@@ -323,112 +323,112 @@ export default {
     justify-content: stretch;
     gap: 1.5rem;
     margin-bottom: 3rem;
+  }
+}
 
-    &-layout {
-      overflow: hidden;
+.info-layout {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+
+  &__title {
+    @include defineFontMontserrat(600, 18px, 22px);
+    color: $primary;
+    margin-bottom: 1rem;
+  }
+}
+
+.personal-info {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  padding: 42px 45px;
+  border: 1px solid $filter-border;
+  box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+
+  &__name {
+    @include defineFontMontserrat(600, 18px, 22px);
+    color: $black;
+    margin-bottom: 2rem;
+  }
+
+  &__about {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  &__row {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
+
+    &:last-child {
       width: 100%;
-      display: flex;
-      align-items: stretch;
-      flex-direction: column;
-
-      &__title {
-        @include defineFontMontserrat(600, 18px, 22px);
-        color: $primary;
-        margin-bottom: 1rem;
-      }
-
-      &__personal-info {
-        position: relative;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        background: $white;
-        padding: 42px 45px;
-        border: 1px solid $filter-border;
-        box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
-        border-radius: 24px;
-
-        &__name {
-          @include defineFontMontserrat(600, 18px, 22px);
-          color: $black;
-          margin-bottom: 2rem;
-        }
-
-        &__about {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          gap: 3rem;
-          margin-bottom: 1rem;
-
-          &-flex {
-            display: flex;
-            align-items: stretch;
-            flex-direction: column;
-            gap: 1rem;
-
-            &:last-child {
-              width: 100%;
-            }
-
-            &__img {
-              width: 135px;
-              height: 135px;
-              border-radius: 50%;
-              object-fit: cover;
-            }
-
-            &__line {
-              display: flex;
-              align-items: center;
-
-              &__title {
-                @include defineFontMontserrat(600, 13px, 16px);
-                width: 100%;
-              }
-
-              &__text {
-                @include defineFontMontserrat(400, 13px, 16px);
-                width: 100%;
-
-                &.inactive {
-                  color: $black-inactive;
-                }
-              }
-            }
-          }
-        }
-
-        &__contacts {
-          width: 100%;
-          max-width: 135px;
-          align-self: flex-start;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-        }
-      }
-
-      &__reviews {
-        position: relative;
-        height: 100%;
-        background: $white;
-        padding: 35px 50px;
-        border: 1px solid $filter-border;
-        box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
-        border-radius: 24px;
-
-        &__swiper {
-          position: static;
-
-          &__slide {
-            align-self: stretch;
-            height: auto;
-          }
-        }
-      }
     }
+  }
+
+  &__img {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__line {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    @include defineFontMontserrat(600, 13px, 16px);
+    width: 100%;
+  }
+
+  &__text {
+    @include defineFontMontserrat(400, 13px, 16px);
+    width: 100%;
+
+    &.personal-info__text--inactive {
+      color: $black-inactive;
+    }
+  }
+}
+
+.contacts {
+  width: 100%;
+  max-width: 135px;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.reviews {
+  position: relative;
+  height: 100%;
+  background: $white;
+  padding: 35px 50px;
+  border: 1px solid $filter-border;
+  box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+
+  &__swiper {
+    position: static;
+  }
+
+  &__slide {
+    align-self: stretch;
+    height: auto;
   }
 }
 
@@ -500,18 +500,18 @@ export default {
 </style>
 
 <style lang="scss">
-.profile__main__info-layout__reviews__swiper .swiper-button-prev {
+.main__info-layout__reviews__swiper .swiper-button-prev {
   left: 11px;
   right: auto;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-next {
+.main__info-layout__reviews__swiper .swiper-button-next {
   left: auto;
   right: 11px;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev,
-.profile__main__info-layout__reviews__swiper .swiper-button-next {
+.main__info-layout__reviews__swiper .swiper-button-prev,
+.main__info-layout__reviews__swiper .swiper-button-next {
   position: absolute;
   top: 50%;
   width: 28px;
@@ -525,8 +525,8 @@ export default {
   color: $primary;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next::before {
+.main__info-layout__reviews__swiper .swiper-button-prev::before,
+.main__info-layout__reviews__swiper .swiper-button-next::before {
   content: "";
   position: absolute;
   background-color: $grey-light;
@@ -537,7 +537,7 @@ export default {
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev::after {
+.main__info-layout__reviews__swiper .swiper-button-prev::after {
   content: "";
   position: absolute;
   left: 12px;
@@ -549,7 +549,7 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-next::after {
+.main__info-layout__reviews__swiper .swiper-button-next::after {
   content: "";
   position: absolute;
   right: 12px;
@@ -561,24 +561,24 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::before {
+.main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::before,
+.main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::before {
   background-color: $primary-hover;
   border: none;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::after,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::after {
+.main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):hover::after,
+.main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):hover::after {
   border-color: $white;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):active::before,
-.profile__main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):active::before {
+.main__info-layout__reviews__swiper .swiper-button-prev:not(.swiper-button-disabled):active::before,
+.main__info-layout__reviews__swiper .swiper-button-next:not(.swiper-button-disabled):active::before {
   background-color: $primary-active;
   border: none;
 }
 
-.profile__main__info-layout__reviews__swiper .swiper-button-disabled {
+.main__info-layout__reviews__swiper .swiper-button-disabled {
   opacity: 0.3;
 }
 </style>
