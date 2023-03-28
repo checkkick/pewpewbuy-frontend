@@ -1,6 +1,6 @@
 <template>
   <div
-    class="nav"
+    class="nav container"
     @mouseleave="leaveBar()"
   >
     <nav class="filter">
