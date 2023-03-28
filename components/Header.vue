@@ -263,6 +263,7 @@ export default {
     cursor: pointer;
     position: relative;
     min-width: 30px;
+    margin-left: 130px;
     min-height: 28px;
     background-image: url('@/assets/img/personal.svg');
     background-size: contain;
