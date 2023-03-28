@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 
+export const media = { mobile: false };
+
 export function set(key, value) {
   Cookies.set(key, value, { expires: 30 });
 }
