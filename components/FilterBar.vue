@@ -142,6 +142,11 @@ export default {
   justify-content: space-between;
   gap: 1rem;
   margin: 0 0 2rem 0;
+
+  @media (max-width: 1300px) {
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
 }
 
 .select {
@@ -173,7 +178,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex-wrap: wrap;
   flex-grow: 1;
   gap: 0.5rem;
 
@@ -231,7 +235,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 0.5rem;
   flex-grow: 1;
 
@@ -246,5 +249,9 @@ export default {
 .sort-btn {
   cursor: pointer;
   @include defineBtnPrimary(13px, 26px, 12px, 16px);
+
+  @media (max-width: 1300px) {
+    flex-grow: 1;
+  }
 }
 </style>

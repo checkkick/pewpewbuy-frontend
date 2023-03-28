@@ -134,13 +134,22 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem 2rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 1300px) {
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
 
   &__btn-create {
     @include defineBtnAccent(15px, 68px, 18px, 19px);
     cursor: pointer;
+
+    @media (max-width: 1300px) {
+      width: 95%;
+    }
   }
 }
 
@@ -150,6 +159,10 @@ export default {
   box-shadow: 0px 13px 140px rgba(255, 255, 255, 0.72);
   border-radius: 68px;
   padding: 11px 9px;
+
+  @media (max-width: 1300px) {
+    width: 100%;
+  }
 
   &__list {
     padding: 0;

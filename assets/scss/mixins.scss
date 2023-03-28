@@ -1,5 +1,5 @@
 @mixin defineFontMontserrat($weight, $size, $lh) {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: $weight;
   font-size: $size;
   line-height: $lh;
@@ -7,7 +7,7 @@
 }
 
 @mixin defineFontSairaStencilOne($size, $lh) {
-  font-family: 'SairaStencilOne', sans-serif;
+  font-family: "SairaStencilOne", sans-serif;
   font-weight: 400;
   font-size: $size;
   line-height: $lh;
@@ -17,7 +17,7 @@
 
 @mixin defineBtnPrimary($size, $border-radius, $padding-tb, $padding-lr) {
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: $size;
   color: $white;
@@ -29,6 +29,7 @@
   outline: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:not(:disabled):hover {
@@ -43,7 +44,7 @@
 
 @mixin defineBtnAccent($size, $border-radius, $padding-tb, $padding-lr) {
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: $size;
   color: $black;
@@ -55,6 +56,7 @@
   outline: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: background-color 0.3s ease-in-out;
 
   &:not(:disabled):hover {
