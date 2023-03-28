@@ -17,6 +17,10 @@ function screenTest(e) {
   }
 }
 
-mediaQueryList.addEventListener('change', screenTest);
-screenTest(mediaQueryList);
+onMounted(() => {
+  mediaQueryList.addEventListener('change', screenTest);
+  screenTest(mediaQueryList);
+});
+
+onUnmounted(() => mediaQueryList.removeEventListener('change', screenTest));
 </script>
