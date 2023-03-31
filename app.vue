@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { media } from '@/store/cookies';
+import { media } from '@/store/globals';
 
 const mediaQueryList = window.matchMedia('(max-width: 1150px)');
 
