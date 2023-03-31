@@ -3,13 +3,16 @@
     <Header />
     <Navigation />
     <slot />
-    <Footer />
+    <Footer v-if="!mobile" />
 
     <LayoutNotifications />
   </div>
 </template>
 
-<script>
+<script setup>
+import { media } from '@/store/media';
+
+const mobile = computed(() => media().MEDIA_MOBILE);
 </script>
 
 <style lang="scss" scoped>

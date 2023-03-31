@@ -1,13 +1,19 @@
 <template>
   <div class="container">
     <main class="main">
-      <h2 class="main__title">
+      <h2
+        v-if="!mobile"
+        class="main__title"
+      >
         Доска объявлений
       </h2>
-      <h3 class="main__subtitle">
+      <h3
+        v-if="!mobile"
+        class="main__subtitle"
+      >
         Страйкбольное оружие
       </h3>
-      <FilterBar />
+      <FilterBar v-if="!mobile" />
       <section class="main__section-products">
         <ProductCard
           v-for="product in all_products"
@@ -22,16 +28,19 @@
 <script>
 import { auth } from '@/store/auth';
 import { products } from '@/store/products';
+import { media } from '@/store/media';
 
 export default {
   setup() {
     const useProductStore = products();
     const useAuthStore = auth();
+
     return {
       useAuthStore,
       useProductStore,
       all_products: computed(() => useProductStore.ALL_PRODUCTS),
       authorized: computed(() => useAuthStore.AUTHORIZED),
+      mobile: computed(() => media().MEDIA_MOBILE),
     };
   },
   async mounted() {

@@ -5,22 +5,15 @@
 </template>
 
 <script setup>
-import { media } from '@/store/globals';
+import { media } from '@/store/media';
 
 const mediaQueryList = window.matchMedia('(max-width: 1150px)');
-
-function screenTest(e) {
-  if (e.matches) {
-    media.mobile = true;
-  } else {
-    media.mobile = false;
-  }
-}
+const mediaStore = media();
 
 onMounted(() => {
-  mediaQueryList.addEventListener('change', screenTest);
-  screenTest(mediaQueryList);
+  mediaQueryList.addEventListener('change', mediaStore.CHANGE_MEDIA);
+  mediaStore.CHANGE_MEDIA(mediaQueryList);
 });
 
-onUnmounted(() => mediaQueryList.removeEventListener('change', screenTest));
+onUnmounted(() => mediaQueryList.removeEventListener('change', mediaStore.CHANGE_MEDIA));
 </script>

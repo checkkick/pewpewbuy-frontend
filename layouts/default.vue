@@ -3,7 +3,7 @@
     <Header @open-login-window="showLogin = true" />
     <Navigation />
     <slot />
-    <Footer />
+    <Footer v-if="!mobile" />
 
     <LayoutNotifications />
 
@@ -22,6 +22,7 @@
 
 <script>
 import { auth } from '@/store/auth';
+import { media } from '@/store/media';
 
 export default {
   setup() {
@@ -36,6 +37,7 @@ export default {
       authStore,
       showLogin,
       showRegister,
+      mobile: computed(() => media().MEDIA_MOBILE),
     };
   },
   watch: {
