@@ -6,8 +6,8 @@ export const media = defineStore('media', {
   }),
 
   actions: {
-    CHANGE_MEDIA(e) {
-      if (e.matches) {
+    CHANGE_MEDIA(mediaQuery) {
+      if (mediaQuery.matches) {
         this.mobile = true;
       } else {
         this.mobile = false;
