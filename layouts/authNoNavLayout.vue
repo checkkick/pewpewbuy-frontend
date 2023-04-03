@@ -1,8 +1,8 @@
 <template>
   <div class="layout">
-    <Header />
+    <HeaderDesktop />
     <slot />
-    <Footer v-if="!mobile" />
+    <FooterDesktop v-if="!mobile" />
 
     <LayoutNotifications />
   </div>

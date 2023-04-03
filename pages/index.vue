@@ -13,7 +13,7 @@
       >
         Страйкбольное оружие
       </h3>
-      <FilterBar v-if="!mobile" />
+      <FilterBarDesktop v-if="!mobile" />
       <section class="main__section-products">
         <ProductCard
           v-for="product in all_products"

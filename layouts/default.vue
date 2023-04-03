@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <Header @open-login-window="showLogin = true" />
-    <Navigation />
+    <HeaderDesktop @open-login-window="showLogin = true" />
+    <NavigationDesktop />
     <slot />
-    <Footer v-if="!mobile" />
+    <FooterDesktop v-if="!mobile" />
 
     <LayoutNotifications />
 

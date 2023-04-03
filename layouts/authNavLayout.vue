@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <Header />
-    <Navigation />
+    <HeaderDesktop />
+    <NavigationDesktop />
     <slot />
-    <Footer v-if="!mobile" />
+    <FooterDesktop v-if="!mobile" />
 
     <LayoutNotifications />
   </div>
