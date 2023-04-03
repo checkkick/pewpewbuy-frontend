@@ -57,6 +57,13 @@ html {
   --swiper-theme-color: #6f6f6f !important;
   --swiper-pagination-bullet-horizontal-gap: 3px !important;
   --swiper-pagination-bullet-size: 6px !important;
+
+  @media (max-width: 1150px) {
+    --swiper-pagination-bottom: 5px;
+    --swiper-theme-color: #4b8ff5 !important;
+    --swiper-pagination-bullet-horizontal-gap: 2px !important;
+    --swiper-pagination-bullet-size: 5px !important;
+  }
 }
 
 *,
@@ -70,4 +77,8 @@ html {
   padding: 0 70px;
   max-width: 1440px;
   margin: 0 auto;
+
+  @media (max-width: 1150px) {
+    padding: 0 30px;
+  }
 }

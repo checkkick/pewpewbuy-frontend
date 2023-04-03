@@ -1,7 +1,9 @@
 <template>
   <div class="layout">
     <HeaderDesktop />
-    <NavigationDesktop />
+    <NavigationDesktop v-if="!mobile" />
+    <NavigationMobile v-else />
+
     <slot />
     <FooterDesktop v-if="!mobile" />
 

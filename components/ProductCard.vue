@@ -1,5 +1,14 @@
 <template>
-  <div class="product-card">
+  <div
+    class="product-card"
+    @click="
+      mobile
+        ? (authorized
+          ? $router.push('/product/' + product.id)
+          : $router.push('/?login'))
+        : ''
+    "
+  >
     <swiper
       class="product-card__swiper"
       :modules="modules"
@@ -23,16 +32,35 @@
     <h4 class="product-card__title">
       {{ product.manufacturer }} {{ product.name }}
     </h4>
-    <p class="product-card__location">
+
+    <p
+      v-if="!mobile"
+      class="product-card__text"
+    >
       Местоположение: {{ product.location }}
     </p>
+    <p
+      v-else
+      class="product-card__text"
+    >
+      {{ product.location }}
+    </p>
+
     <div class="product-card__flex">
-      <p>Цена:</p>
+      <p
+        v-if="!mobile"
+        class="product-card__text"
+      >
+        Цена:
+      </p>
       <p class="product-card__price">
         {{ product.price }} р.
       </p>
     </div>
-    <div class="product-card__flex">
+    <div
+      v-if="!mobile"
+      class="product-card__flex"
+    >
       <button class="product-card__btn">
         Профиль продавца
       </button>
@@ -51,19 +79,18 @@
       v-if="authorized"
       class="product-card__like"
       :class="{ 'product-card__like--active': like }"
-      @click.prevent="onLike()"
+      @click.stop="onLike()"
     >
       <svg
         width="19"
-        height="17"
-        viewBox="0 0 19 17"
+        height="19"
+        viewBox="0 0 19 19"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M2.4273 8.83847C0.685237 6.57411 1.26592 3.17756 4.16935 2.04538C7.07279 0.913203 8.81485 3.17756 9.39553 4.30975C9.97622 3.17756 12.299 0.913203 15.2024 2.04538C18.1058 3.17756 18.1058 6.57411 16.3638 8.83847C14.6217 11.1028 9.39553 15.6316 9.39553 15.6316C9.39553 15.6316 4.16935 11.1028 2.4273 8.83847Z"
+          d="M9.99075 16.4745C9.72158 16.5695 9.27825 16.5695 9.00909 16.4745C6.71325 15.6908 1.58325 12.4212 1.58325 6.87952C1.58325 4.43327 3.5545 2.4541 5.98492 2.4541C7.42575 2.4541 8.70033 3.15077 9.49992 4.22744C10.2995 3.15077 11.582 2.4541 13.0149 2.4541C15.4453 2.4541 17.4166 4.43327 17.4166 6.87952C17.4166 12.4212 12.2866 15.6908 9.99075 16.4745Z"
           stroke="black"
-          stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
@@ -75,6 +102,7 @@
 <script>
 import { auth } from '@/store/auth';
 import { products } from '@/store/products';
+import { media } from '@/store/media';
 
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -108,6 +136,7 @@ export default {
       useProductStore,
       authorized: computed(() => useAuthStore.AUTHORIZED),
       modules: [Pagination],
+      mobile: computed(() => media().MEDIA_MOBILE),
     };
   },
   data: () => ({
@@ -140,11 +169,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: 1rem;
   justify-content: space-between;
   transition: transform 0.2s ease-in-out;
 
-  &:hover {
-    transform: translateY(-5px);
+  @media (max-width: 1150px) {
+    gap: 0.1rem;
+  }
+
+  @media (min-width: 1150px) {
+    &:hover {
+      transform: translateY(-5px);
+    }
   }
 
   &__swiper {
@@ -154,6 +190,12 @@ export default {
     padding-bottom: 25px;
     margin-bottom: 10px;
     border-radius: 11px;
+
+    @media (max-width: 1150px) {
+      max-height: 234px;
+      padding-bottom: 25px;
+      margin-bottom: 0;
+    }
   }
 
   &__slide {
@@ -174,6 +216,11 @@ export default {
 
   &__title {
     @include defineFontMontserrat(700, 15px, 1.4);
+
+    @media (max-width: 1150px) {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
   }
 
   &__flex {
@@ -184,7 +231,25 @@ export default {
     gap: 0.5rem;
   }
 
+  &__text {
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    line-height: 1.3em;
+
+    @media (max-width: 1150px) {
+      max-width: 80%;
+      font-weight: 400;
+      font-size: 15px;
+      color: $black-inactive;
+    }
+  }
+
   &__price {
+    margin: 0;
     font-weight: 700;
     font-size: 15px;
   }
@@ -222,6 +287,12 @@ export default {
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+
+    @media (max-width: 1150px) {
+      top: auto;
+      right: 0;
+      bottom: 0;
+    }
 
     &>svg {
       transition: scale 0.1s ease-in-out, fill 0.1s ease-in-out;

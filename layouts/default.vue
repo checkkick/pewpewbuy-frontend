@@ -1,7 +1,14 @@
 <template>
   <div class="layout">
-    <HeaderDesktop @open-login-window="showLogin = true" />
-    <NavigationDesktop />
+    <HeaderDesktop
+      v-if="!mobile"
+      @open-login-window="showLogin = true"
+    />
+    <HeaderMobile v-else />
+
+    <NavigationDesktop v-if="!mobile" />
+    <NavigationMobile v-else />
+
     <slot />
     <FooterDesktop v-if="!mobile" />
 
