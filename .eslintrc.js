@@ -10,7 +10,6 @@ module.exports = {
     'plugin:nuxt/recommended',
     'eslint:recommended',
     'airbnb',
-    'plugin:nuxt/recommended',
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
