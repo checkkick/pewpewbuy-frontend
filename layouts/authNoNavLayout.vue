@@ -11,6 +11,7 @@
 
 <script setup>
 import { media } from '@/store/media';
+import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
 
 const mobile = computed(() => media().MEDIA_MOBILE);
 </script>

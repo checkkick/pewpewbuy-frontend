@@ -30,8 +30,13 @@
 <script>
 import { auth } from '@/store/auth';
 import { media } from '@/store/media';
+import HeaderMobile from '@/components/mobile/HeaderMobile.vue';
+import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
 
 export default {
+  components: {
+    HeaderMobile, NavigationMobile,
+  },
   setup() {
     const authStore = auth();
     const showLogin = ref(false);
