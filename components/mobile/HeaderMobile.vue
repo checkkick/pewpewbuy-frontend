@@ -24,7 +24,9 @@
       </button>
     </header>
 
-    <CategoriesMobile v-if="showCategories" />
+    <Transition name="slide">
+      <CategoriesMobile v-if="showCategories" />
+    </Transition>
   </div>
 </template>
 
@@ -42,6 +44,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-enter-active {
+  animation: slide-in 0.5s;
+}
+
+.slide-leave-active {
+  animation: slide-in 0.5s reverse;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .header {
   padding: 1.5rem 0 0 0;
   display: flex;
