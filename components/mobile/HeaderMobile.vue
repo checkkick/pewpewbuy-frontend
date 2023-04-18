@@ -13,7 +13,10 @@
       <button class="header__sort">
         Сортировка
       </button>
-      <button class="category-btn">
+      <button
+        class="category-btn"
+        @click="showCategories = !showCategories"
+      >
         <p class="category-btn__text">
           Категории
         </p>
@@ -21,7 +24,7 @@
       </button>
     </header>
 
-    <CategoriesMobile />
+    <CategoriesMobile v-if="showCategories" />
   </div>
 </template>
 
@@ -32,7 +35,9 @@ export default {
   components: {
     CategoriesMobile,
   },
-  data: () => ({}),
+  data: () => ({
+    showCategories: false,
+  }),
 };
 </script>
 

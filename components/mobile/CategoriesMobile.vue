@@ -94,7 +94,7 @@ if (Object.keys(categories).length === 0) {
   position: fixed;
   right: 0;
   left: 0;
-  top: 6rem;
+  top: 5.5rem;
   bottom: 0;
   background-color: #E8F1FF;
   border-radius: 10px;
