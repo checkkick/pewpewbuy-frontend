@@ -141,7 +141,11 @@ export default {
     categories: {},
   }),
   async mounted() {
-    this.categories = await products().GET_CATEGORIES_ALL();
+    this.categories = products().categories;
+
+    if (Object.keys(this.categories).length === 0) {
+      this.categories = await products().GET_CATEGORIES_ALL();
+    }
   },
   methods: {
     async chooseSubCategory(name) {

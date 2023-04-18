@@ -178,7 +178,12 @@ import { products } from '@/store/products';
 export default {
   async setup() {
     const authorization = auth().CHECK_AUTH();
-    const categories = await products().GET_CATEGORIES_ALL();
+    let { categories } = products();
+
+    if (Object.keys(categories).length === 0) {
+      categories = await products().GET_CATEGORIES_ALL();
+    }
+
     const filterProducts = products().GET_CATEGORY_PRODUCTS;
     const getAllProducts = products().GET_ALL_PRODUCTS;
 
@@ -257,6 +262,7 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
+  z-index: 999;
   position: fixed;
   bottom: 0;
   right: 0;
