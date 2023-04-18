@@ -20,11 +20,18 @@
         <span class="category-btn__burger" />
       </button>
     </header>
+
+    <CategoriesMobile />
   </div>
 </template>
 
 <script>
+import CategoriesMobile from './CategoriesMobile.vue';
+
 export default {
+  components: {
+    CategoriesMobile,
+  },
   data: () => ({}),
 };
 </script>
