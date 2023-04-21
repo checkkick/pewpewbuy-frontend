@@ -25,7 +25,10 @@
     </header>
 
     <Transition name="slide">
-      <CategoriesMobile v-if="showCategories" />
+      <CategoriesMobile
+        v-show="showCategories"
+        @close="showCategories = !showCategories"
+      />
     </Transition>
   </div>
 </template>
