@@ -13,16 +13,14 @@
     "@pinia/nuxt": "^0.3.1",
     "@types/node": "^18.13.0",
     "@typescript-eslint/parser": "^5.30.7",
+    "@volar-plugins/vetur": "^2.0.0",
     "eslint": "^8.34.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-nuxt": "^1.0.1",
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-vue": "^9.9.0",
     "nuxt": "3.2.0",
-    "sass": "^1.54.0"
-  },
-  "dependencies": {
-    "@volar-plugins/vetur": "latest",
+    "sass": "^1.54.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "pinia": "^2.0.30",
