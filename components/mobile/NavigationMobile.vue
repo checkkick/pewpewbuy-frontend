@@ -106,10 +106,9 @@
         </button>
       </li>
       <li class="nav__item">
-        <a
+        <NuxtLink
           class="nav__link"
-          href="#"
-          @click.prevent
+          to="/?slug="
         >
           <svg
             width="22"
@@ -133,8 +132,10 @@
               stroke-linejoin="round"
             />
           </svg>
-          <p class="nav__text">Главная</p>
-        </a>
+          <p class="nav__text">
+            Главная
+          </p>
+        </NuxtLink>
       </li>
       <li class="nav__item">
         <a
@@ -194,11 +195,6 @@ export default {
       getAllProducts,
     };
   },
-  data: () => ({
-    showSubFilter: false,
-    chooseFilter: '',
-    chooseSubfilter: {},
-  }),
   watch: {
     '$route.query.slug': {
       async handler() {
@@ -211,50 +207,15 @@ export default {
     await this.loadproductsFromSlug();
   },
   methods: {
-    chooseSubCategory(item) {
-      if (this.chooseSubfilter === item) {
-        this.$router.push('/?slug=');
-      } else {
-        this.chooseSubfilter = item;
-        this.showSubFilter = false;
-        this.$router.push(`/?slug=${item.slug}`);
-      }
-    },
     async loadproductsFromSlug() {
       if (Object.hasOwn(this.$route.query, 'slug')) {
         if (this.$route.query.slug) {
-          let itemCategory = {};
-
-          Object.keys(this.categories).forEach((iterator) => {
-            const tempIteration = this.categories[iterator].find(
-              (item) => item.slug === this.$route.query.slug,
-            );
-
-            if (tempIteration) {
-              itemCategory = tempIteration;
-            }
-          });
-
-          this.chooseFilter = itemCategory.parent_category.name;
-          this.chooseSubfilter = itemCategory;
-
           await this.filterProducts(this.$route.query.slug);
         } else {
-          this.chooseSubfilter = '';
-          this.chooseFilter = '';
-          this.showSubFilter = false;
           await this.getAllProducts();
           this.$router.push('/');
         }
       }
-    },
-    leaveBar() {
-      if (Object.keys(this.chooseSubfilter).length > 0) {
-        this.chooseFilter = this.chooseSubfilter.parent_category.name;
-      } else {
-        this.chooseFilter = '';
-      }
-      this.showSubFilter = false;
     },
   },
 };
