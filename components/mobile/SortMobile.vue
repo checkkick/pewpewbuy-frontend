@@ -29,8 +29,10 @@
         :class="{ 'sort__link--active': showPopular }"
         @click.prevent="showPopular = !showPopular"
       >
-        Популярность
+        <p class="sort__text">Популярность</p>
+
         <svg
+          v-if="!popularSwitcher"
           width="19"
           height="19"
           viewBox="0 0 19 19"
@@ -46,6 +48,16 @@
             stroke-linejoin="round"
           />
         </svg>
+        <div
+          v-else
+          class="chosen"
+        >
+          <p class="chosen__text">({{ popularSwitcher }})</p>
+          <button
+            class="chosen__clear"
+            @click.stop="popularSwitcher = ''"
+          />
+        </div>
       </a>
       <ul
         v-if="showPopular"
@@ -72,8 +84,10 @@
         :class="{ 'sort__link--active': showTime }"
         @click.prevent="showTime = !showTime"
       >
-        Время добавления
+        <p class="sort__text">Время добавления</p>
+
         <svg
+          v-if="!timeSwitcher"
           width="19"
           height="19"
           viewBox="0 0 19 19"
@@ -89,6 +103,17 @@
             stroke-linejoin="round"
           />
         </svg>
+        <div
+          v-else
+          class="chosen"
+        >
+          <p class="chosen__text">({{ timeSwitcher }})</p>
+          <button
+            class="chosen__clear"
+            @click.stop="timeSwitcher = ''"
+          />
+        </div>
+
       </a>
       <ul
         v-if="showTime"
@@ -202,6 +227,11 @@ function clearSort() {
     }
   }
 
+  &__text {
+    margin: 0;
+    padding: 0;
+  }
+
   &__btn {
     @include defineBtnPrimary(20px, 10px, 13px, 41px);
     margin-bottom: 36px;
@@ -239,6 +269,24 @@ function clearSort() {
       color: $primary;
       background: url('@/assets/img/sort-mobile-check.svg') no-repeat right center;
     }
+  }
+}
+
+.chosen {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  &__text {
+    @include defineFontMontserrat(500, 15px, 18px);
+    color: $primary;
+  }
+
+  &__clear {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: url('@/assets/img/sort-mobile-clear.svg') no-repeat center center;
   }
 }
 </style>
