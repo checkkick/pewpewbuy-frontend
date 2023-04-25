@@ -19,11 +19,14 @@
     "eslint-import-resolver-nuxt": "^1.0.1",
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-vue": "^9.9.0",
-    "nuxt": "3.2.0",
-    "sass": "^1.54.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
+    "nuxt": "3.2.0",
     "pinia": "^2.0.30",
+    "sass": "^1.54.0",
     "swiper": "^9.0.5"
+  },
+  "dependencies": {
+    "esbuild": "0.17.18"
   }
 }
