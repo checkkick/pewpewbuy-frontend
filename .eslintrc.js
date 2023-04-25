@@ -28,6 +28,7 @@ module.exports = {
     'import/no-unresolved': 0,
     'vue/multi-word-component-names': 0,
     'import/prefer-default-export': 0,
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
   settings: {
     'import/resolver': {
