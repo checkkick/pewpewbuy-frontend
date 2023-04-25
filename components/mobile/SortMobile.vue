@@ -1,0 +1,244 @@
+<template>
+  <div class="sort">
+    <button
+      class="sort__close"
+      @click="emit('close')"
+    >
+      <svg
+        width="27"
+        height="27"
+        viewBox="0 0 27 27"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M25.1666 25.1667L1.83331 1.83333M25.1666 1.83333L1.83331 25.1667"
+          stroke="#1A1A1A"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+    <h4 class="sort__title">
+      Сортировка
+    </h4>
+    <div class="sort__item">
+      <a
+        class="sort__link"
+        href="#"
+        :class="{ 'sort__link--active': showPopular }"
+        @click.prevent="showPopular = !showPopular"
+      >
+        Популярность
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 19 19"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.5625 7.125L9.5 13.0625L15.4375 7.125"
+            stroke="black"
+            stroke-opacity="0.87"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+      <ul
+        v-if="showPopular"
+        class="list"
+      >
+        <li
+          v-for="(item, idx) in popularArray"
+          :key="idx"
+          class="list__item"
+        >
+          <a
+            href="#"
+            class="list__link"
+            :class="{ 'list__link--active': popularSwitcher === item }"
+            @click.prevent="popularSwitcher = item"
+          >{{ item }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sort__item">
+      <a
+        class="sort__link"
+        href="#"
+        :class="{ 'sort__link--active': showTime }"
+        @click.prevent="showTime = !showTime"
+      >
+        Время добавления
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 19 19"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.5625 7.125L9.5 13.0625L15.4375 7.125"
+            stroke="black"
+            stroke-opacity="0.87"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+      <ul
+        v-if="showTime"
+        class="list"
+      >
+        <li
+          v-for="(item, idx) in timeArray"
+          :key="idx"
+          class="list__item"
+        >
+          <a
+            href="#"
+            class="list__link"
+            :class="{ 'list__link--active': timeSwitcher === item }"
+            @click.prevent="timeSwitcher = item"
+          >{{ item }}</a>
+        </li>
+      </ul>
+    </div>
+    <button class="sort__btn">
+      Готово
+    </button>
+    <a
+      class="sort__clear"
+      href="#"
+      @click.prevent="clearSort"
+    >Сбросить</a>
+  </div>
+</template>
+
+<script setup>
+const showPopular = ref(false);
+const popularArray = ['по возрастанию', 'по убыванию'];
+const popularSwitcher = ref('');
+
+const showTime = ref(false);
+const timeArray = ['неделю назад', 'две недели назад', 'месяц назад', 'два месяца назад'];
+const timeSwitcher = ref('');
+
+const emit = defineEmits(['close']);
+
+function clearSort() {
+  popularSwitcher.value = '';
+  timeSwitcher.value = '';
+}
+</script>
+
+<style lang="scss" scoped>
+.sort {
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 55px 20px 140px;
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: $mobile-modal;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  &__title {
+    @include defineFontMontserrat(700, 24px, 29px);
+    color: $black;
+    margin-bottom: 45px;
+  }
+
+  &__item {
+    width: 100%;
+    max-width: 480px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #C4DBFF;
+
+    &:nth-child(4) {
+      border: none;
+      padding: 25px 0 0 0;
+      margin-bottom: 55px;
+    }
+  }
+
+  &__link {
+    @include defineFontMontserrat(600, 16px, 20px);
+    text-decoration: none;
+    color: $black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & svg {
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &--active {
+      margin-bottom: 11px;
+
+      & svg {
+        transform: rotate(180deg)
+      }
+    }
+  }
+
+  &__btn {
+    @include defineBtnPrimary(20px, 10px, 13px, 41px);
+    margin-bottom: 36px;
+  }
+
+  &__clear {
+    @include defineFontMontserrat(600, 13px, 16px);
+    color: $black;
+  }
+}
+
+.list {
+  list-style: none;
+  padding: 16px 27px;
+  margin: 0;
+  background-color: $white;
+  border-radius: 8px;
+
+  &__item {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    @include defineFontMontserrat(600, 15px, 18px);
+    text-decoration: none;
+    color: $black;
+
+    &--active {
+      color: $primary;
+      background: url('@/assets/img/sort-mobile-check.svg') no-repeat right center;
+    }
+  }
+}
+</style>

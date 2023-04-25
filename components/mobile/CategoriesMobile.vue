@@ -123,7 +123,7 @@ function chooseSubFilter(item) {
   left: 0;
   top: 5.5rem;
   bottom: 0;
-  background-color: #e8f1ff;
+  background-color: $mobile-modal;
   border-radius: 10px;
 
   &__container {

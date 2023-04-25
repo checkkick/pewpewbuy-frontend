@@ -10,7 +10,10 @@
       <button class="header__filter">
         Фильтры
       </button>
-      <button class="header__sort">
+      <button
+        class="header__sort"
+        @click="showSort = !showSort"
+      >
         Сортировка
       </button>
       <button
@@ -30,18 +33,28 @@
         @close="showCategories = !showCategories"
       />
     </Transition>
+
+    <Transition name="popup">
+      <SortMobile
+        v-show="showSort"
+        @close="showSort = false"
+      />
+    </Transition>
   </div>
 </template>
 
 <script>
 import CategoriesMobile from './CategoriesMobile.vue';
+import SortMobile from './SortMobile.vue';
 
 export default {
   components: {
     CategoriesMobile,
+    SortMobile,
   },
   data: () => ({
     showCategories: false,
+    showSort: false,
   }),
 };
 </script>
@@ -64,6 +77,26 @@ export default {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+.popup-enter-active {
+  animation: popup-in 0.5s;
+}
+
+.popup-leave-active {
+  animation: popup-in 0.5s reverse;
+}
+
+@keyframes popup-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
