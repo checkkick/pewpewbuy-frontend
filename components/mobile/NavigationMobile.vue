@@ -198,12 +198,7 @@ import { clients } from '@/store/clients';
 export default {
   async setup() {
     const authorization = await auth().CHECK_AUTH();
-    let { categories } = products();
     const clientsStore = clients();
-
-    if (Object.keys(categories).length === 0) {
-      categories = await products().GET_CATEGORIES_ALL();
-    }
 
     const filterProducts = products().GET_CATEGORY_PRODUCTS;
     const getAllProducts = products().GET_ALL_PRODUCTS;
@@ -211,7 +206,6 @@ export default {
     return {
       clientsStore,
       authorization,
-      categories,
       filterProducts,
       getAllProducts,
     };
