@@ -133,7 +133,10 @@
         </li>
       </ul>
     </div>
-    <button class="sort__btn">
+    <button
+      class="sort__btn"
+      @click="getFilteredProducts"
+    >
       Готово
     </button>
     <a
@@ -145,6 +148,8 @@
 </template>
 
 <script setup>
+import { products } from '@/store/products';
+
 const showPopular = ref(false);
 const popularArray = ['по возрастанию', 'по убыванию'];
 const popularSwitcher = ref('');
@@ -155,9 +160,27 @@ const timeSwitcher = ref('');
 
 const emit = defineEmits(['close']);
 
-function clearSort() {
+async function clearSort() {
   popularSwitcher.value = '';
   timeSwitcher.value = '';
+
+  await products().GET_ALL_PRODUCTS();
+
+  emit('close');
+}
+
+async function getFilteredProducts() {
+  let filter = '';
+
+  if (popularSwitcher.value === 'по возрастанию') {
+    filter += 'ordering=+views_count';
+  } else {
+    filter += 'ordering=-views_count';
+  }
+
+  await products().GET_FILTRED_PRODUCTS(filter);
+
+  emit('close');
 }
 </script>
 
