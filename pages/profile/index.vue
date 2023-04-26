@@ -293,13 +293,13 @@ export default {
       layout: 'auth-no-nav-layout',
     });
 
-    const store = auth();
+    const authStore = auth();
     const clientsStore = clients();
     return {
-      store,
+      authStore,
       clientsStore,
       modules: [Navigation, Pagination],
-      authorized: computed(() => store.AUTHORIZED),
+      authorized: computed(() => authStore.AUTHORIZED),
       user: computed(() => clientsStore.USER_STATE),
       noImage: noPhoto,
     };
@@ -327,7 +327,7 @@ export default {
     },
   },
   async mounted() {
-    await this.store.CHECK_AUTH();
+    await this.authStore.CHECK_AUTH();
 
     if (this.authorized && this.user !== {}) {
       await this.clientsStore.GET_SELF();

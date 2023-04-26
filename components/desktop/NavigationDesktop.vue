@@ -51,7 +51,7 @@ import { products } from '@/store/products';
 
 export default {
   async setup() {
-    const authorization = auth().CHECK_AUTH();
+    const authorization = await auth().CHECK_AUTH();
     let { categories } = products();
 
     if (Object.keys(categories).length === 0) {

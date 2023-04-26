@@ -45,8 +45,8 @@ export default {
     const showLogin = ref(false);
     const showRegister = ref(false);
 
-    onMounted(() => {
-      authStore.CHECK_AUTH();
+    onMounted(async () => {
+      await authStore.CHECK_AUTH();
     });
     return {
       authStore,
