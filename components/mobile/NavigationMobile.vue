@@ -35,6 +35,7 @@
       </li>
       <li class="nav__item">
         <a
+          :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query)[0] === 'favorites' }"
           class="nav__link"
           href="#"
           @click.prevent="$router.push('/profile?favorites')"
@@ -110,6 +111,7 @@
       </li>
       <li class="nav__item">
         <NuxtLink
+          :class="{ 'nav__link--active': $route.path === '/' }"
           class="nav__link"
           to="/?slug="
         >
@@ -143,6 +145,7 @@
       <li class="nav__item">
         <a
           v-if="authorization"
+          :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query).length === 0 }"
           class="nav__link"
           href="#"
           @click.prevent="$router.push('/profile')"
@@ -284,6 +287,19 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 5px;
+
+    &--active {
+      color: $accent-dark;
+    }
+
+    &--active svg path {
+      stroke: $accent-dark;
+    }
+
+    &--active .nav__image {
+      outline-offset: 1px;
+      outline: 2px solid $accent-dark;
+    }
   }
 
   &__image {
