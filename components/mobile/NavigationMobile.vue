@@ -37,7 +37,7 @@
         <a
           class="nav__link"
           href="#"
-          @click.prevent
+          @click.prevent="$router.push('/profile?favorites')"
         >
           <svg
             width="23"
@@ -58,7 +58,10 @@
         </a>
       </li>
       <li class="nav__item">
-        <button class="nav__btn">
+        <button
+          class="nav__btn"
+          @click="authorization ? $router.push('/profile?addproduct') : $router.push('/?login')"
+        >
           <svg
             width="25"
             height="25"
@@ -139,6 +142,20 @@
       </li>
       <li class="nav__item">
         <a
+          v-if="authorization"
+          class="nav__link"
+          href="#"
+          @click.prevent="$router.push('/profile')"
+        >
+          <img
+            class="nav__image"
+            :src="clientsStore.USER_STATE.avatar ? clientsStore.USER_STATE.avatar : noImage"
+            alt="user avatar"
+          >
+          <p class="nav__text">{{ userName }}</p>
+        </a>
+        <a
+          v-else
           class="nav__link"
           href="#"
           @click.prevent
@@ -173,13 +190,16 @@
 </template>
 
 <script>
+import noPhoto from '@/assets/img/no-photo.png';
 import { auth } from '@/store/auth';
 import { products } from '@/store/products';
+import { clients } from '@/store/clients';
 
 export default {
   async setup() {
-    const authorization = auth().CHECK_AUTH();
+    const authorization = await auth().CHECK_AUTH();
     let { categories } = products();
+    const clientsStore = clients();
 
     if (Object.keys(categories).length === 0) {
       categories = await products().GET_CATEGORIES_ALL();
@@ -189,12 +209,17 @@ export default {
     const getAllProducts = products().GET_ALL_PRODUCTS;
 
     return {
+      clientsStore,
       authorization,
       categories,
       filterProducts,
       getAllProducts,
     };
   },
+  data: () => ({
+    noImage: noPhoto,
+    userName: '',
+  }),
   watch: {
     '$route.query.slug': {
       async handler() {
@@ -205,6 +230,10 @@ export default {
   },
   async mounted() {
     await this.loadproductsFromSlug();
+
+    if (this.authorization && this.clientsStore.USER_STATE !== {}) {
+      this.clientsStore.GET_SELF().then(() => this.createProfileName());
+    }
   },
   methods: {
     async loadproductsFromSlug() {
@@ -215,6 +244,17 @@ export default {
           await this.getAllProducts();
           this.$router.push('/');
         }
+      }
+    },
+    createProfileName() {
+      if (this.clientsStore.USER_STATE.first_name) {
+        this.userName += this.clientsStore.USER_STATE.first_name[0];
+      } else if (this.clientsStore.USER_STATE.last_name) {
+        this.userName += this.clientsStore.USER_STATE.last_name[0];
+      }
+
+      if (this.userName.length === 0) {
+        this.userName = 'Профиль';
       }
     },
   },
@@ -250,6 +290,12 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 5px;
+  }
+
+  &__image {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
   }
 
   &__text {
