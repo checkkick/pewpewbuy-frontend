@@ -111,7 +111,7 @@
       </li>
       <li class="nav__item">
         <NuxtLink
-          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' }"
+          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' && !showLogin && !showRegister }"
           class="nav__link"
           to="/?slug="
         >
@@ -161,7 +161,7 @@
           v-else
           class="nav__link"
           href="#"
-          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] === 'login' }"
+          :class="{ 'nav__link--active': ($route.path === '/' && Object.keys($route.query)[0] === 'login') || showLogin || showRegister }"
           @click.prevent="$router.push('/?login')"
         >
           <svg
@@ -200,6 +200,10 @@ import { products } from '@/store/products';
 import { clients } from '@/store/clients';
 
 export default {
+  props: {
+    showLogin: { type: Boolean, default: false },
+    showRegister: { type: Boolean, default: false },
+  },
   async setup() {
     const authorization = await auth().CHECK_AUTH();
     const clientsStore = clients();

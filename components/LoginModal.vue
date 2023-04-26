@@ -88,7 +88,7 @@
       <p class="modal-window__text">
         Еще нет личного кабинета?
         <a
-          href="#"
+          href="?login"
           class="modal-window__text modal-window__text--link"
           @click.prevent="$emit('openRegisterWindow')"
         >

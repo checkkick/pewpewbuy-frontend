@@ -5,9 +5,25 @@
         class="modal-window__close"
         @click="closeWindow"
       />
-      <h2 class="modal-window__title">
+      <h2
+        v-if="!mobile"
+        class="modal-window__title"
+      >
         Зарегистрироваться
       </h2>
+      <h2
+        v-else
+        class="modal-window__title"
+      >
+        Регистрация
+      </h2>
+
+      <p
+        v-if="mobile"
+        class="modal-window__text modal-window__text--margin"
+      >
+        Зарегистрируйтесь, чтобы вы могли размещать и просматривать объявления
+      </p>
 
       <label
         class="modal-window__label"
@@ -20,7 +36,7 @@
         type="email"
         name="email"
         :disabled="sended"
-        placeholder="yourmail@gmail.com"
+        :placeholder="mobile ? 'Email' : 'yourmail@gmail.com'"
         @keypress.enter="check_mail()"
       >
 
@@ -49,7 +65,7 @@
         class="modal-window__input"
         name="password"
         :type="showPwd ? 'text' : 'password'"
-        placeholder="****"
+        :placeholder="mobile ? 'Код-пароль' : '****'"
         @keypress.enter="confirm_mail()"
       >
 
@@ -90,7 +106,7 @@
       <p class="modal-window__text">
         Уже есть личный кабинет?
         <a
-          href="#"
+          href="?login"
           class="modal-window__text modal-window__text--link"
           @click.prevent="$emit('openLoginWindow')"
         >
@@ -104,15 +120,19 @@
 <script>
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
+import { media } from '@/store/media';
 
 export default {
   emits: ['closeRegisterWindow', 'openLoginWindow'],
   setup() {
     const store = auth();
     const clientsStore = clients();
+    const { mobile } = media();
+
     return {
       store,
       clientsStore,
+      mobile,
     };
   },
   data: () => ({
@@ -175,6 +195,12 @@ export default {
   right: 0;
   bottom: 0;
   background: $modal-dark-background;
+
+  @media (max-width: 1150px) {
+    z-index: 90;
+    top: 6rem;
+    background: transparent;
+  }
 }
 
 .modal-window {
@@ -188,6 +214,14 @@ export default {
   border-radius: 38px;
   padding: 50px 60px;
 
+  @media (max-width: 1150px) {
+    justify-content: center;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
   &__close {
     cursor: pointer;
     position: absolute;
@@ -195,6 +229,10 @@ export default {
     height: 20px;
     top: 41px;
     right: 41px;
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
 
     &::before {
       content: '';
@@ -221,6 +259,12 @@ export default {
     cursor: pointer;
     @include defineBtnPrimary(15px, 9px, 17px, 66px);
     margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      font-size: 18px;
+      margin-bottom: 7rem;
+      padding: 15px 48px;
+    }
   }
 
   &__input {
@@ -232,6 +276,13 @@ export default {
     padding: 16px 18px;
     align-self: stretch;
     margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      align-self: center;
+      width: 470px;
+      font-size: 20px;
+      line-height: 23px;
+    }
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
@@ -248,12 +299,23 @@ export default {
     margin: 0;
     color: $black;
     margin-bottom: 2rem;
+
+    @media (max-width: 1150px) {
+      font-size: 24px;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      color: $primary;
+    }
   }
 
   &__label {
     @include defineFontMontserrat(400, 15px, 17px);
     align-self: flex-start;
     margin-bottom: 3px;
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
   }
 
   &__link {
@@ -269,6 +331,11 @@ export default {
     margin: 0;
     color: $black;
     text-align: center;
+
+    @media (max-width: 1150px) {
+      max-width: 470px;
+      font-size: 18px;
+    }
 
     &.modal-window__text--margin {
       margin-bottom: 20px;
@@ -289,8 +356,18 @@ export default {
   justify-content: space-between;
   margin-bottom: 3px;
 
+  @media (max-width: 1150px) {
+    margin-bottom: 0.5rem;
+    width: 450px;
+    justify-content: flex-end;
+  }
+
   &__label {
     @include defineFontMontserrat(400, 15px, 17px);
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
   }
 
   &__show {

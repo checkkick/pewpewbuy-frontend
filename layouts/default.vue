@@ -7,7 +7,11 @@
     <HeaderMobile v-else />
 
     <NavigationDesktop v-if="!mobile" />
-    <NavigationMobile v-else />
+    <NavigationMobile
+      v-else
+      :show-login="showLogin"
+      :show-register="showRegister"
+    />
 
     <slot />
     <FooterDesktop v-if="!mobile" />
