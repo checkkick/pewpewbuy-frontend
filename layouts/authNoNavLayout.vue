@@ -12,6 +12,8 @@
 <script setup>
 import { media } from '@/store/media';
 import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
+import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
+import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
 
 const mobile = computed(() => media().MEDIA_MOBILE);
 </script>

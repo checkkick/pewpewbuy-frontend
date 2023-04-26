@@ -32,10 +32,13 @@ import { auth } from '@/store/auth';
 import { media } from '@/store/media';
 import HeaderMobile from '@/components/mobile/HeaderMobile.vue';
 import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
+import NavigationDesktop from '@/components/desktop/NavigationDesktop.vue';
+import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
+import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
 
 export default {
   components: {
-    HeaderMobile, NavigationMobile,
+    HeaderMobile, NavigationMobile, NavigationDesktop, HeaderDesktop, FooterDesktop,
   },
   setup() {
     const authStore = auth();

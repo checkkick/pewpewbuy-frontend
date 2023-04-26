@@ -29,8 +29,10 @@
 import { auth } from '@/store/auth';
 import { products } from '@/store/products';
 import { media } from '@/store/media';
+import FilterBarDesktop from '@/components/desktop/FilterBarDesktop.vue';
 
 export default {
+  components: { FilterBarDesktop },
   setup() {
     const useProductStore = products();
     const useAuthStore = auth();
