@@ -201,6 +201,7 @@ export default {
   margin: 100px;
 
   @media (max-width: 1150px) {
+    border-radius: 0;
     justify-content: center;
     max-width: none;
     width: 100%;

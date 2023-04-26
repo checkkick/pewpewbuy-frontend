@@ -215,6 +215,7 @@ export default {
   padding: 50px 60px;
 
   @media (max-width: 1150px) {
+    border-radius: 0;
     justify-content: center;
     max-width: none;
     width: 100%;
