@@ -117,11 +117,11 @@ function chooseSubFilter(item) {
 
 <style lang="scss" scoped>
 .categories {
-  z-index: 100;
+  z-index: 101;
   position: fixed;
   right: 0;
   left: 0;
-  top: 5.5rem;
+  top: 6rem;
   bottom: 0;
   background-color: $mobile-modal;
   border-radius: 10px;

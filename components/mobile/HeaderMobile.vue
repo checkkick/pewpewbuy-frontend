@@ -1,46 +1,44 @@
 <template>
-  <div class="container">
-    <header class="header">
-      <NuxtLink
-        class="header__logo"
-        to="/?slug="
-      >
-        PEWPEW BUY
-      </NuxtLink>
-      <button class="header__filter">
-        Фильтры
-      </button>
-      <button
-        class="header__sort"
-        @click="showSort = !showSort"
-      >
-        Сортировка
-      </button>
-      <button
-        class="category-btn"
-        @click="showCategories = !showCategories"
-      >
-        <p class="category-btn__text">
-          Категории
-        </p>
-        <span class="category-btn__burger" />
-      </button>
-    </header>
+  <header class="header">
+    <NuxtLink
+      class="header__logo"
+      to="/?slug="
+    >
+      PEWPEW BUY
+    </NuxtLink>
+    <button class="header__filter">
+      Фильтры
+    </button>
+    <button
+      class="header__sort"
+      @click="showSort = !showSort"
+    >
+      Сортировка
+    </button>
+    <button
+      class="category-btn"
+      @click="showCategories = !showCategories"
+    >
+      <p class="category-btn__text">
+        Категории
+      </p>
+      <span class="category-btn__burger" />
+    </button>
+  </header>
 
-    <Transition name="slide">
-      <CategoriesMobile
-        v-show="showCategories"
-        @close="showCategories = !showCategories"
-      />
-    </Transition>
+  <Transition name="slide">
+    <CategoriesMobile
+      v-show="showCategories"
+      @close="showCategories = !showCategories"
+    />
+  </Transition>
 
-    <Transition name="popup">
-      <SortMobile
-        v-show="showSort"
-        @close="showSort = false"
-      />
-    </Transition>
-  </div>
+  <Transition name="popup">
+    <SortMobile
+      v-show="showSort"
+      @close="showSort = false"
+    />
+  </Transition>
 </template>
 
 <script>
@@ -101,7 +99,9 @@ export default {
 }
 
 .header {
-  padding: 1.5rem 0 0 0;
+  position: static;
+  z-index: 999;
+  padding: 1.5rem 30px 0 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -111,7 +111,7 @@
       </li>
       <li class="nav__item">
         <NuxtLink
-          :class="{ 'nav__link--active': $route.path === '/' }"
+          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' }"
           class="nav__link"
           to="/?slug="
         >
@@ -161,7 +161,8 @@
           v-else
           class="nav__link"
           href="#"
-          @click.prevent
+          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] === 'login' }"
+          @click.prevent="$router.push('/?login')"
         >
           <svg
             width="23"

@@ -5,8 +5,17 @@
         class="modal-window__close"
         @click="closeWindow"
       />
-      <h2 class="modal-window__title">
+      <h2
+        v-if="!mobile"
+        class="modal-window__title"
+      >
         Войти в личный кабинет
+      </h2>
+      <h2
+        v-else
+        class="modal-window__title"
+      >
+        Войдите в ЛК
       </h2>
 
       <label
@@ -20,7 +29,7 @@
         class="modal-window__input"
         type="email"
         name="email"
-        placeholder="yourmail@gmail.com"
+        :placeholder="mobile ? 'Email' : 'yourmail@gmail.com'"
         @keypress.enter="send_code()"
       >
 
@@ -49,7 +58,7 @@
         class="modal-window__input"
         name="password"
         :type="showPwd ? 'text' : 'password'"
-        placeholder="****"
+        :placeholder="mobile ? 'Код-пароль' : '****'"
         @keypress.enter="login()"
       >
 
@@ -93,15 +102,19 @@
 <script>
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
+import { media } from '@/store/media';
 
 export default {
   emits: ['closeLoginWindow', 'openRegisterWindow'],
   setup() {
     const store = auth();
     const clientsStore = clients();
+    const { mobile } = media();
+
     return {
       store,
       clientsStore,
+      mobile,
     };
   },
   data: () => ({
@@ -168,6 +181,12 @@ export default {
   right: 0;
   bottom: 0;
   background: $modal-dark-background;
+
+  @media (max-width: 1150px) {
+    z-index: 90;
+    top: 6rem;
+    background: transparent;
+  }
 }
 
 .modal-window {
@@ -181,6 +200,14 @@ export default {
   padding: 50px 60px;
   margin: 100px;
 
+  @media (max-width: 1150px) {
+    justify-content: center;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
   &__close {
     cursor: pointer;
     position: absolute;
@@ -188,6 +215,10 @@ export default {
     height: 20px;
     top: 41px;
     right: 41px;
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
 
     &::before {
       content: '';
@@ -214,6 +245,12 @@ export default {
     cursor: pointer;
     @include defineBtnPrimary(15px, 9px, 17px, 66px);
     margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      font-size: 18px;
+      margin-bottom: 7rem;
+      padding: 15px 48px;
+    }
   }
 
   &__input {
@@ -226,6 +263,13 @@ export default {
     align-self: stretch;
     margin-bottom: 1rem;
     color: $input-login-color;
+
+    @media (max-width: 1150px) {
+      align-self: center;
+      width: 470px;
+      font-size: 20px;
+      line-height: 23px;
+    }
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
@@ -242,12 +286,23 @@ export default {
     margin: 0;
     color: $black;
     margin-bottom: 2rem;
+
+    @media (max-width: 1150px) {
+      font-size: 24px;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      color: $primary;
+    }
   }
 
   &__label {
     @include defineFontMontserrat(400, 15px, 17px);
     align-self: flex-start;
     margin-bottom: 3px;
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
   }
 
   &__link {
@@ -263,6 +318,10 @@ export default {
     margin: 0;
     text-align: center;
     color: $black;
+
+    @media (max-width: 1150px) {
+      font-size: 18px;
+    }
 
     &.modal-window__text--error {
       color: red;
@@ -284,8 +343,18 @@ export default {
   justify-content: space-between;
   margin-bottom: 3px;
 
+  @media (max-width: 1150px) {
+    margin-bottom: 0.5rem;
+    width: 450px;
+    justify-content: flex-end;
+  }
+
   &__label {
     @include defineFontMontserrat(400, 15px, 17px);
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
   }
 
   &__show {

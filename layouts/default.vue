@@ -64,6 +64,15 @@ export default {
       },
       deep: true,
     },
+    '$route.query.slug': {
+      handler() {
+        if (Object.hasOwn(this.$route.query, 'slug')) {
+          this.showLogin = false;
+          this.showRegister = false;
+        }
+      },
+      deep: true,
+    },
   },
   async mounted() {
     if (Object.hasOwn(this.$route.query, 'login')) {
