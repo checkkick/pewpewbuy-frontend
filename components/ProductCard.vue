@@ -1,13 +1,12 @@
 <template>
   <div
     class="product-card"
-    @click="
-      mobile
-        ? (authorized
-          ? $router.push('/product/' + product.id)
-          : $router.push('/?login'))
-        : ''
-    "
+    @click="mobile
+      ? (authorized
+        ? $router.push('/product/' + product.id)
+        : $router.push('/?login'))
+      : ''
+      "
   >
     <swiper
       class="product-card__swiper"
@@ -61,16 +60,21 @@
       v-if="!mobile"
       class="product-card__flex"
     >
-      <button class="product-card__btn">
+      <button
+        class="product-card__btn"
+        @click.prevent="authorized
+            ? $router.push('/profile/' + product.user)
+            : $router.push('/?login')
+          "
+      >
         Профиль продавца
       </button>
       <button
         class="product-card__btn product-card__btn--accent"
-        @click.prevent="
-          authorized
+        @click="authorized
             ? $router.push('/product/' + product.id)
             : $router.push('/?login')
-        "
+          "
       >
         Подробнее
       </button>
