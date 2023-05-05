@@ -171,11 +171,27 @@ async function clearSort() {
 
 async function getFilteredProducts() {
   let filter = '';
+  const currentDate = new Date();
+  const filterDate = new Date();
 
   if (popularSwitcher.value === 'по возрастанию') {
-    filter += 'ordering=+views_count';
-  } else {
-    filter += 'ordering=-views_count';
+    filter += 'ordering=+views_count&';
+  } else if (popularSwitcher.value === 'по убыванию') {
+    filter += 'ordering=-views_count&';
+  }
+
+  if (timeSwitcher.value === 'неделю назад') {
+    filterDate.setDate(currentDate.getDate() - 7);
+    filter += `min_created=${filterDate.toISOString().split('T')[0]}&max_created=${currentDate.toISOString().split('T')[0]}`;
+  } else if (timeSwitcher.value === 'две недели назад') {
+    filterDate.setDate(currentDate.getDate() - 14);
+    filter += `min_created=${filterDate.toISOString().split('T')[0]}&max_created=${currentDate.toISOString().split('T')[0]}`;
+  } else if (timeSwitcher.value === 'месяц назад') {
+    filterDate.setDate(currentDate.getMonth() - 1);
+    filter += `min_created=${filterDate.toISOString().split('T')[0]}&max_created=${currentDate.toISOString().split('T')[0]}`;
+  } else if (timeSwitcher.value === 'два месяца назад') {
+    filterDate.setDate(currentDate.getMonth() - 2);
+    filter += `min_created=${filterDate.toISOString().split('T')[0]}&max_created=${currentDate.toISOString().split('T')[0]}`;
   }
 
   await products().GET_FILTRED_PRODUCTS(filter);
