@@ -198,14 +198,13 @@ export default {
 
   &__swiper {
     width: 100%;
-    height: 100%;
-    max-height: 327px;
+    height: 327px;
     padding-bottom: 25px;
     margin-bottom: 10px;
     border-radius: 11px;
 
     @media (max-width: 1150px) {
-      max-height: 234px;
+      height: 234px;
       padding-bottom: 25px;
       margin-bottom: 0;
     }
