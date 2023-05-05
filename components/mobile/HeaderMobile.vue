@@ -6,7 +6,10 @@
     >
       PEWPEW BUY
     </NuxtLink>
-    <button class="header__filter">
+    <button
+      class="header__filter"
+      @click="showFilter = !showFilter"
+    >
       Фильтры
     </button>
     <button
@@ -39,20 +42,30 @@
       @close="showSort = false"
     />
   </Transition>
+
+  <Transition name="popup">
+    <FilterMobile
+      v-show="showFilter"
+      @close="showFilter = false"
+    />
+  </Transition>
 </template>
 
 <script>
 import CategoriesMobile from './CategoriesMobile.vue';
+import FilterMobile from './FilterMobile.vue';
 import SortMobile from './SortMobile.vue';
 
 export default {
   components: {
     CategoriesMobile,
     SortMobile,
+    FilterMobile,
   },
   data: () => ({
     showCategories: false,
     showSort: false,
+    showFilter: false,
   }),
 };
 </script>
