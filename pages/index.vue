@@ -14,12 +14,28 @@
         Страйкбольное оружие
       </h3>
       <FilterBarDesktop v-if="!mobile" />
-      <section class="main__section-products">
+      <section
+        v-if="all_products.length > 0"
+        class="main__section-products"
+      >
         <ProductCard
           v-for="product in all_products"
           :key="product.id"
           :product="product"
         />
+      </section>
+      <section
+        v-else
+        class="no-found-products"
+      >
+        <img
+          class="no-found-products__image"
+          src="@/assets/img/no-found-products.svg"
+          alt="no found products"
+        >
+        <p class="no-found-products__text">
+          Такого товара не существует...
+        </p>
       </section>
     </main>
   </div>
@@ -78,6 +94,17 @@ export default {
     justify-content: stretch;
     gap: 15px;
     flex-wrap: wrap;
+  }
+}
+
+.no-found-products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__text {
+    @include defineFontMontserrat(500, 17px, 21px);
   }
 }
 </style>
