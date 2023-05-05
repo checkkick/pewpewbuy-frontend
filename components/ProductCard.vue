@@ -9,6 +9,7 @@
       "
   >
     <swiper
+      v-if="product.photo.length > 0"
       class="product-card__swiper"
       :modules="modules"
       :slides-per-view="1"
@@ -27,6 +28,14 @@
         >
       </swiper-slide>
     </swiper>
+    <div
+      v-else
+      class="product-card__swiper"
+    >
+      <p class="product-card__no-photo">
+        Фото товара отсутсвует
+      </p>
+    </div>
 
     <h4 class="product-card__title">
       {{ product.manufacturer }} {{ product.name }}
@@ -63,8 +72,8 @@
       <button
         class="product-card__btn"
         @click.prevent="authorized
-            ? $router.push('/profile/' + product.user)
-            : $router.push('/?login')
+          ? $router.push('/profile/' + product.user)
+          : $router.push('/?login')
           "
       >
         Профиль продавца
@@ -72,8 +81,8 @@
       <button
         class="product-card__btn product-card__btn--accent"
         @click="authorized
-            ? $router.push('/product/' + product.id)
-            : $router.push('/?login')
+          ? $router.push('/product/' + product.id)
+          : $router.push('/?login')
           "
       >
         Подробнее
@@ -200,6 +209,17 @@ export default {
       padding-bottom: 25px;
       margin-bottom: 0;
     }
+  }
+
+  &__no-photo {
+    @include defineFontMontserrat(500, 14px, 1.4);
+    text-align: center;
+    background-color: $filter-background;
+    border-radius: 11px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__slide {
