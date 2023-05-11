@@ -1,11 +1,21 @@
 <template>
   <div class="layout">
     <HeaderDesktop />
-    <NavigationMobile v-if="mobile" />
+    <NavigationMobile
+      v-if="mobile"
+      :show-search="showSearch"
+      @open-search="showSearch = true"
+      @close-search="showSearch = false"
+    />
     <slot />
     <FooterDesktop v-if="!mobile" />
 
     <LayoutNotifications />
+
+    <SearchMobile
+      v-if="showSearch"
+      @close-search="showSearch = false"
+    />
   </div>
 </template>
 
@@ -14,7 +24,9 @@ import { media } from '@/store/media';
 import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
 import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
 import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
+import SearchMobile from '@/components/mobile/SearchMobile.vue';
 
+const showSearch = ref(false);
 const mobile = computed(() => media().MEDIA_MOBILE);
 </script>
 

@@ -2,12 +2,22 @@
   <div class="layout">
     <HeaderDesktop />
     <NavigationDesktop v-if="!mobile" />
-    <NavigationMobile v-else />
+    <NavigationMobile
+      v-else
+      :show-search="showSearch"
+      @open-search="showSearch = true"
+      @close-search="showSearch = false"
+    />
 
     <slot />
     <FooterDesktop v-if="!mobile" />
 
     <LayoutNotifications />
+
+    <SearchMobile
+      v-if="showSearch"
+      @close-search="showSearch = false"
+    />
   </div>
 </template>
 
@@ -17,7 +27,9 @@ import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
 import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
 import NavigationDesktop from '@/components/desktop/NavigationDesktop.vue';
 import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
+import SearchMobile from '@/components/mobile/SearchMobile.vue';
 
+const showSearch = ref(false);
 const mobile = computed(() => media().MEDIA_MOBILE);
 </script>
 

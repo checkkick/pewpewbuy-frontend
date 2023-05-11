@@ -3,9 +3,10 @@
     <ul class="nav__list">
       <li class="nav__item">
         <a
+          :class="{ 'nav__link--active': showSearch }"
           class="nav__link"
           href="#"
-          @click.prevent
+          @click.prevent="$emit('openSearch')"
         >
           <svg
             width="20"
@@ -38,7 +39,7 @@
           :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query)[0] === 'favorites' }"
           class="nav__link"
           href="#"
-          @click.prevent="$router.push('/profile?favorites')"
+          @click.prevent="routerPush('/profile?favorites')"
         >
           <svg
             width="23"
@@ -61,7 +62,7 @@
       <li class="nav__item">
         <button
           class="nav__btn"
-          @click="authorization ? $router.push('/profile?addproduct') : $router.push('/?login')"
+          @click="authorization ? routerPush('/profile?addproduct') : routerPush('/?login')"
         >
           <svg
             width="25"
@@ -110,10 +111,11 @@
         </button>
       </li>
       <li class="nav__item">
-        <NuxtLink
-          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' && !showLogin && !showRegister }"
+        <a
+          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' && !showSearch && !showLogin && !showRegister }"
           class="nav__link"
-          to="/?slug="
+          href="#"
+          @click.prevent="routerPush('/?slug=')"
         >
           <svg
             width="22"
@@ -140,15 +142,15 @@
           <p class="nav__text">
             Главная
           </p>
-        </NuxtLink>
+        </a>
       </li>
       <li class="nav__item">
         <a
           v-if="authorization"
-          :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query).length === 0 }"
+          :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query).length === 0 && !showSearch }"
           class="nav__link"
           href="#"
-          @click.prevent="$router.push('/profile')"
+          @click.prevent="routerPush('/profile')"
         >
           <img
             class="nav__image"
@@ -161,8 +163,8 @@
           v-else
           class="nav__link"
           href="#"
-          :class="{ 'nav__link--active': ($route.path === '/' && Object.keys($route.query)[0] === 'login') || showLogin || showRegister }"
-          @click.prevent="$router.push('/?login')"
+          :class="{ 'nav__link--active': (($route.path === '/' && Object.keys($route.query)[0] === 'login') || showLogin || showRegister) && !showSearch }"
+          @click.prevent="routerPush('/?login')"
         >
           <svg
             width="23"
@@ -203,7 +205,9 @@ export default {
   props: {
     showLogin: { type: Boolean, default: false },
     showRegister: { type: Boolean, default: false },
+    showSearch: { type: Boolean, default: false },
   },
+  emits: ['openSearch', 'closeSearch'],
   async setup() {
     const authorization = await auth().CHECK_AUTH();
     const clientsStore = clients();
@@ -259,6 +263,13 @@ export default {
         this.userName = 'Профиль';
       }
     },
+    routerPush(path) {
+      if (this.showSearch) {
+        this.$emit('closeSearch');
+      }
+
+      this.$router.push(path);
+    },
   },
 };
 </script>
@@ -297,7 +308,8 @@ export default {
       color: $accent-dark;
     }
 
-    &--active svg path {
+    &--active svg path,
+    &--active svg ellipse {
       stroke: $accent-dark;
     }
 

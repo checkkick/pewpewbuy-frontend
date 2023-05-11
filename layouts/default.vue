@@ -9,8 +9,11 @@
     <NavigationDesktop v-if="!mobile" />
     <NavigationMobile
       v-else
+      :show-search="showSearch"
       :show-login="showLogin"
       :show-register="showRegister"
+      @open-search="showSearch = true"
+      @close-search="showSearch = false"
     />
 
     <slot />
@@ -18,6 +21,10 @@
 
     <LayoutNotifications />
 
+    <SearchMobile
+      v-if="showSearch"
+      @close-search="showSearch = false"
+    />
     <LoginModal
       v-if="showLogin"
       @close-login-window="showLogin = false"
@@ -39,15 +46,17 @@ import NavigationMobile from '@/components/mobile/NavigationMobile.vue';
 import NavigationDesktop from '@/components/desktop/NavigationDesktop.vue';
 import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
 import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
+import SearchMobile from '@/components/mobile/SearchMobile.vue';
 
 export default {
   components: {
-    HeaderMobile, NavigationMobile, NavigationDesktop, HeaderDesktop, FooterDesktop,
+    HeaderMobile, NavigationMobile, NavigationDesktop, HeaderDesktop, FooterDesktop, SearchMobile,
   },
   setup() {
     const authStore = auth();
     const showLogin = ref(false);
     const showRegister = ref(false);
+    const showSearch = ref(false);
 
     onMounted(async () => {
       await authStore.CHECK_AUTH();
@@ -56,6 +65,7 @@ export default {
       authStore,
       showLogin,
       showRegister,
+      showSearch,
       mobile: computed(() => media().MEDIA_MOBILE),
     };
   },
@@ -73,6 +83,7 @@ export default {
         if (Object.hasOwn(this.$route.query, 'slug')) {
           this.showLogin = false;
           this.showRegister = false;
+          this.showSearch = false;
         }
       },
       deep: true,
