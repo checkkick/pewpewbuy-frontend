@@ -1,6 +1,8 @@
 <template>
   <div class="layout">
-    <HeaderDesktop />
+    <HeaderDesktop v-if="!mobile" />
+    <HeaderMobile v-else />
+
     <NavigationDesktop v-if="!mobile" />
     <NavigationMobile
       v-else
@@ -28,6 +30,7 @@ import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
 import NavigationDesktop from '@/components/desktop/NavigationDesktop.vue';
 import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
 import SearchMobile from '@/components/mobile/SearchMobile.vue';
+import HeaderMobile from '@/components/mobile/HeaderMobile.vue';
 
 const showSearch = ref(false);
 const mobile = computed(() => media().MEDIA_MOBILE);
