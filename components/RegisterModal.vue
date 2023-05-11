@@ -114,6 +114,11 @@
         </a>
       </p>
     </div>
+
+    <BackButtonMobile
+      v-if="mobile"
+      @click="$emit('closeRegisterWindow'), $emit('openLoginWindow')"
+    />
   </div>
 </template>
 
@@ -121,8 +126,10 @@
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
 import { media } from '@/store/media';
+import BackButtonMobile from './mobile/BackButtonMobile.vue';
 
 export default {
+  components: { BackButtonMobile },
   emits: ['closeRegisterWindow', 'openLoginWindow'],
   setup() {
     const store = auth();
