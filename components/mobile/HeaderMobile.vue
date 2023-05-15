@@ -8,19 +8,19 @@
     </NuxtLink>
     <button
       class="header__filter"
-      @click="showFilter = !showFilter"
+      @click="showFilter = !showFilter, showSort = false, showCategories = false"
     >
       Фильтры
     </button>
     <button
       class="header__sort"
-      @click="showSort = !showSort"
+      @click="showSort = !showSort, showFilter = false, showCategories = false"
     >
       Сортировка
     </button>
     <button
       class="category-btn"
-      @click="showCategories = !showCategories"
+      @click="showCategories = !showCategories, showSort = false, showFilter = false"
     >
       <p class="category-btn__text">
         Категории
