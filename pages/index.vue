@@ -2,18 +2,18 @@
   <div class="container">
     <main class="main">
       <h2
-        v-if="!mobile"
+        v-if="!tablet"
         class="main__title"
       >
         Доска объявлений
       </h2>
       <h3
-        v-if="!mobile"
+        v-if="!tablet"
         class="main__subtitle"
       >
         Страйкбольное оружие
       </h3>
-      <FilterBarDesktop v-if="!mobile" />
+      <FilterBarDesktop v-if="!tablet" />
       <section
         v-if="all_products.length > 0"
         class="main__section-products"
@@ -58,7 +58,7 @@ export default {
       useProductStore,
       all_products: computed(() => useProductStore.ALL_PRODUCTS),
       authorized: computed(() => useAuthStore.AUTHORIZED),
-      mobile: computed(() => media().MEDIA_MOBILE),
+      tablet: computed(() => media().MEDIA_TABLET),
     };
   },
   async mounted() {

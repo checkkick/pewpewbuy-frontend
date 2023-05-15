@@ -6,7 +6,7 @@
         @click="closeWindow"
       />
       <h2
-        v-if="!mobile"
+        v-if="!tablet"
         class="modal-window__title"
       >
         Войти в личный кабинет
@@ -29,7 +29,7 @@
         class="modal-window__input"
         type="email"
         name="email"
-        :placeholder="mobile ? 'Email' : 'yourmail@gmail.com'"
+        :placeholder="tablet ? 'Email' : 'yourmail@gmail.com'"
         @keypress.enter="send_code()"
       >
 
@@ -58,7 +58,7 @@
         class="modal-window__input"
         name="password"
         :type="showPwd ? 'text' : 'password'"
-        :placeholder="mobile ? 'Код-пароль' : '****'"
+        :placeholder="tablet ? 'Код-пароль' : '****'"
         @keypress.enter="login()"
       >
 
@@ -98,7 +98,7 @@
     </div>
 
     <BackButtonMobile
-      v-if="mobile"
+      v-if="tablet"
       @click="$emit('closeLoginWindow')"
     />
   </div>
@@ -116,12 +116,12 @@ export default {
   setup() {
     const store = auth();
     const clientsStore = clients();
-    const { mobile } = media();
+    const { tablet } = media();
 
     return {
       store,
       clientsStore,
-      mobile,
+      tablet,
     };
   },
   data: () => ({

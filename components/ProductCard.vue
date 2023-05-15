@@ -1,7 +1,7 @@
 <template>
   <div
     class="product-card"
-    @click="mobile
+    @click="tablet
       ? (authorized
         ? $router.push('/product/' + product.id)
         : $router.push('/?login'))
@@ -42,7 +42,7 @@
     </h4>
 
     <p
-      v-if="!mobile"
+      v-if="!tablet"
       class="product-card__text"
     >
       Местоположение: {{ product.location }}
@@ -56,7 +56,7 @@
 
     <div class="product-card__flex">
       <p
-        v-if="!mobile"
+        v-if="!tablet"
         class="product-card__text"
       >
         Цена:
@@ -66,7 +66,7 @@
       </p>
     </div>
     <div
-      v-if="!mobile"
+      v-if="!tablet"
       class="product-card__flex"
     >
       <button
@@ -149,7 +149,7 @@ export default {
       useProductStore,
       authorized: computed(() => useAuthStore.AUTHORIZED),
       modules: [Pagination],
-      mobile: computed(() => media().MEDIA_MOBILE),
+      tablet: computed(() => media().MEDIA_TABLET),
     };
   },
   data: () => ({

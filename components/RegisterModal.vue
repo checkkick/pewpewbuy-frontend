@@ -6,7 +6,7 @@
         @click="closeWindow"
       />
       <h2
-        v-if="!mobile"
+        v-if="!tablet"
         class="modal-window__title"
       >
         Зарегистрироваться
@@ -19,7 +19,7 @@
       </h2>
 
       <p
-        v-if="mobile"
+        v-if="tablet"
         class="modal-window__text modal-window__text--margin"
       >
         Зарегистрируйтесь, чтобы вы могли размещать и просматривать объявления
@@ -36,7 +36,7 @@
         type="email"
         name="email"
         :disabled="sended"
-        :placeholder="mobile ? 'Email' : 'yourmail@gmail.com'"
+        :placeholder="tablet ? 'Email' : 'yourmail@gmail.com'"
         @keypress.enter="check_mail()"
       >
 
@@ -65,7 +65,7 @@
         class="modal-window__input"
         name="password"
         :type="showPwd ? 'text' : 'password'"
-        :placeholder="mobile ? 'Код-пароль' : '****'"
+        :placeholder="tablet ? 'Код-пароль' : '****'"
         @keypress.enter="confirm_mail()"
       >
 
@@ -116,7 +116,7 @@
     </div>
 
     <BackButtonMobile
-      v-if="mobile"
+      v-if="tablet"
       @click="$emit('closeRegisterWindow'), $emit('openLoginWindow')"
     />
   </div>
@@ -134,12 +134,12 @@ export default {
   setup() {
     const store = auth();
     const clientsStore = clients();
-    const { mobile } = media();
+    const { tablet } = media();
 
     return {
       store,
       clientsStore,
-      mobile,
+      tablet,
     };
   },
   data: () => ({

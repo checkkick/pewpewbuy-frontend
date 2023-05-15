@@ -7,13 +7,20 @@
 <script setup>
 import { media } from '@/store/media';
 
-const mediaQueryList = window.matchMedia('(max-width: 1150px)');
+const tabletQueryList = window.matchMedia('(max-width: 1150px)');
+const mobileQueryList = window.matchMedia('(max-width: 768px)');
 const mediaStore = media();
 
 onMounted(() => {
-  mediaQueryList.addEventListener('change', mediaStore.CHANGE_MEDIA);
-  mediaStore.CHANGE_MEDIA(mediaQueryList);
+  tabletQueryList.addEventListener('change', mediaStore.CHANGE_MEDIA_TABLET);
+  mediaStore.CHANGE_MEDIA_TABLET(tabletQueryList);
+
+  mobileQueryList.addEventListener('change', mediaStore.CHANGE_MEDIA_MOBILE);
+  mediaStore.CHANGE_MEDIA_MOBILE(mobileQueryList);
 });
 
-onUnmounted(() => mediaQueryList.removeEventListener('change', mediaStore.CHANGE_MEDIA));
+onUnmounted(() => {
+  tabletQueryList.removeEventListener('change', mediaStore.CHANGE_MEDIA_TABLET);
+  mobileQueryList.removeEventListener('change', mediaStore.CHANGE_MEDIA_MOBILE);
+});
 </script>

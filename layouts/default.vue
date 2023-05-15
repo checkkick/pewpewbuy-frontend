@@ -1,12 +1,12 @@
 <template>
   <div class="layout">
     <HeaderDesktop
-      v-if="!mobile"
+      v-if="!tablet"
       @open-login-window="showLogin = true"
     />
     <HeaderMobile v-else />
 
-    <NavigationDesktop v-if="!mobile" />
+    <NavigationDesktop v-if="!tablet" />
     <NavigationMobile
       v-else
       :show-search="showSearch"
@@ -17,7 +17,7 @@
     />
 
     <slot />
-    <FooterDesktop v-if="!mobile" />
+    <FooterDesktop v-if="!tablet" />
 
     <LayoutNotifications />
 
@@ -66,7 +66,7 @@ export default {
       showLogin,
       showRegister,
       showSearch,
-      mobile: computed(() => media().MEDIA_MOBILE),
+      tablet: computed(() => media().MEDIA_TABLET),
     };
   },
   watch: {

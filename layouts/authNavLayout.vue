@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <HeaderDesktop v-if="!mobile" />
+    <HeaderDesktop v-if="!tablet" />
     <HeaderMobile v-else />
 
-    <NavigationDesktop v-if="!mobile" />
+    <NavigationDesktop v-if="!tablet" />
     <NavigationMobile
       v-else
       :show-search="showSearch"
@@ -12,7 +12,7 @@
     />
 
     <slot />
-    <FooterDesktop v-if="!mobile" />
+    <FooterDesktop v-if="!tablet" />
 
     <LayoutNotifications />
 
@@ -33,7 +33,7 @@ import SearchMobile from '@/components/mobile/SearchMobile.vue';
 import HeaderMobile from '@/components/mobile/HeaderMobile.vue';
 
 const showSearch = ref(false);
-const mobile = computed(() => media().MEDIA_MOBILE);
+const tablet = computed(() => media().MEDIA_TABLET);
 </script>
 
 <style lang="scss" scoped>
