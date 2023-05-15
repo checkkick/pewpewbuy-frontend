@@ -156,6 +156,11 @@ export default {
   &__title {
     @include defineFontMontserrat(600, 18px, 22px);
     margin-bottom: 0.5rem;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+      line-height: 1rem;
+    }
   }
 }
 
@@ -167,6 +172,11 @@ export default {
 
   &__title {
     @include defineFontMontserrat(600, 16px, 1.4);
+
+    @media (max-width: 1150px) {
+      font-size: 15px;
+      line-height: 1rem;
+    }
   }
 
   &__text {
@@ -175,20 +185,42 @@ export default {
     padding-left: 1.6rem;
     @include defineFontMontserrat(400, 16px, 22px);
 
+    @media (max-width: 1150px) {
+      font-size: 14px;
+      line-height: 17px;
+      padding-left: 1.4rem;
+    }
+
     &--fio {
       background: url('@/assets/img/products-fio.svg') no-repeat left center / 20px 19px;
+
+      @media (max-width: 1150px) {
+        background-size: 17px 16px;
+      }
     }
 
     &--email {
       background: url('@/assets/img/products-email.svg') no-repeat left center / 20px 15px;
+
+      @media (max-width: 1150px) {
+        background-size: 17px 14px;
+      }
     }
 
     &--vk {
       background: url('@/assets/img/products-vk.svg') no-repeat left center / 20px 15px;
+
+      @media (max-width: 1150px) {
+        background-size: 17px 14px;
+      }
     }
 
     &--tg {
       background: url('@/assets/img/products-tg.svg') no-repeat left center / 20px 15px;
+
+      @media (max-width: 1150px) {
+        background-size: 17px 14px;
+      }
     }
   }
 }

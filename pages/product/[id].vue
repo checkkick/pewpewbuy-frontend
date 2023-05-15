@@ -35,11 +35,10 @@
             </div>
           </div>
           <NuxtLink
-            :href="
-              userStore.id === detProduct.user.id
-                ? '/profile'
-                : `/profile/${detProduct.user.id}`
-            "
+            :href="userStore.id === detProduct.user.id
+              ? '/profile'
+              : `/profile/${detProduct.user.id}`
+              "
             class="about-seller__profile-link"
           >
             Профиль продавца
@@ -97,9 +96,8 @@
           </div>
 
           <ul
-            v-if="
-              detProduct.valueassets ? detProduct.valueassets.length > 0 : false
-            "
+            v-if="detProduct.valueassets ? detProduct.valueassets.length > 0 : false
+              "
             class="product-about"
           >
             <li
@@ -128,11 +126,10 @@
           <div class="switcher">
             <p
               class="switcher__about-product"
-              :class="
-                switcher === 'about-product'
-                  ? 'switcher__about-product--active'
-                  : ''
-              "
+              :class="switcher === 'about-product'
+                ? 'switcher__about-product--active'
+                : ''
+                "
               @click="switcher = 'about-product'"
             >
               Описание
@@ -157,11 +154,10 @@
               Написать продавцу
             </button>
             <NuxtLink
-              :href="
-                userStore.id === detProduct.user.id
-                  ? '/profile'
-                  : `/profile/${detProduct.user.id}`
-              "
+              :href="userStore.id === detProduct.user.id
+                ? '/profile'
+                : `/profile/${detProduct.user.id}`
+                "
               class="price__all-products"
             >
               Все товары продавца
@@ -306,6 +302,12 @@ export default {
   &__title {
     @include defineFontMontserrat(600, 27px, 33px);
     margin-bottom: 2rem;
+
+    @media (max-width: 1150px) {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 1rem;
+    }
   }
 }
 
@@ -317,10 +319,19 @@ export default {
   gap: 1rem;
   margin-bottom: 1.5rem;
 
+  @media (max-width: 1150px) {
+    margin-bottom: 1rem;
+  }
+
   &__title {
     position: relative;
     @include defineFontMontserrat(500, 18px, 22px);
     padding-right: 1.3rem;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
 
     &.crumbs__title--active {
       cursor: pointer;
@@ -359,10 +370,20 @@ export default {
   padding: 2.5rem 4.5rem;
   margin-bottom: 116px;
 
+  @media (max-width: 1150px) {
+    padding: 1.5rem 2.5rem;
+  }
+
   &__title {
     @include defineFontMontserrat(600, 22px, 1.4);
     color: $primary;
     margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 0.5rem;
+    }
   }
 }
 
@@ -372,11 +393,20 @@ export default {
   gap: 1rem;
   margin-bottom: 2rem;
 
+  @media (max-width: 1150px) {
+    margin-bottom: 1rem;
+  }
+
   &__photo {
     border-radius: 50%;
     align-self: center;
     width: 55px;
     height: 55px;
+
+    @media (max-width: 1150px) {
+      width: 45px;
+      height: 45px;
+    }
   }
 
   &__profile-link {
@@ -384,6 +414,11 @@ export default {
     color: $primary;
     text-decoration: none;
     border-bottom: 1px solid $primary;
+
+    @media (max-width: 1150px) {
+      font-size: 13px;
+      line-height: 1rem;
+    }
   }
 }
 
@@ -393,6 +428,11 @@ export default {
   &__name {
     @include defineFontMontserrat(600, 18px, 22px);
     margin-bottom: 0.5rem;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 }
 
@@ -412,8 +452,16 @@ export default {
   width: 100%;
   gap: 3rem;
 
+  @media (max-width: 1150px) {
+    gap: 1rem;
+  }
+
   &:nth-child(3) {
     margin-bottom: 3rem;
+
+    @media (max-width: 1150px) {
+      margin-bottom: 1rem;
+    }
   }
 }
 
@@ -495,11 +543,19 @@ export default {
   &__label {
     @include defineFontMontserrat(400, 19px, 1.4);
     width: 100%;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+    }
   }
 
   &__value {
     @include defineFontMontserrat(600, 17px, 1.4);
     width: 100%;
+
+    @media (max-width: 1150px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -510,13 +566,16 @@ export default {
   width: 100%;
   @include defineFontMontserrat(500, 20px, 1.4);
   color: $black-light;
+
+  @media (max-width: 1150px) {
+    font-size: 16px;
+  }
 }
 
 .row-more {
   width: 100%;
   display: flex;
   align-items: flex-end;
-  gap: 1rem;
 }
 
 .switcher {
@@ -531,6 +590,11 @@ export default {
     color: $black-contrast;
     padding: 15px 10%;
     border-bottom: 2px solid #bdbdbd;
+
+    @media (max-width: 1150px) {
+      padding: 10px 8%;
+      font-size: 16px;
+    }
   }
 
   &__about-product--active:after,
@@ -552,28 +616,63 @@ export default {
   justify-content: space-between;
   gap: 1rem;
 
+  @media (max-width: 1150px) {
+    justify-content: stretch;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
   &__value {
     @include defineFontMontserrat(700, 35px, 1.4);
     letter-spacing: -0.5px;
+
+    @media (max-width: 1150px) {
+      order: 1;
+      text-align: center;
+      flex-grow: 1;
+      font-size: 24px;
+    }
   }
 
   &__btn-contact {
     justify-content: center;
     @include defineBtnPrimary(15px, 68px, 15px, 23px);
+
+    @media (max-width: 1150px) {
+      order: 3;
+      flex-grow: 1;
+      font-size: 13px;
+      padding: 10px 18px;
+    }
   }
 
   &__all-products {
     @include defineFontMontserrat(600, 15px, 18px);
     color: $primary;
     letter-spacing: -0.5px;
+
+    @media (max-width: 1150px) {
+      order: 2;
+      text-align: center;
+      flex-grow: 1;
+      font-size: 13px;
+    }
   }
 }
 
 .product-description {
   padding-top: 1.5rem;
 
+  @media (max-width: 1150px) {
+    padding-top: 1rem;
+  }
+
   &__text {
     @include defineFontMontserrat(400, 17px, 1.75);
+
+    @media (max-width: 1150px) {
+      font-size: 15px;
+    }
   }
 }
 
@@ -653,6 +752,10 @@ export default {
   justify-content: center;
   color: $accent;
   transition: opacity 0.3s ease-in-out;
+
+  @media (max-width: 1150px) {
+    display: none;
+  }
 }
 
 .swiper__carousel .swiper-button-prev::before,
