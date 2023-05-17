@@ -278,6 +278,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 1150px) {
+      background-color: $modal-background;
+    }
   }
 
   &__no-text {
@@ -293,6 +297,10 @@ export default {
     align-items: center;
     background-color: $filter-background;
     border-radius: 10px;
+
+    @media (max-width: 1150px) {
+      background-color: $modal-background;
+    }
 
     &.publication__slide--inactive {
       opacity: 0.5;
@@ -431,6 +439,7 @@ export default {
   list-style: none;
 
   @media (max-width: 1150px) {
+    background-color: $white;
     padding: 15px 0;
   }
 

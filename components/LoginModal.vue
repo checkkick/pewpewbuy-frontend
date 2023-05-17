@@ -208,6 +208,7 @@ export default {
   margin: 100px;
 
   @media (max-width: 1150px) {
+    background: $white;
     border-radius: 0;
     justify-content: center;
     max-width: none;

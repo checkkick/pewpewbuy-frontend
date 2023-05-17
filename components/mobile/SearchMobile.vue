@@ -34,7 +34,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: $modal-background;
+  background-color: $white;
 
   &__input {
     width: 80%;

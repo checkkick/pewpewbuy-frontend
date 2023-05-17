@@ -222,6 +222,7 @@ export default {
   padding: 50px 60px;
 
   @media (max-width: 1150px) {
+    background: $white;
     border-radius: 0;
     justify-content: center;
     max-width: none;

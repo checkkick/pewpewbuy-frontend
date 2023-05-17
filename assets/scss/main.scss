@@ -50,6 +50,10 @@ html {
   background-color: $modal-background;
   margin: 0;
   padding: 0;
+
+  @media (max-width: 1150px) {
+    background-color: $white;
+  }
 }
 
 :root {

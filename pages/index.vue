@@ -77,13 +77,19 @@ export default {
 }
 
 .main {
+  margin-bottom: 3rem;
+
+  @media (max-width: 1150px) {
+    margin-bottom: 6rem;
+  }
+
   &__title {
     @include defineFontMontserrat(600px, 27px, 33px);
     margin-bottom: 1rem;
   }
 
   &__subtitle {
-    @include defineFontMontserrat(600px, 18зx, 22px);
+    @include defineFontMontserrat(600px, 18px, 22px);
     margin-bottom: 2rem;
   }
 
