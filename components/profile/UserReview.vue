@@ -55,6 +55,10 @@ export default {
   align-items: stretch;
   gap: 1rem;
 
+  @media (max-width: 1150px) {
+    gap: 0.5rem;
+  }
+
   &__title {
     display: flex;
     align-items: center;
@@ -65,11 +69,21 @@ export default {
     width: 39px;
     height: 39px;
     border-radius: 50%;
-    object-fit: cover
+    object-fit: cover;
+
+    @media (max-width: 1150px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   &__name {
     @include defineFontMontserrat(600, 15px, 18px);
+
+    @media (max-width: 1150px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
 
   &__about {
@@ -92,6 +106,10 @@ export default {
 
   &__summary {
     @include defineFontMontserrat(600, 14px, 1.6);
+
+    @media (max-width: 1150px) {
+      font-size: 10px;
+    }
   }
 
   &__text {
@@ -121,6 +139,10 @@ export default {
         $black,
         $black,
         rgba(0, 0, 0, 0));
+
+    @media (max-width: 1150px) {
+      font-size: 12px;
+    }
   }
 
   &__date {
@@ -128,6 +150,11 @@ export default {
     color: rgba(65, 65, 65, 0.65);
     align-self: flex-end;
     text-align: end;
+
+    @media (max-width: 1150px) {
+      font-size: 9px;
+      line-height: 11px;
+    }
   }
 }
 
@@ -136,8 +163,16 @@ export default {
   align-items: center;
   gap: 0.5rem;
 
+  @media (max-width: 1150px) {
+    gap: 0.3rem;
+  }
+
   &__text {
     @include defineFontMontserrat(400, 14px, 1.6);
+
+    @media (max-width: 1150px) {
+      font-size: 10px;
+    }
   }
 }
 </style>

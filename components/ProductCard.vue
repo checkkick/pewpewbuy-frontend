@@ -32,9 +32,11 @@
       v-else
       class="product-card__swiper"
     >
-      <p class="product-card__no-photo">
-        Фото товара отсутсвует
-      </p>
+      <div class="product-card__no-photo">
+        <p class="product-card__no-text">
+          Фото товара отсутствует
+        </p>
+      </div>
     </div>
 
     <h4 class="product-card__title">
@@ -211,7 +213,7 @@ export default {
   }
 
   &__no-photo {
-    @include defineFontMontserrat(500, 14px, 1.4);
+
     text-align: center;
     background-color: $filter-background;
     border-radius: 11px;
@@ -219,6 +221,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &__no-text {
+    @include defineFontMontserrat(500, 14px, 1.4);
+    padding: 0 0.5rem;
+    width: 350px;
   }
 
   &__slide {

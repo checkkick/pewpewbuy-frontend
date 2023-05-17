@@ -40,6 +40,7 @@
       </div>
     </div>
     <swiper
+      v-if="publication.photo.length > 0"
       class="publication__swiper"
       :modules="modules"
       :slides-per-view="1"
@@ -58,6 +59,16 @@
         >
       </swiper-slide>
     </swiper>
+    <div
+      v-else
+      class="publication__swiper"
+    >
+      <div class="publication__no-photo">
+        <p class="publication__no-text">
+          Фото товара отсутствует
+        </p>
+      </div>
+    </div>
     <h4
       class="publication__title"
       @click="$router.push(`/product/${publication.id}`)"
@@ -151,6 +162,10 @@ export default {
   align-items: flex-start;
   justify-content: stretch;
 
+  @media (max-width: 1150px) {
+    padding: 13px 18px 28px;
+  }
+
   &__like {
     cursor: pointer;
     position: absolute;
@@ -164,6 +179,11 @@ export default {
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+
+    @media (max-width: 1150px) {
+      top: 9px;
+      transform: scale(0.9);
+    }
 
     & svg {
       transition: transform 0.1s ease-in-out, fill 0.1s ease-in-out;
@@ -195,6 +215,27 @@ export default {
     height: 270px;
     padding-bottom: 1.5rem;
     margin-bottom: 0;
+
+    @media (max-width: 1150px) {
+      padding-bottom: 1.3rem;
+      height: 240px;
+    }
+  }
+
+  &__no-photo {
+    text-align: center;
+    background-color: $filter-background;
+    border-radius: 11px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__no-text {
+    @include defineFontMontserrat(500, 14px, 1.4);
+    padding: 0 0.5rem;
+    width: 350px;
   }
 
   &__slide {
@@ -216,6 +257,11 @@ export default {
   &__title {
     @include defineFontMontserrat(700, 14px, 1.4);
     margin-bottom: 0.5rem;
+
+    @media (max-width: 1150px) {
+      font-size: 12px;
+      margin-bottom: 0.2rem;
+    }
   }
 }
 
@@ -225,21 +271,40 @@ export default {
   gap: 0.6rem;
   margin-bottom: 0.8rem;
 
+  @media (max-width: 1150px) {
+    margin-bottom: 0.8rem;
+  }
+
   &__image {
     width: 39px;
     height: 39px;
     border-radius: 50%;
-    object-fit: cover
+    object-fit: cover;
+
+    @media (max-width: 1150px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   &__name {
     max-width: 95%;
     @include defineFontMontserrat(700, 14px, 16px);
+
+    @media (max-width: 1150px) {
+      font-size: 12px;
+      line-height: 14px;
+    }
   }
 
   &__date {
     @include defineFontMontserrat(400, 10px, 12px);
     color: rgba(122, 122, 122, 0.9);
+
+    @media (max-width: 1150px) {
+      font-size: 9px;
+      line-height: 10px;
+    }
   }
 }
 
@@ -256,13 +321,16 @@ export default {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.2rem 0.5rem;
     justify-content: space-between;
   }
 
   &__text {
-    width: 40%;
     @include defineFontMontserrat(400, 14px, 1.4);
+
+    @media (max-width: 1150px) {
+      font-size: 12px;
+    }
 
     &--location {
       overflow: hidden;
@@ -275,8 +343,11 @@ export default {
   }
 
   &__text-bold {
-    width: 40%;
     @include defineFontMontserrat(700, 14px, 1.4);
+
+    @media (max-width: 1150px) {
+      font-size: 12px;
+    }
   }
 }
 </style>

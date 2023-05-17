@@ -49,5 +49,12 @@ export default {
   display: flex;
   align-items: center;
   gap: 1px;
+
+  @media (max-width: 1150px) {
+    & svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 </style>
