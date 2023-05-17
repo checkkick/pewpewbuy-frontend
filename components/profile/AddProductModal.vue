@@ -303,6 +303,10 @@ export default {
     }
   },
 
+  unmounted() {
+    document.getElementsByTagName('body')[0].style.overflow = null;
+  },
+
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null;
@@ -440,6 +444,12 @@ export default {
   right: 0;
   bottom: 0;
   background: $modal-dark-background;
+
+  @media (max-width: 1150px) {
+    z-index: 90;
+    top: 6rem;
+    background: transparent;
+  }
 }
 
 .close-background {
@@ -467,6 +477,15 @@ export default {
   max-height: 90vh;
   overflow: auto;
 
+  @media (max-width: 1150px) {
+    border-radius: 0;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding-bottom: 7rem;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -478,6 +497,10 @@ export default {
     height: 20px;
     top: 20px;
     right: 20px;
+
+    @media (max-width: 1150px) {
+      display: none;
+    }
 
     &::before {
       content: '';
@@ -722,6 +745,10 @@ export default {
     background: $white;
     border-radius: 100%;
     border: 1px solid rgba(175, 175, 175, 0.39);
+
+    @media (max-width: 1150px) {
+      width: 14px;
+    }
 
     &::before {
       content: '';

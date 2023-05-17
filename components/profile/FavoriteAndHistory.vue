@@ -135,22 +135,50 @@ export default {
     width: 25px;
     height: 25px;
 
+    @media (max-width: 1150px) {
+      margin-right: 0;
+      width: 20px;
+      height: 20px;
+    }
+
     &--favorite {
       background: url('@/assets/img/profile-favorite.svg') no-repeat center center;
+
+      @media (max-width: 1150px) {
+        background-size: 20px 20px;
+      }
     }
 
     &--history {
       background: url('@/assets/img/profile-history.svg') no-repeat center center;
+
+      @media (max-width: 1150px) {
+        background-size: 20px 20px;
+      }
     }
   }
 
   &__name {
     @include defineFontMontserrat(600, 19px, 22px);
     color: $primary;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 
   &__open-arrow {
     transition: transform 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+
+    & svg {
+      @media (max-width: 1150px) {
+        width: 16px;
+        height: 9px;
+      }
+    }
 
     &.advertisment__open-arrow--active {
       transform: rotate(180deg);
@@ -185,6 +213,10 @@ export default {
   margin: 30px 20px;
   cursor: grab;
   position: static;
+
+  @media (max-width: 1150px) {
+    margin: 20px 15px;
+  }
 }
 
 .favorite__swiper .swiper-wrapper {

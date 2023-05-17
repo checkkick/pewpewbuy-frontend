@@ -164,6 +164,12 @@ export default {
     margin-right: 0.5rem;
     border-radius: 50%;
 
+    @media (max-width: 1150px) {
+      margin-right: 0;
+      width: 20px;
+      height: 20px;
+    }
+
     &--active {
       background-color: $success;
     }
@@ -176,10 +182,24 @@ export default {
   &__name {
     @include defineFontMontserrat(600, 19px, 22px);
     color: $primary;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 
   &__open-arrow {
     transition: transform 0.3s ease-in-out;
+
+    & svg {
+      @media (max-width: 1150px) {
+        width: 16px;
+        height: 9px;
+      }
+    }
 
     &.publications__open-arrow--active {
       transform: rotate(180deg);
@@ -222,12 +242,24 @@ export default {
   height: auto;
   min-height: 500px;
 
+  @media (max-width: 1150px) {
+    min-height: 400px;
+  }
+
   &__text {
     @include defineFontMontserrat(500, 15px, 1.4);
+
+    @media (max-width: 1150px) {
+      font-size: 13px;
+    }
   }
 
   &__img {
     max-width: 35px;
+
+    @media (max-width: 1150px) {
+      max-width: 25px;
+    }
   }
 }
 </style>
@@ -237,6 +269,10 @@ export default {
   margin: 30px 20px;
   cursor: grab;
   position: static;
+
+  @media (max-width: 1150px) {
+    margin: 20px 15px;
+  }
 }
 
 .publications__swiper .swiper-wrapper {
