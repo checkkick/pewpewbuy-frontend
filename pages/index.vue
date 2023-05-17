@@ -80,6 +80,7 @@ export default {
   margin-bottom: 3rem;
 
   @media (max-width: 1150px) {
+    margin-top: 6rem;
     margin-bottom: 6rem;
   }
 

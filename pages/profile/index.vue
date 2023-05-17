@@ -426,6 +426,7 @@ export default {
 
   @media (max-width: 1150px) {
     margin-bottom: 7rem;
+    margin-top: 6rem;
   }
 
   &__info {
