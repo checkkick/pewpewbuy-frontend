@@ -1,28 +1,28 @@
 <template>
-  <div class="advertisment">
+  <div class="publications">
     <div
-      class="advertisment__title"
+      class="publications__title"
       @click="open = !open"
     >
       <span
-        class="advertisment__logo"
-        :class="{ 'advertisment__logo--active': activePubl, 'advertisment__logo--inactive': inactivePubl }"
+        class="publications__logo"
+        :class="{ 'publications__logo--active': activePubl, 'publications__logo--inactive': inactivePubl }"
       />
       <h3
         v-if="activePubl"
-        class="advertisment__name"
+        class="publications__name"
       >
         Активные объявления ({{ publications.length }})
       </h3>
       <h3
         v-if="inactivePubl"
-        class="advertisment__name"
+        class="publications__name"
       >
         Неактивные объявления ({{ publications.length }})
       </h3>
       <a
-        class="advertisment__open-arrow"
-        :class="{ 'advertisment__open-arrow--active': open }"
+        class="publications__open-arrow"
+        :class="{ 'publications__open-arrow--active': open }"
         @click.prevent
       >
         <svg
@@ -48,11 +48,11 @@
     >
       <div
         v-if="open && (publications.length > 0 || activePubl)"
-        class="advertisment__wrapper"
-        :class="{ 'advertisment__wrapper--active': activePubl, 'advertisment__wrapper--inactive': inactivePubl }"
+        class="publications__wrapper"
+        :class="{ 'publications__wrapper--active': activePubl, 'publications__wrapper--inactive': inactivePubl }"
       >
         <swiper
-          class="advertisment__swiper"
+          class="publications__swiper"
           :modules="modules"
           :slides-per-view="4"
           :space-between="15"
@@ -61,7 +61,7 @@
           <swiper-slide
             v-for="publication in publications"
             :key="publication.id"
-            class="advertisment__slide"
+            class="publications__slide"
           >
             <UserPublications
               :active-publ="activePubl"
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.advertisment {
+.publications {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -181,7 +181,7 @@ export default {
   &__open-arrow {
     transition: transform 0.3s ease-in-out;
 
-    &.advertisment__open-arrow--active {
+    &.publications__open-arrow--active {
       transform: rotate(180deg);
     }
   }
@@ -233,28 +233,28 @@ export default {
 </style>
 
 <style lang="scss">
-.advertisment__swiper {
+.publications__swiper {
   margin: 30px 20px;
   cursor: grab;
   position: static;
 }
 
-.advertisment__swiper .swiper-wrapper {
+.publications__swiper .swiper-wrapper {
   align-items: stretch;
 }
 
-.advertisment__swiper .swiper-button-prev {
+.publications__swiper .swiper-button-prev {
   right: 35px;
   left: auto;
 }
 
-.advertisment__swiper .swiper-button-next {
+.publications__swiper .swiper-button-next {
   left: auto;
   right: 0;
 }
 
-.advertisment__swiper .swiper-button-prev,
-.advertisment__swiper .swiper-button-next {
+.publications__swiper .swiper-button-prev,
+.publications__swiper .swiper-button-next {
   position: absolute;
   top: 14px;
   width: 25px;
@@ -268,8 +268,8 @@ export default {
   color: transparent;
 }
 
-.advertisment__swiper .swiper-button-prev::before,
-.advertisment__swiper .swiper-button-next::before {
+.publications__swiper .swiper-button-prev::before,
+.publications__swiper .swiper-button-next::before {
   content: '';
   position: absolute;
   background-color: $grey-light;
@@ -280,7 +280,7 @@ export default {
   transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-.advertisment__swiper .swiper-button-prev::after {
+.publications__swiper .swiper-button-prev::after {
   content: '';
   position: absolute;
   left: 10px;
@@ -292,7 +292,7 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.advertisment__swiper .swiper-button-next::after {
+.publications__swiper .swiper-button-next::after {
   content: '';
   position: absolute;
   right: 10px;
@@ -304,14 +304,14 @@ export default {
   transition: border-color 0.3s ease-in-out;
 }
 
-.advertisment__swiper .swiper-button-prev:hover::before,
-.advertisment__swiper .swiper-button-next:hover::before {
+.publications__swiper .swiper-button-prev:hover::before,
+.publications__swiper .swiper-button-next:hover::before {
   background-color: $accent;
   border: none;
 }
 
-.advertisment__swiper .swiper-button-prev:active::before,
-.advertisment__swiper .swiper-button-next:active::before {
+.publications__swiper .swiper-button-prev:active::before,
+.publications__swiper .swiper-button-next:active::before {
   background-color: $accent-dark;
   border: none;
 }
