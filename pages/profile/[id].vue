@@ -3,9 +3,12 @@
     <!-- Гостевой просмотр профиля -->
     <nav class="nav">
       <h2 class="nav__title">
-        Личный кабинет
+        Профиль пользователя
       </h2>
-      <div class="nav__buttons">
+      <div
+        v-if="!tablet"
+        class="nav__buttons"
+      >
         <button
           class="nav__all-publicity"
           @click="$router.push('/')"
@@ -224,6 +227,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { clients } from '@/store/clients';
+import { media } from '@/store/media';
 
 import noPhoto from '@/assets/img/no-photo.png';
 
@@ -261,6 +265,7 @@ export default {
 
     return {
       modules: [Navigation, Pagination],
+      tablet: computed(() => media().MEDIA_TABLET),
       user,
       active,
       inactive,
@@ -292,9 +297,19 @@ export default {
   justify-content: space-between;
   margin-bottom: 40px;
 
+  @media (max-width: 1150px) {
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+  }
+
   &__title {
     @include defineFontMontserrat(600, 27px, 33px);
     margin: 0;
+
+    @media (max-width: 1150px) {
+      font-size: 20px;
+      line-height: 24px;
+    }
   }
 
   &__buttons {
@@ -317,12 +332,21 @@ export default {
   flex-direction: column;
   margin-bottom: 4rem;
 
+  @media (max-width: 1150px) {
+    margin-bottom: 7rem;
+  }
+
   &__info {
     display: flex;
     align-items: stretch;
     justify-content: stretch;
     gap: 1.5rem;
     margin-bottom: 3rem;
+
+    @media (max-width: 1150px) {
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 }
 
@@ -337,6 +361,12 @@ export default {
     @include defineFontMontserrat(600, 18px, 22px);
     color: $primary;
     margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 0.5rem;
+    }
   }
 }
 
@@ -351,10 +381,20 @@ export default {
   box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
   border-radius: 24px;
 
+  @media (max-width: 1150px) {
+    padding: 25px 32px;
+  }
+
   &__name {
     @include defineFontMontserrat(600, 18px, 22px);
     color: $black;
     margin-bottom: 2rem;
+
+    @media (max-width: 1150px) {
+      font-size: 15px;
+      line-height: 18px;
+      margin-bottom: 1rem;
+    }
   }
 
   &__about {
@@ -363,6 +403,11 @@ export default {
     align-items: center;
     gap: 3rem;
     margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   &__row {
@@ -381,6 +426,11 @@ export default {
     height: 135px;
     border-radius: 50%;
     object-fit: cover;
+
+    @media (max-width: 1150px) {
+      width: 95px;
+      height: 95px;
+    }
   }
 
   &__line {
@@ -411,6 +461,15 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+
+  @media (max-width: 1150px) {
+    max-width: 95px;
+    gap: 0.6rem;
+
+    &__item {
+      transform: scale(0.8);
+    }
+  }
 }
 
 .reviews {
@@ -421,6 +480,10 @@ export default {
   border: 1px solid $filter-border;
   box-shadow: 0px 10px 105px rgba(255, 255, 255, 0.72);
   border-radius: 24px;
+
+  @media (max-width: 1150px) {
+    padding: 20px 35px;
+  }
 
   &__swiper {
     position: static;
@@ -445,15 +508,29 @@ export default {
   align-items: center;
   gap: 1rem;
 
+  @media (max-width: 1150px) {
+    gap: 0.5rem;
+  }
+
   &__photo-empty {
     width: 39px;
     height: 39px;
     background-color: $input-background;
     border-radius: 50%;
+
+    @media (max-width: 1150px) {
+      width: 28px;
+      height: 28px;
+    }
   }
 
   &__name {
     @include defineFontMontserrat(600, 15px, 18px);
+
+    @media (max-width: 1150px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
 }
 
