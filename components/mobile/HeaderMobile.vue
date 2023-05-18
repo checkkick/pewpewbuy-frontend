@@ -7,12 +7,14 @@
       PEWPEW BUY
     </NuxtLink>
     <button
+      v-if="$route.path === '/'"
       class="header__filter"
       @click="showFilter = !showFilter, showSort = false, showCategories = false"
     >
       Фильтры
     </button>
     <button
+      v-if="$route.path === '/'"
       class="header__sort"
       @click="showSort = !showSort, showFilter = false, showCategories = false"
     >
