@@ -234,12 +234,21 @@
         </button>
       </div>
     </div>
+
+    <BackButtonMobile
+      v-if="tablet"
+      @click="$emit('closeAddProductWindow')"
+    />
   </div>
 </template>
 
 <script>
+import BackButtonMobile from '@/components/mobile/BackButtonMobile.vue';
+
 import { products } from '@/store/products';
 import { clients } from '@/store/clients';
+import { media } from '@/store/media';
+
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
@@ -247,6 +256,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    BackButtonMobile,
   },
 
   emits: ['closeAddProductWindow', 'refreshProducts'],
@@ -254,9 +264,12 @@ export default {
   setup() {
     const useProductStore = products();
     const clientsStore = clients();
+    const { tablet } = media();
+
     return {
       useProductStore,
       clientsStore,
+      tablet,
     };
   },
 
@@ -447,7 +460,7 @@ export default {
 
   @media (max-width: 1150px) {
     z-index: 90;
-    top: 6rem;
+    top: 5rem;
     background: transparent;
   }
 }
@@ -483,6 +496,7 @@ export default {
     width: 100%;
     height: 100%;
     margin: 0;
+    padding-top: 1rem;
     padding-bottom: 7rem;
   }
 

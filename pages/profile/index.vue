@@ -327,6 +327,12 @@ export default {
         if (Object.hasOwn(this.$route.query, 'favorites')) {
           document.getElementById('favorites').scrollIntoView();
         }
+
+        if (Object.hasOwn(this.$route.query, 'addproduct')) {
+          this.showAddProductModal = true;
+        } else {
+          this.showAddProductModal = false;
+        }
       },
       deep: true,
     },

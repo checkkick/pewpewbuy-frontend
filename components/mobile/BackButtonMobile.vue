@@ -24,7 +24,8 @@
 .back {
   @include defineBtnPrimary(1rem, 100%, 15px, 15px);
   position: fixed;
-  bottom: 8rem;
+  bottom: 7rem;
   left: 30px;
+  z-index: 1;
 }
 </style>
