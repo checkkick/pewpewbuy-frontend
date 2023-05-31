@@ -293,6 +293,12 @@ export default {
     align-items: center;
     justify-content: center;
     gap: 75px;
+
+    @media (max-width: 750px) {
+      justify-content: space-between;
+      padding: 0 15px;
+      gap: 1rem;
+    }
   }
 
   &__link {

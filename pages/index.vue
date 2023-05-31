@@ -84,6 +84,10 @@ export default {
     margin-bottom: 6rem;
   }
 
+  @media (max-width: 750px) {
+    margin-top: 6.5rem;
+  }
+
   &__title {
     @include defineFontMontserrat(600px, 27px, 33px);
     margin-bottom: 1rem;

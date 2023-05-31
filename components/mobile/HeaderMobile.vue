@@ -127,12 +127,26 @@ export default {
   left: 0;
   right: 0;
 
+  @media (max-width: 750px) {
+    padding: 1rem 15px;
+    display: grid;
+    row-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: start;
+  }
+
   &__logo {
     @include defineFontSairaStencilOne(20px, 45px);
     text-decoration: none;
     text-align: center;
     padding-left: 40px;
     background: url('@/assets/img/header-logo.png') no-repeat center left / contain;
+
+    @media (max-width: 750px) {
+      font-size: 16px;
+      line-height: 25px;
+      padding-left: 25px;
+    }
   }
 
   &__filter {
@@ -143,6 +157,10 @@ export default {
     background: none;
     padding-left: 25px;
     background: url('@/assets/img/fliter-mobile-logo.svg') no-repeat center left / contain;
+
+    @media (max-width: 750px) {
+      order: 3;
+    }
   }
 
   &__sort {
@@ -153,16 +171,35 @@ export default {
     background: none;
     padding-left: 23px;
     background: url('@/assets/img/sort-mobile-logo.svg') no-repeat center left / contain;
+
+    @media (max-width: 750px) {
+      order: 4;
+      justify-self: end;
+      padding-left: 0;
+      padding-right: 23px;
+      background: url('@/assets/img/sort-mobile-logo.svg') no-repeat center right / contain;
+    }
   }
 }
 
 .category-btn {
   @include defineBtnPrimary(14px, 7px, 15px, 20px);
 
+  @media (max-width: 750px) {
+    padding: 9px 15px;
+    justify-self: end;
+  }
+
   &__text {
     @include defineFontMontserrat(500, 16px, 18px);
     margin-right: 35px;
     color: $white;
+
+    @media (max-width: 750px) {
+      font-size: 14px;
+      line-height: 17px;
+      margin-right: 15px;
+    }
   }
 
   &__burger {
@@ -192,6 +229,28 @@ export default {
       height: 3px;
       background-color: white;
       border-radius: 3px;
+    }
+
+    @media (max-width: 750px) {
+      width: 13px;
+      height: 1px;
+      border-radius: 0;
+
+      &::before {
+        top: -6px;
+        left: -5px;
+        width: 18px;
+        height: 2px;
+        border-radius: 0;
+      }
+
+      &::after {
+        bottom: -6px;
+        left: -5px;
+        width: 18px;
+        height: 2px;
+        border-radius: 0;
+      }
     }
   }
 }

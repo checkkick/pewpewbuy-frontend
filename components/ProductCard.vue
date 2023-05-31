@@ -192,6 +192,10 @@ export default {
     gap: 0.1rem;
   }
 
+  @media (max-width: 750px) {
+    width: calc((100% - (15px * 1)) / 2);
+  }
+
   @media (min-width: 1150px) {
     &:hover {
       transform: translateY(-5px);
@@ -209,6 +213,10 @@ export default {
       height: 234px;
       padding-bottom: 25px;
       margin-bottom: 0;
+    }
+
+    @media (max-width: 550px) {
+      height: 168px;
     }
   }
 
@@ -259,6 +267,12 @@ export default {
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
   }
 
   &__flex {
@@ -284,12 +298,20 @@ export default {
       font-size: 15px;
       color: $black-inactive;
     }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+    }
   }
 
   &__price {
     margin: 0;
     font-weight: 700;
     font-size: 15px;
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+    }
   }
 
   &__btn {
