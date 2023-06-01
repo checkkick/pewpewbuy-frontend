@@ -130,7 +130,9 @@ import BackButtonMobile from './mobile/BackButtonMobile.vue';
 
 export default {
   components: { BackButtonMobile },
+
   emits: ['closeRegisterWindow', 'openLoginWindow'],
+
   setup() {
     const store = auth();
     const clientsStore = clients();
@@ -143,6 +145,7 @@ export default {
       mobile,
     };
   },
+
   data: () => ({
     showPwd: false,
     mail: '',
@@ -150,15 +153,19 @@ export default {
     send_error: '',
     sended: false,
   }),
+
   mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
     this.$router.replace('/?register');
   },
+
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null;
+      this.$router.replace('/');
       this.$emit('closeRegisterWindow');
     },
+
     async check_mail() {
       const response = await this.store.CHECK_MAIL(this.mail);
       if (response.message === 'Message sended') {

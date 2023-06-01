@@ -112,7 +112,9 @@ import BackButtonMobile from './mobile/BackButtonMobile.vue';
 
 export default {
   components: { BackButtonMobile },
+
   emits: ['closeLoginWindow', 'openRegisterWindow'],
+
   setup() {
     const store = auth();
     const clientsStore = clients();
@@ -138,17 +140,13 @@ export default {
     this.$router.replace('/?login');
   },
 
-  unmounted() {
-    if (Object.hasOwn(this.$route.query, 'login')) {
-      this.$router.push('/');
-    }
-  },
-
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null;
+      this.$router.replace('/');
       this.$emit('closeLoginWindow');
     },
+
     async send_code() {
       const response = await this.store.SEND_CODE(this.email);
       if (response.email === this.email) {
@@ -160,6 +158,7 @@ export default {
         this.sendError = 'Произошла ошибка. Попробуйте еще раз';
       }
     },
+
     async login() {
       const response = await this.store.GET_TOKEN(this.email, this.password);
       if (response.access) {
@@ -394,6 +393,10 @@ export default {
     justify-content: flex-end;
   }
 
+  @media (max-width: 750px) {
+    width: 100%;
+  }
+
   &__label {
     @include defineFontMontserrat(400, 15px, 17px);
 
@@ -413,7 +416,7 @@ export default {
 
     @media (max-width: 750px) {
       top: 20px;
-      right: 65px;
+      right: 15px;
       height: 25px;
       color: transparent;
       position: absolute;
