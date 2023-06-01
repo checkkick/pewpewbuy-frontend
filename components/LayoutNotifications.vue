@@ -53,6 +53,11 @@ const notificationsStore = notifications();
     padding: 1rem;
   }
 
+  @media (max-width: 750px) {
+    top: 0;
+    padding: 1rem 15px;
+  }
+
   &__item {
     max-width: 500px;
     position: relative;
@@ -68,24 +73,48 @@ const notificationsStore = notifications();
       border-radius: 15px;
     }
 
+    @media (max-width: 750px) {
+      padding: 12px 30px 12px 55px;
+    }
+
     &.notification__item--alert {
       background: url('@/assets/img/notification-alert.svg') no-repeat 37px center / 42px 38px,
         $white;
+
+      @media (max-width: 750px) {
+        background-position: 15px;
+        background-size: 30px 25px;
+      }
     }
 
     &.notification__item--success {
       background: url('@/assets/img/notification-success.svg') no-repeat 37px center / 42px 38px,
         $white;
+
+      @media (max-width: 750px) {
+        background-position: 15px;
+        background-size: 30px 25px;
+      }
     }
 
     &.notification__item--edit {
       background: url('@/assets/img/notification-edit.svg') no-repeat 37px center / 42px 38px,
         $white;
+
+      @media (max-width: 750px) {
+        background-position: 15px;
+        background-size: 30px 25px;
+      }
     }
 
     &.notification__item--delete {
       background: url('@/assets/img/notification-delete.svg') no-repeat 37px center / 42px 38px,
         $white;
+
+      @media (max-width: 750px) {
+        background-position: 15px;
+        background-size: 30px 25px;
+      }
     }
   }
 
@@ -153,6 +182,11 @@ const notificationsStore = notifications();
       font-size: 14px;
       line-height: 15px;
     }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
   }
 
   &__text {
@@ -161,6 +195,10 @@ const notificationsStore = notifications();
     @media (max-width: 1150px) {
       font-size: 13px;
       line-height: 13px;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 11px;
     }
   }
 }
