@@ -10,7 +10,8 @@
           <a
             href="#"
             class="categories__link"
-            @click.prevent="chooseFilter = filterItem"
+            :class="{ 'categories__link--active': chooseFilter === filterItem }"
+            @click.prevent="chooseFilter !== filterItem ? chooseFilter = filterItem : chooseFilter = ''"
           >
             {{ filterItem }}
             <svg
@@ -53,6 +54,7 @@
             @click.prevent
           >
             <img
+              class="contacts__image"
               src="/assetsDir/assets/img/telegram-black.svg"
               alt="telegram"
             >
@@ -63,6 +65,7 @@
             @click.prevent
           >
             <img
+              class="contacts__image"
               src="/assetsDir/assets/img/whatsapp-black.svg"
               alt="whatsapp"
             >
@@ -73,6 +76,7 @@
             @click.prevent
           >
             <img
+              class="contacts__image"
               src="/assetsDir/assets/img/vk-black.svg"
               alt="vk"
             >
@@ -83,6 +87,7 @@
             @click.prevent
           >
             <img
+              class="contacts__image"
               src="/assetsDir/assets/img/mail-black.svg"
               alt="mail"
             >
@@ -135,6 +140,10 @@ function chooseSubFilter(item) {
     align-items: flex-end;
     justify-content: space-between;
     padding: 60px 100px 120px;
+
+    @media (max-width: 750px) {
+      padding: 35px 30px 150px;
+    }
   }
 
   &__list {
@@ -149,6 +158,12 @@ function chooseSubFilter(item) {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
+    @media (max-width: 750px) {
+      & svg {
+        width: 15px
+      }
+    }
   }
 
   &__link {
@@ -158,6 +173,18 @@ function chooseSubFilter(item) {
     display: flex;
     align-items: center;
     gap: 10px;
+
+    @media (max-width: 750px) {
+      font-size: 15px;
+    }
+
+    & svg {
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &--active svg {
+      transform: rotate(180deg);
+    }
   }
 }
 
@@ -178,11 +205,23 @@ function chooseSubFilter(item) {
     line-height: normal;
   }
 
+  &__image {
+    max-width: 45px;
+
+    @media (max-width: 750px) {
+      max-width: 30px;
+    }
+  }
+
   &__copyright {
     @include defineFontMontserrat(400, 13px, 1.4);
     text-align: right;
     color: $black;
     max-width: 365px;
+
+    @media (max-width: 750px) {
+      font-size: 10px;
+    }
   }
 }
 
@@ -193,16 +232,24 @@ function chooseSubFilter(item) {
   margin-bottom: 10px !important;
   list-style: none;
   margin: 0;
-  padding: 0;
   border-bottom: 1px solid #C3C9D2;
   display: flex;
   flex-direction: column;
   gap: 21px;
 
+  @media (max-width: 750px) {
+    padding: 20px 0 !important;
+    gap: 14px;
+  }
+
   &__link {
     @include defineFontMontserrat(500, 18px, 22px);
     color: rgba(65, 65, 65, 0.9);
     cursor: pointer;
+
+    @media (max-width: 750px) {
+      font-size: 14px;
+    }
   }
 }
 </style>

@@ -216,6 +216,10 @@ async function getFilteredProducts() {
   flex-direction: column;
   align-items: center;
 
+  @media (max-width: 750px) {
+    padding: 25px 20px 120px;
+  }
+
   &__close {
     position: absolute;
     top: 30px;
@@ -223,12 +227,28 @@ async function getFilteredProducts() {
     padding: 0;
     border: none;
     background-color: transparent;
+
+    @media (max-width: 750px) {
+      top: 22px;
+      right: 22px;
+
+      & svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
   }
 
   &__title {
     @include defineFontMontserrat(700, 24px, 29px);
     color: $black;
     margin-bottom: 45px;
+
+    @media (max-width: 750px) {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
   }
 
   &__item {
@@ -237,10 +257,20 @@ async function getFilteredProducts() {
     padding-bottom: 25px;
     border-bottom: 1px solid #C4DBFF;
 
+    @media (max-width: 750px) {
+      padding-bottom: 15px;
+      max-width: none;
+    }
+
     &:nth-child(4) {
       border: none;
       padding: 25px 0 0 0;
       margin-bottom: 55px;
+
+      @media (max-width: 750px) {
+        padding-top: 15px;
+        margin-bottom: 35px;
+      }
     }
   }
 
@@ -253,8 +283,18 @@ async function getFilteredProducts() {
     align-items: center;
     justify-content: space-between;
 
+    @media (max-width: 750px) {
+      font-size: 14px;
+      line-height: 17px;
+    }
+
     & svg {
       transition: transform 0.2s ease-in-out;
+
+      @media (max-width: 750px) {
+        width: 17px;
+        height: 17px;
+      }
     }
 
     &--active {
@@ -274,6 +314,13 @@ async function getFilteredProducts() {
   &__btn {
     @include defineBtnPrimary(20px, 10px, 13px, 41px);
     margin-bottom: 36px;
+
+    @media (max-width: 750px) {
+      font-size: 15px;
+      line-height: 18px;
+      padding: 15px 25px;
+      margin-bottom: 25px;
+    }
   }
 
   &__clear {
@@ -304,6 +351,11 @@ async function getFilteredProducts() {
     text-decoration: none;
     color: $black;
 
+    @media (max-width: 750px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
+
     &--active {
       color: $primary;
       background: url('@/assets/img/sort-mobile-check.svg') no-repeat right center;
@@ -316,16 +368,31 @@ async function getFilteredProducts() {
   align-items: center;
   gap: 20px;
 
+  @media (max-width: 750px) {
+    gap: 10px;
+  }
+
   &__text {
     @include defineFontMontserrat(500, 15px, 18px);
     color: $primary;
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
 
   &__clear {
     width: 20px;
     height: 20px;
     border: none;
-    background: url('@/assets/img/sort-mobile-clear.svg') no-repeat center center;
+    background: url('@/assets/img/sort-mobile-clear.svg') no-repeat center center / 20px 20px;
+
+    @media (max-width: 750px) {
+      width: 16px;
+      height: 16px;
+      background-size: 16px 16px;
+    }
   }
 }
 </style>

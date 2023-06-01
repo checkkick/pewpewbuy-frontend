@@ -301,6 +301,16 @@ export default {
     }
   }
 
+  &__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @media (max-width: 750px) {
+      width: 65px;
+    }
+  }
+
   &__link {
     @include defineFontMontserrat(500, 10px, 1.4);
     text-decoration: none;
@@ -309,6 +319,10 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 5px;
+
+    @media (max-width: 750px) {
+      width: 100%;
+    }
 
     &--active {
       color: $accent-dark;

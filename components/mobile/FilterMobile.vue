@@ -126,6 +126,10 @@ async function getFilteredProducts() {
   flex-direction: column;
   align-items: center;
 
+  @media (max-width: 750px) {
+    padding: 25px 20px 120px;
+  }
+
   &__close {
     position: absolute;
     top: 30px;
@@ -133,12 +137,28 @@ async function getFilteredProducts() {
     padding: 0;
     border: none;
     background-color: transparent;
+
+    @media (max-width: 750px) {
+      top: 22px;
+      right: 22px;
+
+      & svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
   }
 
   &__title {
     @include defineFontMontserrat(700, 24px, 29px);
     color: $black;
     margin-bottom: 45px;
+
+    @media (max-width: 750px) {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
   }
 
   &__label {
@@ -147,6 +167,12 @@ async function getFilteredProducts() {
     max-width: 480px;
     color: #A3A6AD;
     margin-bottom: 4px;
+
+    @media (max-width: 750px) {
+      max-width: none;
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
 
   &__input {
@@ -159,12 +185,25 @@ async function getFilteredProducts() {
     border: none;
     width: 100%;
     margin-bottom: 15px;
+
+    @media (max-width: 750px) {
+      max-width: none;
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 10px;
+    }
   }
 
   &__btn {
     @include defineBtnPrimary(20px, 10px, 13px, 41px);
-    margin-top: 35px;
-    margin-bottom: 36px;
+    margin: 35px 0 36px;
+
+    @media (max-width: 750px) {
+      font-size: 15px;
+      line-height: 18px;
+      padding: 15px 25px;
+      margin: 15px 0 25px;
+    }
   }
 
   &__clear {
