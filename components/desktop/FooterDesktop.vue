@@ -77,7 +77,7 @@
             </p>
           </div>
         </div>
-        <ul class="map">
+        <nav class="map">
           <li
             v-for="(item, index) in Object.keys(categories)"
             :key="index"
@@ -107,7 +107,7 @@
               </li>
             </ul>
           </li>
-        </ul>
+        </nav>
         <a
           href="#"
           class="arrow"
