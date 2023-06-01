@@ -191,6 +191,7 @@ async function getFilteredProducts() {
       font-size: 14px;
       line-height: 17px;
       margin-bottom: 10px;
+      padding: 12px;
     }
   }
 
