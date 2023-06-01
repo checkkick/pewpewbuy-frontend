@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- Личный просмотр профиля -->
-    <nav class="nav">
+    <div class="nav">
       <h2 class="nav__title">
         Личный кабинет
       </h2>
@@ -22,7 +22,7 @@
           Разместить объявление
         </button>
       </div>
-    </nav>
+    </div>
     <main class="main">
       <section class="main__info">
         <div class="info-layout">
