@@ -27,5 +27,14 @@
   bottom: 7rem;
   left: 30px;
   z-index: 1;
+
+  @media (max-width: 750px) {
+    left: 15px;
+
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 </style>

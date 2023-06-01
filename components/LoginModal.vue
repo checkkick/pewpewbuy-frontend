@@ -47,7 +47,7 @@
           class="password-title__show"
           @click="showPwd = !showPwd"
         >
-          {{ showPwd ? 'Скрыть' : 'Показать' }}
+          {{ !mobile ? (showPwd ? 'Скрыть' : 'Показать') : '' }}
         </button>
       </div>
 
@@ -116,12 +116,13 @@ export default {
   setup() {
     const store = auth();
     const clientsStore = clients();
-    const { tablet } = media();
+    const { tablet, mobile } = media();
 
     return {
       store,
       clientsStore,
       tablet,
+      mobile,
     };
   },
   data: () => ({
@@ -134,6 +135,7 @@ export default {
 
   mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    this.$router.replace('/?login');
   },
 
   unmounted() {
@@ -191,7 +193,7 @@ export default {
 
   @media (max-width: 1150px) {
     z-index: 90;
-    top: 6rem;
+    top: 4rem;
     background: transparent;
   }
 }
@@ -215,6 +217,10 @@ export default {
     width: 100%;
     height: 100%;
     margin: 0;
+  }
+
+  @media (max-width: 750px) {
+    padding: 50px 20px;
   }
 
   &__close {
@@ -260,6 +266,14 @@ export default {
       margin-bottom: 7rem;
       padding: 15px 48px;
     }
+
+    @media (max-width: 750px) {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 7rem;
+      padding: 12px 40px;
+    }
   }
 
   &__input {
@@ -278,6 +292,13 @@ export default {
       width: 470px;
       font-size: 20px;
       line-height: 23px;
+    }
+
+    @media (max-width: 750px) {
+      width: 100%;
+      font-size: 14px;
+      line-height: 16px;
+      margin-bottom: 0.5rem;
     }
 
     &::placeholder {
@@ -301,6 +322,11 @@ export default {
       line-height: 1.4;
       margin-bottom: 20px;
       color: $primary;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 16px;
+      margin-bottom: 15px;
     }
   }
 
@@ -332,9 +358,18 @@ export default {
       font-size: 18px;
     }
 
+    @media (max-width: 750px) {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
     &.modal-window__text--error {
       color: red;
       margin-bottom: 20px;
+
+      @media (max-width: 750px) {
+        margin-bottom: 1rem;
+      }
     }
 
     &.modal-window__text--link {
@@ -346,6 +381,7 @@ export default {
 }
 
 .password-title {
+  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
@@ -374,6 +410,15 @@ export default {
     padding: 0 0 0 20px;
     background-color: transparent;
     background: url('@/assets/img/password-eye.svg') no-repeat center left;
+
+    @media (max-width: 750px) {
+      top: 20px;
+      right: 65px;
+      height: 25px;
+      color: transparent;
+      position: absolute;
+      background: url('@/assets/img/password-eye-mobile.svg') no-repeat center left
+    }
   }
 }
 </style>
