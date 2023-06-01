@@ -22,6 +22,42 @@
           Разместить объявление
         </button>
       </div>
+      <a
+        v-if="tablet && authorized"
+        href="#"
+        class="nav__exit-profile"
+        @click.prevent="exitProfile"
+      >
+        <svg
+          width="22"
+          height="17"
+          viewBox="0 0 22 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.75 4.75V2.875C13.75 2.37772 13.5525 1.90081 13.2008 1.54917C12.8492 1.19754 12.3723 1 11.875 1H2.875C2.37772 1 1.90081 1.19754 1.54917 1.54917C1.19754 1.90081 1 2.37772 1 2.875V14.125C1 14.6223 1.19754 15.0992 1.54917 15.4508C1.90081 15.8025 2.37772 16 2.875 16H11.875C12.3723 16 12.8492 15.8025 13.2008 15.4508C13.5525 15.0992 13.75 14.6223 13.75 14.125V12.25"
+            stroke="black"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.75 4.75L20.5 8.5L16.75 12.25"
+            stroke="black"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M7.70312 8.5H20.5"
+            stroke="black"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
     </div>
     <main class="main">
       <section class="main__info">
@@ -276,6 +312,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { media } from '@/store/media';
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
+import { removeCookies } from '@/store/cookies';
 
 import noPhoto from '@/assets/img/no-photo.png';
 
@@ -376,6 +413,11 @@ export default {
       this.editProductModal.show = true;
       this.editProductModal.publicationId = id;
     },
+    exitProfile() {
+      removeCookies();
+      this.$router.push('/');
+      window.location.reload();
+    },
   },
 };
 </script>
@@ -423,6 +465,37 @@ export default {
 
   &__new-publicity {
     @include defineBtnAccent(15px, 68px, 12px, 27px);
+  }
+
+  &__exit-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5px;
+    background: $white;
+    border: 1px solid #dcdcdc;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    transition: background-color 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
+
+    & svg {
+      width: 15px;
+    }
+
+    &>svg>path {
+      transition: stroke 0.2s ease-in-out;
+    }
+
+    &:hover {
+      background-color: $primary;
+      border-color: $primary;
+    }
+
+    &:hover>svg>path {
+      stroke: $white;
+    }
   }
 }
 
