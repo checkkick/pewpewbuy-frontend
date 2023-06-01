@@ -6,7 +6,7 @@
       type="text"
     >
 
-    <BackButtonMobile @click="$emit('closeSearch')" />
+    <BackButtonMobile @click="$emit('closeSearch'), $router.replace('/');" />
   </div>
 </template>
 
@@ -15,16 +15,19 @@ import BackButtonMobile from './BackButtonMobile.vue';
 
 export default {
   components: { BackButtonMobile },
+
   emits: ['closeSearch'],
+
   mounted() {
     this.$refs.search.focus();
+    this.$router.replace('/?search');
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .search {
-  padding: 2rem 30px 0 30px;
+  padding: 2rem 30px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +38,11 @@ export default {
   bottom: 0;
   left: 0;
   background-color: $white;
+
+  @media (max-width: 750px) {
+    padding: 0 20px 0;
+    top: 5rem;
+  }
 
   &__input {
     width: 80%;
@@ -47,6 +55,13 @@ export default {
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: 25px center;
+
+    @media (max-width: 750px) {
+      width: 100%;
+      padding: 10px 20px 10px 45px;
+      background-position: 20px;
+      background-size: 15px 15px;
+    }
 
     &::placeholder {
       color: rgba(66, 66, 66, 0.42);
