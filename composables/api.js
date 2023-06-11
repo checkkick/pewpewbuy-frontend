@@ -1,6 +1,6 @@
 import { notifications } from '@/store/notifications';
 
-export const api = (url, otherOptions = {}) => $fetch(`http://bexram.online:8500/${url}`, {
+export const api = (url, otherOptions = {}) => $fetch(`http://localhost:8500/${url}`, {
   retry: 0,
   ...otherOptions,
 
