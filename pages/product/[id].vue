@@ -36,8 +36,8 @@
           </div>
           <NuxtLink
             :href="userStore.id === detProduct.user.id
-              ? '/profile'
-              : `/profile/${detProduct.user.id}`
+                ? '/profile'
+                : `/profile/${detProduct.user.id}`
               "
             class="about-seller__profile-link"
           >
@@ -100,6 +100,9 @@
               "
             class="product-about"
           >
+            <h4 class="product-about__title">
+              Характеристики
+            </h4>
             <li
               v-for="item in detProduct.valueassets"
               :key="item.id"
@@ -127,8 +130,8 @@
             <p
               class="switcher__about-product"
               :class="switcher === 'about-product'
-                ? 'switcher__about-product--active'
-                : ''
+                  ? 'switcher__about-product--active'
+                  : ''
                 "
               @click="switcher = 'about-product'"
             >
@@ -153,10 +156,18 @@
             >
               Написать продавцу
             </button>
+            <button
+              class="price__btn-profile-link"
+              @click="userStore.id === detProduct.user.id
+                  ? $router.push('/profile')
+                  : $router.push(`/profile/${detProduct.user.id}`)"
+            >
+              Профиль продавца
+            </button>
             <NuxtLink
               :href="userStore.id === detProduct.user.id
-                ? '/profile'
-                : `/profile/${detProduct.user.id}`
+                  ? '/profile'
+                  : `/profile/${detProduct.user.id}`
                 "
               class="price__all-products"
             >
@@ -169,6 +180,9 @@
           v-if="switcher === 'about-product'"
           class="product-description"
         >
+          <h4 class="product-description__title">
+            Описание
+          </h4>
           <p class="product-description__text">
             {{ detProduct.description }}
           </p>
@@ -299,6 +313,10 @@ export default {
 
 <style lang="scss" scoped>
 .main {
+  @media (max-width: 750px) {
+    margin-top: 5rem;
+  }
+
   &__title {
     @include defineFontMontserrat(600, 27px, 33px);
     margin-bottom: 2rem;
@@ -308,6 +326,10 @@ export default {
       line-height: 24px;
       margin-top: 6rem;
       margin-bottom: 1rem;
+    }
+
+    @media (max-width: 750px) {
+      display: none;
     }
   }
 }
@@ -322,6 +344,10 @@ export default {
 
   @media (max-width: 1150px) {
     margin-bottom: 1rem;
+  }
+
+  @media (max-width: 750px) {
+    display: none;
   }
 
   &__title {
@@ -375,6 +401,13 @@ export default {
     padding: 1.5rem 2.5rem;
   }
 
+  @media (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+  }
+
   &__title {
     @include defineFontMontserrat(600, 22px, 1.4);
     color: $primary;
@@ -384,6 +417,12 @@ export default {
       font-size: 20px;
       line-height: 24px;
       margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 15px;
+      color: $black;
+      text-align: center;
     }
   }
 }
@@ -396,6 +435,17 @@ export default {
 
   @media (max-width: 1150px) {
     margin-bottom: 1rem;
+  }
+
+  @media (max-width: 750px) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 40px;
+    background: #F2F7FF;
+    border: 1px solid #D8E7FF;
+    border-radius: 12px;
   }
 
   &__photo {
@@ -420,6 +470,10 @@ export default {
       font-size: 13px;
       line-height: 1rem;
     }
+
+    @media (max-width: 750px) {
+      display: none;
+    }
   }
 }
 
@@ -434,6 +488,11 @@ export default {
       font-size: 16px;
       line-height: 20px;
     }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
   }
 }
 
@@ -444,6 +503,11 @@ export default {
 
   &__nickname {
     @include defineFontMontserrat(400, 14px, 16px);
+
+    @media (max-width: 750px) {
+      font-size: 11px;
+      line-height: 13px;
+    }
   }
 }
 
@@ -455,6 +519,11 @@ export default {
 
   @media (max-width: 1150px) {
     gap: 1rem;
+  }
+
+  @media (max-width: 750px) {
+    gap: 0.5rem;
+    flex-direction: column;
   }
 
   &:nth-child(3) {
@@ -475,11 +544,20 @@ export default {
     padding: 0 55px;
     margin-left: -55px;
     position: relative;
+
+    @media (max-width: 750px) {
+      padding: 0 30px;
+      margin: 0;
+    }
   }
 
   &__carousel {
     height: 80%;
     width: 100%;
+
+    @media (max-width: 750px) {
+      height: 90%;
+    }
   }
 
   &__slide {
@@ -496,12 +574,20 @@ export default {
     height: 100%;
     object-fit: contain;
     border-radius: 5px;
+
+    @media (max-width: 750px) {
+      max-height: 30vh;
+    }
   }
 
   &__preview-carousel {
     height: 20%;
     box-sizing: border-box;
     padding: 14px 0 14px 2px;
+
+    @media (max-width: 750px) {
+      height: 7vh;
+    }
 
     & .swiper-slide-thumb-active {
       opacity: 1;
@@ -536,6 +622,17 @@ export default {
   flex-direction: column;
   gap: 1rem;
 
+  &__title {
+    display: none;
+
+    @media (max-width: 750px) {
+      text-align: center;
+      @include defineFontMontserrat(700, 15px, 1.4);
+      color: $black;
+      display: block;
+    }
+  }
+
   &__item {
     display: flex;
     gap: 3rem;
@@ -548,6 +645,10 @@ export default {
     @media (max-width: 1150px) {
       font-size: 16px;
     }
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+    }
   }
 
   &__value {
@@ -556,6 +657,11 @@ export default {
 
     @media (max-width: 1150px) {
       font-size: 14px;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      text-align: center;
     }
   }
 }
@@ -571,17 +677,30 @@ export default {
   @media (max-width: 1150px) {
     font-size: 16px;
   }
+
+  @media (max-width: 750px) {
+    font-size: 14px;
+  }
 }
 
 .row-more {
   width: 100%;
   display: flex;
   align-items: flex-end;
+
+  @media (max-width: 750px) {
+    order: 2;
+    flex-direction: column-reverse;
+  }
 }
 
 .switcher {
   width: 100%;
   display: flex;
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 
   &__about-product,
   &__reviews {
@@ -623,6 +742,12 @@ export default {
     gap: 0.5rem 1rem;
   }
 
+  @media (max-width: 750px) {
+    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   &__value {
     @include defineFontMontserrat(700, 35px, 1.4);
     letter-spacing: -0.5px;
@@ -632,6 +757,10 @@ export default {
       text-align: center;
       flex-grow: 1;
       font-size: 24px;
+    }
+
+    @media (max-width: 750px) {
+      display: none;
     }
   }
 
@@ -644,6 +773,34 @@ export default {
       flex-grow: 1;
       font-size: 13px;
       padding: 10px 18px;
+    }
+
+    @media (max-width: 750px) {
+      height: 100%;
+      width: 100%;
+      order: 1;
+      font-size: 12px;
+    }
+  }
+
+  &__btn-profile-link {
+    height: 100%;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    @include defineBtnPrimary(13px, 68px, 10px, 18px);
+    background-color: transparent;
+    color: $primary;
+    border: 1px solid $primary;
+
+    &:not(:disabled):hover,
+    &:not(:disabled):active {
+      color: white;
+    }
+
+    @media (max-width: 750px) {
+      order: 2;
+      display: flex;
     }
   }
 
@@ -658,6 +815,13 @@ export default {
       flex-grow: 1;
       font-size: 13px;
     }
+
+    @media (max-width: 750px) {
+      width: 200%;
+      text-align: center;
+      color: $black;
+      font-size: 14px;
+    }
   }
 }
 
@@ -666,6 +830,23 @@ export default {
 
   @media (max-width: 1150px) {
     padding-top: 1rem;
+  }
+
+  @media (max-width: 750px) {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  &__title {
+    display: none;
+
+    @media (max-width: 750px) {
+      text-align: center;
+      @include defineFontMontserrat(700, 15px, 1.4);
+      margin-bottom: 15px;
+      color: $black;
+      display: block;
+    }
   }
 
   &__text {
@@ -757,6 +938,12 @@ export default {
   @media (max-width: 1150px) {
     display: none;
   }
+
+  @media (max-width: 750px) {
+    display: flex;
+    width: 21px;
+    height: 21px;
+  }
 }
 
 .swiper__carousel .swiper-button-prev::before,
@@ -781,6 +968,12 @@ export default {
   border-left: 1px solid $black;
   transform: rotate(45deg);
   transition: border-color 0.3s ease-in-out;
+
+  @media (max-width: 750px) {
+    left: 9px;
+    width: 6px;
+    height: 6px;
+  }
 }
 
 .swiper__carousel .swiper-button-next::after {
@@ -792,6 +985,12 @@ export default {
   border-bottom: 1px solid $black;
   border-right: 1px solid $black;
   transform: rotate(-45deg);
+
+  @media (max-width: 750px) {
+    right: 9px;
+    width: 6px;
+    height: 6px;
+  }
 }
 
 .swiper__carousel .swiper-button-prev:not(.swiper-button-disabled):hover::before,
