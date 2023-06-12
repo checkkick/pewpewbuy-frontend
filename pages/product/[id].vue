@@ -49,6 +49,11 @@
           {{ detProduct.manufacturer }} {{ detProduct.name }}
         </h3>
 
+        <p class="price__value-mobile">
+          {{ detProduct.price ? detProduct.price.toLocaleString() : '0' }}
+          р.
+        </p>
+
         <div class="description">
           <div class="swiper swiper--relative">
             <swiper
@@ -403,6 +408,7 @@ export default {
 
   @media (max-width: 750px) {
     display: flex;
+    gap: 0.5rem;
     flex-direction: column;
     padding: 0;
     border: none;
@@ -423,6 +429,7 @@ export default {
       font-size: 15px;
       color: $black;
       text-align: center;
+      margin-bottom: 0;
     }
   }
 }
@@ -446,11 +453,13 @@ export default {
     background: #F2F7FF;
     border: 1px solid #D8E7FF;
     border-radius: 12px;
+    margin-bottom: 0;
   }
 
   &__photo {
     border-radius: 50%;
     align-self: center;
+    object-fit: cover;
     width: 55px;
     height: 55px;
 
@@ -743,7 +752,7 @@ export default {
   }
 
   @media (max-width: 750px) {
-    gap: 0.5rem;
+    gap: 1rem 0.5rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -761,6 +770,17 @@ export default {
 
     @media (max-width: 750px) {
       display: none;
+    }
+  }
+
+  &__value-mobile {
+    display: none;
+    @include defineFontMontserrat(700, 18px, 1.4);
+    text-align: center;
+    margin-bottom: 0.5rem;
+
+    @media (max-width: 750px) {
+      display: block;
     }
   }
 
@@ -834,7 +854,7 @@ export default {
 
   @media (max-width: 750px) {
     padding-top: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
   }
 
   &__title {
@@ -843,7 +863,7 @@ export default {
     @media (max-width: 750px) {
       text-align: center;
       @include defineFontMontserrat(700, 15px, 1.4);
-      margin-bottom: 15px;
+      margin-bottom: 0.5rem;
       color: $black;
       display: block;
     }
