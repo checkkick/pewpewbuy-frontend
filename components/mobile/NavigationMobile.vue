@@ -237,7 +237,7 @@ export default {
   async mounted() {
     await this.loadproductsFromSlug();
 
-    if (this.authorization && this.clientsStore.USER_STATE !== {}) {
+    if (this.authorization && Object.keys(this.clientsStore.USER_STATE).length > 0) {
       this.clientsStore.GET_SELF().then(() => this.createProfileName());
     }
   },
