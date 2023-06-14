@@ -377,7 +377,7 @@ export default {
   async mounted() {
     await this.authStore.CHECK_AUTH();
 
-    if (this.authorized && this.user !== {}) {
+    if (this.authorized && Object.keys(this.user).length > 0) {
       await this.clientsStore.GET_SELF();
       this.refreshProducts();
     }
@@ -392,7 +392,7 @@ export default {
   },
   methods: {
     async refreshProducts(reshreshSelf = false) {
-      if (this.authorized && this.user !== {}) {
+      if (this.authorized && Object.keys(this.user).length > 0) {
         if (reshreshSelf) {
           await this.clientsStore.GET_SELF();
         }
