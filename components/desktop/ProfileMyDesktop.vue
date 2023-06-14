@@ -386,9 +386,9 @@ export default {
     }
   },
   methods: {
-    async refreshProducts(reshreshSelf = false) {
+    async refreshProducts(refreshSelf = false) {
       if (this.authorized && Object.keys(this.user).length > 0) {
-        if (reshreshSelf) {
+        if (refreshSelf) {
           await this.clientsStore.GET_SELF();
         }
 
