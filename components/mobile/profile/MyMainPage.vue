@@ -29,7 +29,7 @@
           v-if="user.call_sign"
           class="profile__text"
         >
-          {{ user.call_sign ? user.call_sign : "не заполнено" }}
+          {{ user.call_sign }}
         </p>
         <p
           v-else
