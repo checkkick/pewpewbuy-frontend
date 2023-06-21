@@ -1,14 +1,14 @@
 <template>
   <div class="block">
-    <ProfileGuestDesktop v-if="!mobile" />
-    <ProfileGuestMobile v-else />
+    <GuestProfileDesktop v-if="!mobile" />
+    <GuestProfileMobile v-else />
   </div>
 </template>
 
 <script setup>
-import ProfileGuestDesktop from '@/components/desktop/profile/ProfileGuestDesktop.vue';
+import GuestProfileDesktop from '@/components/desktop/profile/GuestProfileDesktop.vue';
 import { media } from '@/store/media';
-import ProfileGuestMobile from '@/components/mobile/profile/ProfileGuestMobile.vue';
+import GuestProfileMobile from '@/components/mobile/profile/GuestProfileMobile.vue';
 
 definePageMeta({
   middleware: ['authorization'],
