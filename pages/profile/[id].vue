@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="block">
     <ProfileGuestDesktop v-if="!mobile" />
     <ProfileGuestMobile v-else />
   </div>
@@ -18,4 +18,10 @@ definePageMeta({
 const mobile = computed(() => media().MEDIA_MOBILE);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.block {
+  @media (max-width: 1150px) {
+    margin-top: 5rem;
+  }
+}
+</style>
