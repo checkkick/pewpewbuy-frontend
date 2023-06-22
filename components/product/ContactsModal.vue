@@ -1,12 +1,27 @@
 <template>
   <Teleport to=".layout">
-    <div class="modal-background">
-      <div class="modal-window">
+    <div
+      class="modal-background"
+      @click="closeWindow"
+    >
+      <div
+        class="modal-window"
+        @click.stop
+      >
         <span
           class="modal-window__close"
           @click="closeWindow"
         />
-        <h2 class="modal-window__title">
+        <h2
+          v-if="mobile"
+          class="modal-window__title"
+        >
+          Социальные сети
+        </h2>
+        <h2
+          v-if="!mobile"
+          class="modal-window__title"
+        >
           Контакты продавца
         </h2>
         <div
@@ -64,6 +79,8 @@
 </template>
 
 <script>
+import { media } from '@/store/media';
+
 export default {
   props: {
     fio: {
@@ -84,6 +101,11 @@ export default {
     },
   },
   emits: ['closeContactsWindow'],
+  setup() {
+    return {
+      mobile: computed(() => media().MEDIA_MOBILE),
+    };
+  },
   mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
@@ -119,10 +141,15 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  background: $modal-background;
+  background-color: $modal-background;
   border-radius: 15px;
   padding: 2rem;
   margin: 100px;
+
+  @media (max-width: 750px) {
+    background-color: $modal-mobile-background;
+    border: 1px solid $boder-mobile;
+  }
 
   &__close {
     cursor: pointer;
@@ -160,6 +187,12 @@ export default {
     @media (max-width: 1150px) {
       font-size: 16px;
       line-height: 1rem;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 700;
     }
   }
 }

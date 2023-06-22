@@ -75,19 +75,28 @@
     <a
       href="#"
       class="profile__link-btn substrate"
+      @click="showContacts = true"
     >Мои социальные сети</a>
     <a
       href="#"
       class="profile__exit"
       @click="exitProfile()"
     >Выйти</a>
+
+    <ContactsModal
+      v-if="showContacts"
+      :email="user.email"
+      :vk="user.vk"
+      :tg="user.tg"
+      @close-contacts-window="showContacts = false"
+    />
   </div>
 </template>
 
 <script>
 // import EditProfile from '@/components/profile/EditProfile.vue';
 import RatingCalc from '@/components/profile/RatingCalc.vue';
-// import AddProductModal from '@/components/profile/AddProductModal.vue';
+import ContactsModal from '~~/components/product/ContactsModal.vue';
 
 import { clients } from '@/store/clients';
 import { removeCookies } from '@/store/cookies';
@@ -97,8 +106,8 @@ import noPhoto from '@/assets/img/no-photo.png';
 export default {
   components: {
     RatingCalc,
+    ContactsModal,
     // EditProfile,
-    // AddProductModal,
   },
   setup() {
     const clientsStore = clients();
@@ -113,6 +122,7 @@ export default {
     return {
       editProfile: false,
       showAddProductModal: false,
+      showContacts: false,
     };
   },
   watch: {
@@ -224,8 +234,8 @@ export default {
 
 .substrate {
   padding: 17px 15px;
-  background-color: #F2F7FF;
-  border: 1px solid #D8E7FF;
+  background-color: $modal-mobile-background;
+  border: 1px solid $boder-mobile;
   border-radius: 12px;
   margin-bottom: 8px;
 
