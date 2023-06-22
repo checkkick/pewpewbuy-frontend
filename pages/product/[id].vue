@@ -450,8 +450,8 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 12px 40px;
-    background: #F2F7FF;
-    border: 1px solid $modal-mobile-background;
+    background: $modal-mobile-background;
+    border: 1px solid $boder-mobile;
     border-radius: 12px;
     margin-bottom: 0;
   }
