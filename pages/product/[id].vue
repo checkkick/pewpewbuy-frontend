@@ -451,7 +451,7 @@ export default {
     justify-content: center;
     padding: 12px 40px;
     background: #F2F7FF;
-    border: 1px solid #D8E7FF;
+    border: 1px solid $modal-mobile-background;
     border-radius: 12px;
     margin-bottom: 0;
   }
