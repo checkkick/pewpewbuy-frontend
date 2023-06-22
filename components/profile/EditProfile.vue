@@ -153,6 +153,11 @@
         Сохранить
       </button>
     </div>
+
+    <BackButtonMobile
+      v-if="mobile"
+      @click="closeWindow"
+    />
   </div>
 </template>
 
@@ -160,8 +165,11 @@
 import { notifications } from '@/store/notifications';
 import noPhoto from '@/assets/img/no-photo.png';
 import { clients } from '@/store/clients';
+import { media } from '@/store/media';
+import BackButtonMobile from '../mobile/BackButtonMobile.vue';
 
 export default {
+  components: { BackButtonMobile },
   emits: ['closeEditWindow'],
   setup() {
     const clientsStore = clients();
@@ -171,6 +179,7 @@ export default {
       clientsStore,
       noImage: noPhoto,
       addNotifications,
+      mobile: computed(() => media().MEDIA_MOBILE),
     };
   },
   data: () => ({
@@ -246,6 +255,12 @@ export default {
   align-items: center;
   justify-content: center;
   background: $modal-dark-background;
+
+  @media (max-width: 750px) {
+    z-index: 90;
+    top: 2.5rem;
+    background: transparent;
+  }
 }
 
 .profile-edit {
@@ -259,8 +274,19 @@ export default {
   flex-direction: column;
   gap: 1rem;
   padding: 40px 50px;
-  background: $modal-background;
+  background-color: $modal-background;
   border-radius: 15px;
+
+  @media (max-width: 750px) {
+    position: relative;
+    border-radius: 0;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 1rem 15px 5.6rem;
+    background-color: $white;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -276,6 +302,10 @@ export default {
     right: 20px;
     width: 20px;
     height: 20px;
+
+    @media (max-width: 750px) {
+      display: none;
+    }
 
     &::before {
       content: '';
@@ -305,11 +335,22 @@ export default {
     color: $primary;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+      margin-bottom: 0;
+    }
   }
 
   &__save-btn {
     cursor: pointer;
     @include defineBtnPrimary(15px, 68px, 13px, 33px);
+
+    @media (max-width: 750px) {
+      font-size: 14px;
+      border-radius: 40px;
+      padding: 14px 24px;
+    }
 
     &:disabled {
       background-color: $input-background;
@@ -336,6 +377,11 @@ export default {
     text-decoration: none;
     border-bottom: 1px solid $black;
     color: $black;
+
+    @media (max-width: 750px) {
+      font-size: 11px;
+      line-height: 12px;
+    }
   }
 
   &__input {
@@ -352,6 +398,12 @@ export default {
   color: $black;
   text-align: center;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 750px) {
+    font-size: 12px;
+    line-height: 13px;
+    margin-bottom: 0;
+  }
 
   &__link {
     color: $black;
@@ -370,6 +422,11 @@ export default {
   &__label {
     @include defineFontMontserrat(500, 14px, 16px);
     color: $black;
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+      line-height: 13px;
+    }
   }
 
   &__input {

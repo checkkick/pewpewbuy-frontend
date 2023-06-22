@@ -4,6 +4,7 @@
     <a
       class="profile__edit-btn"
       href="#"
+      @click="editProfile = true"
     >Редактировать</a>
     <h3 class="profile__username">
       {{ user.first_name ? user.first_name : "Имя пользователя" }}
@@ -90,6 +91,11 @@
       :tg="user.tg"
       @close-contacts-window="showContacts = false"
     />
+
+    <EditProfile
+      v-if="editProfile"
+      @close-edit-window="editProfile = false"
+    />
   </div>
 </template>
 
@@ -97,6 +103,7 @@
 // import EditProfile from '@/components/profile/EditProfile.vue';
 import RatingCalc from '@/components/profile/RatingCalc.vue';
 import ContactsModal from '~~/components/product/ContactsModal.vue';
+import EditProfile from '@/components/profile/EditProfile.vue';
 
 import { clients } from '@/store/clients';
 import { removeCookies } from '@/store/cookies';
@@ -107,7 +114,7 @@ export default {
   components: {
     RatingCalc,
     ContactsModal,
-    // EditProfile,
+    EditProfile,
   },
   setup() {
     const clientsStore = clients();
