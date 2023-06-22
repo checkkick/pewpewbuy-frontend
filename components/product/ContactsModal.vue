@@ -224,11 +224,20 @@ export default {
       padding-left: 1.4rem;
     }
 
+    @media (max-width: 750px) {
+      text-decoration: underline;
+      color: $primary;
+    }
+
     &--fio {
       background: url('@/assets/img/products-fio.svg') no-repeat left center / 20px 19px;
 
       @media (max-width: 1150px) {
         background-size: 17px 16px;
+      }
+
+      @media (max-width: 750px) {
+        background-position-y: bottom;
       }
     }
 
@@ -238,6 +247,10 @@ export default {
       @media (max-width: 1150px) {
         background-size: 17px 14px;
       }
+
+      @media (max-width: 750px) {
+        background-position-y: bottom;
+      }
     }
 
     &--vk {
@@ -246,6 +259,10 @@ export default {
       @media (max-width: 1150px) {
         background-size: 17px 14px;
       }
+
+      @media (max-width: 750px) {
+        background-position-y: bottom;
+      }
     }
 
     &--tg {
@@ -253,6 +270,10 @@ export default {
 
       @media (max-width: 1150px) {
         background-size: 17px 14px;
+      }
+
+      @media (max-width: 750px) {
+        background-position-y: bottom;
       }
     }
   }
