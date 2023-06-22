@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <!-- Личный просмотр профиля -->
-    <MyMainPage v-if="page === 'main'" />
+    <MyMain v-if="page === 'main'" />
   </div>
 </template>
 
 <script>
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
-import MyMainPage from './MyMainPage.vue';
+import MyMain from './MyMain.vue';
 
 export default {
-  components: { MyMainPage },
+  components: { MyMain },
   setup() {
     const authStore = auth();
     const clientsStore = clients();
