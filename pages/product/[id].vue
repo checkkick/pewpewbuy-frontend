@@ -36,8 +36,8 @@
           </div>
           <NuxtLink
             :href="userStore.id === detProduct.user.id
-                ? '/profile'
-                : `/profile/${detProduct.user.id}`
+              ? '/profile'
+              : `/profile/${detProduct.user.id}`
               "
             class="about-seller__profile-link"
           >
@@ -135,8 +135,8 @@
             <p
               class="switcher__about-product"
               :class="switcher === 'about-product'
-                  ? 'switcher__about-product--active'
-                  : ''
+                ? 'switcher__about-product--active'
+                : ''
                 "
               @click="switcher = 'about-product'"
             >
@@ -164,15 +164,15 @@
             <button
               class="price__btn-profile-link"
               @click="userStore.id === detProduct.user.id
-                  ? $router.push('/profile')
-                  : $router.push(`/profile/${detProduct.user.id}`)"
+                ? $router.push('/profile')
+                : $router.push(`/profile/${detProduct.user.id}`)"
             >
               Профиль продавца
             </button>
             <NuxtLink
               :href="userStore.id === detProduct.user.id
-                  ? '/profile'
-                  : `/profile/${detProduct.user.id}`
+                ? '/profile'
+                : `/profile/${detProduct.user.id}`
                 "
               class="price__all-products"
             >
@@ -233,7 +233,7 @@
         :email="detProduct.user.email"
         :vk="detProduct.user.vk"
         :tg="detProduct.user.tg"
-        @close-login-window="showContacts = false"
+        @close-contacts-window="showContacts = false"
       />
     </main>
   </div>

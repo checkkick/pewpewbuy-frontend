@@ -83,14 +83,14 @@ export default {
       default: '',
     },
   },
-  emits: ['closeLoginWindow'],
+  emits: ['closeContactsWindow'],
   mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
   methods: {
     closeWindow() {
       document.getElementsByTagName('body')[0].style.overflow = null;
-      this.$emit('closeLoginWindow');
+      this.$emit('closeContactsWindow');
     },
   },
 };
