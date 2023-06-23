@@ -250,14 +250,14 @@
       <section class="main__active-adv">
         <Advertisment
           :active-publ="true"
-          :publications="active"
+          :publications="activeUserProducts"
           @open-add-product="showAddProductModal = true"
           @refresh-products="refreshProducts(true)"
           @show-edit-product-modal="showEditProductModalMethod"
         />
         <Advertisment
           :inactive-publ="true"
-          :publications="inactive"
+          :publications="inactiveUserProducts"
           @refresh-products="refreshProducts(true)"
           @show-edit-product-modal="showEditProductModalMethod"
         />
@@ -331,20 +331,21 @@ export default {
   setup() {
     const authStore = auth();
     const clientsStore = clients();
+
     return {
       authStore,
       clientsStore,
       modules: [Navigation, Pagination],
       authorized: computed(() => authStore.AUTHORIZED),
       user: computed(() => clientsStore.USER_STATE),
+      activeUserProducts: computed(() => clientsStore.ACTIVE_USER_PRODUCTS),
+      inactiveUserProducts: computed(() => clientsStore.INACTIVE_USER_PRODUCTS),
       tablet: computed(() => media().MEDIA_TABLET),
       noImage: noPhoto,
     };
   },
   data() {
     return {
-      active: [],
-      inactive: [],
       editProfile: false,
       showAddProductModal: false,
       editProductModal: {
@@ -391,17 +392,6 @@ export default {
         if (refreshSelf) {
           await this.clientsStore.GET_SELF();
         }
-
-        this.active = [];
-        this.inactive = [];
-
-        this.user.products.forEach((product) => {
-          if (product.status === 'Active') {
-            this.active.push(product);
-          } else {
-            this.inactive.push(product);
-          }
-        });
       }
     },
     showEditProductModalMethod(id) {

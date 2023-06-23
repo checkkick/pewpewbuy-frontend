@@ -6,17 +6,35 @@ import { defineStore } from 'pinia';
 export const clients = defineStore('clients', {
   state: () => ({
     user: {},
+    activeUserProducts: [],
+    inactiveUserProducts: [],
   }),
 
   actions: {
     async GET_SELF() {
-      const response = await api('clients/getself/', {
-        method: 'GET',
-        errorAlert: 'Ошибка при загрузке данных пользователя',
-        headers: { Authorization: `Bearer ${get('access_pew')}` },
-      });
+      try {
+        const response = await api('clients/getself/', {
+          method: 'GET',
+          errorAlert: 'Ошибка при загрузке данных пользователя',
+          headers: { Authorization: `Bearer ${get('access_pew')}` },
+        });
 
-      this.user = response;
+        this.user = response;
+
+        this.activeUserProducts = [];
+        this.inactiveUserProducts = [];
+        this.user.products.forEach((product) => {
+          if (product.status === 'Active') {
+            this.activeUserProducts.push(product);
+          } else {
+            this.inactiveUserProducts.push(product);
+          }
+        });
+
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
 
     async UPDATE_USER(id, data) {
@@ -59,5 +77,7 @@ export const clients = defineStore('clients', {
 
   getters: {
     USER_STATE: (state) => state.user,
+    ACTIVE_USER_PRODUCTS: (state) => state.activeUserProducts,
+    INACTIVE_USER_PRODUCTS: (state) => state.inactiveUserProducts,
   },
 });
