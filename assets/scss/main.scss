@@ -90,3 +90,21 @@ html {
     padding: 0 15px;
   }
 }
+
+.substrate-mobile {
+  padding: 17px 15px;
+  background-color: $modal-mobile-background;
+  border: 1px solid $boder-mobile;
+  border-radius: 12px;
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &--bottom-border {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #c0d1eb;
+    }
+  }
+}

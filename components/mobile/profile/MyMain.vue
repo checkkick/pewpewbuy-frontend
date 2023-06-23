@@ -4,13 +4,13 @@
     <a
       class="profile__edit-btn"
       href="#"
-      @click="editProfile = true"
+      @click.prevent="editProfile = true"
     >Редактировать</a>
     <h3 class="profile__username">
       {{ user.first_name ? user.first_name : "Имя пользователя" }}
       {{ user.last_name }}
     </h3>
-    <div class="profile__about substrate">
+    <div class="profile__about substrate-mobile">
       <div class="profile__row">
         <img
           class="profile__img"
@@ -57,16 +57,17 @@
     </div>
     <a
       href="#"
-      class="profile__link-btn substrate"
+      class="profile__link-btn substrate-mobile"
+      @click.prevent="$emit('changePage', 'publications')"
     >Мои объявления</a>
     <a
       href="#"
-      class="profile__link-btn substrate"
+      class="profile__link-btn substrate-mobile"
     >Избранное</a>
-    <div class="substrate substrate__block">
+    <div class="substrate-mobile substrate-mobile__block">
       <a
         href="#"
-        class="profile__link-btn substrate__block--bottom-border"
+        class="profile__link-btn substrate-mobile__block--bottom-border"
       >Мои отзывы</a>
       <a
         href="#"
@@ -75,13 +76,13 @@
     </div>
     <a
       href="#"
-      class="profile__link-btn substrate"
-      @click="showContacts = true"
+      class="profile__link-btn substrate-mobile"
+      @click.prevent="showContacts = true"
     >Мои социальные сети</a>
     <a
       href="#"
       class="profile__exit"
-      @click="exitProfile()"
+      @click.prevent="exitProfile()"
     >Выйти</a>
 
     <ContactsModal
@@ -100,7 +101,6 @@
 </template>
 
 <script>
-// import EditProfile from '@/components/profile/EditProfile.vue';
 import RatingCalc from '@/components/profile/RatingCalc.vue';
 import ContactsModal from '~~/components/product/ContactsModal.vue';
 import EditProfile from '@/components/profile/EditProfile.vue';
@@ -116,6 +116,7 @@ export default {
     ContactsModal,
     EditProfile,
   },
+  emits: ['changePage'],
   setup() {
     const clientsStore = clients();
 
@@ -164,6 +165,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: 8px;
 
   &__edit-btn {
     position: absolute;
@@ -176,7 +178,7 @@ export default {
   &__username {
     @include defineFontMontserrat(600, 15px, 1.4);
     color: $black;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
   }
 
   &__about {
@@ -229,7 +231,6 @@ export default {
     @include defineFontMontserrat(600, 13px, 16px);
     text-decoration: none;
     color: $black;
-
   }
 
   &__exit {
@@ -239,26 +240,7 @@ export default {
   }
 }
 
-.substrate {
-  padding: 17px 15px;
-  background-color: $modal-mobile-background;
-  border: 1px solid $boder-mobile;
-  border-radius: 12px;
-  margin-bottom: 8px;
-
-  &:nth-last-child(2) {
-    margin-bottom: 2rem;
-  }
-
-  &__block {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    &--bottom-border {
-      padding-bottom: 16px;
-      border-bottom: 1px solid #C0D1EB;
-    }
-  }
+.substrate-mobile:nth-last-child(2) {
+  margin-bottom: 2rem;
 }
 </style>
