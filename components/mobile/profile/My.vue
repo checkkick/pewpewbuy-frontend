@@ -1,7 +1,14 @@
 <template>
   <div class="container">
     <!-- Личный просмотр профиля -->
-    <MyMain v-if="page === 'main'" />
+    <MyMain
+      v-if="page === 'main'"
+      @change-page="(pageName) => page = pageName"
+    />
+    <MyPublications
+      v-if="page === 'publications'"
+      @change-page="(pageName) => page = pageName"
+    />
   </div>
 </template>
 
@@ -9,9 +16,10 @@
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
 import MyMain from './MyMain.vue';
+import MyPublications from './MyPublications.vue';
 
 export default {
-  components: { MyMain },
+  components: { MyMain, MyPublications },
   setup() {
     const authStore = auth();
     const clientsStore = clients();
