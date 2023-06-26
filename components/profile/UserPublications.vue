@@ -129,7 +129,10 @@
               @click.prevent="$emit('showEditProductModal', publ.id)"
             >Редактировать</a>
           </li>
-          <li class="setting-list__item">
+          <li
+            v-if="publ.status === 'Active'"
+            class="setting-list__item"
+          >
             <a
               href=""
               class="setting-list__link"
