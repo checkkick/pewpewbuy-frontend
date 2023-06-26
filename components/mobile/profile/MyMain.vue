@@ -231,6 +231,10 @@ export default {
     @include defineFontMontserrat(600, 13px, 16px);
     text-decoration: none;
     color: $black;
+
+    &:last-child {
+      padding-top: 16px;
+    }
   }
 
   &__exit {
