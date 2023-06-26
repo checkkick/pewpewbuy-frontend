@@ -3,13 +3,24 @@
     <slot name="header" />
 
     <div
-      v-for="item in products"
-      :key="item.id"
+      v-if="myPublications"
       class="products-grid"
     >
       <UserPublications
-        v-if="myPublications"
+        v-for="item in products"
+        :key="item.id"
         :publ="item"
+      />
+    </div>
+
+    <div
+      v-if="!myPublications"
+      class="products-grid"
+    >
+      <OtherPublications
+        v-for="item in products"
+        :key="item.id"
+        :publication="item"
       />
     </div>
   </div>
@@ -19,6 +30,7 @@
 
 <script setup>
 import UserPublications from '@/components/profile/UserPublications.vue';
+import OtherPublications from '@/components/profile/OtherPublications.vue';
 import BackButtonMobile from '../BackButtonMobile.vue';
 
 defineEmits(['changePage']);
@@ -41,6 +53,7 @@ defineProps({
   display: flex;
   align-items: stretch;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .products-grid {

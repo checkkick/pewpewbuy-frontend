@@ -80,7 +80,10 @@
       @click="$router.push(`/product/${publication.id}`)"
     >
       <div class="advanced__line">
-        <p class="advanced__text">
+        <p
+          v-if="!mobile"
+          class="advanced__text"
+        >
           Местоположение:
         </p>
         <p class="advanced__text advanced__text--location">
@@ -88,7 +91,10 @@
         </p>
       </div>
       <div class="advanced__line">
-        <p class="advanced__text">
+        <p
+          v-if="!mobile"
+          class="advanced__text"
+        >
           Цена:
         </p>
         <p class="advanced__text-bold">
@@ -101,6 +107,7 @@
 
 <script>
 import { products } from '@/store/products';
+import { media } from '@/store/media';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -124,6 +131,7 @@ export default {
     return {
       useProductStore,
       modules: [Pagination],
+      mobile: computed(() => media().MEDIA_MOBILE),
     };
   },
   data() {
@@ -166,6 +174,13 @@ export default {
     padding: 13px 18px 28px;
   }
 
+  @media (max-width: 750px) {
+    position: relative;
+    padding: 0;
+    border-radius: 0;
+    justify-content: space-between;
+  }
+
   &__like {
     cursor: pointer;
     position: absolute;
@@ -183,6 +198,12 @@ export default {
     @media (max-width: 1150px) {
       top: 9px;
       transform: scale(0.9);
+    }
+
+    @media (max-width: 750px) {
+      top: auto;
+      bottom: 0;
+      right: 0;
     }
 
     & svg {
@@ -219,6 +240,12 @@ export default {
     @media (max-width: 1150px) {
       padding-bottom: 1.3rem;
       height: 240px;
+    }
+
+    @media (max-width: 750px) {
+      margin-top: 0;
+      padding-bottom: 1.2rem;
+      height: 170px;
     }
   }
 
@@ -270,6 +297,10 @@ export default {
       font-size: 12px;
       margin-bottom: 0.2rem;
     }
+
+    @media (max-width: 750px) {
+      margin-bottom: 0.3rem;
+    }
   }
 }
 
@@ -303,6 +334,10 @@ export default {
       font-size: 12px;
       line-height: 14px;
     }
+
+    @media (max-width: 750px) {
+      max-width: none;
+    }
   }
 
   &__date {
@@ -324,6 +359,11 @@ export default {
   justify-content: space-between;
   flex-grow: 1;
   gap: 0.5rem;
+
+  @media (max-width: 750px) {
+    gap: 3px;
+    justify-content: flex-end;
+  }
 
   &__line {
     display: flex;
@@ -347,6 +387,10 @@ export default {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+
+      @media (max-width: 750px) {
+        color: #9D9D9D;
+      }
     }
   }
 
