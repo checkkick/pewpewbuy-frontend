@@ -63,6 +63,7 @@
     <a
       href="#"
       class="profile__link-btn substrate-mobile"
+      @click.prevent="$emit('changePage', 'favoritePublications')"
     >Избранное</a>
     <div class="substrate-mobile substrate-mobile__block">
       <a

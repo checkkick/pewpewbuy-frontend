@@ -1,0 +1,51 @@
+<template>
+  <div class="all-publications">
+    <slot name="header" />
+
+    <div
+      v-for="item in products"
+      :key="item.id"
+      class="products-grid"
+    >
+      <UserPublications
+        v-if="myPublications"
+        :publ="item"
+      />
+    </div>
+  </div>
+
+  <BackButtonMobile @click="$emit('changePage', 'publications')" />
+</template>
+
+<script setup>
+import UserPublications from '@/components/profile/UserPublications.vue';
+import BackButtonMobile from '../BackButtonMobile.vue';
+
+defineEmits(['changePage']);
+
+defineProps({
+  products: {
+    type: Array,
+    default: () => [],
+  },
+  myPublications: {
+    type: Boolean,
+    default: true,
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.all-publications {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+</style>
