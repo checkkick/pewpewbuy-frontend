@@ -418,6 +418,7 @@ export default {
 
   @media (max-width: 750px) {
     gap: 3px;
+    justify-content: flex-end;
   }
 
   &__line {
