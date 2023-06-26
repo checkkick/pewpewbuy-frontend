@@ -313,6 +313,7 @@ export default {
     }
 
     @media (max-width: 750px) {
+      margin-top: 0;
       padding-bottom: 1.2rem;
       height: 170px;
     }
