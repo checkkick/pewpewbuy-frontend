@@ -65,16 +65,11 @@
       class="profile__link-btn substrate-mobile"
       @click.prevent="$emit('changePage', 'favoritePublications')"
     >Избранное</a>
-    <div class="substrate-mobile substrate-mobile__block">
-      <a
-        href="#"
-        class="profile__link-btn substrate-mobile__block--bottom-border"
-      >Мои отзывы</a>
-      <a
-        href="#"
-        class="profile__link-btn"
-      >Отзывы обо мне</a>
-    </div>
+    <a
+      href="#"
+      class="profile__link-btn substrate-mobile"
+      @click.prevent="$emit('changePage', 'reviews')"
+    >Отзывы</a>
     <a
       href="#"
       class="profile__link-btn substrate-mobile"

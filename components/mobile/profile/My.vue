@@ -11,6 +11,11 @@
       @change-page="(pageName) => page = pageName"
     />
 
+    <MyReviews
+      v-if="page === 'reviews'"
+      @change-page="(pageName) => page = pageName"
+    />
+
     <MyDetailPublications
       v-if="page === 'activePublications'"
       :products="activePublications"
@@ -83,9 +88,12 @@ import { clients } from '@/store/clients';
 import MyMain from './MyMain.vue';
 import MyPublications from './MyPublications.vue';
 import MyDetailPublications from './MyDetailPublications.vue';
+import MyReviews from './MyReviews.vue';
 
 export default {
-  components: { MyMain, MyPublications, MyDetailPublications },
+  components: {
+    MyMain, MyPublications, MyDetailPublications, MyReviews,
+  },
   setup() {
     const authStore = auth();
     const clientsStore = clients();

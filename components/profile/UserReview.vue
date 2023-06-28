@@ -59,6 +59,11 @@ export default {
     gap: 0.5rem;
   }
 
+  @media (max-width: 750px) {
+    position: relative;
+    padding-left: 42px;
+  }
+
   &__title {
     display: flex;
     align-items: center;
@@ -75,6 +80,14 @@ export default {
       width: 28px;
       height: 28px;
     }
+
+    @media (max-width: 750px) {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 35px;
+      height: 35px;
+    }
   }
 
   &__name {
@@ -83,6 +96,10 @@ export default {
     @media (max-width: 1150px) {
       font-size: 13px;
       line-height: 16px;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 14px;
     }
   }
 
@@ -102,7 +119,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+
+    @media (max-width: 750px) {
+      margin-bottom: 0.7rem;
+    }
   }
 
   &__summary {
@@ -110,6 +131,10 @@ export default {
 
     @media (max-width: 1150px) {
       font-size: 10px;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
     }
   }
 
@@ -144,6 +169,18 @@ export default {
     @media (max-width: 1150px) {
       font-size: 12px;
     }
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+      line-height: 1.2rem;
+      text-overflow: initial;
+      -o-text-overflow: initial;
+      overflow: visible;
+      display: block;
+      color: $black;
+      background-clip: initial;
+      background-image: none;
+    }
   }
 
   &__date {
@@ -155,6 +192,10 @@ export default {
     @media (max-width: 1150px) {
       font-size: 9px;
       line-height: 11px;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 10px;
     }
   }
 }
@@ -173,6 +214,10 @@ export default {
 
     @media (max-width: 1150px) {
       font-size: 10px;
+    }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
     }
   }
 }

@@ -100,10 +100,5 @@ html {
   &__block {
     display: flex;
     flex-direction: column;
-
-    &--bottom-border {
-      padding-bottom: 16px;
-      border-bottom: 1px solid #c0d1eb;
-    }
   }
 }
