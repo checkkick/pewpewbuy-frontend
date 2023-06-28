@@ -157,7 +157,7 @@
             :src="clientsStore.USER_STATE.avatar ? clientsStore.USER_STATE.avatar : noImage"
             alt="user avatar"
           >
-          <p class="nav__text">{{ userName }}</p>
+          <p class="nav__text">{{ createProfileName }}</p>
         </a>
         <a
           v-else
@@ -224,8 +224,24 @@ export default {
   },
   data: () => ({
     noImage: noPhoto,
-    userName: '',
   }),
+  computed: {
+    createProfileName() {
+      let userName = '';
+
+      if (this.clientsStore.USER_STATE.first_name) {
+        userName += this.clientsStore.USER_STATE.first_name[0];
+      } else if (this.clientsStore.USER_STATE.last_name) {
+        userName += this.clientsStore.USER_STATE.last_name[0];
+      }
+
+      if (userName.length === 0) {
+        userName = 'Профиль';
+      }
+
+      return userName;
+    },
+  },
   watch: {
     '$route.query.slug': {
       async handler() {
@@ -236,10 +252,6 @@ export default {
   },
   async mounted() {
     await this.loadproductsFromSlug();
-
-    if (this.authorization && Object.keys(this.clientsStore.USER_STATE).length > 0) {
-      this.clientsStore.GET_SELF().then(() => this.createProfileName());
-    }
   },
   methods: {
     async loadproductsFromSlug() {
@@ -250,17 +262,6 @@ export default {
           await this.getAllProducts();
           this.$router.push('/');
         }
-      }
-    },
-    createProfileName() {
-      if (this.clientsStore.USER_STATE.first_name) {
-        this.userName += this.clientsStore.USER_STATE.first_name[0];
-      } else if (this.clientsStore.USER_STATE.last_name) {
-        this.userName += this.clientsStore.USER_STATE.last_name[0];
-      }
-
-      if (this.userName.length === 0) {
-        this.userName = 'Профиль';
       }
     },
     routerPush(path) {
