@@ -33,6 +33,9 @@ import UserPublications from '@/components/profile/UserPublications.vue';
 import OtherPublications from '@/components/profile/OtherPublications.vue';
 import BackButtonMobile from '../BackButtonMobile.vue';
 
+const route = useRoute();
+const router = useRouter();
+
 defineEmits(['changePage']);
 
 defineProps({
@@ -44,6 +47,12 @@ defineProps({
     type: Boolean,
     default: true,
   },
+});
+
+onUnmounted(() => {
+  if (Object.hasOwn(route.query, 'favorites')) {
+    router.replace(route.path);
+  }
 });
 </script>
 

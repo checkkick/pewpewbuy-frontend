@@ -104,6 +104,20 @@ export default {
       page: 'main',
     };
   },
+  watch: {
+    '$route.query': {
+      handler() {
+        if (Object.hasOwn(this.$route.query, 'favorites')) {
+          this.page = 'favoritePublications';
+        }
+
+        if (Object.hasOwn(this.$route.query, 'addproduct')) {
+          this.page = 'addProduct';
+        }
+      },
+      deep: true,
+    },
+  },
   async mounted() {
     await this.authStore.CHECK_AUTH();
 
@@ -112,11 +126,11 @@ export default {
     }
 
     if (Object.hasOwn(this.$route.query, 'favorites')) {
-      // document.getElementById('favorites').scrollIntoView();
+      this.page = 'favoritePublications';
     }
 
     if (Object.hasOwn(this.$route.query, 'addproduct')) {
-      // this.showAddProductModal = true;
+      this.page = 'addProduct';
     }
   },
 };
