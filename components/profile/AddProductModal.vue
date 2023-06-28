@@ -259,7 +259,7 @@ export default {
     BackButtonMobile,
   },
 
-  emits: ['closeAddProductWindow', 'refreshProducts'],
+  emits: ['closeAddProductWindow'],
 
   setup() {
     const useProductStore = products();
@@ -372,7 +372,6 @@ export default {
         if (await this.useProductStore.CREATE_PRODUCT(data)) {
           await this.clientsStore.GET_SELF();
           this.btnProcess = false;
-          this.$emit('refreshProducts');
           this.closeWindow();
         }
 

@@ -326,7 +326,7 @@ export default {
     },
   },
 
-  emits: ['closeEditProductWindow', 'refreshProducts'],
+  emits: ['closeEditProductWindow'],
 
   setup() {
     const useProductStore = products();
@@ -468,7 +468,6 @@ export default {
         ) {
           await this.clientsStore.GET_SELF();
           this.btnProcess = false;
-          this.$emit('refreshProducts');
           this.closeWindow();
         }
 

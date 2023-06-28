@@ -68,7 +68,6 @@
               :inactive-publ="inactivePubl"
               :publ="publication"
               :show-edit="!guestUser"
-              @refresh-products="$emit('refreshProducts')"
               @show-edit-product-modal="showEditModalMethod"
             />
           </swiper-slide>
@@ -110,7 +109,7 @@ export default {
     guestUser: { type: Boolean, default: false },
     publications: { type: Array, default: () => [] },
   },
-  emits: ['openAddProduct', 'refreshProducts', 'showEditProductModal'],
+  emits: ['openAddProduct', 'showEditProductModal'],
   setup() {
     const open = ref(true);
     return {

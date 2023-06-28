@@ -170,6 +170,7 @@
 
 <script>
 import { products } from '@/store/products';
+import { clients } from '@/store/clients';
 import { media } from '@/store/media';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -187,7 +188,7 @@ export default {
     showEdit: { type: Boolean, default: true },
     publ: { type: Object, default: () => ({}) },
   },
-  emits: ['refreshProducts', 'showEditProductModal'],
+  emits: ['showEditProductModal'],
   setup() {
     const removeProduct = products().REMOVE_PRODUCT;
 
@@ -199,6 +200,7 @@ export default {
   },
   data() {
     return {
+      clientsStore: clients(),
       status: '',
       showSettings: false,
       mainSettnigs: true,
@@ -218,7 +220,7 @@ export default {
   methods: {
     async deleteProduct(id) {
       if (await this.removeProduct(id)) {
-        this.$emit('refreshProducts');
+        await this.clientsStore.GET_SELF();
         this.showSettings = false;
       }
     },

@@ -252,13 +252,11 @@
           :active-publ="true"
           :publications="activeUserProducts"
           @open-add-product="showAddProductModal = true"
-          @refresh-products="refreshProducts(true)"
           @show-edit-product-modal="showEditProductModalMethod"
         />
         <Advertisment
           :inactive-publ="true"
           :publications="inactiveUserProducts"
-          @refresh-products="refreshProducts(true)"
           @show-edit-product-modal="showEditProductModalMethod"
         />
         <FavoriteAndHistory
@@ -284,13 +282,11 @@
       <AddProductModal
         v-if="showAddProductModal"
         @close-add-product-window="showAddProductModal = false"
-        @refresh-products="refreshProducts()"
       />
       <EditProductModal
         v-if="editProductModal.show"
         :publication-id="editProductModal.publicationId"
         @close-edit-product-window="editProductModal.show = false"
-        @refresh-products="refreshProducts()"
       />
     </TransitionGroup>
   </div>
@@ -373,9 +369,8 @@ export default {
   async mounted() {
     await this.authStore.CHECK_AUTH();
 
-    if (this.authorized && Object.keys(this.user).length > 0) {
+    if (this.authorized && Object.keys(this.user).length === 0) {
       await this.clientsStore.GET_SELF();
-      this.refreshProducts();
     }
 
     if (Object.hasOwn(this.$route.query, 'favorites')) {
@@ -387,13 +382,6 @@ export default {
     }
   },
   methods: {
-    async refreshProducts(refreshSelf = false) {
-      if (this.authorized && Object.keys(this.user).length > 0) {
-        if (refreshSelf) {
-          await this.clientsStore.GET_SELF();
-        }
-      }
-    },
     showEditProductModalMethod(id) {
       this.editProductModal.show = true;
       this.editProductModal.publicationId = id;
