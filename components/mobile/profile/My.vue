@@ -79,12 +79,18 @@
         </div>
       </template>
     </MyDetailPublications>
+
+    <AddProductModal
+      v-if="page === 'addProduct'"
+      @close-add-product-window="page = 'main'"
+    />
   </div>
 </template>
 
 <script>
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
+import AddProductModal from '~~/components/profile/AddProductModal.vue';
 import MyMain from './MyMain.vue';
 import MyPublications from './MyPublications.vue';
 import MyDetailPublications from './MyDetailPublications.vue';
@@ -92,7 +98,7 @@ import MyReviews from './MyReviews.vue';
 
 export default {
   components: {
-    MyMain, MyPublications, MyDetailPublications, MyReviews,
+    MyMain, MyPublications, MyDetailPublications, MyReviews, AddProductModal,
   },
   setup() {
     const authStore = auth();

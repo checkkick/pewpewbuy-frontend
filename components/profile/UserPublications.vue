@@ -126,7 +126,7 @@
             <a
               href=""
               class="setting-list__link"
-              @click.prevent="$emit('showEditProductModal', publ.id)"
+              @click.prevent="$emit('showEditProductModal', publ.id), showSettings = false"
             >Редактировать</a>
           </li>
           <li
@@ -151,7 +151,7 @@
           <div class="remove-accept__row">
             <button
               class="remove-accept__btn-primary"
-              @click="deleteProduct(publ.id)"
+              @click="deleteProduct(publ.id), showSettings = false"
             >
               Да
             </button>

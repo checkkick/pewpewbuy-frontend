@@ -10,6 +10,7 @@
         v-for="item in products"
         :key="item.id"
         :publ="item"
+        @show-edit-product-modal="showEditProduct"
       />
     </div>
 
@@ -25,16 +26,30 @@
     </div>
   </div>
 
+  <EditProductModal
+    v-if="editProduct.show"
+    :publication-id="editProduct.publicationId"
+    @close-edit-product-window="editProduct.show = false"
+  />
+
   <BackButtonMobile @click="$emit('changePage', 'publications')" />
 </template>
 
 <script setup>
 import UserPublications from '@/components/profile/UserPublications.vue';
+import EditProductModal from '~~/components/profile/EditProductModal.vue';
 import OtherPublications from '@/components/profile/OtherPublications.vue';
 import BackButtonMobile from '../BackButtonMobile.vue';
 
 const route = useRoute();
 const router = useRouter();
+
+const editProduct = ref({ show: false, publicationId: 0 });
+
+function showEditProduct(id) {
+  editProduct.value.show = true;
+  editProduct.value.publicationId = id;
+}
 
 defineEmits(['changePage']);
 

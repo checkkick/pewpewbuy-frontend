@@ -439,8 +439,16 @@ export default {
     padding: 13px 12px;
     color: $input-login-color;
 
+    @media (max-width: 750px) {
+      background: $filter-background;
+    }
+
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
+
+      @media (max-width: 750px) {
+        color: rgba(90, 90, 90, 0.26);
+      }
     }
 
     &:disabled {

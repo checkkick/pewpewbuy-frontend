@@ -71,7 +71,7 @@
         </div>
 
         <div class="block">
-          <h3 class="modal-window__subtitle">
+          <h3 class="modal-window__subtitle modal-window__subtitle--margin">
             Добавьте фотографию товара
           </h3>
           <input
@@ -83,10 +83,8 @@
           <swiper
             v-if="tempPhotos.length > 0"
             class="photo-swiper"
-            :slides-per-view="4"
-            :space-between="30"
+            :breakpoints="breakpoints"
             :initial-slide="tempPhotos.length"
-            :centered-slides="true"
           >
             <swiper-slide
               v-for="(item, idx) in tempPhotos"
@@ -360,6 +358,20 @@ export default {
     productDetails: {},
     btnProcess: false,
     firstLoad: true,
+    breakpoints: {
+      // mobile
+      0: {
+        slidesPerView: 3,
+        centeredSlides: false,
+        spaceBetween: 10,
+      },
+      // desktop
+      751: {
+        slidesPerView: 4,
+        centeredSlides: true,
+        spaceBetween: 30,
+      },
+    },
   }),
 
   watch: {
@@ -558,6 +570,10 @@ export default {
     top: 5rem;
     background: transparent;
   }
+
+  @media (max-width: 750px) {
+    top: 3rem;
+  }
 }
 
 .close-background {
@@ -593,6 +609,10 @@ export default {
     margin: 0;
     padding-top: 1rem;
     padding-bottom: 7rem;
+  }
+
+  @media (max-width: 750px) {
+    padding: 0.5rem 15px 6rem;
   }
 
   &::-webkit-scrollbar {
@@ -638,12 +658,28 @@ export default {
     margin-bottom: 2rem;
     text-transform: uppercase;
     color: $primary;
+
+    @media (max-width: 750px) {
+      font-size: 14px;
+      margin-bottom: 1.2rem;
+    }
   }
 
   &__subtitle {
     @include defineFontMontserrat(600, 14px, 16px);
     margin-bottom: 20px;
     text-align: center;
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    &--margin {
+      @media (max-width: 750px) {
+        margin-bottom: 5px;
+      }
+    }
   }
 
   &__image {
@@ -656,6 +692,11 @@ export default {
     @include defineFontMontserrat(300, 12px, 15px);
     text-align: center;
     color: $input-login-color;
+
+    @media (max-width: 750px) {
+      font-size: 10px;
+      line-height: 1rem;
+    }
   }
 
   &__column {
@@ -664,11 +705,20 @@ export default {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+
+    @media (max-width: 750px) {
+      gap: 1rem;
+    }
   }
 
   &__btn {
     @include defineBtnPrimary(15px, 68px, 12px, 33px);
     transition: all 0.2s ease-in-out;
+
+    @media (max-width: 750px) {
+      font-size: 14px;
+      border-radius: 40px;
+    }
 
     &~&--active {
       opacity: 0;
@@ -704,6 +754,13 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
 
+  @media (max-width: 750px) {
+    display: grid;
+    align-items: flex-start;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
   &__radiobutton:checked,
   &__radiobutton:not(:checked) {
     position: absolute;
@@ -717,6 +774,10 @@ export default {
     padding-left: 1rem;
     cursor: pointer;
     display: inline-block;
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+    }
   }
 
   &__radiobutton:checked+&__label:before,
@@ -766,6 +827,13 @@ export default {
   align-items: center;
   gap: 1rem;
 
+  @media (max-width: 750px) {
+    display: grid;
+    align-items: flex-start;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
   &__checkbox:checked,
   &__checkbox:not(:checked) {
     position: absolute;
@@ -779,6 +847,11 @@ export default {
     padding-left: 1rem;
     cursor: pointer;
     display: inline-block;
+
+    @media (max-width: 750px) {
+      font-size: 13px;
+      padding-left: 1.1rem;
+    }
   }
 
   &__checkbox:checked+&__label:before,
@@ -791,6 +864,10 @@ export default {
     height: 13px;
     border: 1px solid $black-inactive;
     background: $white;
+
+    @media (max-width: 750px) {
+      top: 2px;
+    }
   }
 
   &__checkbox:checked+&__label:after,
@@ -804,6 +881,10 @@ export default {
     background: url('@/assets/img/check.svg') no-repeat center center;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
+
+    @media (max-width: 750px) {
+      top: 2px;
+    }
   }
 
   &__checkbox:not(:checked)+&__label:after {
@@ -827,6 +908,10 @@ export default {
   margin-bottom: 0.5rem;
   padding-top: 10px;
 
+  @media (max-width: 750px) {
+    margin-bottom: 0.7rem;
+  }
+
   &__add-slide {
     cursor: pointer;
     height: 170px;
@@ -836,6 +921,11 @@ export default {
     background: $grey-light;
     border: 2px dashed $primary;
     border-radius: 15px;
+
+    @media (max-width: 750px) {
+      border-radius: 8px;
+      height: 100px;
+    }
   }
 
   &__slide-photo {
@@ -846,6 +936,11 @@ export default {
     border: 2px dashed $primary;
     border-radius: 15px;
     height: 170px;
+
+    @media (max-width: 750px) {
+      border-radius: 8px;
+      height: 100px;
+    }
   }
 
   &__delete-btn {
@@ -897,6 +992,13 @@ export default {
     text-align: center;
     padding-bottom: 30px;
     background: url('@/assets/img/add-publication.svg') no-repeat center bottom / 22px 22px;
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      margin: 0 5px 0;
+      background-size: 19px 19px;
+      padding-bottom: 25px;
+    }
   }
 }
 
@@ -908,6 +1010,11 @@ export default {
   align-items: stretch;
   gap: 0.5rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 750px) {
+    gap: 4px;
+    margin-bottom: 0.7rem;
+  }
 
   &:last-child {
     margin-bottom: 0;
@@ -924,6 +1031,16 @@ export default {
       right: 0;
       @include defineFontMontserrat(400, 16px, 20px);
       color: $accent;
+
+      @media (max-width: 750px) {
+        font-size: 12px;
+        line-height: 1rem;
+      }
+    }
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      line-height: 1rem;
     }
   }
 
@@ -936,6 +1053,12 @@ export default {
     border-radius: 6px;
     padding: 14px 12px;
     color: $black;
+
+    @media (max-width: 750px) {
+      font-size: 12px;
+      line-height: 1rem;
+      padding: 11px 12px;
+    }
 
     &--change {
       outline: 1px solid $accent-dark;
@@ -957,6 +1080,12 @@ export default {
     padding: 14px 12px;
     color: $black;
 
+    @media (max-width: 750px) {
+      font-size: 12px;
+      line-height: 1rem;
+      padding: 11px 12px;
+    }
+
     &--change {
       outline: 1px solid $accent-dark;
     }
@@ -973,5 +1102,10 @@ export default {
   gap: 15px;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 750px) {
+    gap: 10px;
+    flex-direction: column;
+  }
 }
 </style>
