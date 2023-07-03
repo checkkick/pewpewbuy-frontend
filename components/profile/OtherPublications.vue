@@ -26,7 +26,7 @@
     </a>
     <div class="user">
       <img
-        :src="publication.user.avatar"
+        :src="publication.user.avatar ? publication.user.avatar : noImage"
         alt="user photo"
         class="user__image"
       >
@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import noPhoto from '@/assets/img/no-photo.png';
 import { products } from '@/store/products';
 import { media } from '@/store/media';
 import { Pagination } from 'swiper';
@@ -137,6 +138,7 @@ export default {
   data() {
     return {
       like: false,
+      noImage: noPhoto,
     };
   },
   mounted() {
