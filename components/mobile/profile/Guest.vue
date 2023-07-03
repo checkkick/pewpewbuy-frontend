@@ -24,11 +24,26 @@
       @change-page="page = 'main'"
     >
       <template #header>
-        <div class="publications-name substrate-mobile">
-          <span class="publications-name__logo publications-name__logo--history" />
-          <p class="publications-name__text">
-            Актив
-          </p>
+        <div class="about-seller">
+          <img
+            class="about-seller__photo"
+            :src="user.avatar ? user.avatar : noImage"
+            alt="seller photo"
+          >
+          <div class="seller-info">
+            <h4 class="seller-info__name">
+              {{ user.first_name }} {{ user.last_name }}
+            </h4>
+            <div class="seller-detail">
+              <p class="seller-detail__text">
+                {{ user.call_sign }}
+              </p>
+              <RatingCalc :stars="Math.floor(user.rep)" />
+              <p class="seller-detail__text">
+                {{ user.rep }}
+              </p>
+            </div>
+          </div>
         </div>
       </template>
     </DetailPublications>
@@ -41,11 +56,26 @@
       @change-page="page = 'main'"
     >
       <template #header>
-        <div class="publications-name substrate-mobile">
-          <span class="publications-name__logo publications-name__logo--history" />
-          <p class="publications-name__text">
-            Неактив
-          </p>
+        <div class="about-seller">
+          <img
+            class="about-seller__photo"
+            :src="user.avatar ? user.avatar : noImage"
+            alt="seller photo"
+          >
+          <div class="seller-info">
+            <h4 class="seller-info__name">
+              {{ user.first_name }} {{ user.last_name }}
+            </h4>
+            <div class="seller-detail">
+              <p class="seller-detail__text">
+                {{ user.call_sign }}
+              </p>
+              <RatingCalc :stars="Math.floor(user.rep)" />
+              <p class="seller-detail__text">
+                {{ user.rep }}
+              </p>
+            </div>
+          </div>
         </div>
       </template>
     </DetailPublications>
@@ -54,6 +84,7 @@
 
 <script setup>
 import { clients } from '@/store/clients';
+import RatingCalc from '@/components/profile/RatingCalc.vue';
 import GuestMain from './GuestMain.vue';
 import Reviews from './Reviews.vue';
 import DetailPublications from './DetailPublications.vue';
@@ -79,4 +110,45 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.about-seller {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 40px;
+  background: $modal-mobile-background;
+  border: 1px solid $boder-mobile;
+  border-radius: 12px;
+  margin-bottom: 0;
+
+  &__photo {
+    border-radius: 50%;
+    align-self: center;
+    object-fit: cover;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.seller-info {
+  margin-right: 1rem;
+
+  &__name {
+    @include defineFontMontserrat(600, 12px, 15px);
+    margin-bottom: 0.5rem;
+  }
+}
+
+.seller-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+
+  &__text {
+    @include defineFontMontserrat(400, 11px, 13px);
+  }
+}
+</style>
