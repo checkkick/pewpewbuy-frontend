@@ -4,8 +4,15 @@
       Отзывы о продавце
     </h3>
 
+    <h4
+      v-if="reviews.length === 0"
+      class="reviews__empty"
+    >
+      Отзывы отсутствуют
+    </h4>
+
     <UserReview
-      v-for="review in user.about_me_reviews"
+      v-for="review in reviews"
       :key="review.id"
       :review="review"
     />
@@ -15,11 +22,15 @@
 </template>
 
 <script setup>
-import { clients } from '@/store/clients';
 import UserReview from '@/components/profile/UserReview.vue';
 import BackButtonMobile from '../BackButtonMobile.vue';
 
-const user = computed(() => clients().USER_STATE);
+defineProps({
+  reviews: {
+    type: Object,
+    default: () => { },
+  },
+});
 
 defineEmits(['changePage']);
 </script>
@@ -34,6 +45,12 @@ defineEmits(['changePage']);
     @include defineFontMontserrat(600, 15px, 1.2);
     text-align: center;
     margin-bottom: 0.5rem;
+  }
+
+  &__empty {
+    @include defineFontMontserrat(600, 17px, 1.2);
+    text-align: center;
+    color: $black-inactive;
   }
 }
 </style>

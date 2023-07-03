@@ -24,7 +24,10 @@
         />
       </svg>
     </a>
-    <div class="user">
+    <div
+      v-if="!guestShow"
+      class="user"
+    >
       <img
         :src="publication.user.avatar ? publication.user.avatar : noImage"
         alt="user photo"
@@ -125,6 +128,10 @@ export default {
       default() {
         return {};
       },
+    },
+    guestShow: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {

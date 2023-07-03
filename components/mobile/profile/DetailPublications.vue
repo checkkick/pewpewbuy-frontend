@@ -22,12 +22,13 @@
         v-for="item in products"
         :key="item.id"
         :publication="item"
+        :guest-show="guestShow"
       />
     </div>
   </div>
 
   <EditProductModal
-    v-if="editProduct.show"
+    v-if="editProduct.show && myPublications"
     :publication-id="editProduct.publicationId"
     @close-edit-product-window="editProduct.show = false"
   />
@@ -37,7 +38,7 @@
 
 <script setup>
 import UserPublications from '@/components/profile/UserPublications.vue';
-import EditProductModal from '~~/components/profile/EditProductModal.vue';
+import EditProductModal from '@/components/profile/EditProductModal.vue';
 import OtherPublications from '@/components/profile/OtherPublications.vue';
 import BackButtonMobile from '../BackButtonMobile.vue';
 
@@ -61,6 +62,10 @@ defineProps({
   myPublications: {
     type: Boolean,
     default: true,
+  },
+  guestShow: {
+    type: Boolean,
+    default: false,
   },
 });
 

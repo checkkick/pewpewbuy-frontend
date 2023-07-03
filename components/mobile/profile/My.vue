@@ -11,12 +11,13 @@
       @change-page="(pageName) => page = pageName"
     />
 
-    <MyReviews
+    <Reviews
       v-if="page === 'reviews'"
+      :reviews="user.about_me_reviews"
       @change-page="(pageName) => page = pageName"
     />
 
-    <MyDetailPublications
+    <DetailPublications
       v-if="page === 'activePublications'"
       :products="activePublications"
       :my-publications="true"
@@ -30,9 +31,9 @@
           </p>
         </div>
       </template>
-    </MyDetailPublications>
+    </DetailPublications>
 
-    <MyDetailPublications
+    <DetailPublications
       v-if="page === 'inactivePublications'"
       :products="inactivePublications"
       :my-publications="true"
@@ -46,9 +47,9 @@
           </p>
         </div>
       </template>
-    </MyDetailPublications>
+    </DetailPublications>
 
-    <MyDetailPublications
+    <DetailPublications
       v-if="page === 'favoritePublications'"
       :products="user.favortie_products"
       :my-publications="false"
@@ -62,9 +63,9 @@
           </p>
         </div>
       </template>
-    </MyDetailPublications>
+    </DetailPublications>
 
-    <MyDetailPublications
+    <DetailPublications
       v-if="page === 'historyPublications'"
       :products="user.history_products"
       :my-publications="false"
@@ -78,7 +79,7 @@
           </p>
         </div>
       </template>
-    </MyDetailPublications>
+    </DetailPublications>
 
     <AddProductModal
       v-if="page === 'addProduct'"
@@ -90,15 +91,15 @@
 <script>
 import { auth } from '@/store/auth';
 import { clients } from '@/store/clients';
-import AddProductModal from '~~/components/profile/AddProductModal.vue';
+import AddProductModal from '@/components/profile/AddProductModal.vue';
 import MyMain from './MyMain.vue';
 import MyPublications from './MyPublications.vue';
-import MyDetailPublications from './MyDetailPublications.vue';
-import MyReviews from './MyReviews.vue';
+import DetailPublications from './DetailPublications.vue';
+import Reviews from './Reviews.vue';
 
 export default {
   components: {
-    MyMain, MyPublications, MyDetailPublications, MyReviews, AddProductModal,
+    MyMain, MyPublications, DetailPublications, Reviews, AddProductModal,
   },
   setup() {
     const authStore = auth();
