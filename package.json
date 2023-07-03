@@ -1,4 +1,5 @@
 {
+  "name": "pewpewbuy-frontend",
   "private": true,
   "scripts": {
     "build": "nuxt build",
@@ -10,23 +11,24 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "devDependencies": {
+    "@nuxt/devtools": "^0.6.6",
     "@pinia/nuxt": "^0.3.1",
-    "@types/node": "^18.13.0",
-    "@typescript-eslint/parser": "^5.30.7",
+    "@types/node": "^18",
+    "@typescript-eslint/parser": "^5.60.1",
     "@volar-plugins/vetur": "^2.0.0",
     "eslint": "^8.34.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-nuxt": "^1.0.1",
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-vue": "^9.9.0",
-    "nuxt": "3.2.0",
-    "sass": "^1.54.0"
+    "nuxt": "^3.6.1",
+    "sass": "^1.63.6"
   },
   "dependencies": {
-    "esbuild": "0.17.18",
-    "js-cookie": "^3.0.1",
+    "esbuild": "^0.17.18",
+    "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
-    "pinia": "^2.0.30",
-    "swiper": "^9.0.5"
+    "pinia": "^2.1.4",
+    "swiper": "^9.4.1"
   }
 }

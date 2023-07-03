@@ -1,12 +1,5 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-  "allowJs": true,
-  "compilerOptions": {
-    "types": [
-      // https://pinia.vuejs.org/
-      "@pinia/nuxt"
-    ]
-  },
-  "ts-node": {}
+  "allowJs": true
 }

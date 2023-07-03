@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config';
+
 export default defineNuxtConfig({
   ssr: process.env.NODE_ENV !== 'development',
+
   app: {
     buildAssetsDir: '/assetsDir/',
     head: {
@@ -17,7 +20,9 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: 'assetsDir/assets/img/favicon.ico' }, { rel: 'stylesheet', href: 'assetsDir/assets/css/normalize.css' }],
     },
   },
+
   css: ['assets/scss/main.scss'],
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -29,7 +34,13 @@ export default defineNuxtConfig({
       },
     },
   },
+
   modules: [
     '@pinia/nuxt',
+    '@nuxt/devtools',
   ],
+
+  devtools: {
+    enabled: process.env.NODE_ENV !== 'production',
+  },
 });
