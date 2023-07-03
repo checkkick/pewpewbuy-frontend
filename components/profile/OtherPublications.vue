@@ -4,6 +4,7 @@
     @click.self="$router.push(`/product/${publication.id}`)"
   >
     <a
+      v-if="publication.status === 'Active'"
       class="publication__like"
       :class="{ 'publication__like--active': like }"
       @click.prevent="onLike()"
