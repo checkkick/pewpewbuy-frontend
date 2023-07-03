@@ -60,11 +60,29 @@ onUnmounted(() => {
     height: 70vh;
   }
 
+  @media (max-width: 750px) {
+    margin-top: 5rem;
+    height: auto;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__image {
+    @media (max-width: 750px) {
+      width: 60%;
+    }
+  }
+
   &__block {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 35px;
+
+    @media (max-width: 750px) {
+      align-items: center;
+      gap: 1rem;
+    }
   }
 
   &__title {
@@ -73,6 +91,10 @@ onUnmounted(() => {
 
   &__text {
     @include defineFontMontserrat(500, 21px, 26px);
+
+    @media (max-width: 750px) {
+      text-align: center;
+    }
   }
 
   &__btn {
