@@ -73,6 +73,10 @@ onUnmounted(() => {
   if (Object.hasOwn(route.query, 'favorites')) {
     router.replace(route.path);
   }
+
+  if (Object.hasOwn(route.query, 'publications')) {
+    router.replace(route.path);
+  }
 });
 </script>
 

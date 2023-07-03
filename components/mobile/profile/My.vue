@@ -147,6 +147,10 @@ export default {
     if (Object.hasOwn(this.$route.query, 'addproduct')) {
       this.page = 'addProduct';
     }
+
+    if (Object.hasOwn(this.$route.query, 'publications')) {
+      this.page = 'activePublications';
+    }
   },
 };
 </script>

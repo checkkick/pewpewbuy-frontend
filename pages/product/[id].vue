@@ -174,8 +174,8 @@
             </button>
             <NuxtLink
               :href="userStore.id === detProduct.user.id
-                ? '/profile'
-                : `/profile/${detProduct.user.id}`
+                ? '/profile?publications'
+                : `/profile/${detProduct.user.id}?publications`
                 "
               class="price__all-products"
             >

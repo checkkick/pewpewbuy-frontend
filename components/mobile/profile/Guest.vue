@@ -107,6 +107,10 @@ onMounted(async () => {
       inactiveProducts.value.push(product);
     }
   });
+
+  if (Object.hasOwn(route.query, 'publications')) {
+    page.value = 'activePublications';
+  }
 });
 </script>
 
