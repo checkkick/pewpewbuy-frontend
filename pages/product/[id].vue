@@ -28,10 +28,13 @@
               {{ detProduct.user.first_name }} {{ detProduct.user.last_name }}
             </h4>
             <div class="seller-detail">
-              <p class="seller-detail__nickname">
+              <p class="seller-detail__text">
                 {{ detProduct.user.call_sign }}
               </p>
               <RatingCalc :stars="Math.floor(detProduct.user.rep)" />
+              <p class="seller-detail__text">
+                {{ detProduct.user.rep }}
+              </p>
             </div>
           </div>
           <NuxtLink
@@ -510,7 +513,7 @@ export default {
   align-items: center;
   gap: 0.7rem;
 
-  &__nickname {
+  &__text {
     @include defineFontMontserrat(400, 14px, 16px);
 
     @media (max-width: 750px) {
