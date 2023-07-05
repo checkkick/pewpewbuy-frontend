@@ -39,6 +39,14 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
   ],
 
+  pinia: {
+    autoImports: [
+      // automatically imports `defineStore`
+      'defineStore', // import { defineStore } from 'pinia'
+      ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+    ],
+  },
+
   devtools: {
     enabled: process.env.NODE_ENV !== 'production',
   },
