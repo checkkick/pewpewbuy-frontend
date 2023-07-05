@@ -55,7 +55,7 @@
           >
             <img
               class="contacts__image"
-              src="/assetsDir/assets/img/telegram-black.svg"
+              src="/assets/img/telegram-black.svg"
               alt="telegram"
             >
           </a>
@@ -66,7 +66,7 @@
           >
             <img
               class="contacts__image"
-              src="/assetsDir/assets/img/whatsapp-black.svg"
+              src="/assets/img/whatsapp-black.svg"
               alt="whatsapp"
             >
           </a>
@@ -77,7 +77,7 @@
           >
             <img
               class="contacts__image"
-              src="/assetsDir/assets/img/vk-black.svg"
+              src="/assets/img/vk-black.svg"
               alt="vk"
             >
           </a>
@@ -88,7 +88,7 @@
           >
             <img
               class="contacts__image"
-              src="/assetsDir/assets/img/mail-black.svg"
+              src="/assets/img/mail-black.svg"
               alt="mail"
             >
           </a>

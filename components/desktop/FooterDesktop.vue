@@ -36,7 +36,7 @@
                 @click.prevent
               >
                 <img
-                  src="/assetsDir/assets/img/telegram.svg"
+                  src="/assets/img/telegram.svg"
                   alt="telegram"
                 >
               </a>
@@ -46,7 +46,7 @@
                 @click.prevent
               >
                 <img
-                  src="/assetsDir/assets/img/whatsapp.svg"
+                  src="/assets/img/whatsapp.svg"
                   alt="whatsapp"
                 >
               </a>
@@ -56,7 +56,7 @@
                 @click.prevent
               >
                 <img
-                  src="/assetsDir/assets/img/vk.svg"
+                  src="/assets/img/vk.svg"
                   alt="vk"
                 >
               </a>
@@ -66,7 +66,7 @@
                 @click.prevent
               >
                 <img
-                  src="/assetsDir/assets/img/mail.svg"
+                  src="/assets/img/mail.svg"
                   alt="mail"
                 >
               </a>

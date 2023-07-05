@@ -5,7 +5,6 @@ export default defineNuxtConfig({
   ssr: process.env.NODE_ENV !== 'development',
 
   app: {
-    buildAssetsDir: '/assetsDir/',
     head: {
       title: 'PEWPEWBUY | Страйкбольная барахолка',
       htmlAttrs: {
@@ -17,7 +16,7 @@ export default defineNuxtConfig({
         { hid: 'description', name: 'description', content: '' },
         { name: 'format-detection', content: 'telephone=no' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'assetsDir/assets/img/favicon.ico' }],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'assets/img/favicon.ico' }],
     },
   },
 
