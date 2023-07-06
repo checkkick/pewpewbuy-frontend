@@ -1,12 +1,9 @@
 FROM node:18-alpine
 
-WORKDIR /app
-
-ENV APP_ENV production
-
+WORKDIR /pewpewbuy-frontend
 COPY . .
 
-RUN npm ci
+RUN npm ci && npm cache clean --force
 RUN npm run build
 
-ENTRYPOINT [ "node", "/app/.output/server/index.mjs" ]
+ENTRYPOINT ["node", ".output/server/index.mjs"]
