@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
@@ -34,6 +33,10 @@ export default defineNuxtConfig({
     },
   },
 
+  plugins: [
+    { src: '@/plugins/mediaListenerPlugin.client.js' },
+  ],
+
   modules: [
     '@pinia/nuxt',
     '@nuxt/devtools',
@@ -41,9 +44,8 @@ export default defineNuxtConfig({
 
   pinia: {
     autoImports: [
-      // automatically imports `defineStore`
-      'defineStore', // import { defineStore } from 'pinia'
-      ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+      'defineStore',
+      ['defineStore', 'definePiniaStore'],
     ],
   },
 
