@@ -1,7 +1,13 @@
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
-  ssr: process.env.NODE_ENV !== 'development',
+  ssr: false,
+
+  runtimeConfig: {
+    public: {
+      API_URL: process.env.API_URL || 'http://localhost',
+    },
+  },
 
   app: {
     head: {
