@@ -130,7 +130,7 @@
             >Редактировать</a>
           </li>
           <li
-            v-if="publ.status === 'Active'"
+            v-if="publ.status === 'AC'"
             class="setting-list__item"
           >
             <a
@@ -207,15 +207,18 @@ export default {
     };
   },
   mounted() {
-    if (this.publ.status === 'Active') {
+    if (this.publ.status === 'AC') {
       this.status = 'опубликовано';
-    } else if (this.publ.status === 'Sold') {
+    } else if (this.publ.status === 'SO') {
       this.status = 'продано';
-    } else if (this.publ.status === 'Publication off') {
+    } else if (this.publ.status === 'PO') {
       this.status = 'снято с публикации';
-    } else if (this.publ.status === 'On moderation') {
+    } else if (this.publ.status === 'OM') {
       this.status = 'на модерации';
+    } else if (this.publ.status === 'DI') {
+      this.status = 'отклонено';
     }
+
   },
   methods: {
     async deleteProduct(id) {

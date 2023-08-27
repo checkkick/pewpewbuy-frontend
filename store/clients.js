@@ -24,7 +24,7 @@ export const clients = defineStore('clients', {
         this.activeUserProducts = [];
         this.inactiveUserProducts = [];
         this.user.products.forEach((product) => {
-          if (product.status === 'Active') {
+          if (product.status === 'AC') {
             this.activeUserProducts.push(product);
           } else {
             this.inactiveUserProducts.push(product);

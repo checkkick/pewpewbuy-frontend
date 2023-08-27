@@ -101,7 +101,7 @@ onMounted(async () => {
   user.value = await clients().GET_DETAIL_USER(route.params.id);
 
   user.value.products.forEach((product) => {
-    if (product.status === 'Active') {
+    if (product.status === 'AC') {
       activeProducts.value.push(product);
     } else {
       inactiveProducts.value.push(product);

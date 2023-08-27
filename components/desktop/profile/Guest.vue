@@ -250,7 +250,7 @@ export default {
       user.value = await clients().GET_DETAIL_USER(route.params.id);
 
       user.value.products.forEach((product) => {
-        if (product.status === 'Active') {
+        if (product.status === 'AC') {
           active.value.push(product);
         } else {
           inactive.value.push(product);
