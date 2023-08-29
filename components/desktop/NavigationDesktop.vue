@@ -6,22 +6,22 @@
     <nav class="filter">
       <ul class="filter__list">
         <li
-          v-for="(filterItem, idx) in Object.keys(categories)"
-          :key="idx"
+          v-for="filterItem, in categories"
+          :key="filterItem.id"
           class="filter__item"
-          :class="{ 'filter__item--active': filterItem === chooseFilter }"
-          @mouseenter="; (chooseFilter = filterItem), (showSubFilter = true)"
+          :class="{ 'filter__item--active': filterItem.name === chooseFilter }"
+          @mouseenter="; (chooseFilter = filterItem.name), (showSubFilter = true)"
         >
           <a
             href="#"
             class="filter__link"
-          >{{ filterItem }}</a>
+          >{{ filterItem.name }}</a>
           <ul
-            v-if="filterItem === chooseFilter && showSubFilter && categories[filterItem].length > 0"
+            v-if="filterItem.name === chooseFilter && showSubFilter && filterItem.child_categories.length > 0"
             class="dropdown-list"
           >
             <li
-              v-for="item in categories[filterItem]"
+              v-for="item in filterItem.child_categories"
               :key="item.id"
               class="dropdown-list__item"
               :class="{ 'dropdown-list__item--active': item.id === chooseSubfilter.id }"
@@ -99,17 +99,17 @@ export default {
         if (this.$route.query.slug) {
           let itemCategory = {};
 
-          Object.keys(this.categories).forEach((iterator) => {
-            const tempIteration = this.categories[iterator].find(
+          this.categories.forEach((iterator) => {
+            const tempIteration = iterator.child_categories.find(
               (item) => item.slug === this.$route.query.slug,
             );
 
             if (tempIteration) {
-              itemCategory = tempIteration;
+              itemCategory = { ...tempIteration, parent_category: iterator.name };
             }
           });
 
-          this.chooseFilter = itemCategory.parent_category.name;
+          this.chooseFilter = itemCategory.parent_category;
           this.chooseSubfilter = itemCategory;
 
           await this.filterProducts(this.$route.query.slug);
@@ -124,7 +124,7 @@ export default {
     },
     leaveBar() {
       if (Object.keys(this.chooseSubfilter).length > 0) {
-        this.chooseFilter = this.chooseSubfilter.parent_category.name;
+        this.chooseFilter = this.chooseSubfilter.parent_category;
       } else {
         this.chooseFilter = '';
       }
@@ -143,7 +143,7 @@ export default {
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 
-  @media (max-width: 1300px) {
+  @media (max-width: 1400px) {
     margin-bottom: 0.5rem;
     flex-wrap: wrap;
   }
@@ -152,7 +152,7 @@ export default {
     @include defineBtnAccent(15px, 68px, 18px, 19px);
     cursor: pointer;
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1400px) {
       width: 95%;
     }
   }
@@ -205,9 +205,9 @@ export default {
 .dropdown-list {
   z-index: 2;
   position: absolute;
-  left: 20px;
-  right: 20px;
   top: calc(100% + 1rem);
+  left: -10px;
+  right: -10px;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -215,6 +215,7 @@ export default {
   border: 1px solid $filter-border;
   box-shadow: 0px 13px 12px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
+  min-width: fit-content;
 
   &__item {
     cursor: pointer;

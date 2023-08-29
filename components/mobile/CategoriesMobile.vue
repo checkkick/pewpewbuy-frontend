@@ -3,17 +3,17 @@
     <div class="categories__container">
       <ul class="categories__list">
         <li
-          v-for="(filterItem, idx) in Object.keys(categories)"
-          :key="idx"
+          v-for="filterItem in categories"
+          :key="filterItem.id"
           class="categories__item"
         >
           <a
             href="#"
             class="categories__link"
-            :class="{ 'categories__link--active': chooseFilter === filterItem }"
-            @click.prevent="chooseFilter !== filterItem ? chooseFilter = filterItem : chooseFilter = ''"
+            :class="{ 'categories__link--active': chooseFilter === filterItem.id }"
+            @click.prevent="chooseFilter !== filterItem.id ? chooseFilter = filterItem.id : chooseFilter = -1"
           >
-            {{ filterItem }}
+            {{ filterItem.name }}
             <svg
               width="21"
               height="13"
@@ -30,11 +30,11 @@
           </a>
 
           <ul
-            v-if="chooseFilter === filterItem && categories[filterItem].length > 0"
+            v-if="chooseFilter === filterItem.id && filterItem.child_categories.length > 0"
             class="dropdown-list"
           >
             <li
-              v-for="item in categories[filterItem]"
+              v-for="item in filterItem.child_categories"
               :key="item.id"
               class="dropdown-list__item"
               @click.prevent="chooseSubFilter(item)"
@@ -106,7 +106,7 @@
 import { products } from '@/store/products';
 
 let { categories } = products();
-const chooseFilter = ref('');
+const chooseFilter = ref(-1);
 const router = useRouter();
 const emit = defineEmits(['close']);
 
@@ -126,10 +126,14 @@ function chooseSubFilter(item) {
   position: fixed;
   right: 0;
   left: 0;
-  top: 4rem;
+  top: 5rem;
   bottom: 0;
   background-color: $mobile-modal;
   border-radius: 10px;
+
+  @media (max-width: 750px) {
+    top: 4rem;
+  }
 
   &__container {
     overflow: auto;
@@ -152,6 +156,15 @@ function chooseSubFilter(item) {
     align-items: flex-end;
     gap: 1rem;
     list-style: none;
+    max-height: 60vh;
+    overflow: auto;
+    margin-right: -2rem;
+    padding-right: 2rem;
+
+    @media (max-width: 750px) {
+      margin-right: -1rem;
+      padding-right: 1rem;
+    }
   }
 
   &__item {

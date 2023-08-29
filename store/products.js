@@ -3,23 +3,6 @@ import { notifications } from '@/store/notifications';
 import { api } from '@/composables/api';
 import { get } from '@/store/cookies';
 
-function filterCategories(allCategories) {
-  const tempCategories = {};
-
-  allCategories.forEach((iterator) => {
-    if (
-      iterator.parent_category
-      && tempCategories[iterator.parent_category.name]
-    ) {
-      tempCategories[iterator.parent_category.name].push(iterator);
-    } else {
-      tempCategories[iterator.name] = [];
-    }
-  });
-
-  return tempCategories;
-}
-
 export const products = defineStore('products', {
   state: () => ({
     allProducts: [],
@@ -218,7 +201,7 @@ export const products = defineStore('products', {
         errorAlert: 'Ошибка при загрузке категорий',
       });
 
-      this.categories = filterCategories(response);
+      this.categories = response;
 
       return this.categories;
     },

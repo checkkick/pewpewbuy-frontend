@@ -79,8 +79,8 @@
         </div>
         <nav class="map">
           <li
-            v-for="(item, index) in Object.keys(categories)"
-            :key="index"
+            v-for="item in categories"
+            :key="item.id"
             class="map__item"
             :class="{ 'map__item--active': openFooter }"
           >
@@ -88,14 +88,14 @@
               href="#"
               class="footer__link"
               @click.prevent="openFooter = true"
-            >{{ item }}</a>
+            >{{ item.name }}</a>
 
             <ul
               v-if="openFooter"
               class="categories"
             >
               <li
-                v-for="subItem in categories[item]"
+                v-for="subItem in item.child_categories"
                 :key="subItem.id"
                 class="categories__item"
               >
@@ -281,6 +281,7 @@ export default {
   height: 25px;
   background-color: $white;
   border-radius: 100%;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
