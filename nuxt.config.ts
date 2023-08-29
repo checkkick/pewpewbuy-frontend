@@ -5,8 +5,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      API_URL: process.env.API_URL || 'http://localhost',
-      API_PORT: process.env.API_PORT || '',
+      API_URL: process.env.API_URL || 'http://localhost/api',
+      API_PORT: process.env.API_PORT ? `:${process.env.API_PORT}` : '',
     },
   },
 

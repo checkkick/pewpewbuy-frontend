@@ -1,10 +1,10 @@
 import { notifications } from '@/store/notifications';
 
 const config = useRuntimeConfig();
-const apiPort = config.public.API_PORT ? `:${config.public.API_PORT}` : '';
+const apiUrl = config.public.API_URL + config.public.API_PORT;
 
 export const api = (url, otherOptions = {}) => $fetch(
-  `${config.public.API_URL}${apiPort}/api/${url}`,
+  `${apiUrl}/api/${url}`,
   {
     retry: 0,
     ...otherOptions,
