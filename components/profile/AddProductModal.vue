@@ -648,14 +648,14 @@ export default {
 }
 
 .radio-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
 
   @media (max-width: 750px) {
-    display: grid;
     align-items: flex-start;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
@@ -721,14 +721,14 @@ export default {
 }
 
 .checkbox-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
 
   @media (max-width: 750px) {
-    display: grid;
     align-items: flex-start;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
