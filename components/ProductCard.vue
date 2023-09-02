@@ -159,7 +159,7 @@ export default {
   }),
 
   mounted() {
-    this.like = this.product.is_favourite;
+    this.like = this.product.is_favorite;
   },
   methods: {
     async onLike() {

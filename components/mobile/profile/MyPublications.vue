@@ -47,7 +47,7 @@ defineEmits(['changePage']);
 
 const activePublicationsLength = computed(() => clients().ACTIVE_USER_PRODUCTS.length);
 const inactivePublicationsLength = computed(() => clients().INACTIVE_USER_PRODUCTS.length);
-const favoritePublicationsLength = computed(() => clients().USER_STATE.favortie_products.length);
+const favoritePublicationsLength = computed(() => clients().USER_STATE.favorite_products.length);
 </script>
 
 <style lang="scss" scoped>

@@ -262,7 +262,7 @@
         <FavoriteAndHistory
           id="favorites"
           :favorite-publ="true"
-          :publications="user.favortie_products"
+          :publications="user.favorite_products"
         />
         <FavoriteAndHistory
           :history-publ="true"

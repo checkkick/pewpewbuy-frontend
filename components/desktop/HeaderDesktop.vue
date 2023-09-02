@@ -32,7 +32,7 @@
           @click.prevent="$router.push('/profile?favorites')"
         >
           <p class="header__counter">
-            {{ user.favortie_products ? user.favortie_products.length : '0' }}
+            {{ user.favorite_products ? user.favorite_products.length : '0' }}
           </p>
         </a>
         <a

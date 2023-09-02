@@ -51,7 +51,7 @@
 
     <DetailPublications
       v-if="page === 'favoritePublications'"
-      :products="user.favortie_products"
+      :products="user.favorite_products"
       :my-publications="false"
       @change-page="(pageName) => page = pageName"
     >

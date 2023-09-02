@@ -150,7 +150,7 @@ export default {
     };
   },
   mounted() {
-    this.like = this.publication.is_favourite;
+    this.like = this.publication.is_favorite;
   },
   methods: {
     async onLike() {
