@@ -131,9 +131,7 @@
           >
             Нет данных о характеристиках товара
           </p>
-        </div>
 
-        <div class="row-more">
           <div class="switcher">
             <p
               class="switcher__about-product"
@@ -153,34 +151,37 @@
               Отзывы о продавце
             </p>
           </div>
+
           <div class="price">
             <p class="price__value">
               {{ detProduct.price ? detProduct.price.toLocaleString() : '0' }}
               р.
             </p>
-            <button
-              class="price__btn-contact"
-              @click="showContacts = true"
-            >
-              Написать продавцу
-            </button>
-            <button
-              class="price__btn-profile-link"
-              @click="userStore.id === detProduct.user.id
-                ? $router.push('/profile')
-                : $router.push(`/profile/${detProduct.user.id}`)"
-            >
-              Профиль продавца
-            </button>
-            <NuxtLink
-              :href="userStore.id === detProduct.user.id
-                ? '/profile?publications'
-                : `/profile/${detProduct.user.id}?publications`
-                "
-              class="price__all-products"
-            >
-              Все товары продавца
-            </NuxtLink>
+            <div class="price__row">
+              <button
+                class="price__btn-contact"
+                @click="showContacts = true"
+              >
+                Написать продавцу
+              </button>
+              <button
+                class="price__btn-profile-link"
+                @click="userStore.id === detProduct.user.id
+                  ? $router.push('/profile')
+                  : $router.push(`/profile/${detProduct.user.id}`)"
+              >
+                Профиль продавца
+              </button>
+              <NuxtLink
+                :href="userStore.id === detProduct.user.id
+                  ? '/profile?publications'
+                  : `/profile/${detProduct.user.id}?publications`
+                  "
+                class="price__all-products"
+              >
+                Все товары продавца
+              </NuxtLink>
+            </div>
           </div>
         </div>
 
@@ -524,17 +525,19 @@ export default {
 }
 
 .description {
-  display: flex;
+  display: grid;
   justify-content: stretch;
+  grid-template-columns: repeat(2, 1fr);
   width: 100%;
-  gap: 3rem;
+  gap: 0 2rem;
 
   @media (max-width: 1150px) {
-    gap: 1rem;
+    gap: 0 1rem;
   }
 
   @media (max-width: 750px) {
-    gap: 0.5rem;
+    display: flex;
+    gap: 1rem;
     flex-direction: column;
   }
 
@@ -552,14 +555,22 @@ export default {
   width: 100%;
   max-height: 450px;
 
+  @media (max-width: 750px) {
+    max-height: none;
+  }
+
   &--relative {
     padding: 0 55px;
     margin-left: -55px;
     position: relative;
 
+    @media (max-width: 1150px) {
+      padding: 0;
+      margin: 0;
+    }
+
     @media (max-width: 750px) {
       padding: 0 30px;
-      margin: 0;
     }
   }
 
@@ -598,6 +609,7 @@ export default {
     padding: 14px 0 14px 2px;
 
     @media (max-width: 750px) {
+      padding: 14px 0 5px 2px;
       height: 7vh;
     }
 
@@ -709,6 +721,7 @@ export default {
 .switcher {
   width: 100%;
   display: flex;
+  align-self: flex-end;
 
   @media (max-width: 750px) {
     display: none;
@@ -724,7 +737,7 @@ export default {
     border-bottom: 2px solid #bdbdbd;
 
     @media (max-width: 1150px) {
-      padding: 10px 8%;
+      padding: 10px 5%;
       font-size: 16px;
     }
   }
@@ -744,28 +757,39 @@ export default {
 .price {
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
 
   @media (max-width: 1150px) {
-    justify-content: stretch;
-    flex-wrap: wrap;
     gap: 0.5rem 1rem;
   }
 
   @media (max-width: 750px) {
     gap: 1rem 0.5rem;
+  }
+
+  &__row {
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 100px;
+    grid-auto-flow: dense;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @media (max-width: 1150px) {
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem;
+    }
   }
 
   &__value {
     @include defineFontMontserrat(700, 35px, 1.4);
     letter-spacing: -0.5px;
+    flex-grow: 1;
 
     @media (max-width: 1150px) {
-      order: 1;
       text-align: center;
       flex-grow: 1;
       font-size: 24px;
@@ -788,11 +812,12 @@ export default {
   }
 
   &__btn-contact {
+    width: 100%;
     justify-content: center;
     @include defineBtnPrimary(15px, 68px, 15px, 23px);
 
     @media (max-width: 1150px) {
-      order: 3;
+      order: 2;
       flex-grow: 1;
       font-size: 13px;
       padding: 10px 18px;
@@ -833,14 +858,15 @@ export default {
     letter-spacing: -0.5px;
 
     @media (max-width: 1150px) {
-      order: 2;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      order: 3;
       text-align: center;
       flex-grow: 1;
       font-size: 13px;
     }
 
     @media (max-width: 750px) {
-      width: 200%;
       text-align: center;
       color: $black;
       font-size: 14px;
