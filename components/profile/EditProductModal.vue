@@ -23,7 +23,7 @@
               :key="item.id"
             >
               <input
-                :id="item.id"
+                :id="item.slug"
                 v-model="chooseCategory"
                 :value="item"
                 class="radio-row__radiobutton"
@@ -32,7 +32,7 @@
               >
               <label
                 class="radio-row__label"
-                :for="item.id"
+                :for="item.slug"
               >
                 {{ item.name }}
               </label>
@@ -63,9 +63,9 @@
               <label
                 class="checkbox-row__label"
                 :for="item.slug"
-              >{{
-                item.name
-              }}</label>
+              >
+                {{ item.name }}
+              </label>
             </div>
           </div>
         </div>
@@ -401,8 +401,9 @@ export default {
       this.publicationId,
     );
 
-    this.chooseCategory = this.productDetails.category.name;
-    this.chooseSubcategory = this.productDetails.child_categories[0].name;
+    this.chooseCategory = this.useProductStore.categories
+      .find((item) => item.name === this.productDetails.parent_category.name);
+    this.chooseSubcategory = this.productDetails.category;
     this.tempPhotos = this.productDetails.photo.map((item) => item.file);
 
     this.productData.category = this.productDetails.category.id;
