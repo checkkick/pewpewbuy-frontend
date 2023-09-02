@@ -305,10 +305,10 @@ export default {
     );
 
     this.crumbs.push(
-      { name: this.detProduct.category.parent_category.name, slug: '' },
+      { name: this.detProduct.category.name, slug: '' },
       {
-        name: this.detProduct.category.name,
-        slug: this.detProduct.category.slug,
+        name: this.detProduct.category.child_categories[0].name,
+        slug: this.detProduct.category.child_categories[0].slug,
       },
       {
         name: `${this.detProduct.manufacturer} ${this.detProduct.name}`,

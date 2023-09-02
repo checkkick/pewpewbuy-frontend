@@ -19,29 +19,29 @@
           </h3>
           <div class="radio-row">
             <div
-              v-for="(item, idx) in Object.keys(useProductStore.categories)"
-              :key="idx"
+              v-for="item in useProductStore.categories"
+              :key="item.id"
             >
               <input
-                :id="idx"
+                :id="item.id"
                 v-model="chooseCategory"
                 :value="item"
                 class="radio-row__radiobutton"
                 type="radio"
-                :name="item"
+                :name="item.name"
               >
               <label
                 class="radio-row__label"
-                :for="idx"
+                :for="item.id"
               >
-                {{ item }}
+                {{ item.name }}
               </label>
             </div>
           </div>
         </div>
 
         <div
-          v-if="useProductStore.categories[chooseCategory]"
+          v-if="chooseCategory.child_categories && chooseCategory.child_categories.length > 0"
           class="block"
         >
           <h3 class="modal-window__subtitle">
@@ -49,13 +49,13 @@
           </h3>
           <div class="checkbox-row">
             <div
-              v-for="item in useProductStore.categories[chooseCategory]"
+              v-for="item in chooseCategory.child_categories"
               :key="item.id"
             >
               <input
                 :id="item.slug"
                 v-model="chooseSubcategory"
-                :value="item.name"
+                :value="item"
                 class="checkbox-row__checkbox"
                 type="radio"
                 :name="item.name"
@@ -339,8 +339,8 @@ export default {
   },
 
   data: () => ({
-    chooseCategory: '',
-    chooseSubcategory: '',
+    chooseCategory: {},
+    chooseSubcategory: {},
     assetCategory: [],
     tempPhotos: [],
     productData: {
@@ -382,15 +382,11 @@ export default {
         this.firstLoad = false;
       }
 
-      const subcategoryObject = this.useProductStore.categories[
-        this.chooseCategory
-      ].find((item) => item.name === this.chooseSubcategory);
-
       this.assetCategory = await this.useProductStore.GET_ASSET_TEMPLATE(
-        subcategoryObject.id,
+        this.chooseSubcategory.id,
       );
 
-      this.productData.category = parseInt(subcategoryObject.id, 10);
+      this.productData.category = parseInt(this.chooseSubcategory.id, 10);
     },
   },
 
@@ -405,8 +401,8 @@ export default {
       this.publicationId,
     );
 
-    this.chooseCategory = this.productDetails.category.parent_category.name;
-    this.chooseSubcategory = this.productDetails.category.name;
+    this.chooseCategory = this.productDetails.category.name;
+    this.chooseSubcategory = this.productDetails.child_categories[0].name;
     this.tempPhotos = this.productDetails.photo.map((item) => item.file);
 
     this.productData.category = this.productDetails.category.id;
