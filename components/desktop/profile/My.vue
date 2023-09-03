@@ -374,7 +374,9 @@ export default {
     }
 
     if (Object.hasOwn(this.$route.query, 'favorites')) {
-      document.getElementById('favorites').scrollIntoView();
+      setTimeout(() => {
+        document.getElementById('favorites').scrollIntoView();
+      }, 500);
     }
 
     if (Object.hasOwn(this.$route.query, 'addproduct')) {
