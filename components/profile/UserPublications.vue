@@ -218,7 +218,6 @@ export default {
     } else if (this.publ.status === 'DI') {
       this.status = 'отклонено';
     }
-
   },
   methods: {
     async deleteProduct(id) {
@@ -514,6 +513,9 @@ export default {
 }
 
 .setting-list {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
   z-index: 1;
   background: $modal-background;
   border: 1px solid $filter-border;
@@ -536,26 +538,20 @@ export default {
     }
   }
 
-  &__item {
+  &__link {
+    display: block;
+    @include defineFontMontserrat(500, 12px, 1.4);
     cursor: pointer;
-    padding: 8px 20px;
     text-align: center;
-    transition: background-color 0.1s ease-in-out;
+    text-decoration: none;
+    padding: 8px 20px;
+    color: $black;
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 
     &:hover {
+      color: $white;
       background-color: $primary;
     }
-  }
-
-  &__item:hover &__link {
-    color: $white;
-  }
-
-  &__link {
-    @include defineFontMontserrat(500, 12px, 1.4);
-    text-decoration: none;
-    color: $black;
-    transition: color 0.1s ease-in-out;
   }
 }
 
