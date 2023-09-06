@@ -151,8 +151,7 @@ export default {
   data: () => ({
     like: false,
   }),
-
-  mounted() {
+  updated() {
     this.like = this.product.is_favorite;
   },
   methods: {

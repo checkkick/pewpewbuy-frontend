@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { notifications } from '@/store/notifications';
 import { api } from '@/composables/api';
 import { get } from '@/store/cookies';
+import { clients } from './clients';
 
 export const products = defineStore('products', {
   state: () => ({
@@ -128,6 +129,8 @@ export const products = defineStore('products', {
           'success',
         );
 
+        await clients().GET_SELF();
+
         return true;
       } catch (error) {
         return false;
@@ -147,6 +150,8 @@ export const products = defineStore('products', {
           'Товар успешно удален из избранного',
           'delete',
         );
+
+        await clients().GET_SELF();
 
         return true;
       } catch (error) {

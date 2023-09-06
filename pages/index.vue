@@ -15,11 +15,11 @@
       </h3>
       <FilterBarDesktop v-if="!tablet" />
       <section
-        v-if="all_products.length > 0"
+        v-if="allProducts.length > 0"
         class="main__section-products"
       >
         <ProductCard
-          v-for="product in all_products"
+          v-for="product in allProducts"
           :key="product.id"
           :product="product"
         />
@@ -41,32 +41,21 @@
   </div>
 </template>
 
-<script>
-import { auth } from '@/store/auth';
+<script setup>
 import { products } from '@/store/products';
 import { media } from '@/store/media';
 import FilterBarDesktop from '@/components/desktop/FilterBarDesktop.vue';
 
-export default {
-  components: { FilterBarDesktop },
-  setup() {
-    const useProductStore = products();
-    const useAuthStore = auth();
+const useProductStore = products();
+const route = useRoute();
+const allProducts = computed(() => useProductStore.ALL_PRODUCTS);
+const tablet = computed(() => media().MEDIA_TABLET);
 
-    return {
-      useAuthStore,
-      useProductStore,
-      all_products: computed(() => useProductStore.ALL_PRODUCTS),
-      authorized: computed(() => useAuthStore.AUTHORIZED),
-      tablet: computed(() => media().MEDIA_TABLET),
-    };
-  },
-  async mounted() {
-    if (!Object.hasOwn(this.$route.query, 'slug')) {
-      await this.useProductStore.GET_ALL_PRODUCTS();
-    }
-  },
-};
+onMounted(async () => {
+  if (!Object.hasOwn(route.query, 'slug')) {
+    await useProductStore.GET_ALL_PRODUCTS();
+  }
+});
 </script>
 
 <style lang="scss" scoped>

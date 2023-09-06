@@ -17,6 +17,28 @@
       </section>
 
       <section class="card">
+        <a
+          v-if="authorized"
+          class="favorite"
+          :class="{ 'favorite--active': favorite }"
+          @click.prevent="onLike()"
+        >
+          <svg
+            width="19"
+            height="16"
+            viewBox="0 0 19 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2.67823 8.34017C0.936027 6.07562 1.51676 2.67879 4.42044 1.54651C7.32412 0.414232 9.06633 2.67879 9.64706 3.81106C10.2278 2.67879 12.5507 0.414232 15.4544 1.54651C18.3581 2.67879 18.3581 6.07562 16.6159 8.34017C14.8737 10.6047 9.64706 15.1338 9.64706 15.1338C9.64706 15.1338 4.42044 10.6047 2.67823 8.34017Z"
+              stroke="black"
+              stroke-width="1.50013"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
         <div class="about-seller">
           <img
             class="about-seller__photo"
@@ -250,6 +272,7 @@ import RatingCalc from '@/components/profile/RatingCalc.vue';
 
 import { products } from '@/store/products';
 import { clients } from '@/store/clients';
+import { auth } from '@/store/auth';
 
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import 'swiper/css';
@@ -274,10 +297,13 @@ export default {
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
-    const userStore = clients().USER_STATE;
 
+    const userStore = clients().USER_STATE;
+    const useAuthStore = auth();
     const useProductStore = products();
+
     return {
+      authorized: computed(() => useAuthStore.AUTHORIZED),
       useProductStore,
       Thumbs,
       thumbsSwiper,
@@ -295,6 +321,7 @@ export default {
         rep: 0,
       },
     },
+    favorite: false,
     crumbs: [],
     noImage: noPhoto,
     switcher: 'about-product',
@@ -316,6 +343,21 @@ export default {
         slug: '',
       },
     );
+
+    this.favorite = this.detProduct.is_favorite;
+  },
+  methods: {
+    async onLike() {
+      if (!this.favorite) {
+        if (await this.useProductStore.ADD_FAVORITE(this.detProduct.id)) {
+          this.favorite = true;
+        }
+      } else if (
+        await this.useProductStore.REMOVE_FAVORITE(this.detProduct.id)
+      ) {
+        this.favorite = false;
+      }
+    },
   },
 };
 </script>
@@ -399,6 +441,7 @@ export default {
 }
 
 .card {
+  position: relative;
   background: $white;
   border: 1px solid $filter-border;
   box-shadow: 0px 9px 100px rgba(255, 255, 255, 0.72);
@@ -435,6 +478,56 @@ export default {
       text-align: center;
       margin-bottom: 0;
     }
+  }
+}
+
+.favorite {
+  cursor: pointer;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  top: 2.5rem;
+  right: 4.5rem;
+  background-color: $grey;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 1150px) {
+    top: 1.5rem;
+    right: 2.5rem;
+    transform: scale(0.9);
+  }
+
+  @media (max-width: 750px) {
+    top: 5.5rem;
+    right: 2rem;
+  }
+
+  & svg {
+    transition: transform 0.1s ease-in-out, fill 0.1s ease-in-out;
+  }
+
+  & svg path {
+    transition: stroke 0.3s ease-in-out;
+  }
+
+  &:hover svg path {
+    stroke: $accent-dark;
+  }
+
+  &:active svg {
+    transform: scale(1.3);
+  }
+
+  &.favorite--active svg {
+    fill: $accent-dark;
+  }
+
+  &.favorite--active svg path {
+    stroke: $accent-dark;
   }
 }
 
