@@ -454,15 +454,13 @@ export default {
       Object.keys(this.productData).forEach((key) => {
         if (this.productData[key] !== this.cloneProductData[key]) {
           if (key === 'assets') {
-            Object.keys(this.productData[key]).forEach((item) => {
-              if (this.productData[key][item] !== this.cloneProductData[item]) {
-                if (!tempData[key]) {
-                  tempData[key] = {};
-                }
-
-                tempData[key][item] = this.productData[key][item];
+            // eslint-disable-next-line no-restricted-syntax
+            for (const iterator of Object.keys(this.productData[key])) {
+              if (this.productData[key][iterator] !== this.cloneProductData[iterator]) {
+                tempData[key] = this.productData[key];
+                break;
               }
-            });
+            }
           } else {
             tempData[key] = this.productData[key];
           }
