@@ -136,12 +136,6 @@ export default {
         return {};
       },
     },
-    liked: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
   },
   setup() {
     const useAuthStore = auth();
