@@ -87,7 +87,7 @@
             <a
               href="#"
               class="footer__link"
-              @click.prevent="openFooter = true"
+              @click.prevent="chooseCategory(item.slug)"
             >{{ item.name }}</a>
 
             <ul
@@ -102,7 +102,7 @@
                 <a
                   href="#"
                   class="footer__link"
-                  @click.prevent="chooseSubCategory(subItem.slug)"
+                  @click.prevent="chooseCategory(subItem.slug)"
                 >{{ subItem.name }}</a>
               </li>
             </ul>
@@ -148,7 +148,7 @@ export default {
     }
   },
   methods: {
-    async chooseSubCategory(name) {
+    async chooseCategory(name) {
       await products().GET_CATEGORY_PRODUCTS(name);
       this.openFooter = false;
       this.$router.push(`/?slug=${name}`);

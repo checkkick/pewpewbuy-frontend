@@ -34,6 +34,12 @@
             class="dropdown-list"
           >
             <li
+              class="dropdown-list__item"
+              @click.prevent="chooseSubFilter(filterItem)"
+            >
+              <a class="dropdown-list__link">Показать все товары категории</a>
+            </li>
+            <li
               v-for="item in filterItem.child_categories"
               :key="item.id"
               class="dropdown-list__item"

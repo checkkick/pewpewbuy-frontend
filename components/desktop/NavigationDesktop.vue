@@ -15,21 +15,39 @@
           <a
             href="#"
             class="filter__link"
-          >{{ filterItem.name }}</a>
+            @click.prevent="chooseCategory(filterItem)"
+          >
+            {{ filterItem.name }}
+          </a>
           <ul
             v-if="filterItem.name === chooseFilter && showSubFilter && filterItem.child_categories.length > 0"
             class="dropdown-list"
           >
             <li
+              class="dropdown-list__item"
+              :class="{ 'dropdown-list__item--active': filterItem.id === chooseSubfilter.id }"
+              @click="chooseCategory(filterItem)"
+            >
+              <a
+                class="dropdown-list__link"
+                @click.prevent
+              >
+                Показать все товары категории
+              </a>
+            </li>
+            <li
               v-for="item in filterItem.child_categories"
               :key="item.id"
               class="dropdown-list__item"
               :class="{ 'dropdown-list__item--active': item.id === chooseSubfilter.id }"
-              @click="chooseSubCategory(item)"
+              @click="chooseCategory(item)"
             >
-              <a class="dropdown-list__link">{{
-                item.name
-              }}</a>
+              <a
+                class="dropdown-list__link"
+                @click.prevent
+              >
+                {{ item.name }}
+              </a>
             </li>
           </ul>
         </li>
@@ -85,7 +103,7 @@ export default {
     await this.loadproductsFromSlug();
   },
   methods: {
-    chooseSubCategory(item) {
+    chooseCategory(item) {
       if (this.chooseSubfilter === item) {
         this.$router.push('/?slug=');
       } else {
@@ -108,6 +126,14 @@ export default {
               itemCategory = { ...tempIteration, parent_category: iterator.name };
             }
           });
+
+          if (Object.keys(itemCategory).length === 0) {
+            this.categories.forEach((iterator) => {
+              if (iterator.slug === this.$route.query.slug) {
+                itemCategory = { id: iterator.id, parent_category: iterator.name };
+              }
+            });
+          }
 
           this.chooseFilter = itemCategory.parent_category;
           this.chooseSubfilter = itemCategory;
