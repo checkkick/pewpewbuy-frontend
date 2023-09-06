@@ -252,6 +252,10 @@ export default {
   },
   async mounted() {
     await this.loadproductsFromSlug();
+
+    if (this.authorization && Object.keys(this.clientsStore.USER_STATE).length === 0) {
+      await this.clientsStore.GET_SELF();
+    }
   },
   methods: {
     async loadproductsFromSlug() {
