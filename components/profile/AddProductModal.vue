@@ -846,12 +846,15 @@ export default {
   &__delete-btn {
     cursor: pointer;
     width: 10px;
-    height: 20px;
+    height: 16px;
     position: absolute;
     top: -9px;
     right: -9px;
     background: $white;
-    border-radius: 100%;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
     border: 1px solid rgba(175, 175, 175, 0.39);
 
     @media (max-width: 1150px) {
@@ -861,8 +864,8 @@ export default {
     &::before {
       content: '';
       position: absolute;
-      top: 9px;
-      left: 5px;
+      top: 8px;
+      left: 4px;
       transform: rotate(45deg);
       width: 12px;
       height: 2px;
@@ -872,8 +875,8 @@ export default {
     &::after {
       content: '';
       position: absolute;
-      top: 9px;
-      left: 5px;
+      top: 8px;
+      left: 4px;
       transform: rotate(-45deg);
       width: 12px;
       height: 2px;
