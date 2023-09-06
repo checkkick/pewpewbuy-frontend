@@ -198,7 +198,7 @@
               :class="{
                 'property__label--change':
                   productData.assets[item.asset.slug] !==
-                  cloneProductData.assets[item.asset.slug],
+                  cloneProductData[item.asset.slug],
               }"
               :for="item.asset.slug"
             >{{ item.asset.name }}</label>
@@ -209,7 +209,7 @@
               :class="{
                 'property__input--change':
                   productData.assets[item.asset.slug] !==
-                  cloneProductData.assets[item.asset.slug],
+                  cloneProductData[item.asset.slug],
               }"
               type="text"
               :name="item.asset.slug"
@@ -418,6 +418,8 @@ export default {
     });
 
     Object.assign(this.cloneProductData, this.productData);
+    delete this.cloneProductData.assets;
+    Object.assign(this.cloneProductData, { ...this.productData.assets });
   },
 
   methods: {
@@ -451,7 +453,19 @@ export default {
 
       Object.keys(this.productData).forEach((key) => {
         if (this.productData[key] !== this.cloneProductData[key]) {
-          tempData[key] = this.productData[key];
+          if (key === 'assets') {
+            Object.keys(this.productData[key]).forEach((item) => {
+              if (this.productData[key][item] !== this.cloneProductData[item]) {
+                if (!tempData[key]) {
+                  tempData[key] = {};
+                }
+
+                tempData[key][item] = this.productData[key][item];
+              }
+            });
+          } else {
+            tempData[key] = this.productData[key];
+          }
         }
       });
 
