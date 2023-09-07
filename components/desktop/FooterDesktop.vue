@@ -94,6 +94,13 @@
               v-if="openFooter"
               class="categories"
             >
+              <li class="categories__item">
+                <a
+                  href="#"
+                  class="footer__link"
+                  @click.prevent="chooseCategory(item.slug)"
+                >Показать все товары категории</a>
+              </li>
               <li
                 v-for="subItem in item.child_categories"
                 :key="subItem.id"
@@ -184,6 +191,7 @@ export default {
     justify-content: space-evenly;
 
     &.footer__row--active {
+      gap: 1rem;
       align-items: stretch;
     }
   }
