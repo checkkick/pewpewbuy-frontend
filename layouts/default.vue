@@ -27,12 +27,12 @@
     />
     <LoginModal
       v-if="showLogin"
-      @close-login-window="showLogin = false"
+      @close-login-window="closeWindowLogin()"
       @open-register-window="; (showRegister = true), (showLogin = false)"
     />
     <RegisterModal
       v-if="showRegister"
-      @close-register-window="showRegister = false"
+      @close-register-window="closeWindowRegister()"
       @open-login-window="; (showLogin = true), (showRegister = false)"
     />
   </div>
@@ -97,6 +97,16 @@ export default {
         this.showLogin = true;
       }
     }
+  },
+  methods: {
+    closeWindowLogin() {
+      this.showLogin = false;
+      this.$router.replace({ query: null });
+    },
+    closeWindowRegister() {
+      this.showRegister = false;
+      this.$router.replace({ query: null });
+    },
   },
 };
 </script>
