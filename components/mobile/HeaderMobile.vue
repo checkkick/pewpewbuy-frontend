@@ -233,7 +233,7 @@ export default {
 
     @media (max-width: 750px) {
       width: 13px;
-      height: 1px;
+      height: 2px;
       border-radius: 0;
 
       &::before {
