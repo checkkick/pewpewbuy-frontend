@@ -516,7 +516,7 @@ export default {
   }
 
   @media (max-width: 750px) {
-    padding: 0.5rem 15px 7rem;
+    padding: 1.5rem 15px 7rem;
   }
 
   &::-webkit-scrollbar {

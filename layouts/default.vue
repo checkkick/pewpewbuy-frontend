@@ -74,6 +74,8 @@ export default {
       handler() {
         if (Object.hasOwn(this.$route.query, 'login')) {
           this.showLogin = true;
+          this.showRegister = false;
+          this.showSearch = false;
         }
       },
       deep: true,
@@ -88,6 +90,16 @@ export default {
       },
       deep: true,
     },
+    '$route.query.search': {
+      handler() {
+        if (Object.hasOwn(this.$route.query, 'search')) {
+          this.showLogin = false;
+          this.showRegister = false;
+          this.showSearch = true;
+        }
+      },
+      deep: true,
+    },
   },
   async mounted() {
     if (Object.hasOwn(this.$route.query, 'login')) {
@@ -96,6 +108,10 @@ export default {
       } else {
         this.showLogin = true;
       }
+    }
+
+    if (Object.hasOwn(this.$route.query, 'search')) {
+      this.showSearch = true;
     }
   },
   methods: {
