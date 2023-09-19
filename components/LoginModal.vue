@@ -1,6 +1,12 @@
 <template>
-  <div class="modal-background">
-    <div class="modal-window">
+  <div
+    class="modal-background"
+    @click="closeWindow"
+  >
+    <div
+      class="modal-window"
+      @click.stop
+    >
       <span
         class="modal-window__close"
         @click="closeWindow"

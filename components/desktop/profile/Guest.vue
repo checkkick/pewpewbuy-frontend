@@ -17,9 +17,9 @@
         </button>
         <button
           class="nav__new-publicity"
-          @click="showAddProductModal = true"
+          @click="showWriteReviewModal = true"
         >
-          Разместить объявление
+          Написать отзыв
         </button>
       </div>
     </div>
@@ -214,6 +214,11 @@
         />
       </section>
     </main>
+
+    <WriteReviewModal
+      v-if="showWriteReviewModal"
+      @close-review-window="showWriteReviewModal = false"
+    />
   </div>
 </template>
 
@@ -221,6 +226,7 @@
 import Advertisment from '@/components/profile/Advertisment.vue';
 import RatingCalc from '@/components/profile/RatingCalc.vue';
 import UserReview from '@/components/profile/UserReview.vue';
+import WriteReviewModal from '@/components/profile/WriteReviewModal.vue';
 import { Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -238,6 +244,7 @@ export default {
     RatingCalc,
     UserReview,
     Advertisment,
+    WriteReviewModal,
   },
   setup() {
     const route = useRoute();
@@ -268,8 +275,8 @@ export default {
   },
   data() {
     return {
-      showAddProductModal: false,
       noImage: noPhoto,
+      showWriteReviewModal: false,
     };
   },
 };
