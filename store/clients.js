@@ -73,6 +73,27 @@ export const clients = defineStore('clients', {
 
       return response;
     },
+
+    async SEND_REVIEW(data) {
+      try {
+        await api('clients/review/', {
+          body: { data },
+          method: 'POST',
+          errorAlert: 'Ошибка при отправке отзыва',
+          headers: { Authorization: `Bearer ${get('access_pew')}` },
+        });
+
+        notifications().ADD_NOTIFICATION(
+          'Отправка отзыва',
+          'Отзыв успешно отправлен',
+          'success',
+        );
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
   },
 
   getters: {

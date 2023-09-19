@@ -217,6 +217,7 @@
 
     <WriteReviewModal
       v-if="showWriteReviewModal"
+      :user-id="Number($route.params.id)"
       @close-review-window="showWriteReviewModal = false"
     />
   </div>
