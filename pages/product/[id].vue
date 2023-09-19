@@ -867,7 +867,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 100px;
     grid-auto-flow: dense;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     gap: 1rem;
 
@@ -917,7 +917,6 @@ export default {
     }
 
     @media (max-width: 750px) {
-      height: 100%;
       width: 100%;
       order: 1;
       font-size: 12px;
@@ -925,7 +924,6 @@ export default {
   }
 
   &__btn-profile-link {
-    height: 100%;
     width: 100%;
     display: none;
     justify-content: center;
