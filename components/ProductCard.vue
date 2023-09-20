@@ -71,15 +71,17 @@
       v-if="!tablet"
       class="product-card__flex"
     >
-      <button
+      <NuxtLink
         class="product-card__btn"
-        @click.prevent="authorized
-          ? $router.push('/profile/' + product.user)
-          : $router.push('/?login')
+        :href="authorized
+          ? userStore.id === product.user
+            ? '/profile'
+            : `/profile/${product.user}`
+          : '/?login'
           "
       >
         Профиль продавца
-      </button>
+      </NuxtLink>
       <button
         class="product-card__btn product-card__btn--accent"
         @click="authorized
@@ -118,6 +120,7 @@
 import { auth } from '@/store/auth';
 import { products } from '@/store/products';
 import { media } from '@/store/media';
+import { clients } from '@/store/clients';
 
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -140,7 +143,10 @@ export default {
   setup() {
     const useAuthStore = auth();
     const useProductStore = products();
+    const userStore = clients().USER_STATE;
+
     return {
+      userStore,
       useAuthStore,
       useProductStore,
       authorized: computed(() => useAuthStore.AUTHORIZED),
@@ -312,6 +318,7 @@ export default {
     @include defineBtnPrimary(14px, 26px, 12px, 16px);
     justify-content: center;
     flex-grow: 1;
+    text-decoration: none;
 
     &.product-card__btn--accent {
       color: $black-light;
