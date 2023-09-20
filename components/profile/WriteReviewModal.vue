@@ -72,17 +72,21 @@ function chooseStars(stars: number) {
   estimate.value = stars;
 }
 
+function closeWindow() {
+  document.getElementsByTagName('body')[0].style.overflow = 'visible';
+  emit('closeReviewWindow');
+}
+
 async function sendReview() {
-  await SEND_REVIEW({
+  const response = await SEND_REVIEW({
     estimate: estimate.value,
     text: textReview.value,
     recipient: props.userId,
   });
-}
 
-function closeWindow() {
-  document.getElementsByTagName('body')[0].style.overflow = 'visible';
-  emit('closeReviewWindow');
+  if (response) {
+    closeWindow();
+  }
 }
 </script>
 
