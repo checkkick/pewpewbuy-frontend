@@ -340,7 +340,7 @@ export default {
       thumbsSwiper.value = swiper;
     };
 
-    const userStore = clients().USER_STATE;
+    const clientsStore = clients();
     const useAuthStore = auth();
     const useProductStore = products();
 
@@ -350,7 +350,7 @@ export default {
       Thumbs,
       thumbsSwiper,
       setThumbsSwiper,
-      userStore,
+      userStore: computed(() => clientsStore.USER_STATE),
       modules: [FreeMode, Navigation, Thumbs],
     };
   },
