@@ -502,7 +502,7 @@ export default {
   background: $white;
   border: 1px solid $filter-border;
   box-shadow: 0px 9px 100px rgba(255, 255, 255, 0.72);
-  border-radius: 24px;
+  border-radius: 15px;
   padding: 2.5rem 4.5rem;
   margin-bottom: 116px;
 
