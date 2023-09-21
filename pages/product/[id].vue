@@ -18,7 +18,7 @@
 
       <section class="card">
         <a
-          v-if="authorized"
+          v-if="authorized && userStore.id !== detProduct.user.id"
           class="favorite"
           :class="{ 'favorite--active': favorite }"
           @click.prevent="onLike()"
@@ -68,6 +68,19 @@
           >
             Профиль продавца
           </NuxtLink>
+        </div>
+
+        <div
+          v-if="detProduct.status === 'DI' && detProduct.user.id === userStore.id"
+          class="disalow-reason"
+        >
+          <h3 class="disalow-reason__title">
+            Публикация отклонена модератором
+          </h3>
+          <p class="disalow-reason__text">
+            Причина отклонения:
+            {{ detProduct.disalow_reason ? detProduct.disalow_reason : 'Модератор не указал причину отклоения' }}
+          </p>
         </div>
 
         <div class="card__title-row">
@@ -517,6 +530,7 @@ export default {
 
     @media (max-width: 750px) {
       margin-bottom: 0;
+      position: relative;
     }
   }
 
@@ -554,8 +568,9 @@ export default {
 
     @media (max-width: 750px) {
       position: absolute;
-      top: 7rem;
       background-color: #f4f4f4;
+      right: 0;
+      bottom: -2rem;
 
       & path {
         fill: $black-light;
@@ -1128,6 +1143,30 @@ export default {
     @include defineFontMontserrat(400, 13px, 16px);
     padding: 0 0 0 1rem;
     color: rgba(65, 65, 65, 0.65);
+  }
+}
+
+.disalow-reason {
+  padding: 22px 77px;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  background: url('@/assets/img/notification-alert.svg') no-repeat 20px center, #FFF5F5;
+
+  @media (max-width: 1150px) {
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 1150px) {
+    margin-bottom: 0;
+  }
+
+  &__title {
+    @include defineFontMontserrat(600, 17px, normal);
+    margin-bottom: 8px;
+  }
+
+  &__text {
+    @include defineFontMontserrat(400, 15px, 1.3);
   }
 }
 </style>
