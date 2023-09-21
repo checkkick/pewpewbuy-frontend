@@ -70,9 +70,30 @@
           </NuxtLink>
         </div>
 
-        <h3 class="card__title">
-          {{ detProduct.manufacturer }} {{ detProduct.name }}
-        </h3>
+        <div class="card__title-row">
+          <h3 class="card__title">
+            {{ detProduct.manufacturer }} {{ detProduct.name }}
+          </h3>
+
+          <a
+            v-if="detProduct.user.id === userStore.id"
+            class="card__edit"
+            @click.prevent="showSettings = true"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.071 3.07475L12.6708 0.675191C12.5583 0.563003 12.4059 0.5 12.2471 0.5C12.0882 0.5 11.9358 0.563003 11.8233 0.675191L4.62279 7.87388C4.51135 7.98816 4.44938 8.14171 4.45028 8.30131V10.7009C4.45028 10.86 4.5135 11.0126 4.62603 11.1251C4.73856 11.2376 4.89118 11.3008 5.05032 11.3008H7.45048C7.5284 11.301 7.6056 11.2859 7.67767 11.2563C7.74975 11.2268 7.81528 11.1832 7.87051 11.1283L15.071 3.9296C15.1277 3.87378 15.1727 3.80725 15.2034 3.73387C15.2342 3.66049 15.25 3.58173 15.25 3.50218C15.25 3.42263 15.2342 3.34387 15.2034 3.27049C15.1727 3.19711 15.1277 3.13057 15.071 3.07475ZM12.8508 4.4545L11.2982 2.90229L12.2508 1.94996L13.8034 3.50218L12.8508 4.4545ZM14.651 7.70142V14.3002C14.651 14.6184 14.5245 14.9236 14.2995 15.1486C14.0744 15.3736 13.7692 15.5 13.4509 15.5H1.45008C1.1318 15.5 0.826554 15.3736 0.601495 15.1486C0.376437 14.9236 0.25 14.6184 0.25 14.3002V2.3024C0.25 1.98419 0.376437 1.67902 0.601495 1.45402C0.826554 1.22902 1.1318 1.10261 1.45008 1.10261H8.05052C8.20966 1.10261 8.36228 1.16582 8.47481 1.27832C8.58734 1.39082 8.65056 1.5434 8.65056 1.7025C8.65056 1.86161 8.58734 2.01419 8.47481 2.12669C8.36228 2.23919 8.20966 2.3024 8.05052 2.3024H1.45008V14.3002H13.4509V7.70142C13.4509 7.54231 13.5141 7.38973 13.6266 7.27723C13.7392 7.16473 13.8918 7.10152 14.0509 7.10152C14.2101 7.10152 14.3627 7.16473 14.4752 7.27723C14.5877 7.38973 14.651 7.54231 14.651 7.70142Z"
+                fill="white"
+              />
+            </svg>
+          </a>
+        </div>
 
         <p class="price__value-mobile">
           {{ detProduct.price ? detProduct.price.toLocaleString() : '0' }}
@@ -251,16 +272,33 @@
             </p>
           </div>
         </div>
+
+        <Settings
+          :show-settings="showSettings"
+          :publ-id="detProduct.id"
+          :publ-name="detProduct.name"
+          :publ-status="detProduct.status"
+          @close-settings="showSettings = false"
+          @show-edit-product-modal="showEditProductModal = true"
+        />
       </section>
 
-      <ContactsModal
-        v-if="showContacts"
-        :fio="`${detProduct.user.first_name} ${detProduct.user.last_name}`"
-        :email="detProduct.user.email"
-        :vk="detProduct.user.vk"
-        :tg="detProduct.user.tg"
-        @close-contacts-window="showContacts = false"
-      />
+      <TransitionGroup name="fade">
+        <ContactsModal
+          v-if="showContacts"
+          :fio="`${detProduct.user.first_name} ${detProduct.user.last_name}`"
+          :email="detProduct.user.email"
+          :vk="detProduct.user.vk"
+          :tg="detProduct.user.tg"
+          @close-contacts-window="showContacts = false"
+        />
+
+        <EditProductModal
+          v-if="detProduct.user.id === userStore.id && showEditProductModal"
+          :publication-id="detProduct.id"
+          @close-edit-product-window="showEditProductModal = false"
+        />
+      </TransitionGroup>
     </main>
   </div>
 </template>
@@ -269,6 +307,8 @@
 import noPhoto from '@/assets/img/no-photo.png';
 import ContactsModal from '@/components/product/ContactsModal.vue';
 import RatingCalc from '@/components/profile/RatingCalc.vue';
+import Settings from '@/components/product/Settings.vue';
+import EditProductModal from '@/components/profile/EditProductModal.vue';
 
 import { products } from '@/store/products';
 import { clients } from '@/store/clients';
@@ -286,6 +326,8 @@ export default {
     Swiper,
     SwiperSlide,
     ContactsModal,
+    Settings,
+    EditProductModal,
   },
   setup() {
     definePageMeta({
@@ -313,6 +355,8 @@ export default {
     };
   },
   data: () => ({
+    showSettings: false,
+    showEditProductModal: false,
     detProduct: {
       user: {
         first_name: 'Имя',
@@ -461,10 +505,24 @@ export default {
     border: none;
   }
 
+  &__title-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    @media (max-width: 1150px) {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 750px) {
+      margin-bottom: 0;
+    }
+  }
+
   &__title {
     @include defineFontMontserrat(600, 22px, 1.4);
     color: $primary;
-    margin-bottom: 1rem;
 
     @media (max-width: 1150px) {
       font-size: 20px;
@@ -476,7 +534,32 @@ export default {
       font-size: 15px;
       color: $black;
       text-align: center;
-      margin-bottom: 0;
+    }
+  }
+
+  &__edit {
+    z-index: 5;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 1150px) {
+      transform: scale(0.9);
+    }
+
+    @media (max-width: 750px) {
+      position: absolute;
+      top: 7rem;
+      background-color: #f4f4f4;
+
+      & path {
+        fill: $black-light;
+      }
     }
   }
 }
@@ -502,8 +585,8 @@ export default {
   }
 
   @media (max-width: 750px) {
-    top: 5.5rem;
-    right: 2rem;
+    top: 7rem;
+    right: 0;
   }
 
   & svg {

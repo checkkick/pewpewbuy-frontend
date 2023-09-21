@@ -19,11 +19,13 @@
           {{ publName }}
         </h4>
         <li class="setting-list__item">
-          <a
-            href=""
+          <NuxtLink
+            v-if="!$route.path.includes('product')"
+            :href="'/product/' + publId"
             class="setting-list__link"
-            @click.prevent="$router.push('product/' + publId)"
-          >Открыть карточку</a>
+          >
+            Открыть карточку
+          </NuxtLink>
         </li>
         <li class="setting-list__item">
           <a
@@ -129,8 +131,7 @@ export default {
   left: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 4rem;
+  align-items: center;
 
   @media (max-width: 1150px) {
     padding-top: 2rem;
