@@ -476,7 +476,7 @@ export default {
   }
 
   @media (max-width: 750px) {
-    top: 3rem;
+    top: 2rem;
   }
 }
 
