@@ -60,6 +60,12 @@
                 >
               </a>
             </div>
+            <NuxtLink
+              href="/rules"
+              class="footer__rules-link"
+            >
+              Правила пользования
+            </NuxtLink>
             <p class="contacts__copyright">
               «PEWPEW BUY» — платформа для продажи страйкбольного оружия,
               пневматики и аксессуаров
@@ -171,6 +177,11 @@ export default {
 
   &__link {
     text-decoration: none;
+    color: inherit;
+  }
+
+  &__rules-link {
+    @include defineFontMontserrat(400, 12px, 1.4);
     color: inherit;
   }
 

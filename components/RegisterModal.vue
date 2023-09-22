@@ -84,13 +84,13 @@
 
       <p class="modal-window__text modal-window__text--margin">
         Нажимая на кнопку вы соглашаетесь с
-        <a
+        <NuxtLink
           href="#"
           class="modal-window__text modal-window__text--link"
-          @click.prevent
+          @click.prevent="$emit('closeRegisterWindow'), $router.push('/rules')"
         >
-          политикой конфиденциальности
-        </a>
+          правилами пользования
+        </NuxtLink>
       </p>
 
       <button
@@ -165,9 +165,13 @@ export default {
     this.$router.replace('/?register');
   },
 
+  unmounted() {
+    document.getElementsByTagName('body')[0].style.overflow = 'visible';
+  },
+
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null;
+      document.getElementsByTagName('body')[0].style.overflow = 'visible';
       this.$router.replace('/');
       this.$emit('closeRegisterWindow');
     },

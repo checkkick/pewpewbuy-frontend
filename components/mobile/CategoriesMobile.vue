@@ -87,6 +87,12 @@
             >
           </a>
         </div>
+        <NuxtLink
+          href="/rules"
+          class="contacts__rules-link"
+        >
+          Правила пользования
+        </NuxtLink>
         <p class="contacts__copyright">
           © 2011-2022 «PEWPEW BUY» — продажа страйкбольного оружия, пневматики и
           аксессуаров
@@ -229,6 +235,11 @@ function chooseSubFilter(item) {
     @media (max-width: 750px) {
       font-size: 10px;
     }
+  }
+
+  &__rules-link {
+    @include defineFontMontserrat(400, 12px, 1.4);
+    color: inherit;
   }
 }
 

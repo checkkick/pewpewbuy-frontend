@@ -60,7 +60,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .text {
-  font-family: 'SairaStencilOne';
   @include defineFontSairaStencilOne(35px, 1.1);
   color: $accent;
 }
@@ -73,12 +72,12 @@ onMounted(async () => {
   }
 
   &__title {
-    @include defineFontMontserrat(600px, 27px, 33px);
+    @include defineFontMontserrat(600, 27px, 33px);
     margin-bottom: 1rem;
   }
 
   &__subtitle {
-    @include defineFontMontserrat(600px, 18px, 22px);
+    @include defineFontMontserrat(600, 18px, 22px);
     margin-bottom: 2rem;
   }
 
