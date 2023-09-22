@@ -4,7 +4,7 @@
     @click.self="$router.push(`/product/${publication.id}`)"
   >
     <a
-      v-if="publication.status === 'AC'"
+      v-if="publication.status === 'AC' && userStore.id !== publication.user"
       class="publication__like"
       :class="{ 'publication__like--active': like }"
       @click.prevent="onLike()"
@@ -113,6 +113,7 @@
 import noPhoto from '@/assets/img/no-photo.png';
 import { products } from '@/store/products';
 import { media } from '@/store/media';
+import { clients } from '@/store/clients';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -138,6 +139,7 @@ export default {
   setup() {
     const useProductStore = products();
     return {
+      userStore: computed(() => clients().USER_STATE),
       useProductStore,
       modules: [Pagination],
       mobile: computed(() => media().MEDIA_MOBILE),

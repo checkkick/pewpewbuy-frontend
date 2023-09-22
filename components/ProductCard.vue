@@ -93,7 +93,7 @@
       </button>
     </div>
     <a
-      v-if="authorized"
+      v-if="authorized && userStore.id !== product.user"
       class="product-card__like"
       :class="{ 'product-card__like--active': like }"
       @click.stop="onLike()"
@@ -143,10 +143,9 @@ export default {
   setup() {
     const useAuthStore = auth();
     const useProductStore = products();
-    const userStore = clients().USER_STATE;
 
     return {
-      userStore,
+      userStore: computed(() => clients().USER_STATE),
       useAuthStore,
       useProductStore,
       authorized: computed(() => useAuthStore.AUTHORIZED),
@@ -157,6 +156,9 @@ export default {
   data: () => ({
     like: false,
   }),
+  mounted() {
+    this.like = this.product.is_favorite;
+  },
   updated() {
     this.like = this.product.is_favorite;
   },
