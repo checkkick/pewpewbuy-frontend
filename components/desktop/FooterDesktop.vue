@@ -31,9 +31,9 @@
           >
             <div class="contacts__social">
               <a
-                href="#"
+                href="https://t.me/zloytard"
                 class="contacts__link"
-                @click.prevent
+                target="_blank"
               >
                 <img
                   src="/assets/img/telegram.svg"
@@ -41,19 +41,9 @@
                 >
               </a>
               <a
-                href="#"
+                href="https://vk.com/zloytard"
                 class="contacts__link"
-                @click.prevent
-              >
-                <img
-                  src="/assets/img/whatsapp.svg"
-                  alt="whatsapp"
-                >
-              </a>
-              <a
-                href="#"
-                class="contacts__link"
-                @click.prevent
+                target="_blank"
               >
                 <img
                   src="/assets/img/vk.svg"
@@ -61,9 +51,8 @@
                 >
               </a>
               <a
-                href="#"
+                href="mailto:bexram33@mail.ru"
                 class="contacts__link"
-                @click.prevent
               >
                 <img
                   src="/assets/img/mail.svg"
@@ -227,7 +216,7 @@ export default {
   &__social {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   &__link {

@@ -55,9 +55,9 @@
       <div class="contacts">
         <div class="contacts__social">
           <a
-            href="#"
+            href="https://t.me/zloytard"
             class="contacts__link"
-            @click.prevent
+            target="_blank"
           >
             <img
               class="contacts__image"
@@ -66,20 +66,9 @@
             >
           </a>
           <a
-            href="#"
+            href="https://vk.com/zloytard"
             class="contacts__link"
-            @click.prevent
-          >
-            <img
-              class="contacts__image"
-              src="/assets/img/whatsapp-black.svg"
-              alt="whatsapp"
-            >
-          </a>
-          <a
-            href="#"
-            class="contacts__link"
-            @click.prevent
+            target="_blank"
           >
             <img
               class="contacts__image"
@@ -88,9 +77,8 @@
             >
           </a>
           <a
-            href="#"
+            href="mailto:bexram33@mail.ru"
             class="contacts__link"
-            @click.prevent
           >
             <img
               class="contacts__image"
