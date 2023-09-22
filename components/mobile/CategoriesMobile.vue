@@ -87,12 +87,13 @@
             >
           </a>
         </div>
-        <NuxtLink
+        <a
           href="/rules"
           class="contacts__rules-link"
+          @click.prevent="$router.push('/rules'), emit('close');"
         >
           Правила пользования
-        </NuxtLink>
+        </a>
         <p class="contacts__copyright">
           © 2011-2022 «PEWPEW BUY» — продажа страйкбольного оружия, пневматики и
           аксессуаров
