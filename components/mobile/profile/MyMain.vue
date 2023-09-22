@@ -141,6 +141,7 @@ export default {
 
 <style lang="scss" scoped>
 .profile {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;

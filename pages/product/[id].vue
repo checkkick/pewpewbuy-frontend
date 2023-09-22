@@ -421,10 +421,6 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  @media (max-width: 750px) {
-    margin-top: 5rem;
-  }
-
   &__title {
     @include defineFontMontserrat(600, 27px, 33px);
     margin-bottom: 2rem;
@@ -432,7 +428,6 @@ export default {
     @media (max-width: 1150px) {
       font-size: 20px;
       line-height: 24px;
-      margin-top: 6rem;
       margin-bottom: 1rem;
     }
 

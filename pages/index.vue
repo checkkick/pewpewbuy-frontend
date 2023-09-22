@@ -69,12 +69,7 @@ onMounted(async () => {
   margin-bottom: 3rem;
 
   @media (max-width: 1150px) {
-    margin-top: 6rem;
     margin-bottom: 6rem;
-  }
-
-  @media (max-width: 750px) {
-    margin-top: 6.5rem;
   }
 
   &__title {

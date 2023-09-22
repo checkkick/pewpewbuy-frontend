@@ -109,9 +109,12 @@ export default {
   mounted() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
+  unmounted() {
+    document.getElementsByTagName('body')[0].style.overflow = 'visible';
+  },
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null;
+      document.getElementsByTagName('body')[0].style.overflow = 'visible';
       this.$emit('closeContactsWindow');
     },
   },

@@ -18,10 +18,4 @@ definePageMeta({
 const mobile = computed(() => media().MEDIA_MOBILE);
 </script>
 
-<style lang="scss" scoped>
-.block {
-  @media (max-width: 1150px) {
-    margin-top: 5rem;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

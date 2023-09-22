@@ -68,6 +68,10 @@ onMounted(() => {
   document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 });
 
+onUnmounted(() => {
+  document.getElementsByTagName('body')[0].style.overflow = 'visible';
+});
+
 function chooseStars(stars: number) {
   estimate.value = stars;
 }

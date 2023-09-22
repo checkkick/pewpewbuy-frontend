@@ -329,12 +329,12 @@ export default {
       this.$router.replace(this.$route.path);
     }
 
-    document.getElementsByTagName('body')[0].style.overflow = null;
+    document.getElementsByTagName('body')[0].style.overflow = 'visible';
   },
 
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null;
+      document.getElementsByTagName('body')[0].style.overflow = 'visible';
       this.$emit('closeAddProductWindow');
     },
     addPhotoProduct(e) {
@@ -471,12 +471,7 @@ export default {
 
   @media (max-width: 1150px) {
     z-index: 90;
-    top: 5rem;
     background: transparent;
-  }
-
-  @media (max-width: 750px) {
-    top: 2rem;
   }
 }
 
@@ -516,7 +511,7 @@ export default {
   }
 
   @media (max-width: 750px) {
-    padding: 1.5rem 15px 7rem;
+    padding: 1.5rem 15px 4.5rem;
   }
 
   &::-webkit-scrollbar {

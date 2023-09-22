@@ -258,7 +258,6 @@ export default {
 
   @media (max-width: 750px) {
     z-index: 90;
-    top: 2.5rem;
     background: transparent;
   }
 }
@@ -284,7 +283,7 @@ export default {
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 1rem 15px 5.6rem;
+    padding: 1.5rem 15px 4.5rem;
     background-color: $white;
   }
 

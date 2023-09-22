@@ -114,14 +114,13 @@ export default {
 }
 
 .header {
-  position: static;
   z-index: 999;
   padding: 1.5rem 30px 1rem 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  position: fixed;
+  position: sticky;
   background-color: $white;
   top: 0;
   left: 0;
