@@ -200,13 +200,15 @@ export default {
     margin: 0;
     list-style: none;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-evenly;
     gap: 1rem;
   }
 
   &__item {
     @include defineFontMontserrat(500, 18px, 22px);
+    display: flex;
+    align-items: center;
     position: relative;
     cursor: pointer;
     text-align: center;
