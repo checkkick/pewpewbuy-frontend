@@ -100,6 +100,16 @@ export default {
       },
       deep: true,
     },
+    '$route.path': {
+      handler() {
+        if (this.$route.path.includes('rules')) {
+          this.showLogin = false;
+          this.showRegister = false;
+          this.showSearch = false;
+        }
+      },
+      deep: true,
+    },
   },
   async mounted() {
     if (Object.hasOwn(this.$route.query, 'login')) {
