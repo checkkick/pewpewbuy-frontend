@@ -579,6 +579,7 @@ export default {
   @media (max-width: 1150px) {
     z-index: 90;
     background: transparent;
+    align-items: flex-start;
   }
 }
 
@@ -613,12 +614,12 @@ export default {
     width: 100%;
     height: 100%;
     margin: 0;
-    padding-top: 1rem;
+    padding-top: 100px;
     padding-bottom: 7rem;
   }
 
   @media (max-width: 750px) {
-    padding: 1.5rem 15px 4.5rem;
+    padding: 80px 15px 85px;
   }
 
   &::-webkit-scrollbar {

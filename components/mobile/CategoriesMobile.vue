@@ -133,7 +133,7 @@ function chooseSubFilter(item) {
   border-radius: 10px;
 
   @media (max-width: 750px) {
-    top: 4rem;
+    top: 60px;
   }
 
   &__container {

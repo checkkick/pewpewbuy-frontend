@@ -40,8 +40,8 @@ export default {
   background-color: $white;
 
   @media (max-width: 750px) {
-    padding: 0 20px 0;
-    top: 5rem;
+    padding: 80px 20px 85px;
+    top: 0;
   }
 
   &__input {

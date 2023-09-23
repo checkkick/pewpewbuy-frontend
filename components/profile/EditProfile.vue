@@ -259,6 +259,7 @@ export default {
   @media (max-width: 750px) {
     z-index: 90;
     background: transparent;
+    align-items: flex-start;
   }
 }
 
@@ -283,7 +284,7 @@ export default {
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 1.5rem 15px 4.5rem;
+    padding: 80px 15px 85px;
     background-color: $white;
   }
 
