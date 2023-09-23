@@ -146,9 +146,13 @@ export default {
     this.$router.replace('/?login');
   },
 
+  unmounted() {
+    document.getElementsByTagName('body')[0].style.overflow = 'visible';
+  },
+
   methods: {
     closeWindow() {
-      document.getElementsByTagName('body')[0].style.overflow = null;
+      document.getElementsByTagName('body')[0].style.overflow = 'visible';
       this.$router.replace('/');
       this.$emit('closeLoginWindow');
     },

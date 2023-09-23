@@ -199,6 +199,9 @@ export default {
 
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
   },
+  unmounted() {
+    document.getElementsByTagName('body')[0].style.overflow = 'visible';
+  },
   methods: {
     async updateUserData() {
       const data = new FormData();
