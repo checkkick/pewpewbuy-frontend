@@ -31,6 +31,7 @@ export default {
   methods: {
     chooseStars(count) {
       this.stars = count;
+      this.tempStars = this.stars;
       this.$emit('chooseStars', this.stars);
     },
   },
@@ -48,20 +49,6 @@ export default {
 
   & svg {
     cursor: pointer;
-  }
-
-  @media (max-width: 1150px) {
-    & svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  @media (max-width: 750px) {
-    & svg {
-      width: 15px;
-      height: 15px;
-    }
   }
 }
 

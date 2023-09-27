@@ -14,31 +14,33 @@
       <h2 class="modal-window__title">
         Отзыв о продавце
       </h2>
-      <h3 class="modal-window__subtitle">
-        Поставьте оценку продавцу
-      </h3>
-      <RatingCalcClickable @choose-stars="chooseStars" />
-      <h4 class="modal-window__subtitle">
-        Напишите отзыв
-      </h4>
-      <textarea
-        id="review"
-        v-model="textReview"
-        class="modal-window__input"
-        name="review"
-        rows="6"
-        placeholder="Отзыв"
-      />
-      <button
-        class="modal-window__submit-btn"
-        @click="sendReview"
-      >
-        Оставить отзыв
-      </button>
+      <div class="modal-window__container">
+        <h3 class="modal-window__subtitle">
+          Поставьте оценку продавцу
+        </h3>
+        <RatingCalcClickable @choose-stars="chooseStars" />
+        <h4 class="modal-window__subtitle">
+          Напишите отзыв
+        </h4>
+        <textarea
+          id="review"
+          v-model="textReview"
+          class="modal-window__input"
+          name="review"
+          rows="6"
+          placeholder="Отзыв"
+        />
+        <button
+          class="modal-window__submit-btn"
+          @click="sendReview"
+        >
+          Оставить отзыв
+        </button>
+      </div>
     </div>
 
     <BackButtonMobile
-      v-if="tablet"
+      v-if="mobile"
       @click="$emit('closeReviewWindow')"
     />
   </div>
@@ -58,7 +60,7 @@ const props = defineProps({
   },
 });
 
-const { tablet } = media();
+const { mobile } = media();
 const { SEND_REVIEW } = clients();
 
 const estimate = ref(0);
@@ -108,9 +110,9 @@ async function sendReview() {
   bottom: 0;
   background: $modal-dark-background;
 
-  @media (max-width: 1150px) {
+  @media (max-width: 750px) {
     z-index: 90;
-    top: 4rem;
+    top: 0;
     background: transparent;
   }
 }
@@ -126,7 +128,7 @@ async function sendReview() {
   padding: 25px 35px;
   margin: 100px;
 
-  @media (max-width: 1150px) {
+  @media (max-width: 750px) {
     background: $white;
     border-radius: 0;
     justify-content: center;
@@ -134,10 +136,7 @@ async function sendReview() {
     width: 100%;
     height: 100%;
     margin: 0;
-  }
-
-  @media (max-width: 750px) {
-    padding: 50px 20px;
+    padding: 50px 20px 80px;
   }
 
   &__close {
@@ -148,7 +147,7 @@ async function sendReview() {
     top: 18px;
     right: 18px;
 
-    @media (max-width: 1150px) {
+    @media (max-width: 750px) {
       display: none;
     }
 
@@ -173,20 +172,28 @@ async function sendReview() {
     }
   }
 
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 750px) {
+      width: 100%;
+      border-radius: 16px;
+      background: #F4F4F4;
+      padding: 25px 38px;
+    }
+  }
+
   &__title {
     @include defineFontMontserrat(600, 19px, normal);
     margin: 0;
     color: $black;
     margin-bottom: 22px;
 
-    @media (max-width: 1150px) {
+    @media (max-width: 750px) {
       font-size: 16px;
       margin-bottom: 20px;
-      color: $primary;
-    }
-
-    @media (max-width: 750px) {
-      margin-bottom: 15px;
     }
   }
 
@@ -196,15 +203,10 @@ async function sendReview() {
     color: $black;
     margin-bottom: 10px;
 
-    @media (max-width: 1150px) {
+    @media (max-width: 750px) {
       font-size: 12px;
       line-height: 1.4;
-      margin-bottom: 20px;
-      color: $primary;
-    }
-
-    @media (max-width: 750px) {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
   }
 
@@ -220,15 +222,11 @@ async function sendReview() {
     color: $input-login-color;
     resize: none;
 
-    @media (max-width: 1150px) {
-      align-self: center;
-      width: 470px;
-      font-size: 20px;
-      line-height: 23px;
-    }
-
     @media (max-width: 750px) {
+      align-self: center;
       width: 100%;
+      color: $black;
+      background-color: $white;
       font-size: 14px;
       line-height: 16px;
       margin-bottom: 0.5rem;
@@ -236,6 +234,10 @@ async function sendReview() {
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.2);
+
+      @media (max-width: 750px) {
+        color: rgba(0, 0, 0, 0.4);
+      }
     }
 
     &:disabled {
@@ -248,18 +250,12 @@ async function sendReview() {
     cursor: pointer;
     @include defineBtnPrimary(15px, 68px, 12px, 26px);
 
-    @media (max-width: 1150px) {
-      font-size: 18px;
-      margin-bottom: 7rem;
-      padding: 15px 48px;
-    }
-
     @media (max-width: 750px) {
       margin-top: 10px;
-      font-size: 14px;
-      line-height: 17px;
-      margin-bottom: 7rem;
-      padding: 12px 40px;
+      font-size: 12px;
+      line-height: 1.4;
+      margin-bottom: 0;
+      padding: 15px 25px;
     }
   }
 }

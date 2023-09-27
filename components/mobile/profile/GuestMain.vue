@@ -75,6 +75,18 @@
     >
       Написать продавцу
     </button>
+    <a
+      class="profile__review"
+      href="#"
+      @click.prevent="showWriteReviewModal = true"
+    >
+      Написать отзыв на продавца
+    </a>
+
+    <WriteReviewModal
+      v-if="showWriteReviewModal"
+      @close-review-window="showWriteReviewModal = false"
+    />
 
     <ContactsModal
       v-if="showContacts"
@@ -90,6 +102,7 @@
 import RatingCalc from '@/components/profile/RatingCalc.vue';
 import ContactsModal from '@/components/product/ContactsModal.vue';
 import noPhoto from '@/assets/img/no-photo.png';
+import WriteReviewModal from '@/components/profile/WriteReviewModal.vue';
 
 defineEmits(['changePage']);
 
@@ -108,6 +121,7 @@ defineProps({
   },
 });
 
+const showWriteReviewModal = ref(false);
 const showContacts = ref(false);
 
 const noImage = ref(noPhoto);
@@ -183,6 +197,13 @@ const noImage = ref(noPhoto);
     @include defineBtnPrimary(12px, 68px, 15px, 25px);
     margin-top: 10px;
     align-self: center;
+    margin-bottom: 30px;
+  }
+
+  &__review {
+    @include defineFontMontserrat(600, 12px, 1.4);
+    align-self: center;
+    color: $primary;
   }
 }
 </style>

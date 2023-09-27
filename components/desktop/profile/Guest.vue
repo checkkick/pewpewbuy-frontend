@@ -22,6 +22,13 @@
           Написать отзыв
         </button>
       </div>
+      <button
+        v-else
+        class="nav__new-publicity"
+        @click="showWriteReviewModal = true"
+      >
+        Написать отзыв
+      </button>
     </div>
     <main class="main">
       <section class="main__info">
@@ -301,7 +308,6 @@ export default {
   margin-bottom: 40px;
 
   @media (max-width: 1150px) {
-    margin-top: 6rem;
     margin-bottom: 1rem;
   }
 
@@ -327,6 +333,12 @@ export default {
 
   &__new-publicity {
     @include defineBtnAccent(15px, 68px, 12px, 27px);
+
+    @media (max-width: 1150px) {
+      font-size: 13px;
+      padding: 10px 25px;
+      border-radius: 8px;
+    }
   }
 }
 
