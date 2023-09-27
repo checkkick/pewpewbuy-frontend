@@ -63,6 +63,7 @@
             <NuxtLink
               href="/rules"
               class="footer__rules-link"
+              @click="openFooter = false;"
             >
               Правила пользования
             </NuxtLink>
