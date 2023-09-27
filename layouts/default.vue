@@ -4,7 +4,19 @@
       v-if="!tablet"
       @open-login-window="showLogin = true"
     />
-    <HeaderMobile v-else />
+    <HeaderMobile
+      v-else
+      @close-categories="showCategories = false"
+      @close-or-open-categories="showCategories = !showCategories"
+    />
+
+    <Transition name="slide">
+      <CategoriesMobile
+        v-if="tablet"
+        v-show="showCategories"
+        @close="showCategories = false"
+      />
+    </Transition>
 
     <NavigationDesktop v-if="!tablet" />
     <NavigationMobile
@@ -14,6 +26,7 @@
       :show-register="showRegister"
       @open-search="showSearch = true"
       @close-search="showSearch = false"
+      @any-click="showCategories = false"
     />
 
     <slot />
@@ -47,13 +60,15 @@ import NavigationDesktop from '@/components/desktop/NavigationDesktop.vue';
 import HeaderDesktop from '@/components/desktop/HeaderDesktop.vue';
 import FooterDesktop from '@/components/desktop/FooterDesktop.vue';
 import SearchMobile from '@/components/mobile/SearchMobile.vue';
+import CategoriesMobile from '@/components/mobile/CategoriesMobile.vue';
 
 export default {
   components: {
-    HeaderMobile, NavigationMobile, NavigationDesktop, HeaderDesktop, FooterDesktop, SearchMobile,
+    HeaderMobile, NavigationMobile, NavigationDesktop, HeaderDesktop, FooterDesktop, SearchMobile, CategoriesMobile,
   },
   setup() {
     const authStore = auth();
+    const showCategories = ref(false);
     const showLogin = ref(false);
     const showRegister = ref(false);
     const showSearch = ref(false);
@@ -62,6 +77,7 @@ export default {
       await authStore.CHECK_AUTH();
     });
     return {
+      showCategories,
       authStore,
       showLogin,
       showRegister,
@@ -138,6 +154,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-enter-active {
+  animation: slide-in 0.5s;
+}
+
+.slide-leave-active {
+  animation: slide-in 0.5s reverse;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .layout {
   position: relative;
 }

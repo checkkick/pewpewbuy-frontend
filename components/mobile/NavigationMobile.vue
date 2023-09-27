@@ -6,7 +6,7 @@
           :class="{ 'nav__link--active': showSearch }"
           class="nav__link"
           href="#"
-          @click.prevent="$emit('openSearch')"
+          @click.prevent="$emit('openSearch'), $emit('anyClick')"
         >
           <svg
             width="20"
@@ -39,7 +39,7 @@
           :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query)[0] === 'favorites' }"
           class="nav__link"
           href="#"
-          @click.prevent="routerPush('/profile?favorites')"
+          @click.prevent="routerPush('/profile?favorites'), $emit('anyClick')"
         >
           <svg
             width="23"
@@ -62,7 +62,7 @@
       <li class="nav__item">
         <button
           class="nav__btn"
-          @click="authorization ? routerPush('/profile?addproduct') : routerPush('/?login')"
+          @click="authorization ? routerPush('/profile?addproduct') : routerPush('/?login'), $emit('anyClick')"
         >
           <svg
             width="25"
@@ -115,7 +115,7 @@
           :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' && !showSearch && !showLogin && !showRegister }"
           class="nav__link"
           href="#"
-          @click.prevent="routerPush('/?slug=')"
+          @click.prevent="routerPush('/?slug='), $emit('anyClick')"
         >
           <svg
             width="22"
@@ -150,7 +150,7 @@
           :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query).length === 0 && !showSearch }"
           class="nav__link"
           href="#"
-          @click.prevent="routerPush('/profile')"
+          @click.prevent="routerPush('/profile'), $emit('anyClick')"
         >
           <img
             class="nav__image"
@@ -207,7 +207,7 @@ export default {
     showRegister: { type: Boolean, default: false },
     showSearch: { type: Boolean, default: false },
   },
-  emits: ['openSearch', 'closeSearch'],
+  emits: ['openSearch', 'closeSearch', 'anyClick'],
   async setup() {
     const authorization = await auth().CHECK_AUTH();
     const clientsStore = clients();

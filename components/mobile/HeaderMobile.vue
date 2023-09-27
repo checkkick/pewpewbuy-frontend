@@ -3,40 +3,34 @@
     <NuxtLink
       class="header__logo"
       to="/?slug="
+      @click="$emit('closeCategories')"
     >
       PEWPEW BUY
     </NuxtLink>
     <button
       v-if="$route.path === '/' && Object.keys($route.query).length === 0"
       class="header__filter"
-      @click="showFilter = !showFilter, showSort = false, showCategories = false"
+      @click="showFilter = !showFilter, showSort = false"
     >
       Фильтры
     </button>
     <button
       v-if="$route.path === '/' && Object.keys($route.query).length === 0"
       class="header__sort"
-      @click="showSort = !showSort, showFilter = false, showCategories = false"
+      @click="showSort = !showSort, showFilter = false"
     >
       Сортировка
     </button>
     <button
       class="category-btn"
-      @click="showCategories = !showCategories, showSort = false, showFilter = false"
+      @click="$emit('closeOrOpenCategories'), showSort = false, showFilter = false"
     >
       <p class="category-btn__text">
-        Категории
+        Меню
       </p>
       <span class="category-btn__burger" />
     </button>
   </header>
-
-  <Transition name="slide">
-    <CategoriesMobile
-      v-show="showCategories"
-      @close="showCategories = !showCategories"
-    />
-  </Transition>
 
   <Transition name="popup">
     <SortMobile
@@ -54,18 +48,17 @@
 </template>
 
 <script>
-import CategoriesMobile from './CategoriesMobile.vue';
+
 import FilterMobile from './FilterMobile.vue';
 import SortMobile from './SortMobile.vue';
 
 export default {
   components: {
-    CategoriesMobile,
     SortMobile,
     FilterMobile,
   },
+  emits: ['closeCategories', 'closeOrOpenCategories'],
   data: () => ({
-    showCategories: false,
     showSort: false,
     showFilter: false,
   }),
@@ -73,26 +66,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide-enter-active {
-  animation: slide-in 0.5s;
-}
-
-.slide-leave-active {
-  animation: slide-in 0.5s reverse;
-}
-
-@keyframes slide-in {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .popup-enter-active {
   animation: popup-in 0.5s;
 }
