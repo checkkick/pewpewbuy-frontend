@@ -21,12 +21,8 @@
     <p class="publication__status">
       Статус:
       <span
-        v-if="activePubl"
-        class="publication__status--active"
-      >{{ status }}</span>
-      <span
-        v-if="inactivePubl"
-        class="publication__status--inactive"
+        v-if="publ.status"
+        :class="publ.status === 'AC' ? 'publication__status--active' : 'publication__status--inactive'"
       >{{ status }}</span>
     </p>
     <div
@@ -221,7 +217,8 @@ export default {
     }
 
     @media (max-width: 750px) {
-      display: none;
+      font-size: 10px;
+      line-height: normal;
     }
 
     & &--active {
