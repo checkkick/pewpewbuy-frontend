@@ -309,7 +309,7 @@
         <EditProductModal
           v-if="detProduct.user.id === userStore.id && showEditProductModal"
           :publication-id="detProduct.id"
-          @close-edit-product-window="showEditProductModal = false"
+          @close-edit-product-window="showEditProductModal = false, updateData()"
         />
       </TransitionGroup>
     </main>
@@ -404,6 +404,25 @@ export default {
     this.favorite = this.detProduct.is_favorite;
   },
   methods: {
+    async updateData() {
+      this.detProduct = await this.useProductStore.GET_DETAIL_PRODUCT(
+        this.$route.params.id,
+      );
+
+      this.crumbs = [];
+
+      this.crumbs.push(
+        { name: this.detProduct.parent_category.name, slug: this.detProduct.parent_category.slug },
+        {
+          name: this.detProduct.category.name,
+          slug: this.detProduct.category.slug,
+        },
+        {
+          name: `${this.detProduct.manufacturer} ${this.detProduct.name}`,
+          slug: '',
+        },
+      );
+    },
     async onLike() {
       if (!this.favorite) {
         if (await this.useProductStore.ADD_FAVORITE(this.detProduct.id)) {
