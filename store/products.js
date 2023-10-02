@@ -73,6 +73,47 @@ export const products = defineStore('products', {
       }
     },
 
+    async ADD_PHOTO(data) {
+      try {
+        const response = await api('products/add_photo/', {
+          body: data,
+          method: 'POST',
+          errorAlert: 'Ошибка при добавлении фотографии',
+          headers: { Authorization: `Bearer ${get('access_pew')}` },
+        });
+
+        notifications().ADD_NOTIFICATION(
+          'Добавление фотографии',
+          'Фотография успешно добавлена',
+          'success',
+        );
+
+        return response;
+      } catch (error) {
+        return false;
+      }
+    },
+
+    async REMOVE_PHOTO(photoId) {
+      try {
+        await api(`products/delete_photo/${photoId}/`, {
+          method: 'DELETE',
+          errorAlert: 'Ошибка при удалении фотографии',
+          headers: { Authorization: `Bearer ${get('access_pew')}` },
+        });
+
+        notifications().ADD_NOTIFICATION(
+          'Удаление фотографии',
+          'Фотография успешно удалена',
+          'delete',
+        );
+
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+
     async GET_FILTRED_PRODUCTS(filter) {
       const response = await api(`products/filter/?${filter}`, {
         method: 'GET',

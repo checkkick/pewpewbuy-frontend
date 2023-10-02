@@ -87,18 +87,18 @@
             :initial-slide="tempPhotos.length"
           >
             <swiper-slide
-              v-for="(item, idx) in tempPhotos"
-              :key="idx"
+              v-for="(item, index) in tempPhotos"
+              :key="index"
               class="photo-swiper__slide-photo"
             >
               <img
-                :src="item"
-                :alt="'photo-' + idx"
+                :src="item.file"
+                :alt="'photo-' + index"
                 class="photo-swiper__image"
               >
               <button
                 class="photo-swiper__delete-btn"
-                @click="deleteImage(idx)"
+                @click="deleteImage(index, item.id)"
               />
             </swiper-slide>
             <swiper-slide
@@ -344,6 +344,7 @@ export default {
     assetCategory: [],
     tempPhotos: [],
     productData: {
+      id: 0,
       assets: {},
       category: 0,
       manufacturer: '',
@@ -352,7 +353,6 @@ export default {
       description: '',
       location: '',
       parent_product: '',
-      files: [],
     },
     cloneProductData: {},
     productDetails: {},
@@ -404,10 +404,10 @@ export default {
     this.chooseCategory = this.useProductStore.categories
       .find((item) => item.name === this.productDetails.parent_category.name);
     this.chooseSubcategory = this.productDetails.category;
-    this.tempPhotos = this.productDetails.photo.map((item) => item.file);
+    this.tempPhotos = this.productDetails.photo.map((item) => item);
 
+    this.productData.id = this.productDetails.id;
     this.productData.category = this.productDetails.category.id;
-    this.productData.files = this.productDetails.photo.map((item) => item.file);
     this.productData.manufacturer = this.productDetails.manufacturer;
     this.productData.name = this.productDetails.name;
     this.productData.price = this.productDetails.price;
@@ -425,20 +425,26 @@ export default {
     document.getElementsByTagName('body')[0].style.overflow = 'visible';
   },
   methods: {
-    closeWindow() {
+    async closeWindow() {
+      await this.clientsStore.GET_SELF();
       document.getElementsByTagName('body')[0].style.overflow = 'visible';
       this.$emit('closeEditProductWindow');
     },
-    addPhotoProduct(e) {
-      const file = e.target.files[0];
-      this.productData.files.push(file);
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (t) => this.tempPhotos.push(t.target.result);
+    async addPhotoProduct(e) {
+      const data = new FormData();
+      data.append('product', this.productData.id);
+      data.append('file', e.target.files[0]);
+
+      const photo = await this.useProductStore.ADD_PHOTO(data);
+
+      if (photo) {
+        this.tempPhotos.push({ id: photo.id, file: photo.file });
+      }
     },
-    deleteImage(id) {
-      this.tempPhotos.splice(id, 1);
-      this.productData.files.splice(id, 1);
+    async deleteImage(index, photoId) {
+      if (await this.useProductStore.REMOVE_PHOTO(photoId)) {
+        this.tempPhotos.splice(index, 1);
+      }
     },
     numbersPrevent(evt) {
       const theEvent = evt || window.event;
@@ -451,7 +457,7 @@ export default {
       }
     },
     async editProduct() {
-      const tempData = {};
+      let changesFlag = false;
 
       Object.keys(this.productData).forEach((key) => {
         if (this.productData[key] !== this.cloneProductData[key]) {
@@ -459,45 +465,43 @@ export default {
             // eslint-disable-next-line no-restricted-syntax
             for (const iterator of Object.keys(this.productData[key])) {
               if (this.productData[key][iterator] !== this.cloneProductData[iterator]) {
-                tempData[key] = this.productData[key];
+                changesFlag = true;
                 break;
               }
             }
           } else {
-            tempData[key] = this.productData[key];
+            changesFlag = true;
           }
         }
       });
 
-      if (Object.keys(tempData).length > 0) {
+      if (changesFlag) {
         this.btnProcess = true;
 
         const data = new FormData();
 
-        Object.keys(tempData).forEach((key) => {
+        Object.keys(this.productData).forEach((key) => {
           if (key === 'assets') {
-            data.append(key, JSON.stringify(tempData[key]));
-          } else if (key === 'files') {
-            Object.keys(tempData[key]).forEach((iterator) => {
-              data.append('files', iterator);
-            });
+            data.append(key, JSON.stringify(this.productData[key]));
           } else {
-            data.append(key, tempData[key]);
+            data.append(key, this.productData[key]);
           }
         });
 
         if (
           await this.useProductStore.UPDATE_PRODUCT(this.publicationId, data)
         ) {
-          await this.clientsStore.GET_SELF();
           this.btnProcess = false;
           this.closeWindow();
         }
 
         this.btnProcess = false;
+      } else {
+        this.closeWindow();
       }
     },
   },
+
 };
 </script>
 
@@ -505,7 +509,7 @@ export default {
 .spinner {
   scale: 0.8;
   position: absolute;
-  left: 60px;
+  left: 40%;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -721,6 +725,9 @@ export default {
   &__btn {
     @include defineBtnPrimary(15px, 68px, 12px, 33px);
     transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @media (max-width: 750px) {
       font-size: 14px;
@@ -972,7 +979,7 @@ export default {
       content: '';
       position: absolute;
       top: 8px;
-      left: 4px;
+      left: 3px;
       transform: rotate(45deg);
       width: 12px;
       height: 2px;
@@ -983,7 +990,7 @@ export default {
       content: '';
       position: absolute;
       top: 8px;
-      left: 4px;
+      left: 3px;
       transform: rotate(-45deg);
       width: 12px;
       height: 2px;
@@ -994,7 +1001,8 @@ export default {
   &__image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 13px;
   }
 
   &__text {
