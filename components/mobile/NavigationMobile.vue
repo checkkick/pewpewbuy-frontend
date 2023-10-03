@@ -3,6 +3,40 @@
     <ul class="nav__list">
       <li class="nav__item">
         <a
+          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' && !showSearch && !showLogin && !showRegister }"
+          class="nav__link"
+          href="#"
+          @click.prevent="routerPush('/?slug='), $emit('anyClick')"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.26825 2.60334L3.32742 6.45334C2.50242 7.09501 1.83325 8.46084 1.83325 9.49667V16.2892C1.83325 18.4158 3.56575 20.1575 5.69242 20.1575H16.3074C18.4341 20.1575 20.1666 18.4158 20.1666 16.2983V9.62501C20.1666 8.51584 19.4241 7.09501 18.5166 6.46251L12.8516 2.49334C11.5683 1.59501 9.50575 1.64084 8.26825 2.60334Z"
+              stroke="#292D32"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M11 16.4908V13.7408"
+              stroke="#292D32"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <p class="nav__text">
+            Главная
+          </p>
+        </a>
+      </li>
+      <li class="nav__item">
+        <a
           :class="{ 'nav__link--active': showSearch }"
           class="nav__link"
           href="#"
@@ -32,31 +66,6 @@
             />
           </svg>
           <p class="nav__text">Поиск</p>
-        </a>
-      </li>
-      <li class="nav__item">
-        <a
-          :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query)[0] === 'favorites' }"
-          class="nav__link"
-          href="#"
-          @click.prevent="routerPush('/profile?favorites'), $emit('anyClick')"
-        >
-          <svg
-            width="23"
-            height="23"
-            viewBox="0 0 23 23"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12.0942 19.9429C11.7684 20.0579 11.2317 20.0579 10.9059 19.9429C8.12675 18.9942 1.91675 15.0362 1.91675 8.32791C1.91675 5.36666 4.303 2.97083 7.24508 2.97083C8.98925 2.97083 10.5322 3.81416 11.5001 5.11749C12.468 3.81416 14.0205 2.97083 15.7551 2.97083C18.6972 2.97083 21.0834 5.36666 21.0834 8.32791C21.0834 15.0362 14.8734 18.9942 12.0942 19.9429Z"
-              stroke="#292D32"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p class="nav__text">Избранное</p>
         </a>
       </li>
       <li class="nav__item">
@@ -112,36 +121,27 @@
       </li>
       <li class="nav__item">
         <a
-          :class="{ 'nav__link--active': $route.path === '/' && Object.keys($route.query)[0] !== 'login' && !showSearch && !showLogin && !showRegister }"
+          :class="{ 'nav__link--active': $route.path === '/profile' && Object.keys($route.query)[0] === 'favorites' }"
           class="nav__link"
           href="#"
-          @click.prevent="routerPush('/?slug='), $emit('anyClick')"
+          @click.prevent="routerPush('/profile?favorites'), $emit('anyClick')"
         >
           <svg
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
+            width="23"
+            height="23"
+            viewBox="0 0 23 23"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M8.26825 2.60334L3.32742 6.45334C2.50242 7.09501 1.83325 8.46084 1.83325 9.49667V16.2892C1.83325 18.4158 3.56575 20.1575 5.69242 20.1575H16.3074C18.4341 20.1575 20.1666 18.4158 20.1666 16.2983V9.62501C20.1666 8.51584 19.4241 7.09501 18.5166 6.46251L12.8516 2.49334C11.5683 1.59501 9.50575 1.64084 8.26825 2.60334Z"
-              stroke="#292D32"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M11 16.4908V13.7408"
+              d="M12.0942 19.9429C11.7684 20.0579 11.2317 20.0579 10.9059 19.9429C8.12675 18.9942 1.91675 15.0362 1.91675 8.32791C1.91675 5.36666 4.303 2.97083 7.24508 2.97083C8.98925 2.97083 10.5322 3.81416 11.5001 5.11749C12.468 3.81416 14.0205 2.97083 15.7551 2.97083C18.6972 2.97083 21.0834 5.36666 21.0834 8.32791C21.0834 15.0362 14.8734 18.9942 12.0942 19.9429Z"
               stroke="#292D32"
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
           </svg>
-          <p class="nav__text">
-            Главная
-          </p>
+          <p class="nav__text">Избранное</p>
         </a>
       </li>
       <li class="nav__item">
